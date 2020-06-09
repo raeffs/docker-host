@@ -1,7 +1,34 @@
 # Overview
 
+## Dev
+
 - Start: `docker-compose up -d`
 - Stop: `docker-compose down -v`
+
+## SystemD
+
+- Place config in `/etc/systemd/system/docker-host.service.d/setup.conf`:
+
+```
+[Service]
+Environment="IP=127.0.0.1"
+Environment="PROJECT_PATH=/path/to/local/clone/of/docker-host"
+```
+
+- Add service:
+
+```
+sudo systemctl enable /path/to/local/clone/of/docker-host/docker-host.service
+sudo systemctl daemon-reload
+```
+
+- Control service with SystemD:
+
+```
+sudo systemctl start docker-host.service
+```
+
+# Services
 
 - Prometheus: http://localhost:9090
 - Grafana: http://localhost:3000
