@@ -1,0 +1,41 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  # collects data about prometheus itself
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # collects data about grafana
+  - job_name: 'grafana'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['grafana:3000']
+
+  # pings endpoints
+  - job_name: 'blackbox-icmp'
+    scrape_interval: 5s
+    metrics_path: /probe
+    params:
+      module: [icmp]
+    static_configs:
+      - targets:
+        # cloudflare dns
+        - 1.1.1.1
+        - 1.0.0.1
+        # google dns
+        - 8.8.8.8
+        - 8.8.4.4
+        # hostpoint dns
+        - 217.26.51.254
+        - 217.26.53.254
+        - 217.26.48.126
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox-exporter:9115
