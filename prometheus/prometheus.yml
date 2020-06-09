@@ -8,18 +8,9 @@ scrape_configs:
     metrics_path: /probe
     params:
       module: [icmp]
-    static_configs:
-      - targets:
-        # cloudflare dns
-        - 1.1.1.1
-        - 1.0.0.1
-        # google dns
-        - 8.8.8.8
-        - 8.8.4.4
-        # hostpoint dns
-        - 217.26.51.254
-        - 217.26.53.254
-        - 217.26.48.126
+    file_sd_configs:
+      - files:
+        - 'icmp-ping.targets.json'
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
