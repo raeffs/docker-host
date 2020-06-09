@@ -26,11 +26,13 @@ sudo systemctl daemon-reload
 
 ```
 sudo systemctl start docker-host.service
+sudo journalctl -fu docker-host
 ```
 
 # Services
 
 - Prometheus: http://localhost:9090
+- Blackbox Exporter: http://localhost:9115
 - Grafana: http://localhost:3000
 
 ## Prometheus

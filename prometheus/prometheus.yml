@@ -2,20 +2,8 @@ global:
   scrape_interval: 15s
 
 scrape_configs:
-  # collects data about prometheus itself
-  - job_name: 'prometheus'
-    scrape_interval: 5s
-    static_configs:
-      - targets: ['localhost:9090']
-
-  # collects data about grafana
-  - job_name: 'grafana'
-    scrape_interval: 5s
-    static_configs:
-      - targets: ['grafana:3000']
-
   # pings endpoints
-  - job_name: 'blackbox-icmp'
+  - job_name: 'icmp-ping'
     scrape_interval: 5s
     metrics_path: /probe
     params:
@@ -39,3 +27,7 @@ scrape_configs:
         target_label: instance
       - target_label: __address__
         replacement: blackbox-exporter:9115
+    metric_relabel_configs:
+      - source_labels: [ __name__ ]
+        regex: 'probe_ip_protocol'
+        action: drop
