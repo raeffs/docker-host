@@ -22,3 +22,19 @@ scrape_configs:
       - source_labels: [ __name__ ]
         regex: 'probe_ip_protocol'
         action: drop
+  # extracts windows information
+  - job_name: 'windows'
+    metrics_path: /metrics
+    file_sd_configs:
+      - files:
+        - 'windows.targets.json'
+    relabel_configs:
+      # sets the correct port, so we don't need to specify it in the targets file
+      - source_labels: [ __address__ ]
+        target_label: '__address__'
+        replacement: '${1}:9182'
+    metric_relabel_configs:
+      # ignores all the go specific stuff
+      - source_labels: [ __name__ ]
+        regex: 'go_(.+)'
+        action: drop

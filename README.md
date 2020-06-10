@@ -50,6 +50,12 @@ Allows probing of endpoints over HTTP, HTTPS, DNS, TCP and ICMP.
 - [Source](https://github.com/prometheus/blackbox_exporter)
 - [Docker Image](https://hub.docker.com/r/prom/blackbox-exporter)
 
+## Windows Exporter
+
+Extracts information about a windows system.
+
+- [Source](https://github.com/prometheus-community/windows_exporter)
+
 ## Grafana
 
 Used to visualize the collected data.
