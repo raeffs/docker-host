@@ -51,6 +51,7 @@ services:
       - './.data/pihole/:/etc/pihole/'
       - './.data/pihole-dnsmasq/:/etc/dnsmasq.d/'
       - './pihole/resolv.conf:/etc/resolv.conf'
+      - './pihole/adlists.list:/etc/pihole/adlists.list'
     environment:
       TZ: 'Europe/Zurich'
       DNSSEC: 'True'
