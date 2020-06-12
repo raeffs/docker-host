@@ -1,34 +1,59 @@
-version: "3.8"
+version: '3.8'
 
 services:
 
   grafana:
-    image: grafana/grafana
-    restart: unless-stopped
+    container_name: 'grafana'
+    image: 'grafana/grafana'
+    restart: 'unless-stopped'
     ports:
-      - "3000:3000"
+      - '3000:3000'
     volumes:
-      - ./.data/grafana:/var/lib/grafana
+      - './.data/grafana:/var/lib/grafana'
 
   prometheus:
-    image: prom/prometheus
-    restart: unless-stopped
+    container_name: 'prometheus'
+    image: 'prom/prometheus'
+    restart: 'unless-stopped'
     ports:
-      - "9090:9090"
+      - '9090:9090'
     volumes:
-      - ./prometheus:/etc/prometheus
-      - ./.data/prometheus:/prometheus
+      - './prometheus:/etc/prometheus'
+      - './.data/prometheus:/prometheus'
 
   blackbox-exporter:
-    image: prom/blackbox-exporter
-    restart: unless-stopped
+    container_name: 'blackbox-exporter'
+    image: 'prom/blackbox-exporter'
+    restart: 'unless-stopped'
     ports:
-      - "9115:9115"
+      - '9115:9115'
     volumes:
-      - ./blackbox-exporter:/etc/blackbox_exporter
+      - './blackbox-exporter:/etc/blackbox_exporter'
 
   speedtest-exporter:
-    image: raeffs/speedtest-exporter
-    restart: unless-stopped
+    container_name: 'speedtest-exporter'
+    image: 'raeffs/speedtest-exporter'
+    restart: 'unless-stopped'
     ports: 
-      - 9112:9112
+      - '9112:9112'
+
+  pihole:
+    container_name: 'pihole'
+    image: pihole/pihole:latest
+    restart: 'unless-stopped'
+    ports:
+      - '53:53/tcp'
+      - '53:53/udp'
+      - '67:67/udp'
+      - '80:80/tcp'
+      - '443:443/tcp'
+    volumes:
+      - './.data/pihole/:/etc/pihole/'
+      - './.data/pihole-dnsmasq/:/etc/dnsmasq.d/'
+      - './pihole/resolv.conf:/etc/resolv.conf'
+    environment:
+      TZ: 'Europe/Zurich'
+      DNSSEC: 'True'
+      DNS1: '1.0.0.1'
+      DNS2: '1.1.1.1'
+      WEBPASSWORD: 'secure'
