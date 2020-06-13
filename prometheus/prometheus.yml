@@ -42,3 +42,15 @@ scrape_configs:
     static_configs:
       - targets:
         - speedtest-exporter:9112
+  # extracts information from pihole
+  - job_name: 'pihole'
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+        - pihole-exporter:9617
+    metric_relabel_configs:
+      # ignores all the go specific stuff
+      - source_labels: [__name__]
+        regex: 'go_(.+)'
+        action: drop
+

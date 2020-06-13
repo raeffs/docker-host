@@ -37,9 +37,21 @@ services:
     ports: 
       - '9112:9112'
 
+  pihole-exporter:
+    container_name: 'pihole-exporter'
+    image: 'ekofr/pihole-exporter:latest'
+    restart: 'unless-stopped'
+    ports:
+      - '9617:9617'
+    environment:
+      PIHOLE_HOSTNAME: 'pihole'
+      PIHOLE_PASSWORD: 'secure'
+      INTERVAL: '30s'
+      PORT: '9617'
+
   pihole:
     container_name: 'pihole'
-    image: pihole/pihole:latest
+    image: 'pihole/pihole:latest'
     restart: 'unless-stopped'
     ports:
       - '53:53/tcp'
