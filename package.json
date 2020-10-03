@@ -1,0 +1,13 @@
+{
+  "name": "docker-host",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "Raphael Fleischlin <git@raefftec.ch>",
+  "repository": {
+    "url": "https://github.com/raeffs/docker-host.git"
+  },
+  "scripts": {
+    "up": "docker-compose up -d",
+    "down": "docker-compose down -v"
+  }
+}
