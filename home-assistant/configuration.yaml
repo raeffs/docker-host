@@ -1,0 +1,10 @@
+default_config:
+
+#group: !include groups.yaml
+#automation: !include automations.yaml
+#script: !include scripts.yaml
+#scene: !include scenes.yaml
+
+recorder:
+  db_url: !env_var DATABASE_CONNECTION
+  purge_keep_days: 30
