@@ -1,53 +1,6 @@
 version: '3.8'
 
 services:
-  #   grafana:
-  #     container_name: 'grafana'
-  #     image: 'grafana/grafana'
-  #     restart: 'unless-stopped'
-  #     ports:
-  #       - '3000:3000'
-  #     volumes:
-  #       - './.data/grafana:/var/lib/grafana'
-
-  #   prometheus:
-  #     container_name: 'prometheus'
-  #     image: 'prom/prometheus'
-  #     restart: 'unless-stopped'
-  #     ports:
-  #       - '9090:9090'
-  #     volumes:
-  #       - './prometheus:/etc/prometheus'
-  #       - './.data/prometheus:/prometheus'
-
-  #   blackbox-exporter:
-  #     container_name: 'blackbox-exporter'
-  #     image: 'prom/blackbox-exporter'
-  #     restart: 'unless-stopped'
-  #     ports:
-  #       - '9115:9115'
-  #     volumes:
-  #       - './blackbox-exporter:/etc/blackbox_exporter'
-
-  #   speedtest-exporter:
-  #     container_name: 'speedtest-exporter'
-  #     image: 'raeffs/speedtest-exporter'
-  #     restart: 'unless-stopped'
-  #     ports:
-  #       - '9112:9112'
-
-  #   pihole-exporter:
-  #     container_name: 'pihole-exporter'
-  #     image: 'ekofr/pihole-exporter:latest'
-  #     restart: 'unless-stopped'
-  #     ports:
-  #       - '9617:9617'
-  #     environment:
-  #       PIHOLE_HOSTNAME: 'pihole'
-  #       PIHOLE_PASSWORD: 'secure'
-  #       INTERVAL: '30s'
-  #       PORT: '9617'
-
   pihole:
     container_name: 'pihole'
     image: 'pihole/pihole:latest'
