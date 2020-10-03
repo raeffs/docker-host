@@ -1,6 +1,19 @@
 version: '3.8'
 
 services:
+  nginx:
+    container_name: 'nginx'
+    image: 'nginx:latest'
+    restart: 'unless-stopped'
+    ports:
+      - '80:80'
+    volumes:
+      - './nginx/:/etc/nginx/conf.d/'
+    depends_on:
+      - 'pihole'
+      - 'phpmyadmin'
+      - 'home-assistant'
+
   pihole:
     container_name: 'pihole'
     image: 'pihole/pihole:latest'
@@ -9,13 +22,14 @@ services:
       - '53:53/tcp'
       - '53:53/udp'
       - '67:67/udp'
-      - '80:80/tcp'
+      # - '80:80/tcp' available through reverse proxy
       - '443:443/tcp'
     volumes:
       - './.data/pihole/:/etc/pihole/'
       - './.data/pihole-dnsmasq/:/etc/dnsmasq.d/'
       - './pihole/resolv.conf:/etc/resolv.conf'
       - './pihole/adlists.list:/etc/pihole/adlists.list'
+      - './pihole/custom.list:/etc/pihole/custom.list'
     environment:
       TZ: '${TIMEZONE}'
       DNSSEC: 'True'
@@ -27,8 +41,8 @@ services:
     container_name: 'home-assistant'
     image: 'homeassistant/home-assistant:stable'
     restart: 'unless-stopped'
-    ports:
-      - 8123:8123
+    # ports:
+    # - '8123:8123' available through reverse proxy
     volumes:
       - './.data/home-assistant/:/config/'
       - './home-assistant/configuration.yaml:/config/configuration.yaml'
@@ -54,8 +68,8 @@ services:
     container_name: 'phpmyadmin'
     image: 'phpmyadmin:latest'
     restart: 'unless-stopped'
-    ports:
-      - '8080:80'
+    # ports:
+    # - '80:80' available through reverse proxy
     environment:
       PMA_HOSTS: 'home-assistant-db'
     depends_on:
