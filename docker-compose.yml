@@ -7,8 +7,10 @@ services:
     restart: 'unless-stopped'
     ports:
       - '80:80'
+      - '443:443'
     volumes:
       - './nginx/:/etc/nginx/conf.d/'
+      - './certificates/:/etc/ssl/'
     depends_on:
       - 'pihole'
       - 'phpmyadmin'
@@ -23,7 +25,7 @@ services:
       - '53:53/udp'
       - '67:67/udp'
       # - '80:80/tcp' available through reverse proxy
-      - '443:443/tcp'
+      # - '443:443/tcp'
     volumes:
       - './.data/pihole/:/etc/pihole/'
       - './.data/pihole-dnsmasq/:/etc/dnsmasq.d/'
