@@ -9,6 +9,7 @@
   "scripts": {
     "up": "docker-compose up -d --remove-orphans",
     "down": "docker-compose down -v --remove-orphans",
-    "pull": "docker-compose pull"
+    "pull": "docker-compose pull",
+    "restart": "yarn down && yarn up"
   }
 }

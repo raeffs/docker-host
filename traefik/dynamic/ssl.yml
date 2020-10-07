@@ -1,0 +1,15 @@
+tls:
+  stores:
+    default:
+      defaultCertificate:
+        certFile: /etc/certs/home.pem
+        keyFile: /etc/certs/home.key
+  certificates:
+    - certFile: /etc/certs/home.pem
+      keyFile: /etc/certs/home.key
+    - certFile: /etc/certs/demo.home.pem
+      keyFile: /etc/certs/home.key
+    - certFile: /etc/certs/traefik.home.pem
+      keyFile: /etc/certs/home.key
+    - certFile: /etc/certs/pihole.home.pem
+      keyFile: /etc/certs/home.key
