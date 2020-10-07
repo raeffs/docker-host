@@ -1,44 +1,6 @@
 version: '3.8'
 
 services:
-  home-assistant:
-    container_name: 'home-assistant'
-    image: 'homeassistant/home-assistant:stable'
-    restart: 'unless-stopped'
-    # ports:
-    # - '8123:8123' available through reverse proxy
-    volumes:
-      - './.data/home-assistant/:/config/'
-      - './home-assistant/configuration.yaml:/config/configuration.yaml'
-    environment:
-      TZ: '${TIMEZONE}'
-      DATABASE_CONNECTION: 'mysql://homeassistant:${HA_MYSQL_PASSWORD}@home-assistant-db/homeassistant_db?charset=utf8'
-    depends_on:
-      - 'home-assistant-db'
-
-  home-assistant-db:
-    container_name: 'home-assistant-db'
-    image: 'mysql:latest'
-    restart: 'unless-stopped'
-    volumes:
-      - './.data/home-assistant-db/:/var/lib/mysql'
-    environment:
-      MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
-      MYSQL_DATABASE: 'homeassistant_db'
-      MYSQL_USER: 'homeassistant'
-      MYSQL_PASSWORD: '${HA_MYSQL_PASSWORD}'
-
-  phpmyadmin:
-    container_name: 'phpmyadmin'
-    image: 'phpmyadmin:latest'
-    restart: 'unless-stopped'
-    # ports:
-    # - '80:80' available through reverse proxy
-    environment:
-      PMA_HOSTS: 'home-assistant-db'
-    depends_on:
-      - 'home-assistant-db'
-
   grafana:
     container_name: 'grafana'
     image: 'grafana/grafana'

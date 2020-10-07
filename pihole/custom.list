@@ -1,3 +1,6 @@
+192.168.1.1 router.asus.com
 192.168.1.25 demo.home
 192.168.1.25 traefik.home
 192.168.1.25 pihole.home
+192.168.1.25 home-assistant.home
+192.168.1.25 phpmyadmin.home
