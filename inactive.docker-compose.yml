@@ -1,21 +1,6 @@
 version: '3.8'
 
 services:
-  nginx:
-    container_name: 'nginx'
-    image: 'nginx:latest'
-    restart: 'unless-stopped'
-    ports:
-      - '80:80'
-      - '443:443'
-    volumes:
-      - './nginx/:/etc/nginx/conf.d/'
-      - './certificates/:/etc/ssl/'
-    depends_on:
-      - 'pihole'
-      - 'phpmyadmin'
-      - 'home-assistant'
-
   home-assistant:
     container_name: 'home-assistant'
     image: 'homeassistant/home-assistant:stable'
