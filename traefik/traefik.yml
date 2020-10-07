@@ -1,6 +1,6 @@
 log:
   filePath: '/var/log/traefik.log'
-  level: 'DEBUG'
+  level: 'INFO'
 
 providers:
   docker:
