@@ -99,3 +99,17 @@ services:
       - 'traefik.http.services.phpmyadmin.loadbalancer.server.port=80'
       - 'traefik.http.routers.phpmyadmin.entrypoints=websecure'
       - 'traefik.http.routers.phpmyadmin.tls=true'
+
+  watchtower:
+    container_name: 'watchtower'
+    image: 'containrrr/watchtower:latest'
+    restart: 'unless-stopped'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+    environment:
+      TZ: '${TIMEZONE}'
+      WATCHTOWER_CLEANUP: 'true'
+      WATCHTOWER_MONITOR_ONLY: 'false'
+      WATCHTOWER_SCHEDULE: '0 0 2 * * *'
+      WATCHTOWER_NOTIFICATIONS: 'slack'
+      WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL: '${WT_SLACK_URL}'
