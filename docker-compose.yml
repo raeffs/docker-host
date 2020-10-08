@@ -126,3 +126,15 @@ services:
       - 'traefik.http.services.portainer.loadbalancer.server.port=9000'
       - 'traefik.http.routers.portainer.entrypoints=websecure'
       - 'traefik.http.routers.portainer.tls=true'
+
+  dozzle:
+    container_name: 'dozzle'
+    image: 'amir20/dozzle:latest'
+    restart: 'unless-stopped'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.services.dozzle.loadbalancer.server.port=8080'
+      - 'traefik.http.routers.dozzle.entrypoints=websecure'
+      - 'traefik.http.routers.dozzle.tls=true'

@@ -19,3 +19,5 @@ tls:
       keyFile: /etc/certs/home.key
     - certFile: /etc/certs/portainer.home.pem
       keyFile: /etc/certs/home.key
+    - certFile: /etc/certs/dozzle.home.pem
+      keyFile: /etc/certs/home.key
