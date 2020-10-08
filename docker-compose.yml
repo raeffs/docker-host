@@ -113,3 +113,16 @@ services:
       WATCHTOWER_SCHEDULE: '0 0 2 * * *'
       WATCHTOWER_NOTIFICATIONS: 'slack'
       WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL: '${WT_SLACK_URL}'
+
+  portainer:
+    container_name: 'portainer'
+    image: 'portainer/portainer-ce'
+    restart: 'unless-stopped'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - '${DATA_DIR:?err}/portainer/:/data/'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.services.portainer.loadbalancer.server.port=9000'
+      - 'traefik.http.routers.portainer.entrypoints=websecure'
+      - 'traefik.http.routers.portainer.tls=true'

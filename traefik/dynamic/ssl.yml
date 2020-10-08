@@ -17,3 +17,5 @@ tls:
       keyFile: /etc/certs/home.key
     - certFile: /etc/certs/phpmyadmin.home.pem
       keyFile: /etc/certs/home.key
+    - certFile: /etc/certs/portainer.home.pem
+      keyFile: /etc/certs/home.key
