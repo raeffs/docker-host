@@ -5,6 +5,9 @@
 
 .data/*
 
+!.data/portainer
+.data/portainer/*
+
 !.data/prometheus
 .data/prometheus/*
 
