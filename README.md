@@ -1,64 +1,78 @@
-# Overview
+<p align="center">
+    <img width="25%" src="./logo.svg">
+</p>
 
-## Dev
+# Docker Host
 
-- Start: `docker-compose up -d`
-- Stop: `docker-compose down -v`
+This repository contains the configuration of my docker host that aims to improve my home network with several services.
 
-## SystemD
+## What's included?
 
-- Place config in `/etc/systemd/system/docker-host.service.d/setup.conf`:
+- Traefik is used as reverse proxy to make the web interfaces of all the other services available through a local domain name.
+- Pihole is used as an ad blocker as well as a DNS server that maps the ip address of the docker host to the local domain name.
+- Dozzle is used to easily access the logs of running containers.
+- Portainer is used if some more detailed investigation has to be done.
 
-```
-[Service]
-Environment="IP=127.0.0.1"
-Environment="PROJECT_PATH=/path/to/local/clone/of/docker-host"
-```
+## Installation
 
-- Add service:
+My docker host runs on an Ubuntu Server 20.04 installation. The following steps need to be done after a clean installation of the host operating system.
 
-```
-sudo systemctl enable /path/to/local/clone/of/docker-host/docker-host.service
-sudo systemctl daemon-reload
-```
-
-- Control service with SystemD:
+### Install Docker
 
 ```
-sudo systemctl start docker-host.service
-sudo journalctl -fu docker-host
+sudo apt update
+
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+
+sudo apt update
+
+sudo apt install docker-ce
 ```
 
-# Services
+### Install Docker Compose
 
-- Prometheus: http://localhost:9090
-- Blackbox Exporter: http://localhost:9115
-- Grafana: http://localhost:3000
+```
+sudo curl -L https://github.com/docker/compose/releases/download/1.27.4/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 
-## Prometheus
+sudo chmod +x /usr/local/bin/docker-compose
+```
 
-Used to monitor several endpoints by pulling data from the endpoints.
+### Disable local DNS Resolver
 
-- [Documentation](https://prometheus.io/docs/introduction/overview/)
-- [Source](https://github.com/prometheus/prometheus)
-- [Docker Image](https://hub.docker.com/r/prom/prometheus/)
+```
+sudo sed -r -i.orig 's/#?DNSStubListener=yes/DNSStubListener=no/g' /etc/systemd/resolved.conf
 
-## Blackbox Exporter
+sudo sh -c 'rm /etc/resolv.conf && ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf'
 
-Allows probing of endpoints over HTTP, HTTPS, DNS, TCP and ICMP.
+sudo systemctl restart systemd-resolved
+```
 
-- [Source](https://github.com/prometheus/blackbox_exporter)
-- [Docker Image](https://hub.docker.com/r/prom/blackbox-exporter)
+### Configure Docker to run without root Permissions
 
-## Windows Exporter
+If you don't want to prefix every command with `sudo` you have to add your user to the `docker` group:
 
-Extracts information about a windows system.
+```
+sudo usermod -aG docker ${USER}
 
-- [Source](https://github.com/prometheus-community/windows_exporter)
+su - ${USER}
+```
 
-## Grafana
+## Usage
 
-Used to visualize the collected data.
+### Configuration
 
-- [Source](https://github.com/grafana/grafana)
-- [Docker Image](https://hub.docker.com/r/grafana/grafana)
+Create an `.env` file that contains the configuration values. You can use the `.env.example` file as a reference.
+
+### Start
+
+The whole stack can be started with a simple docker compose command:
+
+```
+docker-compose up -d
+```
+
+Docker now takes care that all the containers are running, and even starts them again after a restart of the host system.
