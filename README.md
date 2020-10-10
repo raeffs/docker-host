@@ -13,8 +13,12 @@ This repository contains the configuration of my docker host that aims to improv
 - [Dozzle](https://hub.docker.com/r/amir20/dozzle) is used to easily access the logs of running containers.
 - [Portainer](https://hub.docker.com/r/portainer/portainer-ce) is used if some more detailed investigation has to be done.
 - [Watchtower](https://hub.docker.com/r/containrrr/watchtower) is used to keep the containers up-to-date.
+- [Prometheus](https://hub.docker.com/r/prom/prometheus) is used for monitoring of services and the network.
+- [Blackbox-Exporter](https://hub.docker.com/r/prom/blackbox-exporter) is an exporter for Prometheus that is used to ping network targets.
+- [Speedtext-Exporter](https://hub.docker.com/r/raeffs/speedtest-exporter) is an exporter for Prometheus that is used to execute network speed tests.
+- [Pihole-Exporter](https://hub.docker.com/r/ekofr/pihole-exporter) is an exporter for Prometheus that is used to collect data from Pihole.
 
-## Installation
+## How to use it?
 
 My docker host runs on an Ubuntu Server 20.04 installation. The following steps need to be done after a clean installation of the host operating system.
 
@@ -61,8 +65,6 @@ sudo usermod -aG docker ${USER}
 
 su - ${USER}
 ```
-
-## How to use it?
 
 ### Configuration
 
