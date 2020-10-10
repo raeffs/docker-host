@@ -12,6 +12,7 @@ This repository contains the configuration of my docker host that aims to improv
 - [Pihole](https://hub.docker.com/r/pihole/pihole) is used as an ad blocker as well as a DNS server that maps the ip address of the docker host to the local domain name.
 - [Dozzle](https://hub.docker.com/r/amir20/dozzle) is used to easily access the logs of running containers.
 - [Portainer](https://hub.docker.com/r/portainer/portainer-ce) is used if some more detailed investigation has to be done.
+- [Watchtower](https://hub.docker.com/r/containrrr/watchtower) is used to keep the containers up-to-date.
 
 ## Installation
 
