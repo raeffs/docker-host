@@ -1,14 +1,4 @@
-
+.data
 .certificates
 .log
 .env
-
-.data/*
-
-!.data/portainer
-.data/portainer/*
-
-!.data/prometheus
-.data/prometheus/*
-
-!.data/**/.gitkeep
