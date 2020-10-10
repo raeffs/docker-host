@@ -10,15 +10,6 @@ services:
     volumes:
       - './.data/grafana:/var/lib/grafana'
 
-  blackbox-exporter:
-    container_name: 'blackbox-exporter'
-    image: 'prom/blackbox-exporter'
-    restart: 'unless-stopped'
-    ports:
-      - '9115:9115'
-    volumes:
-      - './blackbox-exporter:/etc/blackbox_exporter'
-
   speedtest-exporter:
     container_name: 'speedtest-exporter'
     image: 'raeffs/speedtest-exporter'

@@ -97,9 +97,18 @@ services:
     volumes:
       - './prometheus/:/etc/prometheus/:ro'
       - '${DATA_DIR:?err}/prometheus/:/prometheus/'
+    depends_on:
+      - 'blackbox-exporter'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.prometheus.rule=Host(`prometheus.${DOMAIN_SUFFIX}`)'
       - 'traefik.http.routers.prometheus.entrypoints=websecure'
       - 'traefik.http.routers.prometheus.tls=true'
       - 'traefik.http.services.prometheus.loadbalancer.server.port=9090'
+
+  blackbox-exporter:
+    container_name: 'blackbox-exporter'
+    image: 'prom/blackbox-exporter:latest'
+    restart: 'unless-stopped'
+    volumes:
+      - './blackbox-exporter:/etc/blackbox_exporter:ro'
