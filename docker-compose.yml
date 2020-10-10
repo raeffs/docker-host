@@ -99,6 +99,7 @@ services:
       - '${DATA_DIR:?err}/prometheus/:/prometheus/'
     depends_on:
       - 'blackbox-exporter'
+      - 'speedtest-exporter'
       - 'pihole-exporter'
     labels:
       - 'traefik.enable=true'
@@ -114,6 +115,11 @@ services:
     volumes:
       - './blackbox-exporter:/etc/blackbox_exporter:ro'
 
+  speedtest-exporter:
+    container_name: 'speedtest-exporter'
+    image: 'raeffs/speedtest-exporter:latest'
+    restart: 'unless-stopped'
+
   pihole-exporter:
     container_name: 'pihole-exporter'
     image: 'ekofr/pihole-exporter:latest'
@@ -123,3 +129,5 @@ services:
       PIHOLE_PASSWORD: '${PIHOLE_PASSWORD}'
       INTERVAL: '30s'
       PORT: '9617'
+    depends_on:
+      - 'pihole'

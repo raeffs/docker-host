@@ -20,7 +20,7 @@ scrape_configs:
         replacement: blackbox-exporter:9115
   # executes a speedtest
   - job_name: speedtest
-    scrape_interval: 15m
+    scrape_interval: 60m
     scrape_timeout: 60s
     metrics_path: /metrics
     static_configs:
