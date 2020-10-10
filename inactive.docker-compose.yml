@@ -10,13 +10,6 @@ services:
     volumes:
       - './.data/grafana:/var/lib/grafana'
 
-  speedtest-exporter:
-    container_name: 'speedtest-exporter'
-    image: 'raeffs/speedtest-exporter'
-    restart: 'unless-stopped'
-    ports:
-      - '9112:9112'
-
   home-assistant:
     container_name: 'home-assistant'
     image: 'homeassistant/home-assistant:stable'
