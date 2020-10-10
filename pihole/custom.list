@@ -1,8 +1,8 @@
 192.168.1.1 router.asus.com
-192.168.1.25 demo.home
-192.168.1.25 traefik.home
-192.168.1.25 pihole.home
-192.168.1.25 home-assistant.home
-192.168.1.25 phpmyadmin.home
-192.168.1.25 portainer.home
-192.168.1.25 dozzle.home
+192.168.1.23 demo.home
+192.168.1.23 traefik.home
+192.168.1.23 pihole.home
+192.168.1.23 home-assistant.home
+192.168.1.23 phpmyadmin.home
+192.168.1.23 portainer.home
+192.168.1.23 dozzle.home
