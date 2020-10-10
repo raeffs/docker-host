@@ -32,6 +32,8 @@ services:
       - './pihole/resolv.conf:/etc/resolv.conf:ro'
       - './pihole/adlists.list:/etc/pihole/adlists.list:ro'
       - './pihole/custom.list:/etc/pihole/custom.list:ro'
+      - './pihole/dns.conf:/etc/dnsmasq.d/dns.conf:ro'
+      - '${LOG_DIR:?err}/pihole/:/var/log/'
     environment:
       ServerIP: ${LOCAL_IP}
       TZ: '${TIMEZONE}'
