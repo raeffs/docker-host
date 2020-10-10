@@ -61,7 +61,7 @@ sudo usermod -aG docker ${USER}
 su - ${USER}
 ```
 
-## Usage
+## How to use it?
 
 ### Configuration
 
@@ -76,3 +76,7 @@ docker-compose up -d
 ```
 
 Docker now takes care that all the containers are running, and even starts them again after a restart of the host system.
+
+## Attributions
+
+Icon made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
