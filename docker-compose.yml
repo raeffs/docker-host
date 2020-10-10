@@ -93,7 +93,7 @@ services:
     container_name: 'prometheus'
     image: 'prom/prometheus:latest'
     restart: 'unless-stopped'
-    user: '${PUID}'
+    user: 'root'
     volumes:
       - './prometheus/:/etc/prometheus/:ro'
       - '${DATA_DIR:?err}/prometheus/:/prometheus/'
