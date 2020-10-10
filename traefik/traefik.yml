@@ -4,7 +4,6 @@ log:
 
 providers:
   docker:
-    defaultRule: 'Host(`{{ trimPrefix `/` .Name | trimSuffix `-docker-host` }}.home`)'
     exposedByDefault: false
     watch: true
   file:
