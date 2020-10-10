@@ -131,3 +131,62 @@ services:
       PORT: '9617'
     depends_on:
       - 'pihole'
+
+  gitea:
+    container_name: 'gitea'
+    image: 'gitea/gitea:latest'
+    restart: 'unless-stopped'
+    ports:
+      - '2222:2222'
+    volumes:
+      - '${DATA_DIR:?err}/gitea/:/data/'
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+    environment:
+      APP_NAME: 'Gitea'
+      RUN_MODE: 'prod'
+      DOMAIN: 'gitea.${DOMAIN_SUFFIX}'
+      SSH_DOMAIN: 'gitea.${DOMAIN_SUFFIX}'
+      SSH_PORT: '2222'
+      SSH_LISTEN_PORT: '2222'
+      DB_TYPE: 'mysql'
+      DB_HOST: 'gitea-db:3306'
+      DB_NAME: 'gitea-db'
+      DB_USER: 'gitea-user'
+      DB_PASSWD: '${GITEA_MYSQL_PASSWORD}'
+      INSTALL_LOCK: 'true'
+    depends_on:
+      - 'gitea-db'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.gitea.rule=Host(`gitea.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.gitea.entrypoints=websecure'
+      - 'traefik.http.routers.gitea.tls=true'
+      - 'traefik.http.services.gitea.loadbalancer.server.port=3000'
+
+  gitea-db:
+    container_name: 'gitea-db'
+    image: 'mariadb:latest'
+    restart: 'unless-stopped'
+    volumes:
+      - '${DATA_DIR:?err}/gitea-db/:/var/lib/mysql'
+    environment:
+      MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
+      MYSQL_DATABASE: 'gitea-db'
+      MYSQL_USER: 'gitea-user'
+      MYSQL_PASSWORD: '${GITEA_MYSQL_PASSWORD}'
+
+  phpmyadmin:
+    container_name: 'phpmyadmin'
+    image: 'phpmyadmin:latest'
+    restart: 'unless-stopped'
+    environment:
+      PMA_HOSTS: 'gitea-db'
+    depends_on:
+      - 'gitea-db'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.phpmyadmin.rule=Host(`phpmyadmin.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.phpmyadmin.entrypoints=websecure'
+      - 'traefik.http.routers.phpmyadmin.tls=true'
+      - 'traefik.http.services.phpmyadmin.loadbalancer.server.port=80'
