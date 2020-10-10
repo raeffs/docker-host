@@ -17,3 +17,7 @@ tls:
       keyFile: /etc/certs/home.key
     - certFile: /etc/certs/prometheus.home.pem
       keyFile: /etc/certs/home.key
+    - certFile: /etc/certs/gitea.home.pem
+      keyFile: /etc/certs/home.key
+    - certFile: /etc/certs/phpmyadmin.home.pem
+      keyFile: /etc/certs/home.key
