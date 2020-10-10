@@ -17,6 +17,9 @@ This repository contains the configuration of my docker host that aims to improv
 - [Blackbox-Exporter](https://hub.docker.com/r/prom/blackbox-exporter) is an exporter for Prometheus that is used to ping network targets.
 - [Speedtext-Exporter](https://hub.docker.com/r/raeffs/speedtest-exporter) is an exporter for Prometheus that is used to execute network speed tests.
 - [Pihole-Exporter](https://hub.docker.com/r/ekofr/pihole-exporter) is an exporter for Prometheus that is used to collect data from Pihole.
+- [Gitea](https://hub.docker.com/r/gitea/gitea) is used to provide a local GitHub alternative.
+- [MariaDB](https://hub.docker.com/_/mariadb) is used as database for several services.
+- [PhpMyAdmin](https://hub.docker.com/_/phpmyadmin) is used as web interface to access the MariaDB databases.
 
 ## How to use it?
 
