@@ -179,14 +179,46 @@ services:
       MYSQL_USER: 'gitea-user'
       MYSQL_PASSWORD: '${GITEA_MYSQL_PASSWORD}'
 
+  home-assistant:
+    container_name: 'home-assistant'
+    image: 'homeassistant/home-assistant:stable'
+    restart: 'unless-stopped'
+    volumes:
+      - '${DATA_DIR:?err}/home-assistant/:/config/'
+      - './home-assistant/configuration.yaml:/config/configuration.yaml:ro'
+    environment:
+      TZ: '${TIMEZONE}'
+      DATABASE_CONNECTION: 'mysql://home-assistant-user:${HA_MYSQL_PASSWORD}@home-assistant-db/home-assistant-db?charset=utf8'
+    depends_on:
+      - 'home-assistant-db'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.home-assistant.rule=Host(`home-assistant.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.home-assistant.entrypoints=websecure'
+      - 'traefik.http.routers.home-assistant.tls=true'
+      - 'traefik.http.services.home-assistant.loadbalancer.server.port=8123'
+
+  home-assistant-db:
+    container_name: 'home-assistant-db'
+    image: 'mariadb:latest'
+    restart: 'unless-stopped'
+    volumes:
+      - '${DATA_DIR:?err}/home-assistant-db/:/var/lib/mysql'
+    environment:
+      MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
+      MYSQL_DATABASE: 'home-assistant-db'
+      MYSQL_USER: 'home-assistant-user'
+      MYSQL_PASSWORD: '${HA_MYSQL_PASSWORD}'
+
   phpmyadmin:
     container_name: 'phpmyadmin'
     image: 'phpmyadmin:latest'
     restart: 'unless-stopped'
     environment:
-      PMA_HOSTS: 'gitea-db'
+      PMA_HOSTS: 'gitea-db,home-assistant-db'
     depends_on:
       - 'gitea-db'
+      - 'home-assistant-db'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.phpmyadmin.rule=Host(`phpmyadmin.${DOMAIN_SUFFIX}`)'
