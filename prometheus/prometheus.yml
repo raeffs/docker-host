@@ -10,7 +10,7 @@ scrape_configs:
       module: [icmp]
     file_sd_configs:
       - files:
-        - 'icmp-ping.targets.json'
+          - 'icmp-ping.targets.json'
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
@@ -18,22 +18,6 @@ scrape_configs:
         target_label: instance
       - target_label: __address__
         replacement: blackbox-exporter:9115
-  # extracts windows information
-  - job_name: 'windows'
-    metrics_path: /metrics
-    file_sd_configs:
-      - files:
-        - 'windows.targets.json'
-    relabel_configs:
-      # sets the correct port, so we don't need to specify it in the targets file
-      - source_labels: [__address__]
-        target_label: '__address__'
-        replacement: '${1}:9182'
-    metric_relabel_configs:
-      # ignores all the go specific stuff
-      - source_labels: [__name__]
-        regex: 'go_(.+)'
-        action: drop
   # executes a speedtest
   - job_name: speedtest
     scrape_interval: 15m
@@ -41,16 +25,15 @@ scrape_configs:
     metrics_path: /metrics
     static_configs:
       - targets:
-        - speedtest-exporter:9112
+          - speedtest-exporter:9112
   # extracts information from pihole
   - job_name: 'pihole'
     metrics_path: /metrics
     static_configs:
       - targets:
-        - pihole-exporter:9617
+          - pihole-exporter:9617
     metric_relabel_configs:
       # ignores all the go specific stuff
       - source_labels: [__name__]
         regex: 'go_(.+)'
         action: drop
-

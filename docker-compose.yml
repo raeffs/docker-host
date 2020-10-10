@@ -88,3 +88,18 @@ services:
       WATCHTOWER_SCHEDULE: '0 0 2 * * *'
       WATCHTOWER_NOTIFICATIONS: 'slack'
       WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL: '${WT_SLACK_URL}'
+
+  prometheus:
+    container_name: 'prometheus'
+    image: 'prom/prometheus:latest'
+    restart: 'unless-stopped'
+    user: '${PUID}'
+    volumes:
+      - './prometheus/:/etc/prometheus/:ro'
+      - '${DATA_DIR:?err}/prometheus/:/prometheus/'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.prometheus.rule=Host(`prometheus.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.prometheus.entrypoints=websecure'
+      - 'traefik.http.routers.prometheus.tls=true'
+      - 'traefik.http.services.prometheus.loadbalancer.server.port=9090'
