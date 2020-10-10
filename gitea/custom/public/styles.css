@@ -1,0 +1,187 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol' !important;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #24292e;
+}
+
+a {
+  color: #0366d6;
+}
+
+.following.bar.light {
+  background-color: #24292e;
+  color: rgba(255, 255, 255, 0.75);
+  border-bottom: none;
+}
+
+.ui.main.menu {
+  font-size: 14px;
+}
+
+.ui.menu,
+.markdown:not(code),
+.ui.button,
+.ui.header {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+.ui.main.menu .item {
+  color: rgba(255, 255, 255, 1);
+  font-weight: 600;
+}
+
+.ui.secondary.main.menu .active.item {
+  color: rgba(255, 255, 255, 1);
+  font-weight: 600;
+}
+
+.ui.secondary.main.menu .active.item:hover {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.ui.secondary.main.menu a.item:hover {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.ui.secondary.main.menu .dropdown.item:hover {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.repository.view.issue .title h1 {
+  font-size: 32px;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+.ui.green.button {
+  background-color: #28a745;
+  background-image: linear-gradient(-180deg, #34d058 0%, #28a745 90%);
+}
+
+.ui.green.button:hover {
+  background-color: #269f42;
+  background-image: linear-gradient(-180deg, #2fcb53 0%, #269f42 90%);
+}
+
+.ui.button {
+  border: 1px solid rgba(27, 31, 35, 0.2);
+  border-radius: 0.25em;
+  background-color: #eff3f6;
+  background-image: linear-gradient(-180deg, #fafbfc 0%, #eff3f6 90%);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.ui.button:hover {
+  border-color: rgba(27, 31, 35, 0.5);
+  background-color: #e6ebf1;
+  background-image: linear-gradient(-180deg, #f0f3f6 0%, #e6ebf1 90%);
+}
+
+.ui.buttons .button:first-child {
+  border-left: 1px solid rgba(27, 31, 35, 0.2);
+}
+
+.ui.buttons .button:first-child:hover {
+  border-left-color: rgba(27, 31, 35, 0.5);
+}
+
+.ui.blue.button,
+.ui.tiny.blue.buttons.button,
+.ui.tiny.blue.buttons a.ui.button {
+  background-color: #2185d0;
+  background-image: linear-gradient(-180deg, #3e98db 0%, #2185d0 90%);
+}
+
+.ui.blue.button:hover,
+.ui.tiny.blue.buttons.button:hover,
+.ui.tiny.blue.buttons a.ui.button:hover {
+  background-color: #1c6fac;
+  background-image: linear-gradient(-180deg, #2185d0 0%, #1c6fac 90%);
+}
+
+.ui.red.button {
+  background-color: #ca1010;
+  background-image: linear-gradient(-180deg, #e72525 0%, #ca1010 90%);
+}
+
+.ui.red.button:hover {
+  background-color: #af0e0e;
+  background-image: linear-gradient(-180deg, #ca1010 0%, #af0e0e 90%);
+}
+
+.ui.breadcrumb a {
+  color: #0366d6;
+}
+
+.repository .header-grid .ui.huge.breadcrumb {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.ui.compact.labeled.button,
+.ui.compact.button a {
+  color: #24292e;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.ui.table td.message a {
+  color: #6a737d;
+}
+
+.ui.table td.name a:hover,
+.ui.table td.message a:hover {
+  text-decoration: underline;
+  color: #0366d6;
+}
+
+#repo-files-table.ui.fixed.single.line.table thead tr.commit-list {
+  background-color: #f1f8ff;
+  border: 1px solid #c8e1ff;
+}
+
+#repo-files-table.ui.fixed.single.line.table thead tr.commit-list th {
+  background-color: #f1f8ff;
+  border-bottom: 1px solid #c8e1ff;
+  font-size: 12px;
+}
+
+.ui.top.attached.header {
+  background-color: #f6f8fa;
+  font-size: 14px;
+}
+
+.ui.top.attached.header strong {
+  font-weight: 600;
+}
+
+.ui.tabular.stackable.menu.navbar a.item {
+  color: #586069;
+}
+
+.ui.tabular.stackable.menu.navbar a.item:hover {
+  color: #24292e;
+}
+
+.ui.tabular.stackable.menu.navbar a.active.item {
+  font-weight: 400;
+  color: #24292e;
+}
+
+.repository.file.list #repo-files-table tr:hover {
+  background-color: #f6f8fa;
+}
+
+.repository .header-grid .mega-octicon {
+  font-size: 18px;
+  width: 20px;
+}
+
+.ui.label {
+  font-size: 12px;
+  font-weight: 600;
+}

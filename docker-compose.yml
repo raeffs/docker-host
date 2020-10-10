@@ -140,6 +140,8 @@ services:
       - '2222:2222'
     volumes:
       - '${DATA_DIR:?err}/gitea/:/data/'
+      - './gitea/custom/public/:/data/gitea/public/:ro'
+      - './gitea/custom/templates/:/data/gitea/templates/:ro'
       - '/etc/timezone:/etc/timezone:ro'
       - '/etc/localtime:/etc/localtime:ro'
     environment:
@@ -155,6 +157,7 @@ services:
       DB_USER: 'gitea-user'
       DB_PASSWD: '${GITEA_MYSQL_PASSWORD}'
       INSTALL_LOCK: 'true'
+      GITEA_CUSTOM: '/data/gitea'
     depends_on:
       - 'gitea-db'
     labels:
