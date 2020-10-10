@@ -1,4 +1,11 @@
-.data
+
 .certificates
 .log
 .env
+
+.data/*
+
+!.data/prometheus
+.data/prometheus/*
+
+!.data/**/.gitkeep
