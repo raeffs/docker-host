@@ -47,3 +47,30 @@ services:
       - 'traefik.http.routers.pihole.entrypoints=websecure'
       - 'traefik.http.routers.pihole.tls=true'
       - 'traefik.http.services.pihole.loadbalancer.server.port=80'
+
+  dozzle:
+    container_name: 'dozzle'
+    image: 'amir20/dozzle:latest'
+    restart: 'unless-stopped'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.dozzle.rule=Host(`dozzle.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.dozzle.entrypoints=websecure'
+      - 'traefik.http.routers.dozzle.tls=true'
+      - 'traefik.http.services.dozzle.loadbalancer.server.port=8080'
+
+  portainer:
+    container_name: 'portainer'
+    image: 'portainer/portainer-ce'
+    restart: 'unless-stopped'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - '${DATA_DIR:?err}/portainer/:/data/'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.portainer.rule=Host(`portainer.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.portainer.entrypoints=websecure'
+      - 'traefik.http.routers.portainer.tls=true'
+      - 'traefik.http.services.portainer.loadbalancer.server.port=9000'
