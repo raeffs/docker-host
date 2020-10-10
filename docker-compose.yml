@@ -6,7 +6,6 @@ services:
     image: 'traefik:latest'
     restart: 'unless-stopped'
     ports:
-      - '80:80'
       - '443:443'
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
@@ -15,9 +14,10 @@ services:
       - '${LOG_DIR:?err}/traefik/:/var/log/'
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.services.traefik.loadbalancer.server.port=8080'
+      - 'traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN_SUFFIX}`)'
       - 'traefik.http.routers.traefik.entrypoints=websecure'
       - 'traefik.http.routers.traefik.tls=true'
+      - 'traefik.http.services.traefik.loadbalancer.server.port=8080'
 
   pihole:
     container_name: 'pihole'
@@ -26,13 +26,14 @@ services:
     ports:
       - '53:53/tcp'
       - '53:53/udp'
-      - '67:67/udp'
     volumes:
       - '${DATA_DIR:?err}/pihole/:/etc/pihole/'
       - '${DATA_DIR:?err}/pihole-dnsmasq/:/etc/dnsmasq.d/'
       - './pihole/resolv.conf:/etc/resolv.conf:ro'
       - './pihole/adlists.list:/etc/pihole/adlists.list:ro'
       - './pihole/custom.list:/etc/pihole/custom.list:ro'
+      - './pihole/dns.conf:/etc/dnsmasq.d/dns.conf:ro'
+      - '${LOG_DIR:?err}/pihole/:/var/log/'
     environment:
       ServerIP: ${LOCAL_IP}
       TZ: '${TIMEZONE}'
@@ -42,6 +43,7 @@ services:
       WEBPASSWORD: '${PIHOLE_PASSWORD}'
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.services.pihole.loadbalancer.server.port=80'
+      - 'traefik.http.routers.pihole.rule=Host(`pihole.${DOMAIN_SUFFIX}`)'
       - 'traefik.http.routers.pihole.entrypoints=websecure'
       - 'traefik.http.routers.pihole.tls=true'
+      - 'traefik.http.services.pihole.loadbalancer.server.port=80'
