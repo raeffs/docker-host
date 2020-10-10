@@ -39,17 +39,3 @@ services:
       MYSQL_DATABASE: 'home-assistant-db'
       MYSQL_USER: 'home-assistant-user'
       MYSQL_PASSWORD: '${HA_MYSQL_PASSWORD}'
-
-  phpmyadmin:
-    container_name: 'phpmyadmin'
-    image: 'phpmyadmin:latest'
-    restart: 'unless-stopped'
-    environment:
-      PMA_HOSTS: 'home-assistant-db'
-    depends_on:
-      - 'home-assistant-db'
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.services.phpmyadmin.loadbalancer.server.port=80'
-      - 'traefik.http.routers.phpmyadmin.entrypoints=websecure'
-      - 'traefik.http.routers.phpmyadmin.tls=true'
