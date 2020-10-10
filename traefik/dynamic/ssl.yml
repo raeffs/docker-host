@@ -7,17 +7,13 @@ tls:
   certificates:
     - certFile: /etc/certs/home.pem
       keyFile: /etc/certs/home.key
-    - certFile: /etc/certs/demo.home.pem
-      keyFile: /etc/certs/home.key
     - certFile: /etc/certs/traefik.home.pem
       keyFile: /etc/certs/home.key
     - certFile: /etc/certs/pihole.home.pem
       keyFile: /etc/certs/home.key
-    - certFile: /etc/certs/home-assistant.home.pem
-      keyFile: /etc/certs/home.key
-    - certFile: /etc/certs/phpmyadmin.home.pem
-      keyFile: /etc/certs/home.key
     - certFile: /etc/certs/portainer.home.pem
       keyFile: /etc/certs/home.key
     - certFile: /etc/certs/dozzle.home.pem
+      keyFile: /etc/certs/home.key
+    - certFile: /etc/certs/prometheus.home.pem
       keyFile: /etc/certs/home.key
