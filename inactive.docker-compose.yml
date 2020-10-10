@@ -17,18 +17,6 @@ services:
     ports:
       - '9112:9112'
 
-  pihole-exporter:
-    container_name: 'pihole-exporter'
-    image: 'ekofr/pihole-exporter:latest'
-    restart: 'unless-stopped'
-    ports:
-      - '9617:9617'
-    environment:
-      PIHOLE_HOSTNAME: 'pihole'
-      PIHOLE_PASSWORD: 'secure'
-      INTERVAL: '30s'
-      PORT: '9617'
-
   home-assistant:
     container_name: 'home-assistant'
     image: 'homeassistant/home-assistant:stable'
