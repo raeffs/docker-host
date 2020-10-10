@@ -18,6 +18,7 @@ This repository contains the configuration of my docker host that aims to improv
 - [Speedtext-Exporter](https://hub.docker.com/r/raeffs/speedtest-exporter) is an exporter for Prometheus that is used to execute network speed tests.
 - [Pihole-Exporter](https://hub.docker.com/r/ekofr/pihole-exporter) is an exporter for Prometheus that is used to collect data from Pihole.
 - [Gitea](https://hub.docker.com/r/gitea/gitea) is used to provide a local GitHub alternative.
+- [Home Assistant](https://hub.docker.com/r/homeassistant/home-assistant) is used for home automation tasks.
 - [MariaDB](https://hub.docker.com/_/mariadb) is used as database for several services.
 - [PhpMyAdmin](https://hub.docker.com/_/phpmyadmin) is used as web interface to access the MariaDB databases.
 
@@ -69,11 +70,11 @@ sudo usermod -aG docker ${USER}
 su - ${USER}
 ```
 
-### Configuration
+### Configure Docker Host Environment
 
 Create an `.env` file that contains the configuration values. You can use the `.env.example` file as a reference.
 
-### Start
+### Start Docker Host
 
 The whole stack can be started with a simple docker compose command:
 
