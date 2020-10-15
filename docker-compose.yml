@@ -8,6 +8,7 @@ services:
     ports:
       - '80:80'
       - '443:443'
+      - '4430:4430'
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
       - './traefik/:/etc/traefik/:ro'
@@ -20,33 +21,33 @@ services:
       - 'traefik.http.routers.traefik.tls=true'
       - 'traefik.http.services.traefik.loadbalancer.server.port=8080'
 
-  pihole:
-    container_name: 'pihole'
-    image: 'pihole/pihole:latest'
-    restart: 'unless-stopped'
-    ports:
-      - '53:53/tcp'
-      - '53:53/udp'
-    volumes:
-      - '${DATA_DIR:?err}/pihole/:/etc/pihole/'
-      - '${DATA_DIR:?err}/pihole-dnsmasq/:/etc/dnsmasq.d/'
-      - './pihole/resolv.conf:/etc/resolv.conf:ro'
-      - './pihole/adlists.list:/etc/pihole/adlists.list:ro'
-      - './pihole/custom.list:/etc/pihole/custom.list:ro'
-      - './pihole/dns.conf:/etc/dnsmasq.d/dns.conf:ro'
-    environment:
-      ServerIP: ${LOCAL_IP}
-      TZ: '${TIMEZONE}'
-      DNSSEC: 'True'
-      DNS1: '1.0.0.1'
-      DNS2: '1.1.1.1'
-      WEBPASSWORD: '${PIHOLE_PASSWORD}'
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.pihole.rule=Host(`pihole.${DOMAIN_SUFFIX}`)'
-      - 'traefik.http.routers.pihole.entrypoints=websecure'
-      - 'traefik.http.routers.pihole.tls=true'
-      - 'traefik.http.services.pihole.loadbalancer.server.port=80'
+      pihole:
+        container_name: 'pihole'
+        image: 'pihole/pihole:latest'
+        restart: 'unless-stopped'
+        ports:
+          - '53:53/tcp'
+          - '53:53/udp'
+        volumes:
+          - '${DATA_DIR:?err}/pihole/:/etc/pihole/'
+          - '${DATA_DIR:?err}/pihole-dnsmasq/:/etc/dnsmasq.d/'
+          - './pihole/resolv.conf:/etc/resolv.conf:ro'
+          - './pihole/adlists.list:/etc/pihole/adlists.list:ro'
+          - './pihole/custom.list:/etc/pihole/custom.list:ro'
+          - './pihole/dns.conf:/etc/dnsmasq.d/dns.conf:ro'
+        environment:
+          ServerIP: ${LOCAL_IP}
+          TZ: '${TIMEZONE}'
+          DNSSEC: 'True'
+          DNS1: '1.0.0.1'
+          DNS2: '1.1.1.1'
+          WEBPASSWORD: '${PIHOLE_PASSWORD}'
+        labels:
+          - 'traefik.enable=true'
+          - 'traefik.http.routers.pihole.rule=Host(`pihole.${DOMAIN_SUFFIX}`)'
+          - 'traefik.http.routers.pihole.entrypoints=websecure'
+          - 'traefik.http.routers.pihole.tls=true'
+          - 'traefik.http.services.pihole.loadbalancer.server.port=80'
 
   dozzle:
     container_name: 'dozzle'
@@ -61,76 +62,76 @@ services:
       - 'traefik.http.routers.dozzle.tls=true'
       - 'traefik.http.services.dozzle.loadbalancer.server.port=8080'
 
-  portainer:
-    container_name: 'portainer'
-    image: 'portainer/portainer-ce'
-    restart: 'unless-stopped'
-    volumes:
-      - '/var/run/docker.sock:/var/run/docker.sock:ro'
-      - '${DATA_DIR:?err}/portainer/:/data/'
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.portainer.rule=Host(`portainer.${DOMAIN_SUFFIX}`)'
-      - 'traefik.http.routers.portainer.entrypoints=websecure'
-      - 'traefik.http.routers.portainer.tls=true'
-      - 'traefik.http.services.portainer.loadbalancer.server.port=9000'
+      portainer:
+        container_name: 'portainer'
+        image: 'portainer/portainer-ce'
+        restart: 'unless-stopped'
+        volumes:
+          - '/var/run/docker.sock:/var/run/docker.sock:ro'
+          - '${DATA_DIR:?err}/portainer/:/data/'
+        labels:
+          - 'traefik.enable=true'
+          - 'traefik.http.routers.portainer.rule=Host(`portainer.${DOMAIN_SUFFIX}`)'
+          - 'traefik.http.routers.portainer.entrypoints=websecure'
+          - 'traefik.http.routers.portainer.tls=true'
+          - 'traefik.http.services.portainer.loadbalancer.server.port=9000'
 
-  watchtower:
-    container_name: 'watchtower'
-    image: 'containrrr/watchtower:latest'
-    restart: 'unless-stopped'
-    volumes:
-      - '/var/run/docker.sock:/var/run/docker.sock:ro'
-    environment:
-      TZ: '${TIMEZONE}'
-      WATCHTOWER_CLEANUP: 'true'
-      WATCHTOWER_MONITOR_ONLY: 'false'
-      WATCHTOWER_SCHEDULE: '0 0 2 * * *'
-      WATCHTOWER_NOTIFICATIONS: 'slack'
-      WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL: '${WT_SLACK_URL}'
+      watchtower:
+        container_name: 'watchtower'
+        image: 'containrrr/watchtower:latest'
+        restart: 'unless-stopped'
+        volumes:
+          - '/var/run/docker.sock:/var/run/docker.sock:ro'
+        environment:
+          TZ: '${TIMEZONE}'
+          WATCHTOWER_CLEANUP: 'true'
+          WATCHTOWER_MONITOR_ONLY: 'false'
+          WATCHTOWER_SCHEDULE: '0 0 2 * * *'
+          WATCHTOWER_NOTIFICATIONS: 'slack'
+          WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL: '${WT_SLACK_URL}'
 
-  prometheus:
-    container_name: 'prometheus'
-    image: 'prom/prometheus:latest'
-    restart: 'unless-stopped'
-    user: 'root'
-    volumes:
-      - './prometheus/:/etc/prometheus/:ro'
-      - '${DATA_DIR:?err}/prometheus/:/prometheus/'
-    depends_on:
-      - 'blackbox-exporter'
-      - 'speedtest-exporter'
-      - 'pihole-exporter'
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.prometheus.rule=Host(`prometheus.${DOMAIN_SUFFIX}`)'
-      - 'traefik.http.routers.prometheus.entrypoints=websecure'
-      - 'traefik.http.routers.prometheus.tls=true'
-      - 'traefik.http.services.prometheus.loadbalancer.server.port=9090'
+      prometheus:
+        container_name: 'prometheus'
+        image: 'prom/prometheus:latest'
+        restart: 'unless-stopped'
+        user: 'root'
+        volumes:
+          - './prometheus/:/etc/prometheus/:ro'
+          - '${DATA_DIR:?err}/prometheus/:/prometheus/'
+        depends_on:
+          - 'blackbox-exporter'
+          - 'speedtest-exporter'
+          - 'pihole-exporter'
+        labels:
+          - 'traefik.enable=true'
+          - 'traefik.http.routers.prometheus.rule=Host(`prometheus.${DOMAIN_SUFFIX}`)'
+          - 'traefik.http.routers.prometheus.entrypoints=websecure'
+          - 'traefik.http.routers.prometheus.tls=true'
+          - 'traefik.http.services.prometheus.loadbalancer.server.port=9090'
 
-  blackbox-exporter:
-    container_name: 'blackbox-exporter'
-    image: 'prom/blackbox-exporter:latest'
-    restart: 'unless-stopped'
-    volumes:
-      - './blackbox-exporter:/etc/blackbox_exporter:ro'
+      blackbox-exporter:
+        container_name: 'blackbox-exporter'
+        image: 'prom/blackbox-exporter:latest'
+        restart: 'unless-stopped'
+        volumes:
+          - './blackbox-exporter:/etc/blackbox_exporter:ro'
 
-  speedtest-exporter:
-    container_name: 'speedtest-exporter'
-    image: 'raeffs/speedtest-exporter:latest'
-    restart: 'unless-stopped'
+      speedtest-exporter:
+        container_name: 'speedtest-exporter'
+        image: 'raeffs/speedtest-exporter:latest'
+        restart: 'unless-stopped'
 
-  pihole-exporter:
-    container_name: 'pihole-exporter'
-    image: 'ekofr/pihole-exporter:latest'
-    restart: 'unless-stopped'
-    environment:
-      PIHOLE_HOSTNAME: 'pihole'
-      PIHOLE_PASSWORD: '${PIHOLE_PASSWORD}'
-      INTERVAL: '30s'
-      PORT: '9617'
-    depends_on:
-      - 'pihole'
+      pihole-exporter:
+        container_name: 'pihole-exporter'
+        image: 'ekofr/pihole-exporter:latest'
+        restart: 'unless-stopped'
+        environment:
+          PIHOLE_HOSTNAME: 'pihole'
+          PIHOLE_PASSWORD: '${PIHOLE_PASSWORD}'
+          INTERVAL: '30s'
+          PORT: '9617'
+        depends_on:
+          - 'pihole'
 
   gitea:
     container_name: 'gitea'
@@ -179,65 +180,92 @@ services:
       MYSQL_USER: 'gitea-user'
       MYSQL_PASSWORD: '${GITEA_MYSQL_PASSWORD}'
 
-  home-assistant:
-    container_name: 'home-assistant'
-    image: 'homeassistant/home-assistant:stable'
+      home-assistant:
+        container_name: 'home-assistant'
+        image: 'homeassistant/home-assistant:stable'
+        restart: 'unless-stopped'
+        volumes:
+          - '${DATA_DIR:?err}/home-assistant/:/config/'
+          - './home-assistant/configuration.yaml:/config/configuration.yaml:ro'
+        environment:
+          TZ: '${TIMEZONE}'
+          DATABASE_CONNECTION: 'mysql://home-assistant-user:${HA_MYSQL_PASSWORD}@home-assistant-db/home-assistant-db?charset=utf8'
+        depends_on:
+          - 'home-assistant-db'
+        labels:
+          - 'traefik.enable=true'
+          - 'traefik.http.routers.home-assistant.rule=Host(`home-assistant.${DOMAIN_SUFFIX}`)'
+          - 'traefik.http.routers.home-assistant.entrypoints=websecure'
+          - 'traefik.http.routers.home-assistant.tls=true'
+          - 'traefik.http.services.home-assistant.loadbalancer.server.port=8123'
+
+      home-assistant-db:
+        container_name: 'home-assistant-db'
+        image: 'mariadb:latest'
+        restart: 'unless-stopped'
+        volumes:
+          - '${DATA_DIR:?err}/home-assistant-db/:/var/lib/mysql'
+        environment:
+          MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
+          MYSQL_DATABASE: 'home-assistant-db'
+          MYSQL_USER: 'home-assistant-user'
+          MYSQL_PASSWORD: '${HA_MYSQL_PASSWORD}'
+
+      phpmyadmin:
+        container_name: 'phpmyadmin'
+        image: 'phpmyadmin:latest'
+        restart: 'unless-stopped'
+        environment:
+          PMA_HOSTS: 'gitea-db,home-assistant-db'
+        depends_on:
+          - 'gitea-db'
+          - 'home-assistant-db'
+        labels:
+          - 'traefik.enable=true'
+          - 'traefik.http.routers.phpmyadmin.rule=Host(`phpmyadmin.${DOMAIN_SUFFIX}`)'
+          - 'traefik.http.routers.phpmyadmin.entrypoints=websecure'
+          - 'traefik.http.routers.phpmyadmin.tls=true'
+          - 'traefik.http.services.phpmyadmin.loadbalancer.server.port=80'
+
+      grafana:
+        container_name: 'grafana'
+        image: 'grafana/grafana:latest'
+        restart: 'unless-stopped'
+        user: 'root'
+        volumes:
+          - '${DATA_DIR:?err}/grafana:/var/lib/grafana'
+        environment:
+          GF_INSTALL_PLUGINS: 'grafana-piechart-panel'
+        labels:
+          - 'traefik.enable=true'
+          - 'traefik.http.routers.grafana.rule=Host(`grafana.${DOMAIN_SUFFIX}`)'
+          - 'traefik.http.routers.grafana.entrypoints=websecure'
+          - 'traefik.http.routers.grafana.tls=true'
+          - 'traefik.http.services.grafana.loadbalancer.server.port=3000'
+
+  crontab:
+    container_name: 'crontab'
+    build: 'crontab'
     restart: 'unless-stopped'
     volumes:
-      - '${DATA_DIR:?err}/home-assistant/:/config/'
-      - './home-assistant/configuration.yaml:/config/configuration.yaml:ro'
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - './crontab/config.json:/opt/crontab/config.json:ro'
     environment:
-      TZ: '${TIMEZONE}'
-      DATABASE_CONNECTION: 'mysql://home-assistant-user:${HA_MYSQL_PASSWORD}@home-assistant-db/home-assistant-db?charset=utf8'
-    depends_on:
-      - 'home-assistant-db'
+      DYNDNS_PROVIDER_URL: '${DYNDNS_PROVIDER_URL}'
+      DYNDNS_URL: '${DYNDNS_URL}'
+      DYNDNS_USERNAME: '${DYNDNS_USERNAME}'
+      DYNDNS_PASSWORD: '${DYNDNS_PASSWORD}'
+
+  hello:
+    container_name: 'hello'
+    build: 'hello'
+    restart: 'unless-stopped'
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.home-assistant.rule=Host(`home-assistant.${DOMAIN_SUFFIX}`)'
-      - 'traefik.http.routers.home-assistant.entrypoints=websecure'
-      - 'traefik.http.routers.home-assistant.tls=true'
-      - 'traefik.http.services.home-assistant.loadbalancer.server.port=8123'
-
-  home-assistant-db:
-    container_name: 'home-assistant-db'
-    image: 'mariadb:latest'
-    restart: 'unless-stopped'
-    volumes:
-      - '${DATA_DIR:?err}/home-assistant-db/:/var/lib/mysql'
-    environment:
-      MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
-      MYSQL_DATABASE: 'home-assistant-db'
-      MYSQL_USER: 'home-assistant-user'
-      MYSQL_PASSWORD: '${HA_MYSQL_PASSWORD}'
-
-  phpmyadmin:
-    container_name: 'phpmyadmin'
-    image: 'phpmyadmin:latest'
-    restart: 'unless-stopped'
-    environment:
-      PMA_HOSTS: 'gitea-db,home-assistant-db'
-    depends_on:
-      - 'gitea-db'
-      - 'home-assistant-db'
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.phpmyadmin.rule=Host(`phpmyadmin.${DOMAIN_SUFFIX}`)'
-      - 'traefik.http.routers.phpmyadmin.entrypoints=websecure'
-      - 'traefik.http.routers.phpmyadmin.tls=true'
-      - 'traefik.http.services.phpmyadmin.loadbalancer.server.port=80'
-
-  grafana:
-    container_name: 'grafana'
-    image: 'grafana/grafana:latest'
-    restart: 'unless-stopped'
-    user: 'root'
-    volumes:
-      - '${DATA_DIR:?err}/grafana:/var/lib/grafana'
-    environment:
-      GF_INSTALL_PLUGINS: 'grafana-piechart-panel'
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.grafana.rule=Host(`grafana.${DOMAIN_SUFFIX}`)'
-      - 'traefik.http.routers.grafana.entrypoints=websecure'
-      - 'traefik.http.routers.grafana.tls=true'
-      - 'traefik.http.services.grafana.loadbalancer.server.port=3000'
+      - 'traefik.http.routers.hello.rule=Host(`hello.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.hello.entrypoints=websecure'
+      - 'traefik.http.routers.hello.tls=true'
+      - 'traefik.http.routers.hello-public.rule=Host(`hello.${DYNDNS_URL}`)'
+      - 'traefik.http.routers.hello-public.entrypoints=public'
+      - 'traefik.http.routers.hello-public.tls=true'
+      - 'traefik.http.services.hello.loadbalancer.server.port=80'

@@ -1,0 +1,7 @@
+[
+  {
+    "schedule": "* * * * *",
+    "command": "curl -u ${DYNDNS_USER}:${DYNDNS_PASSWORD} ${DYNDNS_PROVIDER_URL}?hostname=${DYNDNS_URL}",
+    "onstart": true
+  }
+]
