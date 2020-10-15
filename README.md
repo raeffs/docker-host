@@ -21,6 +21,7 @@ This repository contains the configuration of my docker host that aims to improv
 - [Home Assistant](https://hub.docker.com/r/homeassistant/home-assistant) is used for home automation tasks.
 - [MariaDB](https://hub.docker.com/_/mariadb) is used as database for several services.
 - [PhpMyAdmin](https://hub.docker.com/_/phpmyadmin) is used as web interface to access the MariaDB databases.
+- [Grafana](https://hub.docker.com/r/grafana/grafana) is used to visualize the data collected by Prometheus.
 
 ## How to use it?
 
