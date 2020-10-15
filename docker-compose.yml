@@ -225,3 +225,19 @@ services:
       - 'traefik.http.routers.phpmyadmin.entrypoints=websecure'
       - 'traefik.http.routers.phpmyadmin.tls=true'
       - 'traefik.http.services.phpmyadmin.loadbalancer.server.port=80'
+
+  grafana:
+    container_name: 'grafana'
+    image: 'grafana/grafana:latest'
+    restart: 'unless-stopped'
+    user: 'root'
+    volumes:
+      - '${DATA_DIR:?err}/grafana:/var/lib/grafana'
+    environment:
+      GF_INSTALL_PLUGINS: 'grafana-piechart-panel'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.grafana.rule=Host(`grafana.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.grafana.entrypoints=websecure'
+      - 'traefik.http.routers.grafana.tls=true'
+      - 'traefik.http.services.grafana.loadbalancer.server.port=3000'
