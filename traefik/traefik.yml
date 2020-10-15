@@ -24,3 +24,6 @@ entryPoints:
 
   websecure:
     address: :443
+
+  public:
+    address: :4430
