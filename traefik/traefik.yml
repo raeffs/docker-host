@@ -1,6 +1,6 @@
 log:
   filePath: '/var/log/traefik.log'
-  level: 'INFO'
+  level: 'WARN'
 
 providers:
   docker:
@@ -27,3 +27,15 @@ entryPoints:
 
   public:
     address: :4430
+
+  challenge:
+    address: :800
+
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: 'admin@example.com'
+      storage: '/acme.json'
+      caServer: 'https://acme-staging-v02.api.letsencrypt.org/directory'
+      httpChallenge:
+        entryPoint: 'challenge'
