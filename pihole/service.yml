@@ -19,7 +19,6 @@ services:
       - './config/dns.conf:/etc/dnsmasq.d/dns.conf:ro'
     environment:
       ServerIP: ${LOCAL_IP}
-      TZ: '${TIMEZONE}'
       DNSSEC: 'True'
       DNS1: '1.0.0.1'
       DNS2: '1.1.1.1'
