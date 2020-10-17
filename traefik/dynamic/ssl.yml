@@ -23,3 +23,7 @@ tls:
       keyFile: /etc/certs/home.key
     - certFile: /etc/certs/home-assistant.home.pem
       keyFile: /etc/certs/home.key
+    - certFile: /etc/certs/grafana.home.pem
+      keyFile: /etc/certs/home.key
+    - certFile: /etc/certs/hello.home.pem
+      keyFile: /etc/certs/home.key
