@@ -5,6 +5,11 @@ http:
         middlewares:
           - compressd
           - secured
+    intranet:
+      chain:
+        middlewares:
+          - local-only
+          - default
     secured:
       headers:
         forceSTSHeader: true
@@ -16,3 +21,8 @@ http:
         frameDeny: true
     compressd:
       compress: {}
+    local-only:
+      ipWhiteList:
+        sourceRange:
+          - '127.0.0.1/32'
+          - '192.168.1.0/24'

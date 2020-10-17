@@ -9,7 +9,6 @@ services:
       - '80:80'
       - '800:800'
       - '443:443'
-      - '4430:4430'
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
       - './traefik/:/etc/traefik/:ro'
@@ -21,6 +20,9 @@ services:
       - 'traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN_SUFFIX}`)'
       - 'traefik.http.routers.traefik.entrypoints=websecure'
       - 'traefik.http.routers.traefik.tls=true'
+      - 'traefik.http.routers.traefik.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.traefik.tls.domains[0].main=traefik.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.traefik.middlewares=intranet@file'
       - 'traefik.http.services.traefik.loadbalancer.server.port=8080'
 
   pihole:
@@ -49,6 +51,9 @@ services:
       - 'traefik.http.routers.pihole.rule=Host(`pihole.${DOMAIN_SUFFIX}`)'
       - 'traefik.http.routers.pihole.entrypoints=websecure'
       - 'traefik.http.routers.pihole.tls=true'
+      - 'traefik.http.routers.pihole.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.pihole.tls.domains[0].main=pihole.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.pihole.middlewares=intranet@file'
       - 'traefik.http.services.pihole.loadbalancer.server.port=80'
 
   dozzle:
@@ -62,6 +67,9 @@ services:
       - 'traefik.http.routers.dozzle.rule=Host(`dozzle.${DOMAIN_SUFFIX}`)'
       - 'traefik.http.routers.dozzle.entrypoints=websecure'
       - 'traefik.http.routers.dozzle.tls=true'
+      - 'traefik.http.routers.dozzle.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.dozzle.tls.domains[0].main=dozzle.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.dozzle.middlewares=intranet@file'
       - 'traefik.http.services.dozzle.loadbalancer.server.port=8080'
 
   portainer:
@@ -76,6 +84,9 @@ services:
       - 'traefik.http.routers.portainer.rule=Host(`portainer.${DOMAIN_SUFFIX}`)'
       - 'traefik.http.routers.portainer.entrypoints=websecure'
       - 'traefik.http.routers.portainer.tls=true'
+      - 'traefik.http.routers.portainer.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.portainer.tls.domains[0].main=portainer.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.portainer.middlewares=intranet@file'
       - 'traefik.http.services.portainer.loadbalancer.server.port=9000'
 
   watchtower:
@@ -109,6 +120,9 @@ services:
       - 'traefik.http.routers.prometheus.rule=Host(`prometheus.${DOMAIN_SUFFIX}`)'
       - 'traefik.http.routers.prometheus.entrypoints=websecure'
       - 'traefik.http.routers.prometheus.tls=true'
+      - 'traefik.http.routers.prometheus.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.prometheus.tls.domains[0].main=prometheus.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.prometheus.middlewares=intranet@file'
       - 'traefik.http.services.prometheus.loadbalancer.server.port=9090'
 
   blackbox-exporter:
@@ -168,6 +182,9 @@ services:
       - 'traefik.http.routers.gitea.rule=Host(`gitea.${DOMAIN_SUFFIX}`)'
       - 'traefik.http.routers.gitea.entrypoints=websecure'
       - 'traefik.http.routers.gitea.tls=true'
+      - 'traefik.http.routers.gitea.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.gitea.tls.domains[0].main=gitea.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.gitea.middlewares=intranet@file'
       - 'traefik.http.services.gitea.loadbalancer.server.port=3000'
 
   gitea-db:
@@ -199,6 +216,9 @@ services:
       - 'traefik.http.routers.home-assistant.rule=Host(`home-assistant.${DOMAIN_SUFFIX}`)'
       - 'traefik.http.routers.home-assistant.entrypoints=websecure'
       - 'traefik.http.routers.home-assistant.tls=true'
+      - 'traefik.http.routers.home-assistant.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.home-assistant.tls.domains[0].main=home-assistant.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.home-assistant.middlewares=intranet@file'
       - 'traefik.http.services.home-assistant.loadbalancer.server.port=8123'
 
   home-assistant-db:
@@ -227,6 +247,9 @@ services:
       - 'traefik.http.routers.phpmyadmin.rule=Host(`phpmyadmin.${DOMAIN_SUFFIX}`)'
       - 'traefik.http.routers.phpmyadmin.entrypoints=websecure'
       - 'traefik.http.routers.phpmyadmin.tls=true'
+      - 'traefik.http.routers.phpmyadmin.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.phpmyadmin.tls.domains[0].main=phpmyadmin.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.phpmyadmin.middlewares=intranet@file'
       - 'traefik.http.services.phpmyadmin.loadbalancer.server.port=80'
 
   grafana:
@@ -243,6 +266,9 @@ services:
       - 'traefik.http.routers.grafana.rule=Host(`grafana.${DOMAIN_SUFFIX}`)'
       - 'traefik.http.routers.grafana.entrypoints=websecure'
       - 'traefik.http.routers.grafana.tls=true'
+      - 'traefik.http.routers.grafana.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.grafana.tls.domains[0].main=grafana.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.grafana.middlewares=intranet@file'
       - 'traefik.http.services.grafana.loadbalancer.server.port=3000'
 
   crontab:
@@ -254,7 +280,7 @@ services:
       - './crontab/config.json:/opt/crontab/config.json:ro'
     environment:
       DYNDNS_PROVIDER_URL: '${DYNDNS_PROVIDER_URL}'
-      DYNDNS_URL: '${DYNDNS_URL}'
+      DYNDNS_URL: '${DOMAIN_SUFFIX}'
       DYNDNS_USERNAME: '${DYNDNS_USERNAME}'
       DYNDNS_PASSWORD: '${DYNDNS_PASSWORD}'
 
@@ -264,10 +290,10 @@ services:
     restart: 'unless-stopped'
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.hello.rule=Host(`hello.${DYNDNS_URL}`)'
-      - 'traefik.http.routers.hello.entrypoints=public'
+      - 'traefik.http.routers.hello.rule=Host(`hello.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.hello.entrypoints=websecure'
       - 'traefik.http.routers.hello.tls=true'
       - 'traefik.http.routers.hello.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.hello.tls.domains[0].main=hello.${DYNDNS_URL}'
+      - 'traefik.http.routers.hello.tls.domains[0].main=hello.${DOMAIN_SUFFIX}'
       - 'traefik.http.routers.hello.middlewares=default@file'
       - 'traefik.http.services.hello.loadbalancer.server.port=80'

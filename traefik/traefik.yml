@@ -2,6 +2,9 @@ log:
   filePath: '/var/log/traefik.log'
   level: 'WARN'
 
+accessLog:
+  filePath: '/var/log/access.log'
+
 providers:
   docker:
     exposedByDefault: false
@@ -24,9 +27,6 @@ entryPoints:
 
   websecure:
     address: :443
-
-  public:
-    address: :4430
 
   challenge:
     address: :800
