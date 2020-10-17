@@ -1,0 +1,18 @@
+http:
+  middlewares:
+    default:
+      chain:
+        middlewares:
+          - compressd
+          - secured
+    secured:
+      headers:
+        forceSTSHeader: true
+        stsPreload: true
+        stsSeconds: '315360000'
+        stsIncludeSubdomains: true
+        browserXssFilter: true
+        contentTypeNosniff: true
+        frameDeny: true
+    compressd:
+      compress: {}
