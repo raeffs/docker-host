@@ -2,297 +2,101 @@ version: '3.8'
 
 services:
   traefik:
-    container_name: 'traefik'
-    image: 'traefik:latest'
-    restart: 'unless-stopped'
-    ports:
-      - '80:80'
-      - '443:443'
-    volumes:
-      - '/var/run/docker.sock:/var/run/docker.sock:ro'
-      - './traefik/:/etc/traefik/:ro'
-      - '${CERT_DIR:?err}/acme.json:/acme.json'
-      - '${CERT_DIR:?err}/:/etc/certs/:ro'
-      - '${LOG_DIR:?err}/traefik/:/var/log/'
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN_SUFFIX}`)'
-      - 'traefik.http.routers.traefik.entrypoints=websecure'
-      - 'traefik.http.routers.traefik.tls=true'
-      - 'traefik.http.routers.traefik.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.traefik.tls.domains[0].main=traefik.${DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.traefik.middlewares=intranet@file'
-      - 'traefik.http.services.traefik.loadbalancer.server.port=8080'
+    extends:
+      file: 'traefik/service.yml'
+      service: 'traefik'
 
   pihole:
-    container_name: 'pihole'
-    image: 'pihole/pihole:latest'
-    restart: 'unless-stopped'
-    ports:
-      - '53:53/tcp'
-      - '53:53/udp'
-    volumes:
-      - '${DATA_DIR:?err}/pihole/:/etc/pihole/'
-      - '${DATA_DIR:?err}/pihole-dnsmasq/:/etc/dnsmasq.d/'
-      - './pihole/resolv.conf:/etc/resolv.conf:ro'
-      - './pihole/adlists.list:/etc/pihole/adlists.list:ro'
-      - './pihole/custom.list:/etc/pihole/custom.list:ro'
-      - './pihole/dns.conf:/etc/dnsmasq.d/dns.conf:ro'
-    environment:
-      ServerIP: ${LOCAL_IP}
-      TZ: '${TIMEZONE}'
-      DNSSEC: 'True'
-      DNS1: '1.0.0.1'
-      DNS2: '1.1.1.1'
-      WEBPASSWORD: '${PIHOLE_PASSWORD}'
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.pihole.rule=Host(`pihole.${DOMAIN_SUFFIX}`)'
-      - 'traefik.http.routers.pihole.entrypoints=websecure'
-      - 'traefik.http.routers.pihole.tls=true'
-      - 'traefik.http.routers.pihole.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.pihole.tls.domains[0].main=pihole.${DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.pihole.middlewares=intranet@file'
-      - 'traefik.http.services.pihole.loadbalancer.server.port=80'
+    extends:
+      file: 'pihole/service.yml'
+      service: 'pihole'
 
   dozzle:
-    container_name: 'dozzle'
-    image: 'amir20/dozzle:latest'
-    restart: 'unless-stopped'
-    volumes:
-      - '/var/run/docker.sock:/var/run/docker.sock:ro'
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.dozzle.rule=Host(`dozzle.${DOMAIN_SUFFIX}`)'
-      - 'traefik.http.routers.dozzle.entrypoints=websecure'
-      - 'traefik.http.routers.dozzle.tls=true'
-      - 'traefik.http.routers.dozzle.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.dozzle.tls.domains[0].main=dozzle.${DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.dozzle.middlewares=intranet@file'
-      - 'traefik.http.services.dozzle.loadbalancer.server.port=8080'
+    extends:
+      file: 'dozzle/service.yml'
+      service: 'dozzle'
 
   portainer:
-    container_name: 'portainer'
-    image: 'portainer/portainer-ce'
-    restart: 'unless-stopped'
-    volumes:
-      - '/var/run/docker.sock:/var/run/docker.sock:ro'
-      - '${DATA_DIR:?err}/portainer/:/data/'
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.portainer.rule=Host(`portainer.${DOMAIN_SUFFIX}`)'
-      - 'traefik.http.routers.portainer.entrypoints=websecure'
-      - 'traefik.http.routers.portainer.tls=true'
-      - 'traefik.http.routers.portainer.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.portainer.tls.domains[0].main=portainer.${DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.portainer.middlewares=intranet@file'
-      - 'traefik.http.services.portainer.loadbalancer.server.port=9000'
+    extends:
+      file: 'portainer/service.yml'
+      service: 'portainer'
 
   watchtower:
-    container_name: 'watchtower'
-    image: 'containrrr/watchtower:latest'
-    restart: 'unless-stopped'
-    volumes:
-      - '/var/run/docker.sock:/var/run/docker.sock:ro'
-    environment:
-      TZ: '${TIMEZONE}'
-      WATCHTOWER_CLEANUP: 'true'
-      WATCHTOWER_MONITOR_ONLY: 'false'
-      WATCHTOWER_SCHEDULE: '0 0 2 * * *'
-      WATCHTOWER_NOTIFICATIONS: 'slack'
-      WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL: '${WT_SLACK_URL}'
+    extends:
+      file: 'watchtower/service.yml'
+      service: 'watchtower'
 
   prometheus:
-    container_name: 'prometheus'
-    image: 'prom/prometheus:latest'
-    restart: 'unless-stopped'
-    user: 'root'
-    volumes:
-      - './prometheus/:/etc/prometheus/:ro'
-      - '${DATA_DIR:?err}/prometheus/:/prometheus/'
+    extends:
+      file: 'prometheus/service.yml'
+      service: 'prometheus'
     depends_on:
       - 'blackbox-exporter'
       - 'speedtest-exporter'
       - 'pihole-exporter'
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.prometheus.rule=Host(`prometheus.${DOMAIN_SUFFIX}`)'
-      - 'traefik.http.routers.prometheus.entrypoints=websecure'
-      - 'traefik.http.routers.prometheus.tls=true'
-      - 'traefik.http.routers.prometheus.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.prometheus.tls.domains[0].main=prometheus.${DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.prometheus.middlewares=intranet@file'
-      - 'traefik.http.services.prometheus.loadbalancer.server.port=9090'
 
   blackbox-exporter:
-    container_name: 'blackbox-exporter'
-    image: 'prom/blackbox-exporter:latest'
-    restart: 'unless-stopped'
-    volumes:
-      - './blackbox-exporter:/etc/blackbox_exporter:ro'
+    extends:
+      file: 'prometheus/service.yml'
+      service: 'blackbox-exporter'
 
   speedtest-exporter:
-    container_name: 'speedtest-exporter'
-    image: 'raeffs/speedtest-exporter:latest'
-    restart: 'unless-stopped'
+    extends:
+      file: 'prometheus/service.yml'
+      service: 'speedtest-exporter'
 
   pihole-exporter:
-    container_name: 'pihole-exporter'
-    image: 'ekofr/pihole-exporter:latest'
-    restart: 'unless-stopped'
-    environment:
-      PIHOLE_HOSTNAME: 'pihole'
-      PIHOLE_PASSWORD: '${PIHOLE_PASSWORD}'
-      INTERVAL: '30s'
-      PORT: '9617'
+    extends:
+      file: 'prometheus/service.yml'
+      service: 'pihole-exporter'
     depends_on:
       - 'pihole'
 
   gitea:
-    container_name: 'gitea'
-    image: 'gitea/gitea:1'
-    restart: 'unless-stopped'
-    ports:
-      - '2222:2222'
-    volumes:
-      - '${DATA_DIR:?err}/gitea/:/data/'
-      - './gitea/custom/public/:/data/gitea/public/:ro'
-      - './gitea/custom/templates/:/data/gitea/templates/:ro'
-      - '/etc/timezone:/etc/timezone:ro'
-      - '/etc/localtime:/etc/localtime:ro'
-    environment:
-      APP_NAME: 'Gitea'
-      RUN_MODE: 'prod'
-      DOMAIN: 'gitea.${DOMAIN_SUFFIX}'
-      SSH_DOMAIN: 'gitea.${DOMAIN_SUFFIX}'
-      SSH_PORT: '2222'
-      SSH_LISTEN_PORT: '2222'
-      DB_TYPE: 'mysql'
-      DB_HOST: 'gitea-db:3306'
-      DB_NAME: 'gitea-db'
-      DB_USER: 'gitea-user'
-      DB_PASSWD: '${GITEA_MYSQL_PASSWORD}'
-      INSTALL_LOCK: 'true'
-      GITEA_CUSTOM: '/data/gitea'
+    extends:
+      file: 'gitea/service.yml'
+      service: 'gitea'
     depends_on:
       - 'gitea-db'
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.gitea.rule=Host(`gitea.${DOMAIN_SUFFIX}`)'
-      - 'traefik.http.routers.gitea.entrypoints=websecure'
-      - 'traefik.http.routers.gitea.tls=true'
-      - 'traefik.http.routers.gitea.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.gitea.tls.domains[0].main=gitea.${DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.gitea.middlewares=intranet@file'
-      - 'traefik.http.services.gitea.loadbalancer.server.port=3000'
 
   gitea-db:
-    container_name: 'gitea-db'
-    image: 'mariadb:latest'
-    restart: 'unless-stopped'
-    volumes:
-      - '${DATA_DIR:?err}/gitea-db/:/var/lib/mysql'
-    environment:
-      MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
-      MYSQL_DATABASE: 'gitea-db'
-      MYSQL_USER: 'gitea-user'
-      MYSQL_PASSWORD: '${GITEA_MYSQL_PASSWORD}'
+    extends:
+      file: 'gitea/service.yml'
+      service: 'gitea-db'
 
   home-assistant:
-    container_name: 'home-assistant'
-    image: 'homeassistant/home-assistant:stable'
-    restart: 'unless-stopped'
-    volumes:
-      - '${DATA_DIR:?err}/home-assistant/:/config/'
-      - './home-assistant/configuration.yaml:/config/configuration.yaml:ro'
-    environment:
-      TZ: '${TIMEZONE}'
-      DATABASE_CONNECTION: 'mysql://home-assistant-user:${HA_MYSQL_PASSWORD}@home-assistant-db/home-assistant-db?charset=utf8'
+    extends:
+      file: 'home-assistant/service.yml'
+      service: 'home-assistant'
     depends_on:
       - 'home-assistant-db'
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.home-assistant.rule=Host(`home-assistant.${DOMAIN_SUFFIX}`)'
-      - 'traefik.http.routers.home-assistant.entrypoints=websecure'
-      - 'traefik.http.routers.home-assistant.tls=true'
-      - 'traefik.http.routers.home-assistant.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.home-assistant.tls.domains[0].main=home-assistant.${DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.home-assistant.middlewares=intranet@file'
-      - 'traefik.http.services.home-assistant.loadbalancer.server.port=8123'
 
   home-assistant-db:
-    container_name: 'home-assistant-db'
-    image: 'mariadb:latest'
-    restart: 'unless-stopped'
-    volumes:
-      - '${DATA_DIR:?err}/home-assistant-db/:/var/lib/mysql'
-    environment:
-      MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
-      MYSQL_DATABASE: 'home-assistant-db'
-      MYSQL_USER: 'home-assistant-user'
-      MYSQL_PASSWORD: '${HA_MYSQL_PASSWORD}'
+    extends:
+      file: 'home-assistant/service.yml'
+      service: 'home-assistant-db'
 
   phpmyadmin:
-    container_name: 'phpmyadmin'
-    image: 'phpmyadmin:latest'
-    restart: 'unless-stopped'
+    extends:
+      file: 'phpmyadmin/service.yml'
+      service: 'phpmyadmin'
     environment:
       PMA_HOSTS: 'gitea-db,home-assistant-db'
     depends_on:
       - 'gitea-db'
       - 'home-assistant-db'
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.phpmyadmin.rule=Host(`phpmyadmin.${DOMAIN_SUFFIX}`)'
-      - 'traefik.http.routers.phpmyadmin.entrypoints=websecure'
-      - 'traefik.http.routers.phpmyadmin.tls=true'
-      - 'traefik.http.routers.phpmyadmin.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.phpmyadmin.tls.domains[0].main=phpmyadmin.${DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.phpmyadmin.middlewares=intranet@file'
-      - 'traefik.http.services.phpmyadmin.loadbalancer.server.port=80'
 
   grafana:
-    container_name: 'grafana'
-    image: 'grafana/grafana:latest'
-    restart: 'unless-stopped'
-    user: 'root'
-    volumes:
-      - '${DATA_DIR:?err}/grafana:/var/lib/grafana'
-    environment:
-      GF_INSTALL_PLUGINS: 'grafana-piechart-panel'
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.grafana.rule=Host(`grafana.${DOMAIN_SUFFIX}`)'
-      - 'traefik.http.routers.grafana.entrypoints=websecure'
-      - 'traefik.http.routers.grafana.tls=true'
-      - 'traefik.http.routers.grafana.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.grafana.tls.domains[0].main=grafana.${DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.grafana.middlewares=intranet@file'
-      - 'traefik.http.services.grafana.loadbalancer.server.port=3000'
+    extends:
+      file: 'grafana/service.yml'
+      service: 'grafana'
 
   crontab:
-    container_name: 'crontab'
-    build: 'crontab'
-    restart: 'unless-stopped'
-    volumes:
-      - '/var/run/docker.sock:/var/run/docker.sock:ro'
-      - './crontab/config.json:/opt/crontab/config.json:ro'
-    environment:
-      DYNDNS_PROVIDER_URL: '${DYNDNS_PROVIDER_URL}'
-      DYNDNS_URL: '${DOMAIN_SUFFIX}'
-      DYNDNS_USERNAME: '${DYNDNS_USERNAME}'
-      DYNDNS_PASSWORD: '${DYNDNS_PASSWORD}'
+    extends:
+      file: 'crontab/service.yml'
+      service: 'crontab'
 
   hello:
-    container_name: 'hello'
-    build: 'hello'
-    restart: 'unless-stopped'
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.hello.rule=Host(`hello.${DOMAIN_SUFFIX}`)'
-      - 'traefik.http.routers.hello.entrypoints=websecure'
-      - 'traefik.http.routers.hello.tls=true'
-      - 'traefik.http.routers.hello.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.hello.tls.domains[0].main=hello.${DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.hello.middlewares=default@file'
-      - 'traefik.http.services.hello.loadbalancer.server.port=80'
+    extends:
+      file: 'hello/service.yml'
+      service: 'hello'

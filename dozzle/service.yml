@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  dozzle:
+    container_name: 'dozzle'
+    image: 'amir20/dozzle:latest'
+    restart: 'unless-stopped'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.dozzle.rule=Host(`dozzle.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.dozzle.entrypoints=websecure'
+      - 'traefik.http.routers.dozzle.tls=true'
+      - 'traefik.http.routers.dozzle.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.dozzle.tls.domains[0].main=dozzle.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.dozzle.middlewares=intranet@file'
+      - 'traefik.http.services.dozzle.loadbalancer.server.port=8080'

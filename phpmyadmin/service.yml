@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  phpmyadmin:
+    container_name: 'phpmyadmin'
+    image: 'phpmyadmin:latest'
+    restart: 'unless-stopped'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.phpmyadmin.rule=Host(`phpmyadmin.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.phpmyadmin.entrypoints=websecure'
+      - 'traefik.http.routers.phpmyadmin.tls=true'
+      - 'traefik.http.routers.phpmyadmin.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.phpmyadmin.tls.domains[0].main=phpmyadmin.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.phpmyadmin.middlewares=intranet@file'
+      - 'traefik.http.services.phpmyadmin.loadbalancer.server.port=80'

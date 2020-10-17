@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  home-assistant:
+    container_name: 'home-assistant'
+    image: 'homeassistant/home-assistant:stable'
+    restart: 'unless-stopped'
+    volumes:
+      - '${DATA_DIR:?err}/home-assistant/:/config/'
+      - './config/configuration.yaml:/config/configuration.yaml:ro'
+    environment:
+      TZ: '${TIMEZONE}'
+      DATABASE_CONNECTION: 'mysql://home-assistant-user:${HA_MYSQL_PASSWORD}@home-assistant-db/home-assistant-db?charset=utf8'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.home-assistant.rule=Host(`home-assistant.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.home-assistant.entrypoints=websecure'
+      - 'traefik.http.routers.home-assistant.tls=true'
+      - 'traefik.http.routers.home-assistant.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.home-assistant.tls.domains[0].main=home-assistant.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.home-assistant.middlewares=intranet@file'
+      - 'traefik.http.services.home-assistant.loadbalancer.server.port=8123'
+
+  home-assistant-db:
+    container_name: 'home-assistant-db'
+    image: 'mariadb:latest'
+    restart: 'unless-stopped'
+    volumes:
+      - '${DATA_DIR:?err}/home-assistant-db/:/var/lib/mysql'
+    environment:
+      MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
+      MYSQL_DATABASE: 'home-assistant-db'
+      MYSQL_USER: 'home-assistant-user'
+      MYSQL_PASSWORD: '${HA_MYSQL_PASSWORD}'

@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  pihole:
+    container_name: 'pihole'
+    image: 'pihole/pihole:latest'
+    restart: 'unless-stopped'
+    ports:
+      - '53:53/tcp'
+      - '53:53/udp'
+    volumes:
+      - '${DATA_DIR:?err}/pihole/:/etc/pihole/'
+      - '${DATA_DIR:?err}/pihole-dnsmasq/:/etc/dnsmasq.d/'
+      - './config/resolv.conf:/etc/resolv.conf:ro'
+      - './config/adlists.list:/etc/pihole/adlists.list:ro'
+      - './config/custom.list:/etc/pihole/custom.list:ro'
+      - './config/dns.conf:/etc/dnsmasq.d/dns.conf:ro'
+    environment:
+      ServerIP: ${LOCAL_IP}
+      TZ: '${TIMEZONE}'
+      DNSSEC: 'True'
+      DNS1: '1.0.0.1'
+      DNS2: '1.1.1.1'
+      WEBPASSWORD: '${PIHOLE_PASSWORD}'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.pihole.rule=Host(`pihole.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.pihole.entrypoints=websecure'
+      - 'traefik.http.routers.pihole.tls=true'
+      - 'traefik.http.routers.pihole.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.pihole.tls.domains[0].main=pihole.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.pihole.middlewares=intranet@file'
+      - 'traefik.http.services.pihole.loadbalancer.server.port=80'

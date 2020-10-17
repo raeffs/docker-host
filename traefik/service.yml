@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  traefik:
+    container_name: 'traefik'
+    image: 'traefik:latest'
+    restart: 'unless-stopped'
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - './config/:/etc/traefik/:ro'
+      - '${CERT_DIR:?err}/acme.json:/acme.json'
+      - '${LOG_DIR:?err}/traefik/:/var/log/'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.traefik.entrypoints=websecure'
+      - 'traefik.http.routers.traefik.tls=true'
+      - 'traefik.http.routers.traefik.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.traefik.tls.domains[0].main=traefik.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.traefik.middlewares=intranet@file'
+      - 'traefik.http.services.traefik.loadbalancer.server.port=8080'

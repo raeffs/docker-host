@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  portainer:
+    container_name: 'portainer'
+    image: 'portainer/portainer-ce'
+    restart: 'unless-stopped'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - '${DATA_DIR:?err}/portainer/:/data/'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.portainer.rule=Host(`portainer.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.portainer.entrypoints=websecure'
+      - 'traefik.http.routers.portainer.tls=true'
+      - 'traefik.http.routers.portainer.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.portainer.tls.domains[0].main=portainer.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.portainer.middlewares=intranet@file'
+      - 'traefik.http.services.portainer.loadbalancer.server.port=9000'
