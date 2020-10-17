@@ -7,6 +7,8 @@ services:
     restart: 'unless-stopped'
     user: 'root'
     volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
       - '${DATA_DIR:?err}/grafana:/var/lib/grafana'
     environment:
       GF_INSTALL_PLUGINS: 'grafana-piechart-panel'

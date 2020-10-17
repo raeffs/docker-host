@@ -6,6 +6,8 @@ services:
     build: 'image'
     restart: 'unless-stopped'
     volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
       - './config/config.json:/opt/crontab/config.json:ro'
     environment:

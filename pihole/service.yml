@@ -9,6 +9,8 @@ services:
       - '53:53/tcp'
       - '53:53/udp'
     volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
       - '${DATA_DIR:?err}/pihole/:/etc/pihole/'
       - '${DATA_DIR:?err}/pihole-dnsmasq/:/etc/dnsmasq.d/'
       - './config/resolv.conf:/etc/resolv.conf:ro'

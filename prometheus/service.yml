@@ -7,6 +7,8 @@ services:
     restart: 'unless-stopped'
     user: 'root'
     volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
       - './config/:/etc/prometheus/:ro'
       - '${DATA_DIR:?err}/prometheus/:/prometheus/'
     labels:
@@ -24,17 +26,25 @@ services:
     image: 'prom/blackbox-exporter:latest'
     restart: 'unless-stopped'
     volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
       - './config-blackbox-exporter:/etc/blackbox_exporter:ro'
 
   speedtest-exporter:
     container_name: 'speedtest-exporter'
     image: 'raeffs/speedtest-exporter:latest'
     restart: 'unless-stopped'
+    volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
 
   pihole-exporter:
     container_name: 'pihole-exporter'
     image: 'ekofr/pihole-exporter:latest'
     restart: 'unless-stopped'
+    volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
     environment:
       PIHOLE_HOSTNAME: 'pihole'
       PIHOLE_PASSWORD: '${PIHOLE_PASSWORD}'

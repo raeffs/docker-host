@@ -5,6 +5,9 @@ services:
     container_name: 'hello'
     build: 'build'
     restart: 'unless-stopped'
+    volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.hello.rule=Host(`hello.${DOMAIN_SUFFIX}`)'

@@ -6,9 +6,10 @@ services:
     image: 'containrrr/watchtower:latest'
     restart: 'unless-stopped'
     volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
     environment:
-      TZ: '${TIMEZONE}'
       WATCHTOWER_CLEANUP: 'true'
       WATCHTOWER_MONITOR_ONLY: 'false'
       WATCHTOWER_SCHEDULE: '0 0 2 * * *'

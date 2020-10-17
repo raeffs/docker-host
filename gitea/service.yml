@@ -8,11 +8,11 @@ services:
     ports:
       - '2222:2222'
     volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
       - '${DATA_DIR:?err}/gitea/:/data/'
       - './custom/public/:/data/gitea/public/:ro'
       - './custom/templates/:/data/gitea/templates/:ro'
-      - '/etc/timezone:/etc/timezone:ro'
-      - '/etc/localtime:/etc/localtime:ro'
     environment:
       APP_NAME: 'Gitea'
       RUN_MODE: 'prod'
@@ -42,6 +42,8 @@ services:
     image: 'mariadb:latest'
     restart: 'unless-stopped'
     volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
       - '${DATA_DIR:?err}/gitea-db/:/var/lib/mysql'
     environment:
       MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'

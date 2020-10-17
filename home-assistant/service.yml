@@ -6,10 +6,11 @@ services:
     image: 'homeassistant/home-assistant:stable'
     restart: 'unless-stopped'
     volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
       - '${DATA_DIR:?err}/home-assistant/:/config/'
       - './config/configuration.yaml:/config/configuration.yaml:ro'
     environment:
-      TZ: '${TIMEZONE}'
       DATABASE_CONNECTION: 'mysql://home-assistant-user:${HA_MYSQL_PASSWORD}@home-assistant-db/home-assistant-db?charset=utf8'
     labels:
       - 'traefik.enable=true'
@@ -26,6 +27,8 @@ services:
     image: 'mariadb:latest'
     restart: 'unless-stopped'
     volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
       - '${DATA_DIR:?err}/home-assistant-db/:/var/lib/mysql'
     environment:
       MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
