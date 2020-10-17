@@ -7,7 +7,6 @@ services:
     restart: 'unless-stopped'
     ports:
       - '80:80'
-      - '800:800'
       - '443:443'
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock:ro'

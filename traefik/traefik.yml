@@ -28,9 +28,6 @@ entryPoints:
   websecure:
     address: :443
 
-  challenge:
-    address: :800
-
 certificatesResolvers:
   letsencrypt:
     acme:
@@ -38,4 +35,4 @@ certificatesResolvers:
       storage: '/acme.json'
       caServer: 'https://acme-staging-v02.api.letsencrypt.org/directory'
       httpChallenge:
-        entryPoint: 'challenge'
+        entryPoint: 'web'
