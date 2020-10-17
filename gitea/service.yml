@@ -17,6 +17,7 @@ services:
       APP_NAME: 'Gitea'
       RUN_MODE: 'prod'
       DOMAIN: 'gitea.${DOMAIN_SUFFIX}'
+      ROOT_URL: 'https://gitea.${DOMAIN_SUFFIX}'
       SSH_DOMAIN: 'gitea.${DOMAIN_SUFFIX}'
       SSH_PORT: '2222'
       SSH_LISTEN_PORT: '2222'
