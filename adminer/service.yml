@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  adminer:
+    container_name: 'adminer'
+    image: 'adminer:latest'
+    restart: 'unless-stopped'
+    volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+      - './plugins/:/var/www/html/plugins-enabled/:ro'
+    environment:
+      ADMINER_DESIGN: 'pepa-linha'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.adminer.rule=Host(`adminer.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.adminer.entrypoints=websecure'
+      - 'traefik.http.routers.adminer.tls=true'
+      - 'traefik.http.routers.adminer.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.adminer.tls.domains[0].main=adminer.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.adminer.middlewares=intranet@file'
+      - 'traefik.http.services.adminer.loadbalancer.server.port=8080'

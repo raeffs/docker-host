@@ -76,12 +76,12 @@ services:
       file: 'home-assistant/service.yml'
       service: 'home-assistant-db'
 
-  phpmyadmin:
+  adminer:
     extends:
-      file: 'phpmyadmin/service.yml'
-      service: 'phpmyadmin'
+      file: 'adminer/service.yml'
+      service: 'adminer'
     environment:
-      PMA_HOSTS: 'gitea-db,home-assistant-db'
+      MYSQL_SERVERS: 'gitea-db,home-assistant-db'
     depends_on:
       - 'gitea-db'
       - 'home-assistant-db'

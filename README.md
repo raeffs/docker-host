@@ -20,7 +20,7 @@ This repository contains the configuration of my docker host that aims to improv
 - [Gitea](https://hub.docker.com/r/gitea/gitea) is used to provide a local GitHub alternative.
 - [Home Assistant](https://hub.docker.com/r/homeassistant/home-assistant) is used for home automation tasks.
 - [MariaDB](https://hub.docker.com/_/mariadb) is used as database for several services.
-- [PhpMyAdmin](https://hub.docker.com/_/phpmyadmin) is used as web interface to access the MariaDB databases.
+- [Adminer](https://hub.docker.com/_/adminer) is used as web interface to access the MariaDB databases.
 - [Grafana](https://hub.docker.com/r/grafana/grafana) is used to visualize the data collected by Prometheus.
 - [Ofelia](https://hub.docker.com/r/mcuadros/ofelia) is used to schedule cron jobs, like updating the DynDns address.
 
