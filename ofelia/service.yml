@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  ofelia:
+    container_name: 'ofelia'
+    image: 'mcuadros/ofelia:latest'
+    restart: 'unless-stopped'
+    command: daemon --docker
+    volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+    labels:
+      ofelia.slack-webhook: '${OFELIA_SLACK_URL}'
+      ofelia.slack-only-on-error: 'true'
+      ofelia.job-run.dyndns.schedule: '@every 5m'
+      ofelia.job-run.dyndns.image: 'curlimages/curl:latest'
+      ofelia.job-run.dyndns.command: '-u ${DYNDNS_USERNAME}:${DYNDNS_PASSWORD} ${DYNDNS_PROVIDER_URL}?hostname=${DOMAIN_SUFFIX}'

@@ -91,10 +91,10 @@ services:
       file: 'grafana/service.yml'
       service: 'grafana'
 
-  crontab:
+  ofelia:
     extends:
-      file: 'crontab/service.yml'
-      service: 'crontab'
+      file: 'ofelia/service.yml'
+      service: 'ofelia'
 
   hello:
     extends:
