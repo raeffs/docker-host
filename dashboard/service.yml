@@ -1,8 +1,8 @@
 version: '3.8'
 
 services:
-  hello:
-    container_name: 'hello'
+  dashboard:
+    container_name: 'dashboard'
     image: 'nginx:alpine'
     restart: 'unless-stopped'
     volumes:
@@ -11,10 +11,10 @@ services:
       - './wwwroot/:/usr/share/nginx/html/:ro'
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.hello.rule=Host(`hello.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.hello.rule=Host(`${DOMAIN_SUFFIX}`)'
       - 'traefik.http.routers.hello.entrypoints=websecure'
       - 'traefik.http.routers.hello.tls=true'
       - 'traefik.http.routers.hello.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.hello.tls.domains[0].main=hello.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.hello.tls.domains[0].main=${DOMAIN_SUFFIX}'
       - 'traefik.http.routers.hello.middlewares=default@file'
       - 'traefik.http.services.hello.loadbalancer.server.port=80'

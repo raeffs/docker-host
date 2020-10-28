@@ -96,7 +96,7 @@ services:
       file: 'ofelia/service.yml'
       service: 'ofelia'
 
-  hello:
+  dashboard:
     extends:
-      file: 'hello/service.yml'
-      service: 'hello'
+      file: 'dashboard/service.yml'
+      service: 'dashboard'

@@ -1,0 +1,99 @@
+@font-face {
+  font-family: 'grandstander';
+  src: url('fonts/grandstander-900.woff2') format('woff2'), url('fonts/grandstander-900.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+html {
+  font-family: 'grandstander';
+}
+
+body {
+  margin: 0;
+  background-color: #404040;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 33.3vw 33.3vw 33.3vw 33.3vw;
+  grid-gap: 5px;
+}
+
+img {
+  width: 15vw;
+  height: 15vw;
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(279deg) brightness(115%) contrast(95%);
+}
+
+a {
+  text-decoration: none;
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  color: white;
+  background-color: #2496ed;
+  transition: all 0.25s 0s ease;
+}
+
+.link h2 {
+  font-size: 3.5vw;
+}
+
+.link[data-service='gitea'] {
+  background-color: #609926;
+}
+
+.link[data-service='pihole'] {
+  background-color: #f60d1a;
+}
+
+.link[data-service='home-assistant'] {
+  background-color: #41bdf5;
+}
+
+.link[data-service='grafana'] {
+  background-color: #f46800;
+}
+
+.link[data-service='prometheus'] {
+  background-color: #e6522c;
+}
+
+.link[data-service='adminer'] {
+  background-color: #4479a1;
+}
+
+.link[data-service='traefik'] {
+  background-color: #37abc8;
+}
+
+.link[data-service='dozzle'] {
+  background-color: #8a4d76;
+}
+
+.link[data-service='portainer'] {
+  background-color: #38daff;
+}
+
+.link[data-service='plex'] {
+  background-color: #e5a00d;
+}
+
+.link[data-service='nextcloud'] {
+  background-color: #0082c9;
+}
+
+.link[data-service='verdaccio'] {
+  background-color: #4b5e40;
+}
+
+.link:hover {
+  background-color: #333333;
+}
