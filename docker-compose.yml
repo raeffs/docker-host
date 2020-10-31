@@ -96,6 +96,11 @@ services:
       file: 'ofelia/service.yml'
       service: 'ofelia'
 
+  powershell-runner:
+    extends:
+      file: 'ofelia/service.yml'
+      service: 'powershell-runner'
+
   dashboard:
     extends:
       file: 'dashboard/service.yml'

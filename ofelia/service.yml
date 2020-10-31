@@ -16,3 +16,16 @@ services:
       ofelia.job-run.dyndns.schedule: '@every 5m'
       ofelia.job-run.dyndns.image: 'curlimages/curl:latest'
       ofelia.job-run.dyndns.command: '-u ${DYNDNS_USERNAME}:${DYNDNS_PASSWORD} ${DYNDNS_PROVIDER_URL}?hostname=${DOMAIN_SUFFIX}'
+      ofelia.job-exec.create-github-mirrors.schedule: '@every 24h'
+      ofelia.job-exec.create-github-mirrors.container: 'powershell-runner'
+      ofelia.job-exec.create-github-mirrors.command: 'pwsh -File /home/jobs/create-github-mirrors.ps1 "http://gitea:3000" "${GITEA_TOKEN}" "${GITHUB_USERNAME}" "${GITHUB_TOKEN}"'
+
+  powershell-runner:
+    container_name: 'powershell-runner'
+    image: 'mcr.microsoft.com/powershell:latest'
+    restart: 'unless-stopped'
+    command: '/bin/sh'
+    stdin_open: true
+    tty: true
+    volumes:
+      - './powershell/:/home/jobs/:ro'
