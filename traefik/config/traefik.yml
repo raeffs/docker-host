@@ -1,9 +1,11 @@
 log:
-  filePath: '/var/log/traefik.log'
-  level: 'WARN'
+  level: 'INFO'
 
 accessLog:
   filePath: '/var/log/access.log'
+  filters:
+    statusCodes:
+      - '400-499'
 
 providers:
   docker:
