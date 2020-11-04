@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  fail2ban:
+    container_name: 'fail2ban'
+    image: 'crazymax/fail2ban:latest'
+    restart: 'unless-stopped'
+    network_mode: 'host'
+    cap_add:
+      - 'NET_ADMIN'
+      - 'NET_RAW'
+    volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+      - '${LOG_DIR?:err}/:/var/log/:ro'
+      - '${DATA_DIR?:err}/fail2ban/:/data/'
+      - './action.d/:/data/action.d/:ro'
+      - './filter.d/:/data/filter.d/:ro'
+      - './jail.d/:/data/jail.d/:ro'
+    environment:
+      F2B_SLACK_URL: ${F2B_SLACK_URL}

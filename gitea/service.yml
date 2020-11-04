@@ -10,9 +10,12 @@ services:
     volumes:
       - '/etc/timezone:/etc/timezone:ro'
       - '/etc/localtime:/etc/localtime:ro'
+      - '${LOG_DIR:?err}/gitea/:/data/gitea/log/'
       - '${DATA_DIR:?err}/gitea/:/data/'
       - './custom/public/:/data/gitea/public/:ro'
       - './custom/templates/:/data/gitea/templates/:ro'
+      # https://github.com/go-gitea/gitea/blob/master/docker/root/etc/templates/app.ini
+      - './template.app.ini:/etc/templates/app.ini:ro'
     environment:
       APP_NAME: 'Gitea'
       RUN_MODE: 'prod'
@@ -35,7 +38,7 @@ services:
       - 'traefik.http.routers.gitea.tls=true'
       - 'traefik.http.routers.gitea.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.gitea.tls.domains[0].main=gitea.${DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.gitea.middlewares=intranet@file'
+      - 'traefik.http.routers.gitea.middlewares=default@file'
       - 'traefik.http.services.gitea.loadbalancer.server.port=3000'
 
   gitea-db:

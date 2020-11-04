@@ -105,3 +105,8 @@ services:
     extends:
       file: 'dashboard/service.yml'
       service: 'dashboard'
+
+  fail2ban:
+    extends:
+      file: 'fail2ban/service.yml'
+      service: 'fail2ban'
