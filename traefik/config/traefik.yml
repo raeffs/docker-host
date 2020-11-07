@@ -6,6 +6,11 @@ accessLog:
   filters:
     statusCodes:
       - '400-499'
+  fields:
+    headers:
+      defaultMode: drop
+      names:
+        User-Agent: keep
 
 providers:
   docker:
