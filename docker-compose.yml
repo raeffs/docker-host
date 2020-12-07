@@ -110,3 +110,8 @@ services:
     extends:
       file: 'fail2ban/service.yml'
       service: 'fail2ban'
+
+  azure-pipelines-agent:
+    extends:
+      file: 'azure-pipelines-agent/service.yml'
+      service: 'azure-pipelines-agent'
