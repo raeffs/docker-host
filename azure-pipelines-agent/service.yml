@@ -2,7 +2,6 @@ version: '3.8'
 
 services:
   azure-pipelines-agent:
-    container_name: 'azure-pipelines-agent'
     image: 'azure-pipelines-agent'
     build:
       context: './build'

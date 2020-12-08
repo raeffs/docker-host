@@ -111,7 +111,18 @@ services:
       file: 'fail2ban/service.yml'
       service: 'fail2ban'
 
-  azure-pipelines-agent:
+  azure-pipelines-agent-01:
     extends:
       file: 'azure-pipelines-agent/service.yml'
       service: 'azure-pipelines-agent'
+    container_name: 'azure-pipelines-agent-01'
+    environment:
+      AZP_AGENT_NAME: 'docker-agent-01'
+
+  azure-pipelines-agent-02:
+    extends:
+      file: 'azure-pipelines-agent/service.yml'
+      service: 'azure-pipelines-agent'
+    container_name: 'azure-pipelines-agent-02'
+    environment:
+      AZP_AGENT_NAME: 'docker-agent-02'
