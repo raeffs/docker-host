@@ -13,3 +13,5 @@ services:
     environment:
       AZP_URL: '${AZP_URL}'
       AZP_TOKEN: '${AZP_TOKEN}'
+    labels:
+      - 'com.centurylinklabs.watchtower.enable=false'
