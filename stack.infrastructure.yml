@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  traefik:
+    extends:
+      file: 'traefik/service.yml'
+      service: 'traefik'
+
+  dozzle:
+    extends:
+      file: 'dozzle/service.yml'
+      service: 'dozzle'
+
+  portainer:
+    extends:
+      file: 'portainer/service.yml'
+      service: 'portainer'
+
+  adminer:
+    extends:
+      file: 'adminer/service.yml'
+      service: 'adminer'
+    environment:
+      MYSQL_SERVERS: 'gitea-db,home-assistant-db,matomo-db'
+
+  dashboard:
+    extends:
+      file: 'dashboard/service.yml'
+      service: 'dashboard'
+
+  fail2ban:
+    extends:
+      file: 'fail2ban/service.yml'
+      service: 'fail2ban'

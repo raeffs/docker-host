@@ -1,0 +1,12 @@
+version: '3.8'
+
+networks:
+  default:
+    external:
+      name: infrastructure_default
+
+services:
+  pihole:
+    extends:
+      file: 'pihole/service.yml'
+      service: 'pihole'

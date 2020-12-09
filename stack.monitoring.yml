@@ -1,0 +1,36 @@
+version: '3.8'
+
+networks:
+  default:
+    external:
+      name: infrastructure_default
+
+services:
+  prometheus:
+    extends:
+      file: 'prometheus/service.yml'
+      service: 'prometheus'
+    depends_on:
+      - 'blackbox-exporter'
+      - 'speedtest-exporter'
+      - 'pihole-exporter'
+
+  blackbox-exporter:
+    extends:
+      file: 'prometheus/service.yml'
+      service: 'blackbox-exporter'
+
+  speedtest-exporter:
+    extends:
+      file: 'prometheus/service.yml'
+      service: 'speedtest-exporter'
+
+  pihole-exporter:
+    extends:
+      file: 'prometheus/service.yml'
+      service: 'pihole-exporter'
+
+  grafana:
+    extends:
+      file: 'grafana/service.yml'
+      service: 'grafana'

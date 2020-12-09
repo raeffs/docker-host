@@ -1,0 +1,35 @@
+version: '3.8'
+
+networks:
+  default:
+    external:
+      name: infrastructure_default
+
+services:
+  gitea:
+    extends:
+      file: 'gitea/service.yml'
+      service: 'gitea'
+    depends_on:
+      - 'gitea-db'
+
+  gitea-db:
+    extends:
+      file: 'gitea/service.yml'
+      service: 'gitea-db'
+
+  azure-pipelines-agent-01:
+    extends:
+      file: 'azure-pipelines-agent/service.yml'
+      service: 'azure-pipelines-agent'
+    container_name: 'azure-pipelines-agent-01'
+    environment:
+      AZP_AGENT_NAME: 'docker-agent-01'
+
+  azure-pipelines-agent-02:
+    extends:
+      file: 'azure-pipelines-agent/service.yml'
+      service: 'azure-pipelines-agent'
+    container_name: 'azure-pipelines-agent-02'
+    environment:
+      AZP_AGENT_NAME: 'docker-agent-02'

@@ -7,10 +7,28 @@
     "url": "https://github.com/raeffs/docker-host.git"
   },
   "scripts": {
-    "up": "docker-compose up -d --remove-orphans",
-    "down": "docker-compose down -v --remove-orphans",
+    "up": "yarn up:infra && yarn up:net && yarn up:devops && yarn up:smart && yarn up:mon && yarn up:auto",
+    "up:infra": "yarn stack:infra up -d --remove-orphans",
+    "up:mon": "yarn stack:mon up -d --remove-orphans",
+    "up:auto": "yarn stack:auto up -d --remove-orphans",
+    "up:net": "yarn stack:net up -d --remove-orphans",
+    "up:devops": "yarn stack:devops up -d --remove-orphans",
+    "up:smart": "yarn stack:smart up -d --remove-orphans",
+    "down": "yarn down:auto && yarn down:mon && yarn down:smart && yarn down:devops && yarn down:net && yarn down:infra",
+    "down:infra": "yarn stack:infra down -v --remove-orphans",
+    "down:mon": "yarn stack:mon down -v --remove-orphans",
+    "down:auto": "yarn stack:auto down -v --remove-orphans",
+    "down:net": "yarn stack:net down -v --remove-orphans",
+    "down:devops": "yarn stack:devops down -v --remove-orphans",
+    "down:smart": "yarn stack:smart down -v --remove-orphans",
     "pull": "docker-compose pull",
     "restart": "yarn down && yarn up",
-    "status": "docker container ls --format 'table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Image}}'"
+    "status": "docker container ls --format 'table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Image}}'",
+    "stack:infra": "docker-compose -f stack.infrastructure.yml -p infrastructure",
+    "stack:mon": "docker-compose -f stack.monitoring.yml -p monitoring",
+    "stack:auto": "docker-compose -f stack.automation.yml -p automation",
+    "stack:net": "docker-compose -f stack.networking.yml -p networking",
+    "stack:devops": "docker-compose -f stack.devops.yml -p devops",
+    "stack:smart": "docker-compose -f stack.smarthome.yml -p smarthome"
   }
 }

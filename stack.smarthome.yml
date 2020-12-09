@@ -1,0 +1,19 @@
+version: '3.8'
+
+networks:
+  default:
+    external:
+      name: infrastructure_default
+
+services:
+  home-assistant:
+    extends:
+      file: 'home-assistant/service.yml'
+      service: 'home-assistant'
+    depends_on:
+      - 'home-assistant-db'
+
+  home-assistant-db:
+    extends:
+      file: 'home-assistant/service.yml'
+      service: 'home-assistant-db'

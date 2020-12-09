@@ -1,0 +1,22 @@
+version: '3.8'
+
+networks:
+  default:
+    external:
+      name: infrastructure_default
+
+services:
+  watchtower:
+    extends:
+      file: 'watchtower/service.yml'
+      service: 'watchtower'
+
+  ofelia:
+    extends:
+      file: 'ofelia/service.yml'
+      service: 'ofelia'
+
+  powershell-runner:
+    extends:
+      file: 'ofelia/service.yml'
+      service: 'powershell-runner'
