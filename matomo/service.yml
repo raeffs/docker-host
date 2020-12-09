@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  matomo:
+    container_name: 'matomo'
+    image: 'bitnami/matomo:latest'
+    restart: 'unless-stopped'
+    volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+      - 'matomo:/bitnami/matomo'
+    environment:
+      MATOMO_USERNAME: '${MATOMO_INITIAL_USER}'
+      MATOMO_PASSWORD: '${MATOMO_INITIAL_PASSWORD}'
+      MATOMO_DATABASE_HOST: 'matomo-db'
+      MATOMO_DATABASE_USER: 'matomo-user'
+      MATOMO_DATABASE_PASSWORD: '${MATOMO_MYSQL_PASSWORD}'
+      MATOMO_DATABASE_NAME: 'matomo-db'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.matomo.rule=Host(`matomo.${DOMAIN_SUFFIX}`, `${MATOMO_ALIAS_DOMAIN}`)'
+      - 'traefik.http.routers.matomo.entrypoints=websecure'
+      - 'traefik.http.routers.matomo.tls=true'
+      - 'traefik.http.routers.matomo.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.matomo.tls.domains[0].main=matomo.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.matomo.middlewares=default@file'
+      - 'traefik.http.services.matomo.loadbalancer.server.port=8080'
+
+  matomo-db:
+    container_name: 'matomo-db'
+    image: 'mariadb:latest'
+    restart: 'unless-stopped'
+    volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+      - '${DATA_DIR:?err}/matomo-db/:/var/lib/mysql'
+    environment:
+      MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
+      MYSQL_DATABASE: 'matomo-db'
+      MYSQL_USER: 'matomo-user'
+      MYSQL_PASSWORD: '${MATOMO_MYSQL_PASSWORD}'

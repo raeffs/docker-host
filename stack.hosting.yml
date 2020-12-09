@@ -1,0 +1,23 @@
+version: '3.8'
+
+networks:
+  default:
+    external:
+      name: infrastructure_default
+
+volumes:
+  matomo:
+    external: true
+
+services:
+  matomo:
+    extends:
+      file: 'matomo/service.yml'
+      service: 'matomo'
+    depends_on:
+      - 'matomo-db'
+
+  matomo-db:
+    extends:
+      file: 'matomo/service.yml'
+      service: 'matomo-db'

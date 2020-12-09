@@ -23,6 +23,7 @@ This repository contains the configuration of my docker host that aims to improv
 - [Adminer](https://hub.docker.com/_/adminer) is used as web interface to access the MariaDB databases.
 - [Grafana](https://hub.docker.com/r/grafana/grafana) is used to visualize the data collected by Prometheus.
 - [Ofelia](https://hub.docker.com/r/mcuadros/ofelia) is used to schedule cron jobs, like updating the DynDns address.
+- [Matomo](https://hub.docker.com/r/bitnami/matomo) is used to collect website statistics.
 
 ## How to use it?
 
