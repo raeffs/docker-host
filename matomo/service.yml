@@ -23,6 +23,7 @@ services:
       - 'traefik.http.routers.matomo.tls=true'
       - 'traefik.http.routers.matomo.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.matomo.tls.domains[0].main=matomo.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.matomo.tls.domains[1].main=${MATOMO_ALIAS_DOMAIN}'
       - 'traefik.http.routers.matomo.middlewares=default@file'
       - 'traefik.http.services.matomo.loadbalancer.server.port=8080'
 
