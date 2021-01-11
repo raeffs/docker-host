@@ -12,7 +12,7 @@ services:
       service: 'prometheus'
     depends_on:
       - 'blackbox-exporter'
-      - 'speedtest-exporter'
+      # - 'speedtest-exporter'
       - 'pihole-exporter'
 
   blackbox-exporter:
