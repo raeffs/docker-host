@@ -19,13 +19,13 @@ scrape_configs:
       - target_label: __address__
         replacement: blackbox-exporter:9115
   # executes a speedtest
-  - job_name: speedtest
-    scrape_interval: 60m
-    scrape_timeout: 60s
-    metrics_path: /metrics
-    static_configs:
-      - targets:
-          - speedtest-exporter:9112
+  # - job_name: speedtest
+  #   scrape_interval: 60m
+  #   scrape_timeout: 60s
+  #   metrics_path: /metrics
+  #   static_configs:
+  #     - targets:
+  #         - speedtest-exporter:9112
   # extracts information from pihole
   - job_name: 'pihole'
     metrics_path: /metrics
