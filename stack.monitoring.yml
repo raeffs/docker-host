@@ -5,6 +5,10 @@ networks:
     external:
       name: infrastructure_default
 
+volumes:
+  seq:
+    external: true
+
 services:
   prometheus:
     extends:
@@ -34,3 +38,8 @@ services:
     extends:
       file: 'grafana/service.yml'
       service: 'grafana'
+
+  seq:
+    extends:
+      file: 'seq/service.yml'
+      service: 'seq'
