@@ -1,1 +1,2 @@
-192.168.1.1 router.asus.com
+# add custom hosts here
+# 192.168.1.1 dns-name
