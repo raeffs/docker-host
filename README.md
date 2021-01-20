@@ -25,6 +25,7 @@ This repository contains the configuration of my docker host that aims to improv
 - [Ofelia](https://hub.docker.com/r/mcuadros/ofelia) is used to schedule cron jobs, like updating the DynDns address.
 - [Matomo](https://hub.docker.com/r/bitnami/matomo) is used to collect website statistics.
 - [Seq](https://hub.docker.com/r/datalust/seq) is used to collect application logs.
+- [Traefik-Forward-Auth](https://hub.docker.com/r/thomseddon/traefik-forward-auth) is used for authentication.
 
 ## How to use it?
 

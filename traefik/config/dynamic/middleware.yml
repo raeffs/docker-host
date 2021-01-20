@@ -1,18 +1,28 @@
 http:
   middlewares:
-    default:
-      chain:
-        middlewares:
-          - compressd
-          - secured
     intranet:
       chain:
         middlewares:
           - local-only
           - default
-    secured:
+    intranet-authenticated:
       chain:
         middlewares:
+          - authenticated
+          - intranet
+    extranet:
+      chain:
+        middlewares:
+          - default
+    extranet-authenticated:
+      chain:
+        middlewares:
+          - authenticated
+          - extranet
+    default:
+      chain:
+        middlewares:
+          - compressd
           - secured-redirect
           - secured-headers
     secured-headers:
@@ -35,3 +45,8 @@ http:
         sourceRange:
           - '127.0.0.1/32'
           - '192.168.1.0/24'
+    authenticated:
+      forwardAuth:
+        address: 'http://auth:4181'
+        authResponseHeaders:
+          - 'X-Forwarded-User'

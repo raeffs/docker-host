@@ -32,3 +32,8 @@ services:
     extends:
       file: 'fail2ban/service.yml'
       service: 'fail2ban'
+
+  auth:
+    extends:
+      file: 'auth/service.yml'
+      service: 'auth'

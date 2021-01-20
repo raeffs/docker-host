@@ -22,5 +22,5 @@ services:
       - 'traefik.http.routers.traefik.tls=true'
       - 'traefik.http.routers.traefik.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.traefik.tls.domains[0].main=traefik.${DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.traefik.middlewares=intranet@file'
+      - 'traefik.http.routers.traefik.middlewares=intranet-authenticated@file'
       - 'traefik.http.services.traefik.loadbalancer.server.port=8080'
