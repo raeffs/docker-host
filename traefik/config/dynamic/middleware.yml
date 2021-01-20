@@ -11,6 +11,11 @@ http:
           - local-only
           - default
     secured:
+      chain:
+        middlewares:
+          - secured-redirect
+          - secured-headers
+    secured-headers:
       headers:
         forceSTSHeader: true
         stsPreload: true
@@ -19,6 +24,10 @@ http:
         browserXssFilter: true
         contentTypeNosniff: true
         frameDeny: true
+    secured-redirect:
+      redirectScheme:
+        scheme: https
+        permanent: true
     compressd:
       compress: {}
     local-only:

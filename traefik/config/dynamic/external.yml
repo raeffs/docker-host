@@ -1,0 +1,13 @@
+# add external services and routers here
+# http:
+#   routers:
+#     external:
+#       entryPoints:
+#         - web
+#       rule: Host(`example.ch`)
+#       service: external@file
+#   services:
+#     external:
+#       loadBalancer:
+#         servers:
+#           - url: http://external-service
