@@ -17,3 +17,16 @@ services:
     extends:
       file: 'matomo/service.yml'
       service: 'matomo-db'
+
+  commento:
+    extends:
+      file: 'commento/service.yml'
+      service: 'commento'
+    depends_on:
+      - 'commento-db'
+
+  commento-db:
+    extends:
+      file: 'commento/service.yml'
+      service: 'commento-db'
+

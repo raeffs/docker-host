@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  commento:
+    container_name: 'commento'
+    image: 'registry.gitlab.com/commento/commento:latest'
+    restart: 'unless-stopped'
+    volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+    environment:
+      COMMENTO_ORIGIN: 'https://commento.${DOMAIN_SUFFIX}'
+      COMMENTO_PORT: '8080'
+      COMMENTO_POSTGRES: 'postgres://commento-user:${COMMENTO_POSTGRES_PASSWORD}@commento-db:5432/commento?sslmode=disable'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.commento.rule=Host(`commento.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.commento.entrypoints=websecure'
+      - 'traefik.http.routers.commento.tls=true'
+      - 'traefik.http.routers.commento.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.commento.tls.domains[0].main=commento.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.commento.middlewares=intranet@file'
+      - 'traefik.http.services.commento.loadbalancer.server.port=8080'
+
+  commento-db:
+    container_name: 'commento-db'
+    image: 'postgres'
+    restart: 'unless-stopped'
+    volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+      - '${DATA_DIR:?err}/commento-db:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_DB: 'commento'
+      POSTGRES_USER: 'commento-user'
+      POSTGRES_PASSWORD: '${COMMENTO_POSTGRES_PASSWORD}'
