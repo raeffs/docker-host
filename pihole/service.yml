@@ -30,5 +30,7 @@ services:
       - 'traefik.http.routers.pihole.tls=true'
       - 'traefik.http.routers.pihole.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.pihole.tls.domains[0].main=pihole.${DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.pihole.middlewares=intranet@file'
+      - 'traefik.http.routers.pihole.middlewares=pihole'
       - 'traefik.http.services.pihole.loadbalancer.server.port=80'
+      - 'traefik.http.middlewares.pihole.chain.middlewares=intranet@file,pihole-prefix'
+      - 'traefik.http.middlewares.pihole-prefix.addprefix.prefix=/admin'
