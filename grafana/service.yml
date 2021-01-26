@@ -10,6 +10,7 @@ services:
       - '/etc/timezone:/etc/timezone:ro'
       - '/etc/localtime:/etc/localtime:ro'
       - '${DATA_DIR:?err}/grafana:/var/lib/grafana'
+      - './config/grafana.ini:/etc/grafana/grafana.ini:ro'
     environment:
       GF_INSTALL_PLUGINS: 'grafana-piechart-panel'
     labels:
@@ -19,5 +20,5 @@ services:
       - 'traefik.http.routers.grafana.tls=true'
       - 'traefik.http.routers.grafana.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.grafana.tls.domains[0].main=grafana.${DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.grafana.middlewares=intranet@file'
+      - 'traefik.http.routers.grafana.middlewares=intranet-authenticated@file'
       - 'traefik.http.services.grafana.loadbalancer.server.port=3000'
