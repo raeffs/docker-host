@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  iperf:
+    container_name: 'iperf'
+    image: 'networkstatic/iperf3:latest'
+    restart: 'unless-stopped'
+    volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+    ports:
+      - '5200:5201'
+    command: '-s'

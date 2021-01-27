@@ -39,3 +39,8 @@ services:
     extends:
       file: 'seq/service.yml'
       service: 'seq'
+
+  iperf:
+    extends:
+      file: 'iperf/service.yml'
+      service: 'iperf'
