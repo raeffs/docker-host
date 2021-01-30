@@ -11,3 +11,5 @@ touch .data/log/gitea/gitea.log
 
 mkdir -p .data/data/matomo
 chown 1001:1001 .data/data/matomo
+
+docker network create --subnet 172.20.0.0/24 --ip-range 172.20.0.128/25 docker-host-network

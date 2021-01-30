@@ -3,10 +3,15 @@ version: '3.8'
 networks:
   default:
     external:
-      name: infrastructure_default
+      name: docker-host-network
 
 services:
   pihole:
     extends:
       file: 'pihole/service.yml'
       service: 'pihole'
+
+  unbound:
+    extends:
+      file: 'unbound/service.yml'
+      service: 'unbound'

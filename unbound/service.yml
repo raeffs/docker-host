@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  unbound:
+    container_name: 'unbound'
+    image: 'mvance/unbound:latest'
+    restart: 'unless-stopped'
+    networks:
+      default:
+        ipv4_address: 172.20.0.1

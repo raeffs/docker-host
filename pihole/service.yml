@@ -20,8 +20,8 @@ services:
     environment:
       ServerIP: ${LOCAL_IP}
       DNSSEC: 'True'
-      DNS1: '1.0.0.1'
-      DNS2: '1.1.1.1'
+      DNS1: '172.20.0.1'
+      DNS2: '172.20.0.1'
       WEBPASSWORD: '${PIHOLE_PASSWORD}'
     labels:
       - 'traefik.enable=true'
