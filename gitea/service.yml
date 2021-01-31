@@ -11,7 +11,7 @@ services:
       - '/etc/timezone:/etc/timezone:ro'
       - '/etc/localtime:/etc/localtime:ro'
       - '${LOG_DIR:?err}/gitea/:/data/gitea/log/'
-      - '${DATA_DIR:?err}/gitea/:/data/'
+      - 'gitea:/data/'
       - './custom/public/:/data/gitea/public/:ro'
       - './custom/templates/:/data/gitea/templates/:ro'
       # https://github.com/go-gitea/gitea/blob/master/docker/root/etc/templates/app.ini
@@ -48,7 +48,7 @@ services:
     volumes:
       - '/etc/timezone:/etc/timezone:ro'
       - '/etc/localtime:/etc/localtime:ro'
-      - '${DATA_DIR:?err}/gitea-db/:/var/lib/mysql'
+      - 'gitea-db:/var/lib/mysql'
     environment:
       MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
       MYSQL_DATABASE: 'gitea-db'

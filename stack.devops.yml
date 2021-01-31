@@ -5,6 +5,12 @@ networks:
     external:
       name: docker-host-network
 
+volumes:
+  gitea:
+    external: true
+  gitea-db:
+    external: true
+
 services:
   gitea:
     extends:

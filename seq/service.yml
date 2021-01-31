@@ -8,7 +8,7 @@ services:
     volumes:
       - '/etc/timezone:/etc/timezone:ro'
       - '/etc/localtime:/etc/localtime:ro'
-      - '${DATA_DIR:?err}/seq/:/data/'
+      - 'seq:/data/'
     environment:
       ACCEPT_EULA: 'Y'
     labels:

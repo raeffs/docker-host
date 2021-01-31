@@ -5,6 +5,12 @@ networks:
     external:
       name: docker-host-network
 
+volumes:
+  home-assistant:
+    external: true
+  home-assistant-db:
+    external: true
+
 services:
   home-assistant:
     extends:

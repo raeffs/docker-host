@@ -10,7 +10,7 @@ services:
       - '/etc/timezone:/etc/timezone:ro'
       - '/etc/localtime:/etc/localtime:ro'
       - './config/:/etc/prometheus/:ro'
-      - '${DATA_DIR:?err}/prometheus/:/prometheus/'
+      - 'prometheus:/prometheus/'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.prometheus.rule=Host(`prometheus.${DOMAIN_SUFFIX}`)'

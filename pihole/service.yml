@@ -11,8 +11,8 @@ services:
     volumes:
       - '/etc/timezone:/etc/timezone:ro'
       - '/etc/localtime:/etc/localtime:ro'
-      - '${DATA_DIR:?err}/pihole/:/etc/pihole/'
-      - '${DATA_DIR:?err}/pihole-dnsmasq/:/etc/dnsmasq.d/'
+      - 'pihole:/etc/pihole/'
+      - 'pihole-dnsmasq:/etc/dnsmasq.d/'
       - './config/resolv.conf:/etc/resolv.conf:ro'
       - './config/adlists.list:/etc/pihole/adlists.list:ro'
       - './config/custom.list:/etc/pihole/custom.list:ro'

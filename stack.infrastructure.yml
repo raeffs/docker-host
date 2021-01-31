@@ -5,6 +5,12 @@ networks:
     external:
       name: docker-host-network
 
+volumes:
+  fail2ban:
+    external: true
+  portainer:
+    external: true
+
 services:
   traefik:
     extends:

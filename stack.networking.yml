@@ -5,6 +5,12 @@ networks:
     external:
       name: docker-host-network
 
+volumes:
+  pihole:
+    external: true
+  pihole-dnsmasq:
+    external: true
+
 services:
   pihole:
     extends:

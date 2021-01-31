@@ -29,7 +29,7 @@ services:
     volumes:
       - '/etc/timezone:/etc/timezone:ro'
       - '/etc/localtime:/etc/localtime:ro'
-      - '${DATA_DIR:?err}/commento-db:/var/lib/postgresql/data'
+      - 'commento-db:/var/lib/postgresql/data'
     environment:
       POSTGRES_DB: 'commento'
       POSTGRES_USER: 'commento-user'

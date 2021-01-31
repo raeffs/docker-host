@@ -9,7 +9,7 @@ services:
     volumes:
       - '/etc/timezone:/etc/timezone:ro'
       - '/etc/localtime:/etc/localtime:ro'
-      - '${DATA_DIR:?err}/grafana:/var/lib/grafana'
+      - 'grafana:/var/lib/grafana'
       - './config/grafana.ini:/etc/grafana/grafana.ini:ro'
     environment:
       GF_INSTALL_PLUGINS: 'grafana-piechart-panel'

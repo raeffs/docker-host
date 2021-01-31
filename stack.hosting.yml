@@ -5,6 +5,14 @@ networks:
     external:
       name: docker-host-network
 
+volumes:
+  matomo:
+    external: true
+  matomo-db:
+    external: true
+  commento-db:
+    external: true
+
 services:
   matomo:
     extends:

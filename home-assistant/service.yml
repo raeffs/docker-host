@@ -8,7 +8,7 @@ services:
     volumes:
       - '/etc/timezone:/etc/timezone:ro'
       - '/etc/localtime:/etc/localtime:ro'
-      - '${DATA_DIR:?err}/home-assistant/:/config/'
+      - 'home-assistant:/config/'
       - './config/configuration.yaml:/config/configuration.yaml:ro'
     environment:
       DATABASE_CONNECTION: 'mysql://home-assistant-user:${HA_MYSQL_PASSWORD}@home-assistant-db/home-assistant-db?charset=utf8'
@@ -29,7 +29,7 @@ services:
     volumes:
       - '/etc/timezone:/etc/timezone:ro'
       - '/etc/localtime:/etc/localtime:ro'
-      - '${DATA_DIR:?err}/home-assistant-db/:/var/lib/mysql'
+      - 'home-assistant-db:/var/lib/mysql'
     environment:
       MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
       MYSQL_DATABASE: 'home-assistant-db'

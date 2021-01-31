@@ -13,7 +13,7 @@ services:
       - '/etc/timezone:/etc/timezone:ro'
       - '/etc/localtime:/etc/localtime:ro'
       - '${LOG_DIR?:err}/:/var/log/:ro'
-      - '${DATA_DIR?:err}/fail2ban/:/data/'
+      - 'fail2ban:/data/'
       - './action.d/:/data/action.d/:ro'
       - './filter.d/:/data/filter.d/:ro'
       - './jail.d/:/data/jail.d/:ro'
