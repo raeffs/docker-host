@@ -16,15 +16,16 @@ body {
 }
 
 main {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 33.3vw 33.3vw 33.3vw 33.3vw;
-  grid-gap: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 10px;
 }
 
 img {
-  width: 15vw;
-  height: 15vw;
+  width: 150px;
+  height: 150px;
   filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(279deg) brightness(115%) contrast(95%);
 }
 
@@ -40,10 +41,13 @@ a {
   color: white;
   background-color: #2496ed;
   transition: all 0.25s 0s ease;
+  width: 300px;
+  height: 300px;
+  border-radius: 2px;
 }
 
 .link h2 {
-  font-size: 3.5vw;
+  font-size: 30px;
 }
 
 .link[data-service='gitea'] {
@@ -92,6 +96,18 @@ a {
 
 .link[data-service='verdaccio'] {
   background-color: #4b5e40;
+}
+
+.link[data-service='commento'] {
+  background-color: #2e9fff;
+}
+
+.link[data-service='matomo'] {
+  background-color: #3152a0;
+}
+
+.link[data-service='seq'] {
+  background-color: #ff3633;
 }
 
 .link:hover {
