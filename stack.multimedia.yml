@@ -1,0 +1,16 @@
+version: '3.8'
+
+networks:
+  default:
+    external:
+      name: docker-host-network
+
+volumes:
+  mealie:
+    external: true
+
+services:
+  mealie:
+    extends:
+      file: 'mealie/service.yml'
+      service: 'mealie'

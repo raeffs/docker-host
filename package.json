@@ -7,7 +7,7 @@
     "url": "https://github.com/raeffs/docker-host.git"
   },
   "scripts": {
-    "up": "yarn up:infra && yarn up:net && yarn up:host && yarn up:devops && yarn up:smart && yarn up:mon && yarn up:auto",
+    "up": "yarn up:infra && yarn up:net && yarn up:host && yarn up:devops && yarn up:smart && yarn up:mon && yarn up:auto && yarn up:media",
     "up:infra": "yarn stack:infra up -d --remove-orphans",
     "up:mon": "yarn stack:mon up -d --remove-orphans",
     "up:auto": "yarn stack:auto up -d --remove-orphans",
@@ -15,7 +15,8 @@
     "up:devops": "yarn stack:devops up -d --remove-orphans",
     "up:smart": "yarn stack:smart up -d --remove-orphans",
     "up:host": "yarn stack:host up -d --remove-orphans",
-    "down": "yarn down:auto && yarn down:mon && yarn down:smart && yarn down:devops && yarn down:host && yarn down:net && yarn down:infra",
+    "up:media": "yarn stack:media up -d --remove-orphans",
+    "down": "yarn down:media && yarn down:auto && yarn down:mon && yarn down:smart && yarn down:devops && yarn down:host && yarn down:net && yarn down:infra",
     "down:infra": "yarn stack:infra down -v --remove-orphans",
     "down:mon": "yarn stack:mon down -v --remove-orphans",
     "down:auto": "yarn stack:auto down -v --remove-orphans",
@@ -23,6 +24,7 @@
     "down:devops": "yarn stack:devops down -v --remove-orphans",
     "down:smart": "yarn stack:smart down -v --remove-orphans",
     "down:host": "yarn stack:host down -v --remove-orphans",
+    "down:media": "yarn stack:media down -v --remove-orphans",
     "pull": "docker-compose pull",
     "restart": "yarn down && yarn up",
     "restart:infra": "yarn down:infra && yarn up:infra",
@@ -32,6 +34,7 @@
     "restart:devops": "yarn down:devops && yarn up:devops",
     "restart:smart": "yarn down:smart && yarn up:smart",
     "restart:host": "yarn down:host && yarn up:host",
+    "restart:media": "yarn down:media && yarn up:media",
     "status": "docker container ls --format 'table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Image}}'",
     "stack:infra": "docker-compose -f stack.infrastructure.yml -p infrastructure",
     "stack:mon": "docker-compose -f stack.monitoring.yml -p monitoring",
@@ -39,6 +42,7 @@
     "stack:net": "docker-compose -f stack.networking.yml -p networking",
     "stack:devops": "docker-compose -f stack.devops.yml -p devops",
     "stack:smart": "docker-compose -f stack.smarthome.yml -p smarthome",
-    "stack:host": "docker-compose -f stack.hosting.yml -p hosting"
+    "stack:host": "docker-compose -f stack.hosting.yml -p hosting",
+    "stack:media": "docker-compose -f stack.multimedia.yml -p multimedia"
   }
 }

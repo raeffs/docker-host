@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  mealie:
+    container_name: 'mealie'
+    image: 'hkotel/mealie:latest'
+    restart: 'unless-stopped'
+    volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+      - 'mealie:/app/data'
+    environment:
+      DB_TYPE: sqlite
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.recipes.rule=Host(`mealie.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.recipes.entrypoints=websecure'
+      - 'traefik.http.routers.recipes.tls=true'
+      - 'traefik.http.routers.recipes.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.recipes.tls.domains[0].main=mealie.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.recipes.middlewares=default@file'
+      - 'traefik.http.services.recipes.loadbalancer.server.port=80'
