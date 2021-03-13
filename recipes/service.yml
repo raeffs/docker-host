@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  recipes:
+    container_name: 'recipes'
+    image: 'vabene1111/recipes:latest'
+    restart: 'unless-stopped'
+    volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+      - './wwwroot/:/usr/share/nginx/html/:ro'
+    environment:
+      SECRET_KEY: 'secret'
+      DB_ENGINE: 'django.db.backends.postgresql'
+      POSTGRES_HOST: 'recipes-db'
+      POSTGRES_PORT: '5432'
+      POSTGRES_USER: 'recipes-user'
+      POSTGRES_PASSWORD: 'secret'
+      POSTGRES_DB: 'recipes'
+      # REVERSE_PROXY_AUTH: '1'
+      # PROXY_HEADER: 'X-Forwarded-User'
+      VIRTUAL_HOST: 'https://recipes.${DOMAIN_SUFFIX}'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.recipes.rule=Host(`recipes.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.recipes.entrypoints=websecure'
+      - 'traefik.http.routers.recipes.tls=true'
+      - 'traefik.http.routers.recipes.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.recipes.tls.domains[0].main=recipes.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.recipes.middlewares=default@file'
+      - 'traefik.http.services.recipes.loadbalancer.server.port=8080'
+
+  recipes-db:
+    container_name: 'recipes-db'
+    image: 'postgres'
+    restart: 'unless-stopped'
+    volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+      - 'recipes-db:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_DB: 'recipes'
+      POSTGRES_USER: 'recipes-user'
+      POSTGRES_PASSWORD: 'secret'

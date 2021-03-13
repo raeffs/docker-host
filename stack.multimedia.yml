@@ -6,6 +6,8 @@ networks:
       name: docker-host-network
 
 volumes:
+  recipes-db:
+    external: true
   mealie:
     external: true
 
@@ -14,3 +16,15 @@ services:
     extends:
       file: 'mealie/service.yml'
       service: 'mealie'
+
+  recipes:
+    extends:
+      file: 'recipes/service.yml'
+      service: 'recipes'
+    depends_on:
+      - 'recipes-db'
+
+  recipes-db:
+    extends:
+      file: 'recipes/service.yml'
+      service: 'recipes-db'
