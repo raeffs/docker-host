@@ -13,10 +13,10 @@ services:
       DB_TYPE: sqlite
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.recipes.rule=Host(`mealie.${DOMAIN_SUFFIX}`)'
-      - 'traefik.http.routers.recipes.entrypoints=websecure'
-      - 'traefik.http.routers.recipes.tls=true'
-      - 'traefik.http.routers.recipes.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.recipes.tls.domains[0].main=mealie.${DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.recipes.middlewares=default@file'
-      - 'traefik.http.services.recipes.loadbalancer.server.port=80'
+      - 'traefik.http.routers.mealie.rule=Host(`mealie.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.mealie.entrypoints=websecure'
+      - 'traefik.http.routers.mealie.tls=true'
+      - 'traefik.http.routers.mealie.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.mealie.tls.domains[0].main=mealie.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.mealie.middlewares=default@file'
+      - 'traefik.http.services.mealie.loadbalancer.server.port=80'
