@@ -8,15 +8,8 @@ networks:
 volumes:
   recipes-db:
     external: true
-  mealie:
-    external: true
 
 services:
-  mealie:
-    extends:
-      file: 'mealie/service.yml'
-      service: 'mealie'
-
   recipes:
     extends:
       file: 'recipes/service.yml'

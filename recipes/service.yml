@@ -8,18 +8,19 @@ services:
     volumes:
       - '/etc/timezone:/etc/timezone:ro'
       - '/etc/localtime:/etc/localtime:ro'
-      - './wwwroot/:/usr/share/nginx/html/:ro'
     environment:
-      SECRET_KEY: 'secret'
+      SECRET_KEY: '${RECIPES_SECRET_KEY}'
       DB_ENGINE: 'django.db.backends.postgresql'
       POSTGRES_HOST: 'recipes-db'
       POSTGRES_PORT: '5432'
       POSTGRES_USER: 'recipes-user'
-      POSTGRES_PASSWORD: 'secret'
+      POSTGRES_PASSWORD: '${RECIPES_POSTGRES_PASSWORD}'
       POSTGRES_DB: 'recipes'
       # REVERSE_PROXY_AUTH: '1'
       # PROXY_HEADER: 'X-Forwarded-User'
       VIRTUAL_HOST: 'https://recipes.${DOMAIN_SUFFIX}'
+      GUNICORN_MEDIA: '0'
+      DEBUG: '0'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.recipes.rule=Host(`recipes.${DOMAIN_SUFFIX}`)'
@@ -41,4 +42,4 @@ services:
     environment:
       POSTGRES_DB: 'recipes'
       POSTGRES_USER: 'recipes-user'
-      POSTGRES_PASSWORD: 'secret'
+      POSTGRES_PASSWORD: '${RECIPES_POSTGRES_PASSWORD}'
