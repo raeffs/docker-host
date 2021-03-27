@@ -8,6 +8,8 @@ networks:
 volumes:
   recipes-db:
     external: true
+  recipes-media:
+    external: true
 
 services:
   recipes:
@@ -17,7 +19,15 @@ services:
     depends_on:
       - 'recipes-db'
 
+  recipes-media:
+    extends:
+      file: 'recipes/service.yml'
+      service: 'recipes-media'
+    depends_on:
+      - 'recipes'
+
   recipes-db:
     extends:
       file: 'recipes/service.yml'
       service: 'recipes-db'
+    
