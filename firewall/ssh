@@ -1,0 +1,4 @@
+[SSH]
+title=Secure Shell Protocol
+description=Secure Shell Protocol
+ports=22/tcp

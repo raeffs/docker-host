@@ -1,0 +1,4 @@
+[Traefik]
+title=Traefik Edge Router
+description=Traefik Edge Router
+ports=80|443
