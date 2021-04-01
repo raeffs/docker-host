@@ -10,7 +10,6 @@ services:
     volumes:
       - '/etc/timezone:/etc/timezone:ro'
       - '/etc/localtime:/etc/localtime:ro'
-      - '${LOG_DIR:?err}/gitea/:/data/gitea/log/'
       - 'gitea:/data/'
       - './custom/public/:/data/gitea/public/:ro'
       - './custom/templates/:/data/gitea/templates/:ro'

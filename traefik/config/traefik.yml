@@ -1,17 +1,6 @@
 log:
   level: 'INFO'
 
-accessLog:
-  filePath: '/var/log/access.log'
-  filters:
-    statusCodes:
-      - '400-499'
-  fields:
-    headers:
-      defaultMode: drop
-      names:
-        User-Agent: keep
-
 providers:
   docker:
     exposedByDefault: false

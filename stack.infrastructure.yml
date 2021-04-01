@@ -6,8 +6,6 @@ networks:
       name: docker-host-network
 
 volumes:
-  fail2ban:
-    external: true
   portainer:
     external: true
 
@@ -38,11 +36,6 @@ services:
     extends:
       file: 'dashboard/service.yml'
       service: 'dashboard'
-
-  fail2ban:
-    extends:
-      file: 'fail2ban/service.yml'
-      service: 'fail2ban'
 
   auth:
     extends:
