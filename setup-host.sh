@@ -31,6 +31,7 @@ sudo ufw allow dhcp
 sudo ufw allow dns
 sudo ufw allow ssh
 sudo ufw allow traefik
+sudo ufw allow git
 sudo ufw enable
 
 # set correct timezone
