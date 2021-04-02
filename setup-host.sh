@@ -42,6 +42,13 @@ sudo ufw enable
 # set correct timezone
 sudo timedatectl set-timezone Europe/Zurich
 
+# install node
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash
+source ~/.bashrc
+nvm install --lts
+nvm use --lts
+npm i -g yarn
+
 # add user to docker group to run docker without sudo
 sudo usermod -aG docker ${USER}
 su - ${USER}
