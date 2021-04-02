@@ -27,11 +27,16 @@ sudo systemctl enable isc-dhcp-server.service
 
 # enable firewall
 sudo cp -f ./firewall/* /etc/ufw/applications.d/
-sudo ufw limit ssh-custom
-sudo ufw allow dhcp-custom
-sudo ufw allow dns-custom
-sudo ufw allow traefik-custom
-sudo ufw allow git-custom
+sudo ufw app update SSH
+sudo ufw limit SSH
+sudo ufw app update DHCP
+sudo ufw allow DHCP
+sudo ufw app update DNS
+sudo ufw allow DNS
+sudo ufw app update Traefik
+sudo ufw allow Traefik
+sudo ufw app update Git
+sudo ufw allow Git
 sudo ufw enable
 
 # set correct timezone
