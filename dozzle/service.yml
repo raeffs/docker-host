@@ -16,5 +16,5 @@ services:
       - 'traefik.http.routers.dozzle.tls=true'
       - 'traefik.http.routers.dozzle.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.dozzle.tls.domains[0].main=dozzle.${DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.dozzle.middlewares=intranet-authenticated@file'
+      - 'traefik.http.routers.dozzle.middlewares=intranet@file'
       - 'traefik.http.services.dozzle.loadbalancer.server.port=8080'

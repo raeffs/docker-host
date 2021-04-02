@@ -16,5 +16,5 @@ services:
       - 'traefik.http.routers.hello.tls=true'
       - 'traefik.http.routers.hello.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.hello.tls.domains[0].main=${DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.hello.middlewares=extranet-authenticated@file'
+      - 'traefik.http.routers.hello.middlewares=intranet@file'
       - 'traefik.http.services.hello.loadbalancer.server.port=80'
