@@ -37,6 +37,8 @@ sudo ufw app update Traefik
 sudo ufw allow Traefik
 sudo ufw app update Git
 sudo ufw allow Git
+sudo ufw app update Wireguard
+sudo ufw allow Wireguard
 sudo ufw enable
 
 # set correct timezone

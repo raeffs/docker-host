@@ -10,6 +10,8 @@ volumes:
     external: true
   pihole-dnsmasq:
     external: true
+  wireguard:
+    external: true
 
 services:
   pihole:
@@ -21,3 +23,8 @@ services:
     extends:
       file: 'unbound/service.yml'
       service: 'unbound'
+
+  wireguard:
+    extends:
+      file: 'wireguard/service.yml'
+      service: 'wireguard'

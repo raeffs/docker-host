@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  wireguard:
+    container_name: 'wireguard'
+    image: 'linuxserver/wireguard:latest'
+    restart: 'unless-stopped'
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    ports:
+      - 51820:51820/udp
+    volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+      - '/lib/modules:/lib/modules'
+      - 'wireguard:/config'
+    environment:
+      PUID: 1000
+      PGID: 1000
+      SERVERURL: 'wireguard.${DOMAIN_SUFFIX}'
+      SERVERPORT: 51820
+      PEERS: '${WIREGUARD_PEERS}'

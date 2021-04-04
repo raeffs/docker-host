@@ -15,3 +15,4 @@ docker run -v prometheus:/volume -v /tmp/docker-host-backup:/backup --rm loomchi
 docker run -v recipes-db:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup restore recipes-db
 docker run -v recipes-media:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup restore recipes-media
 docker run -v seq:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup restore seq
+docker run -v wireguard:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup restore wireguard
