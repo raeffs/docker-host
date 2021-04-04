@@ -21,3 +21,4 @@ services:
       SERVERURL: 'wireguard.${DOMAIN_SUFFIX}'
       SERVERPORT: '${WIREGUARD_PORT}'
       PEERS: '${WIREGUARD_PEERS}'
+      PEERDNS: '${WIREGUARD_PEERDNS}'
