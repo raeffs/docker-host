@@ -9,7 +9,7 @@ services:
       - NET_ADMIN
       - SYS_MODULE
     ports:
-      - ${WIREGUARD_PORT}:${WIREGUARD_PORT}/udp
+      - ${WIREGUARD_PORT}:51820/udp
     volumes:
       - '/etc/timezone:/etc/timezone:ro'
       - '/etc/localtime:/etc/localtime:ro'
