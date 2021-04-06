@@ -10,6 +10,8 @@ volumes:
     external: true
   gitea-db:
     external: true
+  verdaccio:
+    external: true
 
 services:
   gitea:
@@ -23,3 +25,8 @@ services:
     extends:
       file: 'gitea/service.yml'
       service: 'gitea-db'
+
+  verdaccio:
+    extends:
+      file: 'verdaccio/service.yml'
+      service: 'verdaccio'

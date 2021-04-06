@@ -1,0 +1,39 @@
+storage: /verdaccio/storage/data
+plugins: /verdaccio/plugins
+
+store:
+  offline-storage:
+
+web:
+  title: Verdaccio
+
+auth:
+  htpasswd:
+    file: /verdaccio/htpasswd
+    max_users: -1 # disable registration
+
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+  yarnpkg:
+    url: https://registry.yarnpkg.com/
+
+packages:
+  '@*/*':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+    proxy: npmjs yarnpkg
+
+  '**':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+    proxy: npmjs yarnpkg
+
+server:
+  keepAliveTimeout: 60
+
+middlewares:
+  audit:
+    enabled: true
