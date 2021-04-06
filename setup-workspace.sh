@@ -24,4 +24,5 @@ docker volume create prometheus
 docker volume create recipes-db
 docker volume create recipes-media
 docker volume create seq
+docker volume create verdaccio
 docker volume create wireguard
