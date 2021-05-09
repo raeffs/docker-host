@@ -6,28 +6,25 @@ networks:
       name: docker-host-network
 
 volumes:
-  recipes-db:
-    external: true
-  recipes-media:
+  cookbook-db:
     external: true
 
 services:
-  recipes:
+  cookbook:
     extends:
-      file: 'recipes/service.yml'
-      service: 'recipes'
+      file: 'cookbook/service.yml'
+      service: 'cookbook'
     depends_on:
-      - 'recipes-db'
+      - 'cookbook-api'
 
-  recipes-media:
+  cookbook-api:
     extends:
-      file: 'recipes/service.yml'
-      service: 'recipes-media'
+      file: 'cookbook/service.yml'
+      service: 'cookbook-api'
     depends_on:
-      - 'recipes'
+      - 'cookbook-db'
 
-  recipes-db:
+  cookbook-db:
     extends:
-      file: 'recipes/service.yml'
-      service: 'recipes-db'
-    
+      file: 'cookbook/service.yml'
+      service: 'cookbook-db'

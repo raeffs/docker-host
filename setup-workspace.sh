@@ -10,6 +10,7 @@ docker network create --subnet 172.20.0.0/24 --ip-range 172.20.0.128/25 docker-h
 
 # create docker volumes
 docker volume create commento-db
+docker volume create cookbook-db
 docker volume create gitea
 docker volume create gitea-db
 docker volume create grafana
@@ -21,8 +22,6 @@ docker volume create pihole
 docker volume create pihole-dnsmasq
 docker volume create portainer
 docker volume create prometheus
-docker volume create recipes-db
-docker volume create recipes-media
 docker volume create seq
 docker volume create verdaccio
 docker volume create wireguard
