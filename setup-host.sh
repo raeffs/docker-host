@@ -39,6 +39,9 @@ sudo ufw app update Git
 sudo ufw allow Git
 sudo ufw app update Wireguard
 sudo ufw allow Wireguard
+# enable only on receiver node
+# sudo ufw app update PiHoleSync
+# sudo ufw allow PiHoleSync
 sudo ufw enable
 
 # set correct timezone

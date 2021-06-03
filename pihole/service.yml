@@ -34,3 +34,24 @@ services:
       - 'traefik.http.services.pihole.loadbalancer.server.port=80'
       - 'traefik.http.middlewares.pihole.chain.middlewares=intranet@file,pihole-prefix'
       - 'traefik.http.middlewares.pihole-prefix.addprefix.prefix=/admin'
+
+  pihole-sync:
+    container_name: 'pihole-sync'
+    image: 'shirom/pihole-sync:latest'
+    restart: 'unless-stopped'
+    ports:
+      - '22222:22'
+    volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+      - 'pihole-sync:/root/'
+      - 'pihole-sync-ssh:/etc/shh/'
+      - 'pihole:/mnt/etc-pihole/'
+      - 'pihole-dnsmasq:/mnt/etc-dnsmasq.d/'
+      - './config/adlists.list:/mnt/etc-pihole/adlists.list'
+      - './config/custom.list:/mnt/etc-pihole/custom.list'
+      - './config/dns.conf:/mnt/etc-dnsmasq.d/dns.conf'
+    environment:
+      NODE: ${PIHOLE_SYNC_NODE}
+      REM_HOST: ${PIHOLE_SYNC_TARGET}
+      REM_SSH_PORT: '22222'

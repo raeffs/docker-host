@@ -20,6 +20,8 @@ docker volume create matomo
 docker volume create matomo-db
 docker volume create pihole
 docker volume create pihole-dnsmasq
+docker volume create pihole-sync
+docker volume create pihole-sync-ssh
 docker volume create portainer
 docker volume create prometheus
 docker volume create seq

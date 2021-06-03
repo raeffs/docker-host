@@ -10,6 +10,10 @@ volumes:
     external: true
   pihole-dnsmasq:
     external: true
+  pihole-sync:
+    external: true
+  pihole-sync-ssh:
+    external: true
   wireguard:
     external: true
 
@@ -18,6 +22,11 @@ services:
     extends:
       file: 'pihole/service.yml'
       service: 'pihole'
+
+  pihole-sync:
+    extends:
+      file: 'pihole/service.yml'
+      service: 'pihole-sync'
 
   unbound:
     extends:

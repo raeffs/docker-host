@@ -11,6 +11,8 @@ docker run -v matomo:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/v
 docker run -v matomo-db:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup restore matomo-db
 docker run -v pihole:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup restore pihole
 docker run -v pihole-dnsmasq:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup restore pihole-dnsmasq
+docker run -v pihole-sync:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup restore pihole-sync
+docker run -v pihole-sync-ssh:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup restore pihole-sync-ssh
 docker run -v portainer:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup restore portainer
 docker run -v prometheus:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup restore prometheus
 docker run -v seq:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup restore seq

@@ -1,0 +1,4 @@
+[PiHoleSync]
+title=SSH for PiHole Syncronization
+description=SSH for PiHole Syncronization
+ports=22222/tcp
