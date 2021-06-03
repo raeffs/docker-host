@@ -45,7 +45,7 @@ services:
       - '/etc/timezone:/etc/timezone:ro'
       - '/etc/localtime:/etc/localtime:ro'
       - 'pihole-sync:/root/'
-      - 'pihole-sync-ssh:/etc/shh/'
+      - 'pihole-sync-ssh:/etc/ssh/'
       - 'pihole:/mnt/etc-pihole/'
       - 'pihole-dnsmasq:/mnt/etc-dnsmasq.d/'
       - './config/adlists.list:/mnt/etc-pihole/adlists.list'
