@@ -15,8 +15,6 @@ services:
       - 'pihole-dnsmasq:/etc/dnsmasq.d/'
       - './config/resolv.conf:/etc/resolv.conf:ro'
       - './config/adlists.list:/etc/pihole/adlists.list:ro'
-      - './config/custom.list:/etc/pihole/custom.list:ro'
-      - './config/dns.conf:/etc/dnsmasq.d/dns.conf:ro'
     environment:
       ServerIP: ${LOCAL_IP}
       DNSSEC: 'True'
@@ -48,9 +46,6 @@ services:
       - 'pihole-sync-ssh:/etc/ssh/'
       - 'pihole:/mnt/etc-pihole/'
       - 'pihole-dnsmasq:/mnt/etc-dnsmasq.d/'
-      - './config/adlists.list:/mnt/etc-pihole/adlists.list'
-      - './config/custom.list:/mnt/etc-pihole/custom.list'
-      - './config/dns.conf:/mnt/etc-dnsmasq.d/dns.conf'
     environment:
       NODE: ${PIHOLE_SYNC_NODE}
       REM_HOST: ${PIHOLE_SYNC_TARGET}
