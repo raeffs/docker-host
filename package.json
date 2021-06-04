@@ -79,6 +79,6 @@
     "media:status": "yarn media:stack ps"
   },
   "devDependencies": {
-    "npm-run-scripts": "^2.0.0"
+    "npm-run-all": "^4.1.5"
   }
 }
