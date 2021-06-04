@@ -8,6 +8,8 @@ networks:
 volumes:
   cookbook-db:
     external: true
+  stringer-db:
+    external: true
 
 services:
   cookbook:
@@ -28,3 +30,13 @@ services:
     extends:
       file: 'cookbook/service.yml'
       service: 'cookbook-db'
+
+  stringer:
+    extends:
+      file: 'stringer/service.yml'
+      service: 'stringer'
+
+  stringer-db:
+    extends:
+      file: 'stringer/service.yml'
+      service: 'stringer-db'

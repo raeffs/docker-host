@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  stringer:
+    container_name: 'stringer'
+    image: 'mdswanson/stringer:latest'
+    restart: 'unless-stopped'
+    volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+    environment:
+      SECRET_TOKEN: '${STRINGER_TOKEN}'
+      PORT: '8080'
+      DATABASE_URL: 'postgres://stringer-user:${STRINGER_POSTGRES_PASSWORD}@stringer-db:5432/stringer'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.stringer.rule=Host(`stringer.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.stringer.entrypoints=websecure'
+      - 'traefik.http.routers.stringer.tls=true'
+      - 'traefik.http.routers.stringer.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.stringer.tls.domains[0].main=stringer.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.stringer.middlewares=default@file'
+      - 'traefik.http.services.stringer.loadbalancer.server.port=8080'
+
+  stringer-db:
+    container_name: 'stringer-db'
+    image: 'postgres'
+    restart: 'unless-stopped'
+    volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+      - 'stringer-db:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_DB: 'stringer'
+      POSTGRES_USER: 'stringer-user'
+      POSTGRES_PASSWORD: '${STRINGER_POSTGRES_PASSWORD}'

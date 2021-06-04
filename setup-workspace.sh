@@ -25,5 +25,6 @@ docker volume create pihole-sync-ssh
 docker volume create portainer
 docker volume create prometheus
 docker volume create seq
+docker volume create stringer-db
 docker volume create verdaccio
 docker volume create wireguard
