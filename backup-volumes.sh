@@ -20,4 +20,5 @@ docker run -v portainer:/volume -v /tmp/docker-host-backup:/backup --rm loomchil
 docker run -v prometheus:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup prometheus
 docker run -v seq:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup seq
 docker run -v verdaccio:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup verdaccio
+docker run -v wallabag-db:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup wallabag-db
 docker run -v wireguard:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup wireguard

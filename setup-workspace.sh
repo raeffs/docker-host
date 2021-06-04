@@ -27,4 +27,5 @@ docker volume create portainer
 docker volume create prometheus
 docker volume create seq
 docker volume create verdaccio
+docker volume create wallabag-db
 docker volume create wireguard

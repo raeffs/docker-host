@@ -10,6 +10,8 @@ volumes:
     external: true
   miniflux-db:
     external: true
+  wallabag-db:
+    external: true
 
 services:
   cookbook:
@@ -43,3 +45,16 @@ services:
     extends:
       file: 'miniflux/service.yml'
       service: 'miniflux-db'
+
+  wallabag:
+    extends:
+      file: 'wallabag/service.yml'
+      service: 'wallabag'
+    depends_on:
+      wallabag-db:
+        condition: 'service_healthy'
+
+  wallabag-db:
+    extends:
+      file: 'wallabag/service.yml'
+      service: 'wallabag-db'
