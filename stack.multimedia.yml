@@ -58,3 +58,8 @@ services:
     extends:
       file: 'wallabag/service.yml'
       service: 'wallabag-db'
+
+  wallabag-cache:
+    extends:
+      file: 'wallabag/service.yml'
+      service: 'wallabag-cache'

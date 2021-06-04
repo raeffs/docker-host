@@ -19,6 +19,7 @@ services:
       SYMFONY__ENV__DATABASE_PASSWORD: '${WALLABAG_POSTGRES_PASSWORD}'
       SYMFONY__ENV__DATABASE_NAME: 'wallabag'
       SYMFONY__ENV__DOMAIN_NAME: 'https://wallabag.${DOMAIN_SUFFIX}'
+      SYMFONY__ENV__REDIS_HOST: 'wallabag-cache'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.wallabag.rule=Host(`wallabag.${DOMAIN_SUFFIX}`)'
@@ -44,3 +45,11 @@ services:
       test: 'pg_isready -U wallabag-user'
       start_period: '5s'
       interval: '5s'
+
+  wallabag-cache:
+    container_name: 'wallabag-cache'
+    image: 'redis:alpine'
+    restart: 'unless-stopped'
+    volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
