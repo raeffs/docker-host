@@ -8,6 +8,8 @@ networks:
 volumes:
   cookbook-db:
     external: true
+  rssmonster-db:
+    external: true
 
 services:
   cookbook:
@@ -28,3 +30,13 @@ services:
     extends:
       file: 'cookbook/service.yml'
       service: 'cookbook-db'
+
+  rssmonster:
+    extends:
+      file: 'rssmonster/service.yml'
+      service: 'rssmonster'
+
+  rssmonster-db:
+    extends:
+      file: 'rssmonster/service.yml'
+      service: 'rssmonster-db'

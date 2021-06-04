@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  rssmonster:
+    container_name: 'rssmonster'
+    image: 'pietheinstrengholt/rssmonster:latest'
+    restart: 'unless-stopped'
+    volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+    environment:
+      NODE_ENV: 'production'
+      DB_HOSTNAME: 'rssmonster-db'
+      DB_DATABASE: 'rssmonster'
+      DB_USERNAME: 'rssmonster-user'
+      DB_PASSWORD: '${RSSMONSTER_MYSQL_PASSWORD}'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.rssmonster.rule=Host(`rssmonster.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.rssmonster.entrypoints=websecure'
+      - 'traefik.http.routers.rssmonster.tls=true'
+      - 'traefik.http.routers.rssmonster.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.rssmonster.tls.domains[0].main=rssmonster.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.rssmonster.middlewares=default@file'
+      - 'traefik.http.services.rssmonster.loadbalancer.server.port=3000'
+
+  rssmonster-db:
+    container_name: 'rssmonster-db'
+    image: 'mariadb:latest'
+    restart: 'unless-stopped'
+    volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+      - 'rssmonster-db:/var/lib/mysql'
+    environment:
+      MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
+      MYSQL_DATABASE: 'rssmonster'
+      MYSQL_USER: 'rssmonster-user'
+      MYSQL_PASSWORD: '${RSSMONSTER_MYSQL_PASSWORD}'

@@ -17,6 +17,7 @@ docker run -v pihole-sync:/volume -v /tmp/docker-host-backup:/backup --rm loomch
 docker run -v pihole-sync-ssh:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup pihole-sync-ssh
 docker run -v portainer:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup portainer
 docker run -v prometheus:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup prometheus
+docker run -v rssmonster-db:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup rssmonster-db
 docker run -v seq:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup seq
 docker run -v verdaccio:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup verdaccio
 docker run -v wireguard:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup wireguard
