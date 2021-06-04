@@ -18,6 +18,7 @@ docker volume create home-assistant
 docker volume create home-assistant-db
 docker volume create matomo
 docker volume create matomo-db
+docker volume create miniflux-db
 docker volume create pihole
 docker volume create pihole-dnsmasq
 docker volume create pihole-sync

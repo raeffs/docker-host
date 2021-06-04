@@ -8,6 +8,8 @@ networks:
 volumes:
   cookbook-db:
     external: true
+  miniflux-db:
+    external: true
 
 services:
   cookbook:
@@ -28,3 +30,16 @@ services:
     extends:
       file: 'cookbook/service.yml'
       service: 'cookbook-db'
+
+  miniflux:
+    extends:
+      file: 'miniflux/service.yml'
+      service: 'miniflux'
+    depends_on:
+      miniflux-db:
+        condition: 'service_healthy'
+
+  miniflux-db:
+    extends:
+      file: 'miniflux/service.yml'
+      service: 'miniflux-db'
