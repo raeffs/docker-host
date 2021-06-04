@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  freshrss:
+    container_name: 'freshrss'
+    image: 'freshrss/freshrss:latest'
+    restart: 'unless-stopped'
+    volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+      - 'freshrss:/var/www/FreshRSS/data'
+    environment:
+      CRON_MIN: '0,15,30,45'
+      # FRESHRSS_INSTALL: ''
+      # FRESHRSS_USER: ''
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.freshrss.rule=Host(`freshrss.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.freshrss.entrypoints=websecure'
+      - 'traefik.http.routers.freshrss.tls=true'
+      - 'traefik.http.routers.freshrss.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.freshrss.tls.domains[0].main=freshrss.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.freshrss.middlewares=default@file'
+      - 'traefik.http.services.freshrss.loadbalancer.server.port=80'
+
+  freshrss-db:
+    container_name: 'freshrss-db'
+    image: 'postgres'
+    restart: 'unless-stopped'
+    volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+      - 'freshrss-db:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_DB: 'freshrss'
+      POSTGRES_USER: 'freshrss-user'
+      POSTGRES_PASSWORD: '${FRESHRSS_POSTGRES_PASSWORD}'

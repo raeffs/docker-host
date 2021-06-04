@@ -11,6 +11,8 @@ docker network create --subnet 172.20.0.0/24 --ip-range 172.20.0.128/25 docker-h
 # create docker volumes
 docker volume create commento-db
 docker volume create cookbook-db
+docker volume create freshrss
+docker volume create freshrss-db
 docker volume create gitea
 docker volume create gitea-db
 docker volume create grafana

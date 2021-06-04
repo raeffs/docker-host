@@ -8,6 +8,10 @@ networks:
 volumes:
   cookbook-db:
     external: true
+  freshrss:
+    external: true
+  freshrss-db:
+    external: true
 
 services:
   cookbook:
@@ -28,3 +32,13 @@ services:
     extends:
       file: 'cookbook/service.yml'
       service: 'cookbook-db'
+
+  freshrss:
+    extends:
+      file: 'freshrss/service.yml'
+      service: 'freshrss'
+
+  freshrss-db:
+    extends:
+      file: 'freshrss/service.yml'
+      service: 'freshrss-db'
