@@ -1,4 +1,4 @@
-.data
 .certificates
-.log
 .env
+
+node_modules
