@@ -6,6 +6,8 @@ networks:
       name: docker-host-network
 
 volumes:
+  traefik:
+    external: true
   portainer:
     external: true
 

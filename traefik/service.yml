@@ -5,6 +5,8 @@ services:
     container_name: 'traefik'
     image: 'traefik:latest'
     restart: 'unless-stopped'
+    entrypoint: []
+    command: 'sh -c "/provision.sh && traefik"'
     ports:
       - '80:80'
       - '443:443'
@@ -12,8 +14,9 @@ services:
       - '/etc/timezone:/etc/timezone:ro'
       - '/etc/localtime:/etc/localtime:ro'
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - './provision.sh:/provision.sh:ro'
       - './config/:/etc/traefik/:ro'
-      - '${CERT_DIR:?err}/acme.json:/acme.json'
+      - 'traefik:/certificates'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN_SUFFIX}`)'

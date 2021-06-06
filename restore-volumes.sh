@@ -17,6 +17,7 @@ docker run -v pihole-sync-ssh:/volume -v /tmp/docker-host-backup:/backup --rm lo
 docker run -v portainer:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup restore portainer
 docker run -v prometheus:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup restore prometheus
 docker run -v seq:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup restore seq
+docker run -v traefik:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup restore traefik
 docker run -v verdaccio:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup restore verdaccio
 docker run -v wallabag-db:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup restore wallabag-db
 docker run -v wireguard:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup restore wireguard
