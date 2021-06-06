@@ -15,8 +15,11 @@ services:
       - '/etc/localtime:/etc/localtime:ro'
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
       - './provision.sh:/provision.sh:ro'
-      - './config/:/etc/traefik/:ro'
+      - './config/dynamic:/etc/traefik/dynamic/:ro'
+      - './config/traefik.yml:/traefik.template.yml:ro'
       - 'traefik:/certificates'
+    environment:
+      ACME_EMAIL: '${TRAEFIK_ACME_EMAIL:?email for acme challange required}'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN_SUFFIX}`)'
