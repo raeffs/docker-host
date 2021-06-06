@@ -19,18 +19,10 @@ sudo sed -r -i.orig 's/#?DNSStubListener=yes/DNSStubListener=no/g' /etc/systemd/
 sudo sh -c 'rm /etc/resolv.conf && ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf'
 sudo systemctl restart systemd-resolved
 
-# install dhcp server
-sudo apt install -y isc-dhcp-server
-sudo cp -f ./dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf
-sudo systemctl start isc-dhcp-server.service
-sudo systemctl enable isc-dhcp-server.service
-
 # enable firewall
 sudo cp -f ./firewall/* /etc/ufw/applications.d/
 sudo ufw app update SSH
 sudo ufw limit SSH
-sudo ufw app update DHCP
-sudo ufw allow DHCP
 sudo ufw app update DNS
 sudo ufw allow DNS
 sudo ufw app update Traefik

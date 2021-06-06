@@ -1,4 +1,0 @@
-[DHCP]
-title=Dynamic Host Configuration Protocol
-description=Dynamic Host Configuration Protocol
-ports=67/udp
