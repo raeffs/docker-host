@@ -10,19 +10,19 @@ This repository contains the configuration of my docker host that aims to improv
 
 The configuration consists of several docker compose stacks, which can be started and stopped individually. For more information about what is included in each stack and how to configure them, check their documentation:
 
-- [Infrastructure](infrastructure/README.md)
-- [Networking](networking/README.md)
-- [Automation](automation/README.md)
-- [Monitoring](monitoring/README.md)
-- [Multimedia](multimedia/README.md)
-- [Smarthome](smarthome/README.md)
-- [Devops](devops/README.md)
-- [Hosting](hosting/README.md)
-- [Failover](failover/README.md)
+- [Infrastructure](infrastructure)
+- [Networking](networking)
+- [Automation](automation)
+- [Monitoring](monitoring)
+- [Multimedia](multimedia)
+- [Smarthome](smarthome)
+- [Devops](devops)
+- [Hosting](hosting)
+- [Failover](failover)
 
 ## How to use it?
 
-For information on how to use my docker host configuration, check the [Setup Instructions](setup/README.md).
+For information on how to use my docker host configuration, check the [Setup Instructions](setup).
 
 ## How to contribute?
 

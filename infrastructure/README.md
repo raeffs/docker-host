@@ -35,4 +35,4 @@ The Adminer container does not need any configuration.
 
 ### Global Configuration
 
-There are also some global configuration options that affect all containers. Check the [Setup Instructions](../setup/README.md) for more details about the global configuration options.
+There are also some global configuration options that affect all containers. Check the [Setup Instructions](../setup) for more details about the global configuration options.
