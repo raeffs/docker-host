@@ -14,32 +14,32 @@ volumes:
 services:
   traefik:
     extends:
-      file: 'traefik/service.yml'
+      file: 'infrastructure/traefik/service.yml'
       service: 'traefik'
 
   dozzle:
     extends:
-      file: 'dozzle/service.yml'
+      file: 'infrastructure/dozzle/service.yml'
       service: 'dozzle'
 
   portainer:
     extends:
-      file: 'portainer/service.yml'
+      file: 'infrastructure/portainer/service.yml'
       service: 'portainer'
 
   adminer:
     extends:
-      file: 'adminer/service.yml'
+      file: 'infrastructure/adminer/service.yml'
       service: 'adminer'
     environment:
       MYSQL_SERVERS: 'gitea-db,home-assistant-db,matomo-db'
 
   dashboard:
     extends:
-      file: 'dashboard/service.yml'
+      file: 'infrastructure/dashboard/service.yml'
       service: 'dashboard'
 
   auth:
     extends:
-      file: 'auth/service.yml'
+      file: 'infrastructure/auth/service.yml'
       service: 'auth'

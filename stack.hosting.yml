@@ -16,25 +16,24 @@ volumes:
 services:
   matomo:
     extends:
-      file: 'matomo/service.yml'
+      file: 'hosting/matomo/service.yml'
       service: 'matomo'
     depends_on:
       - 'matomo-db'
 
   matomo-db:
     extends:
-      file: 'matomo/service.yml'
+      file: 'hosting/matomo/service.yml'
       service: 'matomo-db'
 
   commento:
     extends:
-      file: 'commento/service.yml'
+      file: 'hosting/commento/service.yml'
       service: 'commento'
     depends_on:
       - 'commento-db'
 
   commento-db:
     extends:
-      file: 'commento/service.yml'
+      file: 'hosting/commento/service.yml'
       service: 'commento-db'
-

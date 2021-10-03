@@ -16,17 +16,17 @@ volumes:
 services:
   gitea:
     extends:
-      file: 'gitea/service.yml'
+      file: 'devops/gitea/service.yml'
       service: 'gitea'
     depends_on:
       - 'gitea-db'
 
   gitea-db:
     extends:
-      file: 'gitea/service.yml'
+      file: 'devops/gitea/service.yml'
       service: 'gitea-db'
 
   verdaccio:
     extends:
-      file: 'verdaccio/service.yml'
+      file: 'devops/verdaccio/service.yml'
       service: 'verdaccio'

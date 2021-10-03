@@ -14,12 +14,12 @@ volumes:
 services:
   home-assistant:
     extends:
-      file: 'home-assistant/service.yml'
+      file: 'smarthome/home-assistant/service.yml'
       service: 'home-assistant'
     depends_on:
       - 'home-assistant-db'
 
   home-assistant-db:
     extends:
-      file: 'home-assistant/service.yml'
+      file: 'smarthome/home-assistant/service.yml'
       service: 'home-assistant-db'

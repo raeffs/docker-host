@@ -16,7 +16,7 @@ volumes:
 services:
   prometheus:
     extends:
-      file: 'prometheus/service.yml'
+      file: 'monitoring/prometheus/service.yml'
       service: 'prometheus'
     depends_on:
       - 'blackbox-exporter'
@@ -25,30 +25,30 @@ services:
 
   blackbox-exporter:
     extends:
-      file: 'prometheus/service.yml'
+      file: 'monitoring/prometheus/service.yml'
       service: 'blackbox-exporter'
 
   # speedtest-exporter:
   #   extends:
-  #     file: 'prometheus/service.yml'
+  #     file: 'monitoring/prometheus/service.yml'
   #     service: 'speedtest-exporter'
 
   pihole-exporter:
     extends:
-      file: 'prometheus/service.yml'
+      file: 'monitoring/prometheus/service.yml'
       service: 'pihole-exporter'
 
   grafana:
     extends:
-      file: 'grafana/service.yml'
+      file: 'monitoring/grafana/service.yml'
       service: 'grafana'
 
   seq:
     extends:
-      file: 'seq/service.yml'
+      file: 'monitoring/seq/service.yml'
       service: 'seq'
 
   iperf:
     extends:
-      file: 'iperf/service.yml'
+      file: 'monitoring/iperf/service.yml'
       service: 'iperf'

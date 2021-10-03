@@ -16,26 +16,26 @@ volumes:
 services:
   cookbook:
     extends:
-      file: 'cookbook/service.yml'
+      file: 'multimedia/cookbook/service.yml'
       service: 'cookbook'
     depends_on:
       - 'cookbook-api'
 
   cookbook-api:
     extends:
-      file: 'cookbook/service.yml'
+      file: 'multimedia/cookbook/service.yml'
       service: 'cookbook-api'
     depends_on:
       - 'cookbook-db'
 
   cookbook-db:
     extends:
-      file: 'cookbook/service.yml'
+      file: 'multimedia/cookbook/service.yml'
       service: 'cookbook-db'
 
   miniflux:
     extends:
-      file: 'miniflux/service.yml'
+      file: 'multimedia/miniflux/service.yml'
       service: 'miniflux'
     depends_on:
       miniflux-db:
@@ -43,12 +43,12 @@ services:
 
   miniflux-db:
     extends:
-      file: 'miniflux/service.yml'
+      file: 'multimedia/miniflux/service.yml'
       service: 'miniflux-db'
 
   wallabag:
     extends:
-      file: 'wallabag/service.yml'
+      file: 'multimedia/wallabag/service.yml'
       service: 'wallabag'
     depends_on:
       wallabag-db:
@@ -56,10 +56,10 @@ services:
 
   wallabag-db:
     extends:
-      file: 'wallabag/service.yml'
+      file: 'multimedia/wallabag/service.yml'
       service: 'wallabag-db'
 
   wallabag-cache:
     extends:
-      file: 'wallabag/service.yml'
+      file: 'multimedia/wallabag/service.yml'
       service: 'wallabag-cache'

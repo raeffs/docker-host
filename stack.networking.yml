@@ -20,20 +20,20 @@ volumes:
 services:
   pihole:
     extends:
-      file: 'pihole/service.yml'
+      file: 'networking/pihole/service.yml'
       service: 'pihole'
 
   pihole-sync:
     extends:
-      file: 'pihole/service.yml'
+      file: 'networking/pihole/service.yml'
       service: 'pihole-sync'
 
   unbound:
     extends:
-      file: 'unbound/service.yml'
+      file: 'networking/unbound/service.yml'
       service: 'unbound'
 
   wireguard:
     extends:
-      file: 'wireguard/service.yml'
+      file: 'networking/wireguard/service.yml'
       service: 'wireguard'
