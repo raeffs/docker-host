@@ -5,20 +5,20 @@ http:
         middlewares:
           - local-only
           - default
-    intranet-authenticated:
-      chain:
-        middlewares:
-          - authenticated
-          - intranet
+    # intranet-authenticated:
+    #   chain:
+    #     middlewares:
+    #       - authenticated
+    #       - intranet
     extranet:
       chain:
         middlewares:
           - default
-    extranet-authenticated:
-      chain:
-        middlewares:
-          - authenticated
-          - extranet
+    # extranet-authenticated:
+    #   chain:
+    #     middlewares:
+    #       - authenticated
+    #       - extranet
     default:
       chain:
         middlewares:
@@ -50,8 +50,8 @@ http:
           - '172.20.0.0/24'
           # wireguard subnet
           - '10.13.13.0/24'
-    authenticated:
-      forwardAuth:
-        address: 'http://auth:4181'
-        authResponseHeaders:
-          - 'X-Forwarded-User'
+    # authenticated:
+    #   forwardAuth:
+    #     address: 'http://auth:4181'
+    #     authResponseHeaders:
+    #       - 'X-Forwarded-User'
