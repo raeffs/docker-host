@@ -38,8 +38,3 @@ services:
     extends:
       file: 'infrastructure/dashboard/service.yml'
       service: 'dashboard'
-
-  # auth:
-  #   extends:
-  #     file: 'infrastructure/auth/service.yml'
-  #     service: 'auth'

@@ -6,33 +6,12 @@ networks:
       name: docker-host-network
 
 volumes:
-  cookbook-db:
-    external: true
   miniflux-db:
     external: true
   wallabag-db:
     external: true
 
 services:
-  cookbook:
-    extends:
-      file: 'multimedia/cookbook/service.yml'
-      service: 'cookbook'
-    depends_on:
-      - 'cookbook-api'
-
-  cookbook-api:
-    extends:
-      file: 'multimedia/cookbook/service.yml'
-      service: 'cookbook-api'
-    depends_on:
-      - 'cookbook-db'
-
-  cookbook-db:
-    extends:
-      file: 'multimedia/cookbook/service.yml'
-      service: 'cookbook-db'
-
   miniflux:
     extends:
       file: 'multimedia/miniflux/service.yml'
