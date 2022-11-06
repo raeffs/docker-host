@@ -9,6 +9,9 @@ docker run -v gitea-db:/volume -v /tmp/docker-host-backup:/backup --rm loomchild
 docker run -v grafana:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup grafana
 docker run -v home-assistant:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup home-assistant
 docker run -v home-assistant-db:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup home-assistant-db
+docker run -v mastodon:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup mastodon
+docker run -v mastodon-db:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup mastodon-db
+docker run -v mastodon-es:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup mastodon-es
 docker run -v matomo:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup matomo
 docker run -v matomo-db:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup matomo-db
 docker run -v miniflux-db:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup miniflux-db

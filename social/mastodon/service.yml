@@ -1,0 +1,109 @@
+version: '3.8'
+
+services:
+  base:
+    restart: 'unless-stopped'
+    volumes:
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+
+  mastodon-base:
+    extends: 'base'
+    image: 'tootsuite/mastodon'
+    volumes:
+      - 'mastodon:/mastodon/public/system'
+    environment:
+      RAILS_ENV: 'production'
+      LOCAL_DOMAIN: '${MASTODON_DOMAIN_PREFIX}.${DOMAIN_SUFFIX}'
+      REDIS_HOST: 'mastodon-redis'
+      DB_HOST: 'mastodon-db'
+      DB_USER: 'mastodon-user'
+      DB_NAME: 'mastodon'
+      DB_PASS: '${MASTODON_POSTGRES_PASSWORD}'
+      ES_ENABLED: 'true'
+      ES_HOST: 'mastodon-es'
+      SECRET_KEY_BASE: '${MASTODON_SECRET_KEY_BASE}'
+      OTP_SECRET: '${MASTODON_OTP_SECRET}'
+      SMTP_SERVER: '${SMTP_SERVER}'
+      SMTP_PORT: '${SMTP_PORT}'
+      SMTP_LOGIN: '${SMTP_LOGIN}'
+      SMTP_PASSWORD: '${SMTP_PASSWORD}'
+      SMTP_FROM_ADDRESS: '${SMTP_FROM_ADDRESS}'
+
+  mastodon-web:
+    extends: 'mastodon-base'
+    container_name: 'mastodon-web'
+    command: 'bash -c "/provision.sh; rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000"'
+    volumes:
+      - './provision.sh:/provision.sh:ro'
+    environment:
+      MASTODON_ADMIN_USERNAME: '${MASTODON_ADMIN_USERNAME}'
+      MASTODON_ADMIN_EMAIL: '${MASTODON_ADMIN_EMAIL}'
+    healthcheck:
+      test: ['CMD-SHELL', 'wget -q --spider --proxy=off localhost:3000/health || exit 1']
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.mastodon.rule=Host(`${MASTODON_DOMAIN_PREFIX}.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.mastodon.entrypoints=websecure'
+      - 'traefik.http.routers.mastodon.tls=true'
+      - 'traefik.http.routers.mastodon.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.mastodon.tls.domains[0].main=${MASTODON_DOMAIN_PREFIX}.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.mastodon.middlewares=extranet@file'
+      - 'traefik.http.services.mastodon.loadbalancer.server.port=3000'
+
+  mastodon-streaming:
+    extends: 'mastodon-base'
+    container_name: 'mastodon-streaming'
+    command: 'node ./streaming'
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider --proxy=off localhost:4000/api/v1/streaming/health || exit 1"]
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.mastodon-streaming.rule=Host(`${MASTODON_DOMAIN_PREFIX}.${DOMAIN_SUFFIX}`) && PathPrefix(`/api/v1/streaming`)'
+      - 'traefik.http.routers.mastodon-streaming.entrypoints=websecure'
+      - 'traefik.http.routers.mastodon-streaming.tls=true'
+      - 'traefik.http.routers.mastodon-streaming.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.mastodon-streaming.tls.domains[0].main=${MASTODON_DOMAIN_PREFIX}.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.mastodon-streaming.middlewares=extranet@file'
+      - 'traefik.http.services.mastodon-streaming.loadbalancer.server.port=4000'
+
+  mastodon-sidekiq:
+    extends: 'mastodon-base'
+    container_name: 'mastodon-sidekiq'
+    command: 'bundle exec sidekiq'
+    healthcheck:
+      test: ['CMD-SHELL', "ps aux | grep '[s]idekiq\ 6' || false"]
+
+  mastodon-db:
+    extends: 'base'
+    container_name: 'mastodon-db'
+    image: 'postgres:alpine'
+    volumes:
+      - 'mastodon-db:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_DB: 'mastodon'
+      POSTGRES_USER: 'mastodon-user'
+      POSTGRES_PASSWORD: '${MASTODON_POSTGRES_PASSWORD}'
+    healthcheck:
+      test: ['CMD', 'pg_isready', '-U', 'mastodon']
+
+  mastodon-redis:
+    extends: 'base'
+    container_name: 'mastodon-redis'
+    image: 'redis:alpine'
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+
+  mastodon-es:
+    extends: 'base'
+    container_name: 'mastodon-es'
+    image: 'docker.elastic.co/elasticsearch/elasticsearch:7.17.7'
+    volumes:
+      - 'mastodon-es:/usr/share/elasticsearch/data'
+    environment:
+      - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
+      - 'cluster.name=es-mastodon'
+      - 'discovery.type=single-node'
+      - 'bootstrap.memory_lock=true'
+    healthcheck:
+      test: ["CMD-SHELL", "curl --silent --fail localhost:9200/_cluster/health || exit 1"]

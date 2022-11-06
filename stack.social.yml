@@ -1,0 +1,55 @@
+version: '3.8'
+
+networks:
+  default:
+    external:
+      name: docker-host-network
+
+volumes:
+  mastodon:
+    external: true
+  mastodon-db:
+    external: true
+  mastodon-es:
+    external: true
+
+services:
+  mastodon-web:
+    extends:
+      file: 'social/mastodon/service.yml'
+      service: 'mastodon-web'
+    depends_on:
+      - 'mastodon-db'
+      - 'mastodon-redis'
+      - 'mastodon-es'
+
+  mastodon-streaming:
+    extends:
+      file: 'social/mastodon/service.yml'
+      service: 'mastodon-streaming'
+    depends_on:
+      - 'mastodon-db'
+      - 'mastodon-redis'
+
+  mastodon-sidekiq:
+    extends:
+      file: 'social/mastodon/service.yml'
+      service: 'mastodon-sidekiq'
+    depends_on:
+      - 'mastodon-db'
+      - 'mastodon-redis'
+
+  mastodon-db:
+    extends:
+      file: 'social/mastodon/service.yml'
+      service: 'mastodon-db'
+
+  mastodon-redis:
+    extends:
+      file: 'social/mastodon/service.yml'
+      service: 'mastodon-redis'
+
+  mastodon-es:
+    extends:
+      file: 'social/mastodon/service.yml'
+      service: 'mastodon-es'

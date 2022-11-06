@@ -29,6 +29,9 @@ create_docker_volume gitea-db
 create_docker_volume grafana
 create_docker_volume home-assistant
 create_docker_volume home-assistant-db
+create_docker_volume mastodon
+create_docker_volume mastodon-db
+create_docker_volume mastodon-es
 create_docker_volume matomo
 create_docker_volume matomo-db
 create_docker_volume miniflux-db
@@ -43,3 +46,5 @@ create_docker_volume traefik
 create_docker_volume verdaccio
 create_docker_volume wallabag-db
 create_docker_volume wireguard
+
+docker run --rm -v mastodon:/mastodon busybox /bin/sh -c 'chown -R 991:991 /mastodon'
