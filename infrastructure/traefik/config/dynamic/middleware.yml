@@ -3,7 +3,7 @@ http:
     intranet:
       chain:
         middlewares:
-          # - local-only
+          - local-only
           - default
     extranet:
       chain:
