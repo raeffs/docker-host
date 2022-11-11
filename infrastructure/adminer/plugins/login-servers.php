@@ -18,7 +18,8 @@ $mapToServers = function($serverList, $driver) {
 };
 
 $mySqlServers = $mapToServers($_ENV['MYSQL_SERVERS'], 'server');
+$postgresServers = $mapToServers($_ENV['POSTGRES_SERVERS'], 'pgsql');
 
 return  new AdminerLoginServers(
-  array_merge($mySqlServers)
+  array_merge($mySqlServers, $postgresServers)
 );

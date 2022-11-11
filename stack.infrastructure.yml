@@ -33,6 +33,7 @@ services:
       service: 'adminer'
     environment:
       MYSQL_SERVERS: 'gitea-db,home-assistant-db,matomo-db'
+      POSTGRES_SERVERS: 'mastodon-db'
 
   dashboard:
     extends:
