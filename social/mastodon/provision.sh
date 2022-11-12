@@ -1,15 +1,18 @@
 #!/bin/bash
 
-FILE=/mastodon/public/system/provisioned
+echo "Migrating database..."
+bundle exec rake db:migrate
 
-if [ -f "$FILE" ]; then
-    echo "$FILE exists, provisioning not required"
-else 
-    echo "$FILE does not exist, provisioning mastodon"
+CHECK=/mastodon/public/system/provisioned
 
-    bundle exec rake db:setup
+if [ -f "$CHECK" ]; then
+    echo "Provisioning not required"
+else
+    echo "Provisioning mastodon..."
+
     bin/tootctl accounts create $MASTODON_ADMIN_USERNAME --email $MASTODON_ADMIN_EMAIL --confirmed --role admin
 
-    echo "provisioning done"
-    touch "$FILE"
+    echo "Provisioning done"
+    touch "$CHECK"
 fi
+
