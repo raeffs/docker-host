@@ -9,7 +9,7 @@ services:
 
   mastodon-base:
     extends: 'base'
-    image: 'tootsuite/mastodon'
+    image: 'tootsuite/mastodon:v4.0'
     volumes:
       - 'mastodon:/mastodon/public/system'
     environment:
@@ -85,7 +85,7 @@ services:
       POSTGRES_USER: 'mastodon-user'
       POSTGRES_PASSWORD: '${MASTODON_POSTGRES_PASSWORD}'
     healthcheck:
-      test: ['CMD', 'pg_isready', '-U', 'mastodon']
+      test: ['CMD', 'pg_isready', '-U', 'mastodon-user', '-d', 'mastodon']
 
   mastodon-redis:
     extends: 'base'
@@ -102,8 +102,15 @@ services:
       - 'mastodon-es:/usr/share/elasticsearch/data'
     environment:
       - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
-      - 'cluster.name=es-mastodon'
-      - 'discovery.type=single-node'
+      - 'xpack.license.self_generated.type=basic'
+      - 'xpack.security.enabled=false'
+      - 'xpack.watcher.enabled=false'
+      - 'xpack.graph.enabled=false'
+      - 'xpack.ml.enabled=false'
       - 'bootstrap.memory_lock=true'
+      - 'cluster.name=mastodon-es'
+      - 'discovery.type=single-node'
+      - 'thread_pool.write.queue_size=1000'
+      - 'ingest.geoip.downloader.enabled=false'
     healthcheck:
       test: ['CMD-SHELL', 'curl --silent --fail localhost:9200/_cluster/health || exit 1']
