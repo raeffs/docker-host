@@ -84,7 +84,15 @@
     "social:restart": "yarn social:down && yarn social:up",
     "social:pull": "yarn social:stack pull",
     "social:update": "yarn social:pull && yarn social:up",
-    "social:status": "yarn social:stack ps"
+    "social:status": "yarn social:stack ps",
+    "cloud:$": "echo 'Commands for the cloud stack'",
+    "cloud:stack": "docker compose -f stack.cloud.yml -p cloud",
+    "cloud:up": "yarn cloud:stack up -d --remove-orphans",
+    "cloud:down": "yarn cloud:stack down -v --remove-orphans",
+    "cloud:restart": "yarn cloud:down && yarn cloud:up",
+    "cloud:pull": "yarn cloud:stack pull",
+    "cloud:update": "yarn cloud:pull && yarn cloud:up",
+    "cloud:status": "yarn cloud:stack ps"
   },
   "devDependencies": {
     "npm-run-all": "^4.1.5"

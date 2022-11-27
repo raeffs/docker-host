@@ -24,6 +24,8 @@ function create_docker_volume() {
 
 create_docker_volume commento-db
 create_docker_volume cookbook-db
+create_docker_volume etesync-data
+create_docker_volume etesync-db
 create_docker_volume gitea
 create_docker_volume gitea-db
 create_docker_volume grafana

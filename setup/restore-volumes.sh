@@ -2,6 +2,8 @@
 
 docker run -v commento-db:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup restore commento-db
 docker run -v cookbook-db:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup restore cookbook-db
+docker run -v etesync-data:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup restore etesync-data
+docker run -v etesync-db:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup restore etesync-db
 docker run -v gitea:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup restore gitea
 docker run -v gitea-db:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup restore gitea-db
 docker run -v grafana:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup restore grafana

@@ -4,6 +4,8 @@ mkdir -p /tmp/docker-host-backup
 
 docker run -v commento-db:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup commento-db
 docker run -v cookbook-db:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup cookbook-db
+docker run -v etesync-data:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup etesync-data
+docker run -v etesync-db:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup etesync-db
 docker run -v gitea:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup gitea
 docker run -v gitea-db:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup gitea-db
 docker run -v grafana:/volume -v /tmp/docker-host-backup:/backup --rm loomchild/volume-backup backup grafana

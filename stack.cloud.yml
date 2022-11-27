@@ -1,0 +1,25 @@
+version: '3.8'
+
+networks:
+  default:
+    external:
+      name: docker-host-network
+
+volumes:
+  etesync-data:
+    external: true
+  etesync-db:
+    external: true
+
+services:
+  etesync-web:
+    extends:
+      file: 'cloud/etesync/service.yml'
+      service: 'etesync-web'
+    depends_on:
+      - 'etesync-db'
+
+  etesync-db:
+    extends:
+      file: 'cloud/etesync/service.yml'
+      service: 'etesync-db'
