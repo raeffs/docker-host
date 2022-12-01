@@ -21,6 +21,7 @@ services:
     environment:
       ACME_EMAIL: '${TRAEFIK_ACME_EMAIL:?email for acme challange required}'
     labels:
+      - 'com.centurylinklabs.watchtower.monitor-only=true'
       - 'traefik.enable=true'
       - 'traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN_SUFFIX}`)'
       - 'traefik.http.routers.traefik.entrypoints=websecure'

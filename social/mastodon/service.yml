@@ -42,6 +42,7 @@ services:
     healthcheck:
       test: ['CMD-SHELL', 'wget -q --spider --proxy=off localhost:3000/health || exit 1']
     labels:
+      - 'com.centurylinklabs.watchtower.monitor-only=true'
       - 'traefik.enable=true'
       - 'traefik.http.routers.mastodon.rule=Host(`${MASTODON_DOMAIN}`)'
       - 'traefik.http.routers.mastodon.entrypoints=websecure'
@@ -58,6 +59,7 @@ services:
     healthcheck:
       test: ['CMD-SHELL', 'wget -q --spider --proxy=off localhost:4000/api/v1/streaming/health || exit 1']
     labels:
+      - 'com.centurylinklabs.watchtower.monitor-only=true'
       - 'traefik.enable=true'
       - 'traefik.http.routers.mastodon-streaming.rule=Host(`${MASTODON_DOMAIN}`) && PathPrefix(`/api/v1/streaming`)'
       - 'traefik.http.routers.mastodon-streaming.entrypoints=websecure'
@@ -73,6 +75,8 @@ services:
     command: 'bundle exec sidekiq'
     healthcheck:
       test: ['CMD-SHELL', "ps aux | grep '[s]idekiq\ 6' || false"]
+    labels:
+      - 'com.centurylinklabs.watchtower.monitor-only=true'
 
   mastodon-db:
     extends: 'base'
@@ -86,6 +90,8 @@ services:
       POSTGRES_PASSWORD: '${MASTODON_POSTGRES_PASSWORD}'
     healthcheck:
       test: ['CMD', 'pg_isready', '-U', 'mastodon-user', '-d', 'mastodon']
+    labels:
+      - 'com.centurylinklabs.watchtower.monitor-only=true'
 
   mastodon-redis:
     extends: 'base'
@@ -93,6 +99,8 @@ services:
     image: 'redis:alpine'
     healthcheck:
       test: ['CMD', 'redis-cli', 'ping']
+    labels:
+      - 'com.centurylinklabs.watchtower.monitor-only=true'
 
   mastodon-es:
     extends: 'base'
@@ -114,3 +122,5 @@ services:
       - 'ingest.geoip.downloader.enabled=false'
     healthcheck:
       test: ['CMD-SHELL', 'curl --silent --fail localhost:9200/_cluster/health || exit 1']
+    labels:
+      - 'com.centurylinklabs.watchtower.monitor-only=true'
