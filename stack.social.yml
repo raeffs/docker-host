@@ -19,25 +19,28 @@ services:
       file: 'social/mastodon/service.yml'
       service: 'mastodon-web'
     depends_on:
-      - 'mastodon-db'
-      - 'mastodon-redis'
-      - 'mastodon-es'
+      mastodon-db:
+        condition: service_healthy
+      mastodon-redis:
+        condition: service_healthy
+      mastodon-es:
+        condition: service_healthy
 
   mastodon-streaming:
     extends:
       file: 'social/mastodon/service.yml'
       service: 'mastodon-streaming'
     depends_on:
-      - 'mastodon-db'
-      - 'mastodon-redis'
+      mastodon-web:
+        condition: service_healthy
 
   mastodon-sidekiq:
     extends:
       file: 'social/mastodon/service.yml'
       service: 'mastodon-sidekiq'
     depends_on:
-      - 'mastodon-db'
-      - 'mastodon-redis'
+      mastodon-web:
+        condition: service_healthy
 
   mastodon-db:
     extends:

@@ -10,7 +10,7 @@ if [ -f "$CHECK" ]; then
 else
     echo "Provisioning mastodon..."
 
-    bin/tootctl accounts create $MASTODON_ADMIN_USERNAME --email $MASTODON_ADMIN_EMAIL --confirmed --role admin
+    bin/tootctl accounts create $MASTODON_ADMIN_USERNAME --email $MASTODON_ADMIN_EMAIL --confirmed --role Admin
 
     echo "Provisioning done"
     touch "$CHECK"

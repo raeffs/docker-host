@@ -41,6 +41,9 @@ services:
       MASTODON_ADMIN_EMAIL: '${MASTODON_ADMIN_EMAIL}'
     healthcheck:
       test: ['CMD-SHELL', 'wget -q --spider --proxy=off localhost:3000/health || exit 1']
+      interval: 5s
+      timeout: 5s
+      retries: 12
     labels:
       - 'com.centurylinklabs.watchtower.monitor-only=true'
       - 'traefik.enable=true'
@@ -90,6 +93,8 @@ services:
       POSTGRES_PASSWORD: '${MASTODON_POSTGRES_PASSWORD}'
     healthcheck:
       test: ['CMD', 'pg_isready', '-U', 'mastodon-user', '-d', 'mastodon']
+      interval: 5s
+      timeout: 5s
     labels:
       - 'com.centurylinklabs.watchtower.monitor-only=true'
 
@@ -99,6 +104,8 @@ services:
     image: 'redis:alpine'
     healthcheck:
       test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 5s
     labels:
       - 'com.centurylinklabs.watchtower.monitor-only=true'
 
@@ -122,5 +129,8 @@ services:
       - 'ingest.geoip.downloader.enabled=false'
     healthcheck:
       test: ['CMD-SHELL', 'curl --silent --fail localhost:9200/_cluster/health || exit 1']
+      interval: 5s
+      timeout: 5s
+      retries: 6
     labels:
       - 'com.centurylinklabs.watchtower.monitor-only=true'
