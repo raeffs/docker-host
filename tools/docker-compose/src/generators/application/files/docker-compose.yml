@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  <%= applicationName %>:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: '<%= applicationName %>-${ENVIRONMENT_NAME}'
+    image: ''
+    volumes:
+      - '<%= applicationName %>-data:/data'
+    environment:
+      ENVIRONMENT_NAME: '${ENVIRONMENT_NAME}'
+
+volumes:
+  <%= applicationName %>-data:
+    external: true
+    name: '<%= applicationName %>-data-${ENVIRONMENT_NAME}'

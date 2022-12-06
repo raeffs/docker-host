@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "version": 2,
+  "cli": "nx",
+  "type": "object",
+  "properties": {
+    "composeFile": {
+      "type": "string",
+      "default": "docker-compose.yml"
+    },
+    "detach": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": ["composeFile"]
+}

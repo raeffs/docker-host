@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "version": 2,
+  "cli": "nx",
+  "type": "object",
+  "properties": {
+    "createTarget": {
+      "type": "string"
+    },
+    "sourcePath": {
+      "type": "string",
+      "default": ".backups"
+    },
+    "sourceEnvironment": {
+      "type": "string"
+    },
+    "force": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": ["createTarget"]
+}

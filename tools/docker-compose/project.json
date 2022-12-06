@@ -1,0 +1,53 @@
+{
+  "name": "docker-compose",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "tools/docker-compose/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/tools/docker-compose",
+        "main": "tools/docker-compose/src/index.ts",
+        "tsConfig": "tools/docker-compose/tsconfig.lib.json",
+        "assets": [
+          "tools/docker-compose/*.md",
+          {
+            "input": "./tools/docker-compose/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./tools/docker-compose/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./tools/docker-compose",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./tools/docker-compose",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "tools/docker-compose/**/*.ts",
+          "tools/docker-compose/generators.json",
+          "tools/docker-compose/executors.json",
+          "tools/docker-compose/package.json"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

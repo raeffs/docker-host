@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "generators": {
+    "application": {
+      "factory": "./src/generators/application/application",
+      "schema": "./src/generators/application/schema.json",
+      "description": "Generates a new docker compose application."
+    }
+  }
+}

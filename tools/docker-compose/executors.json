@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "executors": {
+    "up": {
+      "implementation": "./src/executors/up/up",
+      "schema": "./src/executors/up/schema.json",
+      "description": "Starts the containers."
+    },
+    "down": {
+      "implementation": "./src/executors/down/down",
+      "schema": "./src/executors/down/schema.json",
+      "description": "Stops the containers."
+    },
+    "pull": {
+      "implementation": "./src/executors/pull/pull",
+      "schema": "./src/executors/pull/schema.json",
+      "description": "Pulls the latest container images."
+    },
+    "create-volumes": {
+      "implementation": "./src/executors/create-volumes/create-volumes",
+      "schema": "./src/executors/create-volumes/schema.json",
+      "description": "Creates docker volumes."
+    },
+    "backup-volumes": {
+      "implementation": "./src/executors/backup-volumes/backup-volumes",
+      "schema": "./src/executors/backup-volumes/schema.json",
+      "description": "Backups docker volumes."
+    },
+    "restore-volumes": {
+      "implementation": "./src/executors/restore-volumes/restore-volumes",
+      "schema": "./src/executors/restore-volumes/schema.json",
+      "description": "Restores docker volumes."
+    }
+  }
+}
