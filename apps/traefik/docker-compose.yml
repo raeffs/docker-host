@@ -35,3 +35,8 @@ volumes:
   traefik-certificates:
     external: true
     name: 'traefik-certificates-${ENVIRONMENT_NAME}'
+
+networks:
+  default:
+    external:
+      name: docker-host-network

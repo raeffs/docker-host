@@ -1,5 +1,5 @@
 {
-  "name": "<%= applicationName %>",
+  "name": "dozzle",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "targets": {
     "up": {
@@ -20,13 +20,13 @@
     "backup-volumes": {
       "executor": "@raeffs/docker-compose:backup-volumes",
       "options": {
-        "createTarget": "<%= applicationName %>:create-volumes"
+        "createTarget": "dozzle:create-volumes"
       }
     },
     "restore-volumes": {
       "executor": "@raeffs/docker-compose:restore-volumes",
       "options": {
-        "createTarget": "<%= applicationName %>:create-volumes"
+        "createTarget": "dozzle:create-volumes"
       }
     }
   }
