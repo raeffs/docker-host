@@ -2,31 +2,36 @@ version: '3.8'
 
 services:
   traefik:
-    container_name: 'traefik'
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'traefik-${ENVIRONMENT_NAME}'
     image: 'traefik:latest'
-    restart: 'unless-stopped'
     entrypoint: []
     command: 'sh -c "/provision.sh && traefik"'
     ports:
       - '80:80'
       - '443:443'
     volumes:
-      - '/etc/timezone:/etc/timezone:ro'
-      - '/etc/localtime:/etc/localtime:ro'
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
       - './provision.sh:/provision.sh:ro'
       - './config/dynamic:/etc/traefik/dynamic/:ro'
       - './config/traefik.yml:/traefik.template.yml:ro'
-      - 'traefik:/certificates'
+      - 'traefik-certificates:/certificates'
     environment:
-      ACME_EMAIL: '${TRAEFIK_ACME_EMAIL:?email for acme challange required}'
+      ACME_EMAIL: '${TRAEFIK_ACME_EMAIL}'
     labels:
       - 'com.centurylinklabs.watchtower.monitor-only=true'
       - 'traefik.enable=true'
-      - 'traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.traefik.rule=Host(`traefik.${DEFAULT_DOMAIN_SUFFIX}`)'
       - 'traefik.http.routers.traefik.entrypoints=websecure'
       - 'traefik.http.routers.traefik.tls=true'
       - 'traefik.http.routers.traefik.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.traefik.tls.domains[0].main=traefik.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.traefik.tls.domains[0].main=traefik.${DEFAULT_DOMAIN_SUFFIX}'
       - 'traefik.http.routers.traefik.middlewares=intranet@file'
       - 'traefik.http.services.traefik.loadbalancer.server.port=8080'
+
+volumes:
+  traefik-certificates:
+    external: true
+    name: 'traefik-certificates-${ENVIRONMENT_NAME}'

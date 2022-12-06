@@ -16,5 +16,8 @@
     "lint": {
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
     }
+  },
+  "cli": {
+    "defaultCollection": "@raeffs/docker-compose"
   }
 }
