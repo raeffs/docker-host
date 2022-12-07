@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  mastodon-base:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    image: 'tootsuite/mastodon:v4.0'
+    volumes:
+      - 'mastodon-data:/data'
+    environment:
+      RAILS_ENV: 'production'
+      LOCAL_DOMAIN: '${MASTODON_DOMAIN}'
+      REDIS_HOST: 'mastodon-redis'
+      DB_HOST: 'mastodon-db'
+      DB_USER: 'mastodon-user'
+      DB_NAME: 'mastodon'
+      DB_PASS: '${MASTODON_POSTGRES_PASSWORD}'
+      ES_ENABLED: 'true'
+      ES_HOST: 'mastodon-es'
+      SECRET_KEY_BASE: '${MASTODON_SECRET_KEY_BASE}'
+      OTP_SECRET: '${MASTODON_OTP_SECRET}'
+      SMTP_SERVER: '${SMTP_SERVER}'
+      SMTP_PORT: '${SMTP_PORT}'
+      SMTP_LOGIN: '${SMTP_LOGIN}'
+      SMTP_PASSWORD: '${SMTP_PASSWORD}'
+      SMTP_FROM_ADDRESS: '${SMTP_FROM_ADDRESS}'
