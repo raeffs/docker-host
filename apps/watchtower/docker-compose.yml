@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  watchtower:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'watchtower-${ENVIRONMENT_NAME}'
+    image: 'containrrr/watchtower:latest'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+    environment:
+      WATCHTOWER_CLEANUP: 'true'
+      WATCHTOWER_MONITOR_ONLY: '${WATCHTOWER_MONITOR_ONLY}'
+      WATCHTOWER_SCHEDULE: '${WATCHTOWER_SCHEDULE}'
+      WATCHTOWER_NOTIFICATIONS: 'slack'
+      WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL: '${WATCHTOWER_SLACK_URL}'
