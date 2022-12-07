@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  portainer:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'portainer-${ENVIRONMENT_NAME}'
+    image: 'portainer/portainer-ce'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - 'portainer-data:/data'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.portainer.rule=Host(`portainer.${DEFAULT_DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.portainer.entrypoints=websecure'
+      - 'traefik.http.routers.portainer.tls=true'
+      - 'traefik.http.routers.portainer.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.portainer.tls.domains[0].main=portainer.${DEFAULT_DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.portainer.middlewares=intranet@file'
+      - 'traefik.http.services.portainer.loadbalancer.server.port=9000'
+
+volumes:
+  portainer-data:
+    external: true
+    name: 'portainer-data-${ENVIRONMENT_NAME}'
+
+networks:
+  default:
+    external:
+      name: docker-host-network

@@ -7,7 +7,12 @@
     "url": "https://github.com/raeffs/docker-host.git"
   },
   "scripts": {
-    "nx": "nx"
+    "nx": "nx",
+    "up": "nx up",
+    "down": "nx down",
+    "pull": "nx pull",
+    "create-volumes": "nx create-volumes",
+    "new:app": "nx generate application"
   },
   "devDependencies": {
     "@angular-devkit/schematics": "15.0.2",
