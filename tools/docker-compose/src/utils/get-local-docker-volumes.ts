@@ -11,14 +11,17 @@ export async function getLocalDockerVolumes(context: ExecutorContext): Promise<s
     cwd: context.root,
   });
 
+  let allData = '';
+
   docker.stdout.on('data', data => {
-    const content = data.toString();
-    for (const match of content.matchAll(/^local\W*(?<volume>\S*)$/gim)) {
-      volumes.push(match.groups['volume']);
-    }
+    allData = allData + data.toString();
   });
 
   await waitForExit(docker);
+
+  for (const match of allData.matchAll(/^local\W*(?<volume>\S*)$/gim)) {
+    volumes.push(match.groups['volume']);
+  }
 
   return volumes;
 }

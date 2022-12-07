@@ -96,6 +96,9 @@ services:
       service: 'base'
     container_name: 'mastodon-redis-${ENVIRONMENT_NAME}'
     image: 'redis:alpine'
+    command: 'redis-server --save 3600 1'
+    volumes:
+      - 'mastodon-redis:/data'
     healthcheck:
       test: ['CMD', 'redis-cli', 'ping']
       interval: 5s
@@ -141,7 +144,9 @@ volumes:
   mastodon-es:
     external: true
     name: 'mastodon-es-${ENVIRONMENT_NAME}'
-  # todo redis
+  mastodon-redis:
+    external: true
+    name: 'mastodon-redis-${ENVIRONMENT_NAME}'
 
 networks:
   default:

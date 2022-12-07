@@ -14,7 +14,7 @@
     "create-volumes": {
       "executor": "@raeffs/docker-compose:create-volumes",
       "options": {
-        "volumes": ["mastodon-data", "mastodon-db", "mastodon-es"]
+        "volumes": [{ "name": "mastodon-data", "userId": 991 }, "mastodon-db", "mastodon-es", "mastodon-redis"]
       }
     },
     "backup-volumes": {

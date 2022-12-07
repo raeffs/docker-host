@@ -10,9 +10,25 @@
         "anyOf": [
           {
             "type": "string"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "userId": {
+                "type": "number"
+              }
+            },
+            "required": ["name"]
           }
         ]
       }
+    },
+    "force": {
+      "type": "boolean",
+      "default": false
     }
   },
   "required": []

@@ -4,9 +4,6 @@ import { ExecutorResult } from './executor-result';
 export function waitForExit(childProcess: ChildProcess): Promise<ExecutorResult> {
   const processExitListener = (): void => {
     childProcess.kill();
-
-    process.off('exit', processExitListener);
-    process.off('SIGTERM', processExitListener);
   };
 
   process.on('exit', processExitListener);
@@ -14,6 +11,9 @@ export function waitForExit(childProcess: ChildProcess): Promise<ExecutorResult>
 
   return new Promise<ExecutorResult>(resolve => {
     childProcess.on('exit', code => {
+      process.off('exit', processExitListener);
+      process.off('SIGTERM', processExitListener);
+
       resolve({
         success: code == 0,
       });

@@ -18,12 +18,6 @@ export async function* runDockerCompose(
     cwd: context.root,
   });
 
-  const processExitListener = (): void => {
-    docker.kill();
-  };
-  process.on('exit', processExitListener);
-  process.on('SIGTERM', processExitListener);
-
   yield {
     success: true,
   };

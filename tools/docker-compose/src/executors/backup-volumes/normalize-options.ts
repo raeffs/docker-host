@@ -1,5 +1,6 @@
 import { ExecutorContext, parseTargetString, readTargetOptions } from '@nrwl/devkit';
 import { getEnvironment } from '../../utils';
+import { mapToVolumeDefinitions } from '../create-volumes/normalize-options';
 import { CreateExecutorSchema } from '../create-volumes/schema';
 import { BackupExecutorOptions } from './options';
 import { BackupExecutorSchema } from './schema';
@@ -11,7 +12,7 @@ export function normalizeOptions(schema: BackupExecutorSchema, context: Executor
 
   return {
     ...schema,
-    volumes: targetSchema.volumes ?? [],
+    volumes: mapToVolumeDefinitions(targetSchema.volumes).map(volume => volume.name),
     targetEnvironment: schema.targetEnvironment ?? environment.ENVIRONMENT_NAME,
   };
 }
