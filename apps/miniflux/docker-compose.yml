@@ -2,12 +2,11 @@ version: '3.8'
 
 services:
   miniflux:
-    container_name: 'miniflux'
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'miniflux-${ENVIRONMENT_NAME}'
     image: 'miniflux/miniflux:latest'
-    restart: 'unless-stopped'
-    volumes:
-      - '/etc/timezone:/etc/timezone:ro'
-      - '/etc/localtime:/etc/localtime:ro'
     environment:
       DATABASE_URL: 'postgres://miniflux-user:${MINIFLUX_POSTGRES_PASSWORD}@miniflux-db:5432/miniflux?sslmode=disable'
       RUN_MIGRATIONS: '1'
@@ -15,28 +14,31 @@ services:
       ADMIN_USERNAME: '${MINIFLUX_INITIAL_USER}'
       ADMIN_PASSWORD: '${MINIFLUX_INITIAL_PASSWORD}'
       POLLING_FREQUENCY: '15'
-      BASE_URL: 'https://miniflux.${DOMAIN_SUFFIX}'
+      BASE_URL: 'https://miniflux.${DEFAULT_DOMAIN_SUFFIX}'
       # METRICS_COLLECTOR: '1'
       # METRICS_ALLOWED_NETWORKS: '127.0.0.1/32,192.168.1.0/24,172.20.0.0/24,10.13.13.0/24'
+    healthcheck:
+      test: '/usr/bin/miniflux -healthcheck auto'
+    depends_on:
+      miniflux-db:
+        condition: 'service_healthy'
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.miniflux.rule=Host(`miniflux.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.miniflux.rule=Host(`miniflux.${DEFAULT_DOMAIN_SUFFIX}`)'
       - 'traefik.http.routers.miniflux.entrypoints=websecure'
       - 'traefik.http.routers.miniflux.tls=true'
       - 'traefik.http.routers.miniflux.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.miniflux.tls.domains[0].main=miniflux.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.miniflux.tls.domains[0].main=miniflux.${DEFAULT_DOMAIN_SUFFIX}'
       - 'traefik.http.routers.miniflux.middlewares=default@file'
       - 'traefik.http.services.miniflux.loadbalancer.server.port=8080'
-    healthcheck:
-      test: '/usr/bin/miniflux -healthcheck auto'
 
   miniflux-db:
-    container_name: 'miniflux-db'
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'miniflux-db-${ENVIRONMENT_NAME}'
     image: 'postgres'
-    restart: 'unless-stopped'
     volumes:
-      - '/etc/timezone:/etc/timezone:ro'
-      - '/etc/localtime:/etc/localtime:ro'
       - 'miniflux-db:/var/lib/postgresql/data'
     environment:
       POSTGRES_DB: 'miniflux'
@@ -46,3 +48,13 @@ services:
       test: 'pg_isready -U miniflux-user -d miniflux'
       start_period: '5s'
       interval: '5s'
+
+volumes:
+  miniflux-db:
+    external: true
+    name: 'miniflux-db-${ENVIRONMENT_NAME}'
+
+networks:
+  default:
+    external:
+      name: docker-host-network
