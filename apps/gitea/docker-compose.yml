@@ -2,15 +2,15 @@ version: '3.8'
 
 services:
   gitea:
-    container_name: 'gitea'
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'gitea-${ENVIRONMENT_NAME}'
     image: 'gitea/gitea:1'
-    restart: 'unless-stopped'
     ports:
       - '2222:2222'
     volumes:
-      - '/etc/timezone:/etc/timezone:ro'
-      - '/etc/localtime:/etc/localtime:ro'
-      - 'gitea:/data/'
+      - 'gitea-data:/data/'
       - './custom/public/:/data/gitea/public/:ro'
       - './custom/templates/:/data/gitea/templates/:ro'
       # https://github.com/go-gitea/gitea/blob/master/docker/root/etc/templates/app.ini
@@ -18,9 +18,9 @@ services:
     environment:
       APP_NAME: 'Gitea'
       RUN_MODE: 'prod'
-      DOMAIN: 'gitea.${DOMAIN_SUFFIX}'
-      ROOT_URL: 'https://gitea.${DOMAIN_SUFFIX}'
-      SSH_DOMAIN: 'gitea.${DOMAIN_SUFFIX}'
+      DOMAIN: 'gitea.${DEFAULT_DOMAIN_SUFFIX}'
+      ROOT_URL: 'https://gitea.${DEFAULT_DOMAIN_SUFFIX}'
+      SSH_DOMAIN: 'gitea.${DEFAULT_DOMAIN_SUFFIX}'
       SSH_PORT: '2222'
       SSH_LISTEN_PORT: '2222'
       DB_TYPE: 'mysql'
@@ -30,26 +30,41 @@ services:
       DB_PASSWD: '${GITEA_MYSQL_PASSWORD}'
       INSTALL_LOCK: 'true'
       GITEA_CUSTOM: '/data/gitea'
+    depends_on:
+      - 'gitea-db'
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.gitea.rule=Host(`gitea.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.gitea.rule=Host(`gitea.${DEFAULT_DOMAIN_SUFFIX}`)'
       - 'traefik.http.routers.gitea.entrypoints=websecure'
       - 'traefik.http.routers.gitea.tls=true'
       - 'traefik.http.routers.gitea.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.gitea.tls.domains[0].main=gitea.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.gitea.tls.domains[0].main=gitea.${DEFAULT_DOMAIN_SUFFIX}'
       - 'traefik.http.routers.gitea.middlewares=default@file'
       - 'traefik.http.services.gitea.loadbalancer.server.port=3000'
 
   gitea-db:
-    container_name: 'gitea-db'
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'gitea-db-${ENVIRONMENT_NAME}'
     image: 'mariadb:latest'
-    restart: 'unless-stopped'
     volumes:
-      - '/etc/timezone:/etc/timezone:ro'
-      - '/etc/localtime:/etc/localtime:ro'
       - 'gitea-db:/var/lib/mysql'
     environment:
       MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
       MYSQL_DATABASE: 'gitea-db'
       MYSQL_USER: 'gitea-user'
       MYSQL_PASSWORD: '${GITEA_MYSQL_PASSWORD}'
+
+volumes:
+  gitea-data:
+    external: true
+    name: 'gitea-data-${ENVIRONMENT_NAME}'
+  gitea-db:
+    external: true
+    name: 'gitea-db-${ENVIRONMENT_NAME}'
+
+networks:
+  default:
+    external:
+      name: docker-host-network
