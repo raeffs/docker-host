@@ -2,13 +2,13 @@ version: '3.8'
 
 services:
   matomo:
-    container_name: 'matomo'
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'matomo-${ENVIRONMENT_NAME}'
     image: 'bitnami/matomo:latest'
-    restart: 'unless-stopped'
     volumes:
-      - '/etc/timezone:/etc/timezone:ro'
-      - '/etc/localtime:/etc/localtime:ro'
-      - 'matomo:/bitnami/matomo/'
+      - 'matomo-data:/bitnami/matomo/'
     environment:
       MATOMO_USERNAME: '${MATOMO_INITIAL_USER}'
       MATOMO_PASSWORD: '${MATOMO_INITIAL_PASSWORD}'
@@ -16,26 +16,41 @@ services:
       MATOMO_DATABASE_USER: 'matomo-user'
       MATOMO_DATABASE_PASSWORD: '${MATOMO_MYSQL_PASSWORD}'
       MATOMO_DATABASE_NAME: 'matomo-db'
+    depends_on:
+      - 'matomo-db'
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.matomo.rule=Host(`matomo.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.matomo.rule=Host(`matomo.${DEFAULT_DOMAIN_SUFFIX}`)'
       - 'traefik.http.routers.matomo.entrypoints=websecure'
       - 'traefik.http.routers.matomo.tls=true'
       - 'traefik.http.routers.matomo.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.matomo.tls.domains[0].main=matomo.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.matomo.tls.domains[0].main=matomo.${DEFAULT_DOMAIN_SUFFIX}'
       - 'traefik.http.routers.matomo.middlewares=default@file'
       - 'traefik.http.services.matomo.loadbalancer.server.port=8080'
 
   matomo-db:
-    container_name: 'matomo-db'
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'matomo-db-${ENVIRONMENT_NAME}'
     image: 'mariadb:latest'
-    restart: 'unless-stopped'
     volumes:
-      - '/etc/timezone:/etc/timezone:ro'
-      - '/etc/localtime:/etc/localtime:ro'
       - 'matomo-db:/var/lib/mysql'
     environment:
       MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
       MYSQL_DATABASE: 'matomo-db'
       MYSQL_USER: 'matomo-user'
       MYSQL_PASSWORD: '${MATOMO_MYSQL_PASSWORD}'
+
+volumes:
+  matomo-data:
+    external: true
+    name: 'matomo-data-${ENVIRONMENT_NAME}'
+  matomo-db:
+    external: true
+    name: 'matomo-db-${ENVIRONMENT_NAME}'
+
+networks:
+  default:
+    external:
+      name: docker-host-network

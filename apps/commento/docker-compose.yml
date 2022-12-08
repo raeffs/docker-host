@@ -11,6 +11,8 @@ services:
       COMMENTO_ORIGIN: 'https://commento.${DEFAULT_DOMAIN_SUFFIX}'
       COMMENTO_PORT: '8080'
       COMMENTO_POSTGRES: 'postgres://commento-user:${COMMENTO_POSTGRES_PASSWORD}@commento-db:5432/commento?sslmode=disable'
+    depends_on:
+      - 'commento-db'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.commento.rule=Host(`commento.${DEFAULT_DOMAIN_SUFFIX}`)'
