@@ -16,3 +16,8 @@ volumes:
   <%= applicationName %>-data:
     external: true
     name: '<%= applicationName %>-data-${ENVIRONMENT_NAME}'
+
+networks:
+  default:
+    external:
+      name: docker-host-network

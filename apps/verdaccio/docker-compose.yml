@@ -2,21 +2,31 @@ version: '3.8'
 
 services:
   verdaccio:
-    container_name: 'verdaccio'
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'verdaccio-${ENVIRONMENT_NAME}'
     image: 'raeffs/verdaccio:latest'
-    restart: 'unless-stopped'
     volumes:
-      - '/etc/timezone:/etc/timezone:ro'
-      - '/etc/localtime:/etc/localtime:ro'
-      - 'verdaccio:/verdaccio/storage'
+      - 'verdaccio-data:/verdaccio/storage'
       - './config/config.yaml:/verdaccio/conf/config.yaml:ro'
       - './config/htpasswd:/verdaccio/htpasswd'
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.verdaccio.rule=Host(`verdaccio.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.verdaccio.rule=Host(`verdaccio.${DEFAULT_DOMAIN_SUFFIX}`)'
       - 'traefik.http.routers.verdaccio.entrypoints=websecure'
       - 'traefik.http.routers.verdaccio.tls=true'
       - 'traefik.http.routers.verdaccio.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.verdaccio.tls.domains[0].main=verdaccio.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.verdaccio.tls.domains[0].main=verdaccio.${DEFAULT_DOMAIN_SUFFIX}'
       - 'traefik.http.routers.verdaccio.middlewares=default@file'
       - 'traefik.http.services.verdaccio.loadbalancer.server.port=4873'
+
+volumes:
+  verdaccio-data:
+    external: true
+    name: 'verdaccio-data-${ENVIRONMENT_NAME}'
+
+networks:
+  default:
+    external:
+      name: docker-host-network
