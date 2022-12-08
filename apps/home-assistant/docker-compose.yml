@@ -2,36 +2,51 @@ version: '3.8'
 
 services:
   home-assistant:
-    container_name: 'home-assistant'
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'home-assistant-${ENVIRONMENT_NAME}'
     image: 'homeassistant/home-assistant:stable'
-    restart: 'unless-stopped'
     volumes:
-      - '/etc/timezone:/etc/timezone:ro'
-      - '/etc/localtime:/etc/localtime:ro'
-      - 'home-assistant:/config/'
+      - 'home-assistant-data:/config/'
       - './config/configuration.yaml:/config/configuration.yaml:ro'
     environment:
       DATABASE_CONNECTION: 'mysql://home-assistant-user:${HA_MYSQL_PASSWORD}@home-assistant-db/home-assistant-db?charset=utf8'
+    depends_on:
+      - 'home-assistant-db'
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.home-assistant.rule=Host(`home-assistant.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.home-assistant.rule=Host(`home-assistant.${DEFAULT_DOMAIN_SUFFIX}`)'
       - 'traefik.http.routers.home-assistant.entrypoints=websecure'
       - 'traefik.http.routers.home-assistant.tls=true'
       - 'traefik.http.routers.home-assistant.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.home-assistant.tls.domains[0].main=home-assistant.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.home-assistant.tls.domains[0].main=home-assistant.${DEFAULT_DOMAIN_SUFFIX}'
       - 'traefik.http.routers.home-assistant.middlewares=intranet@file'
       - 'traefik.http.services.home-assistant.loadbalancer.server.port=8123'
 
   home-assistant-db:
-    container_name: 'home-assistant-db'
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'home-assistant-db-${ENVIRONMENT_NAME}'
     image: 'mariadb:latest'
-    restart: 'unless-stopped'
     volumes:
-      - '/etc/timezone:/etc/timezone:ro'
-      - '/etc/localtime:/etc/localtime:ro'
       - 'home-assistant-db:/var/lib/mysql'
     environment:
       MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
       MYSQL_DATABASE: 'home-assistant-db'
       MYSQL_USER: 'home-assistant-user'
       MYSQL_PASSWORD: '${HA_MYSQL_PASSWORD}'
+
+volumes:
+  home-assistant-data:
+    external: true
+    name: 'home-assistant-data-${ENVIRONMENT_NAME}'
+  home-assistant-db:
+    external: true
+    name: 'home-assistant-db-${ENVIRONMENT_NAME}'
+
+networks:
+  default:
+    external:
+      name: docker-host-network
