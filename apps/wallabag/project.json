@@ -1,0 +1,33 @@
+{
+  "name": "wallabag",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "targets": {
+    "up": {
+      "executor": "@raeffs/docker-compose:up"
+    },
+    "down": {
+      "executor": "@raeffs/docker-compose:down"
+    },
+    "pull": {
+      "executor": "@raeffs/docker-compose:pull"
+    },
+    "create-volumes": {
+      "executor": "@raeffs/docker-compose:create-volumes",
+      "options": {
+        "volumes": ["wallabag-db"]
+      }
+    },
+    "backup-volumes": {
+      "executor": "@raeffs/docker-compose:backup-volumes",
+      "options": {
+        "createTarget": "wallabag:create-volumes"
+      }
+    },
+    "restore-volumes": {
+      "executor": "@raeffs/docker-compose:restore-volumes",
+      "options": {
+        "createTarget": "wallabag:create-volumes"
+      }
+    }
+  }
+}
