@@ -10,6 +10,6 @@ export default function runExecutor(
   const options = normalizeOptions(schema, context);
   return runDockerCompose(context, {
     pathToComposeFile: options.pathToComposeFile,
-    additionalArgs: ['down'],
+    additionalArgs: ['down', '--remove-orphans'],
   });
 }

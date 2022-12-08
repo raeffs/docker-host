@@ -1,15 +1,11 @@
 version: '3.8'
 
 services:
-  base:
-    restart: 'unless-stopped'
-    volumes:
-      - '/etc/timezone:/etc/timezone:ro'
-      - '/etc/localtime:/etc/localtime:ro'
-
   etesync-web:
-    extends: 'base'
-    container_name: 'etesync-web'
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'etesync-web-${ENVIRONMENT_NAME}'
     image: 'victorrds/etesync:alpine'
     volumes:
       - 'etesync-data:/data'
@@ -17,7 +13,7 @@ services:
       SERVER: 'uvicorn'
       AUTO_UPDATE: 'true'
       DB_ENGINE: 'postgres'
-      ALLOWED_HOSTS: 'etesync.${DOMAIN_SUFFIX}'
+      ALLOWED_HOSTS: 'etesync.${DEFAULT_DOMAIN_SUFFIX}'
       TIME_ZONE: 'Europe/Zurich'
       DATABASE_HOST: 'etesync-db'
       DATABASE_USER: 'etesync-user'
@@ -25,19 +21,24 @@ services:
       DATABASE_PASSWORD: '${ETESYNC_POSTGRES_PASSWORD}'
       SUPER_USER: '${ETESYNC_ADMIN_USERNAME}'
       SUPER_PASS: '${ETESYNC_ADMIN_PASSWORD}'
+    depends_on:
+      etesync-db:
+        condition: service_healthy
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.etesync.rule=Host(`etesync.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.etesync.rule=Host(`etesync.${DEFAULT_DOMAIN_SUFFIX}`)'
       - 'traefik.http.routers.etesync.entrypoints=websecure'
       - 'traefik.http.routers.etesync.tls=true'
       - 'traefik.http.routers.etesync.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.etesync.tls.domains[0].main=etesync.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.etesync.tls.domains[0].main=etesync.${DEFAULT_DOMAIN_SUFFIX}'
       - 'traefik.http.routers.etesync.middlewares=extranet@file'
       - 'traefik.http.services.etesync.loadbalancer.server.port=3735'
 
   etesync-db:
-    extends: 'base'
-    container_name: 'etesync-db'
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'etesync-db-${ENVIRONMENT_NAME}'
     image: 'postgres:alpine'
     volumes:
       - 'etesync-db:/var/lib/postgresql/data'
@@ -47,3 +48,18 @@ services:
       POSTGRES_PASSWORD: '${ETESYNC_POSTGRES_PASSWORD}'
     healthcheck:
       test: ['CMD', 'pg_isready', '-U', 'etesync-user', '-d', 'etesync']
+      interval: 5s
+      timeout: 5s
+
+volumes:
+  etesync-data:
+    external: true
+    name: 'etesync-data-${ENVIRONMENT_NAME}'
+  etesync-db:
+    external: true
+    name: 'etesync-db-${ENVIRONMENT_NAME}'
+
+networks:
+  default:
+    external:
+      name: docker-host-network
