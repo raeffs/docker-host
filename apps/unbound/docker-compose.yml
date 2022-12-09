@@ -2,9 +2,16 @@ version: '3.8'
 
 services:
   unbound:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
     container_name: 'unbound'
     image: 'mvance/unbound:latest'
-    restart: 'unless-stopped'
     networks:
       default:
         ipv4_address: 172.20.0.1
+
+networks:
+  default:
+    external:
+      name: docker-host-network
