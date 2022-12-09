@@ -2,23 +2,32 @@ version: '3.8'
 
 services:
   grafana:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
     container_name: 'grafana'
     image: 'grafana/grafana:latest'
-    restart: 'unless-stopped'
     user: 'root'
     volumes:
-      - '/etc/timezone:/etc/timezone:ro'
-      - '/etc/localtime:/etc/localtime:ro'
-      - 'grafana:/var/lib/grafana'
+      - 'grafana-data:/var/lib/grafana'
       - './config/grafana.ini:/etc/grafana/grafana.ini:ro'
     environment:
       GF_INSTALL_PLUGINS: 'grafana-piechart-panel'
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.grafana.rule=Host(`grafana.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.grafana.rule=Host(`grafana.${DEFAULT_DOMAIN_SUFFIX}`)'
       - 'traefik.http.routers.grafana.entrypoints=websecure'
       - 'traefik.http.routers.grafana.tls=true'
       - 'traefik.http.routers.grafana.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.grafana.tls.domains[0].main=grafana.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.grafana.tls.domains[0].main=grafana.${DEFAULT_DOMAIN_SUFFIX}'
       - 'traefik.http.routers.grafana.middlewares=intranet@file'
       - 'traefik.http.services.grafana.loadbalancer.server.port=3000'
+
+volumes:
+  grafana-data:
+    external: true
+
+networks:
+  default:
+    external:
+      name: docker-host-network
