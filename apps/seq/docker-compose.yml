@@ -2,30 +2,39 @@ version: '3.8'
 
 services:
   seq:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
     container_name: 'seq'
     image: 'datalust/seq:latest'
-    restart: 'unless-stopped'
     volumes:
-      - '/etc/timezone:/etc/timezone:ro'
-      - '/etc/localtime:/etc/localtime:ro'
-      - 'seq:/data/'
+      - 'seq-data:/data/'
     environment:
       ACCEPT_EULA: 'Y'
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.seq.rule=Host(`seq.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.seq.rule=Host(`seq.${DEFAULT_DOMAIN_SUFFIX}`)'
       - 'traefik.http.routers.seq.entrypoints=websecure'
       - 'traefik.http.routers.seq.tls=true'
       - 'traefik.http.routers.seq.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.seq.tls.domains[0].main=seq.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.seq.tls.domains[0].main=seq.${DEFAULT_DOMAIN_SUFFIX}'
       - 'traefik.http.routers.seq.middlewares=intranet@file'
       - 'traefik.http.routers.seq.service=seq'
       - 'traefik.http.services.seq.loadbalancer.server.port=80'
-      - 'traefik.http.routers.seq-ingest.rule=Host(`seq-ingest.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.seq-ingest.rule=Host(`seq-ingest.${DEFAULT_DOMAIN_SUFFIX}`)'
       - 'traefik.http.routers.seq-ingest.entrypoints=websecure'
       - 'traefik.http.routers.seq-ingest.tls=true'
       - 'traefik.http.routers.seq-ingest.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.seq-ingest.tls.domains[0].main=seq-ingest.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.seq-ingest.tls.domains[0].main=seq-ingest.${DEFAULT_DOMAIN_SUFFIX}'
       - 'traefik.http.routers.seq-ingest.middlewares=default@file'
       - 'traefik.http.routers.seq-ingest.service=seq-ingest'
       - 'traefik.http.services.seq-ingest.loadbalancer.server.port=5341'
+
+volumes:
+  seq-data:
+    external: true
+
+networks:
+  default:
+    external:
+      name: docker-host-network
