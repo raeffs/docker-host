@@ -2,16 +2,16 @@ version: '3.8'
 
 services:
   pihole:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
     container_name: 'pihole'
     image: 'pihole/pihole:latest'
-    restart: 'unless-stopped'
     ports:
       - '53:53/tcp'
       - '53:53/udp'
     volumes:
-      - '/etc/timezone:/etc/timezone:ro'
-      - '/etc/localtime:/etc/localtime:ro'
-      - 'pihole:/etc/pihole/'
+      - 'pihole-data:/etc/pihole/'
       - 'pihole-dnsmasq:/etc/dnsmasq.d/'
       - './config/resolv.conf:/etc/resolv.conf:ro'
       - './config/adlists.list:/etc/pihole/adlists.list:ro'
@@ -23,30 +23,45 @@ services:
       WEBPASSWORD: '${PIHOLE_PASSWORD}'
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.pihole.rule=Host(`pihole.${DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.pihole.rule=Host(`pihole.${DEFAULT_DOMAIN_SUFFIX}`)'
       - 'traefik.http.routers.pihole.entrypoints=websecure'
       - 'traefik.http.routers.pihole.tls=true'
       - 'traefik.http.routers.pihole.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.pihole.tls.domains[0].main=pihole.${DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.pihole.tls.domains[0].main=pihole.${DEFAULT_DOMAIN_SUFFIX}'
       - 'traefik.http.routers.pihole.middlewares=pihole'
       - 'traefik.http.services.pihole.loadbalancer.server.port=80'
       - 'traefik.http.middlewares.pihole.chain.middlewares=intranet@file,pihole-prefix'
       - 'traefik.http.middlewares.pihole-prefix.addprefix.prefix=/admin'
 
   pihole-sync:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
     container_name: 'pihole-sync'
     image: 'shirom/pihole-sync:latest'
-    restart: 'unless-stopped'
     ports:
       - '22222:22'
     volumes:
-      - '/etc/timezone:/etc/timezone:ro'
-      - '/etc/localtime:/etc/localtime:ro'
-      - 'pihole-sync:/root/'
+      - 'pihole-sync-data:/root/'
       - 'pihole-sync-ssh:/etc/ssh/'
-      - 'pihole:/mnt/etc-pihole/'
+      - 'pihole-data:/mnt/etc-pihole/'
       - 'pihole-dnsmasq:/mnt/etc-dnsmasq.d/'
     environment:
       NODE: ${PIHOLE_SYNC_NODE}
       REM_HOST: ${PIHOLE_SYNC_TARGET}
       REM_SSH_PORT: '22222'
+
+volumes:
+  pihole-data:
+    external: true
+  pihole-dnsmasq:
+    external: true
+  pihole-sync-data:
+    external: true
+  pihole-sync-ssh:
+    external: true
+
+networks:
+  default:
+    external:
+      name: docker-host-network
