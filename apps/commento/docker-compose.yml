@@ -5,8 +5,8 @@ services:
     extends:
       file: '../../libs/base/docker-compose.yml'
       service: 'base'
-    container_name: 'commento-${ENVIRONMENT_NAME}'
-    image: 'registry.gitlab.com/commento/commento:latest'
+    container_name: 'commento'
+    image: 'caroga/commentoplusplus:latest'
     environment:
       COMMENTO_ORIGIN: 'https://commento.${DEFAULT_DOMAIN_SUFFIX}'
       COMMENTO_PORT: '8080'
@@ -27,7 +27,7 @@ services:
     extends:
       file: '../../libs/base/docker-compose.yml'
       service: 'base'
-    container_name: 'commento-db-${ENVIRONMENT_NAME}'
+    container_name: 'commento-db'
     image: 'postgres'
     volumes:
       - 'commento-db:/var/lib/postgresql/data'
@@ -39,7 +39,6 @@ services:
 volumes:
   commento-db:
     external: true
-    name: 'commento-db-${ENVIRONMENT_NAME}'
 
 networks:
   default:

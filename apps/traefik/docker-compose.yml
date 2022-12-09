@@ -5,7 +5,7 @@ services:
     extends:
       file: '../../libs/base/docker-compose.yml'
       service: 'base'
-    container_name: 'traefik-${ENVIRONMENT_NAME}'
+    container_name: 'traefik'
     image: 'traefik:latest'
     entrypoint: []
     command: 'sh -c "/provision.sh && traefik"'
@@ -34,7 +34,6 @@ services:
 volumes:
   traefik-certificates:
     external: true
-    name: 'traefik-certificates-${ENVIRONMENT_NAME}'
 
 networks:
   default:

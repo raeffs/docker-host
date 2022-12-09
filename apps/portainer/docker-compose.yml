@@ -5,7 +5,7 @@ services:
     extends:
       file: '../../libs/base/docker-compose.yml'
       service: 'base'
-    container_name: 'portainer-${ENVIRONMENT_NAME}'
+    container_name: 'portainer'
     image: 'portainer/portainer-ce'
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
@@ -23,7 +23,6 @@ services:
 volumes:
   portainer-data:
     external: true
-    name: 'portainer-data-${ENVIRONMENT_NAME}'
 
 networks:
   default:

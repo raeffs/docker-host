@@ -5,7 +5,7 @@ services:
     extends:
       file: '../../libs/base/docker-compose.yml'
       service: 'base'
-    container_name: 'wallabag-${ENVIRONMENT_NAME}'
+    container_name: 'wallabag'
     image: 'wallabag/wallabag:latest'
     command: 'sh -c "/entrypoint.sh migrate && /provision.sh && /entrypoint.sh wallabag"'
     volumes:
@@ -42,7 +42,7 @@ services:
     extends:
       file: '../../libs/base/docker-compose.yml'
       service: 'base'
-    container_name: 'wallabag-db-${ENVIRONMENT_NAME}'
+    container_name: 'wallabag-db'
     image: 'postgres'
     volumes:
       - 'wallabag-db:/var/lib/postgresql/data'
@@ -58,13 +58,12 @@ services:
     extends:
       file: '../../libs/base/docker-compose.yml'
       service: 'base'
-    container_name: 'wallabag-cache-${ENVIRONMENT_NAME}'
+    container_name: 'wallabag-cache'
     image: 'redis:alpine'
 
 volumes:
   wallabag-db:
     external: true
-    name: 'wallabag-db-${ENVIRONMENT_NAME}'
 
 networks:
   default:

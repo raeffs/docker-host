@@ -5,7 +5,7 @@ services:
     extends:
       file: '../../libs/base/docker-compose.yml'
       service: 'base'
-    container_name: 'gitea-${ENVIRONMENT_NAME}'
+    container_name: 'gitea'
     image: 'gitea/gitea:1'
     ports:
       - '2222:2222'
@@ -46,7 +46,7 @@ services:
     extends:
       file: '../../libs/base/docker-compose.yml'
       service: 'base'
-    container_name: 'gitea-db-${ENVIRONMENT_NAME}'
+    container_name: 'gitea-db'
     image: 'mariadb:latest'
     volumes:
       - 'gitea-db:/var/lib/mysql'
@@ -59,10 +59,8 @@ services:
 volumes:
   gitea-data:
     external: true
-    name: 'gitea-data-${ENVIRONMENT_NAME}'
   gitea-db:
     external: true
-    name: 'gitea-db-${ENVIRONMENT_NAME}'
 
 networks:
   default:

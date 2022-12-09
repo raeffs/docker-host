@@ -5,7 +5,7 @@ services:
     extends:
       file: '../../libs/base/docker-compose.yml'
       service: 'base'
-    container_name: 'watchtower-${ENVIRONMENT_NAME}'
+    container_name: 'watchtower'
     image: 'containrrr/watchtower:latest'
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock:ro'

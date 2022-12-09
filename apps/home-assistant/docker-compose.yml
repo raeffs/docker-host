@@ -5,7 +5,7 @@ services:
     extends:
       file: '../../libs/base/docker-compose.yml'
       service: 'base'
-    container_name: 'home-assistant-${ENVIRONMENT_NAME}'
+    container_name: 'home-assistant'
     image: 'homeassistant/home-assistant:stable'
     volumes:
       - 'home-assistant-data:/config/'
@@ -28,7 +28,7 @@ services:
     extends:
       file: '../../libs/base/docker-compose.yml'
       service: 'base'
-    container_name: 'home-assistant-db-${ENVIRONMENT_NAME}'
+    container_name: 'home-assistant-db'
     image: 'mariadb:latest'
     volumes:
       - 'home-assistant-db:/var/lib/mysql'
@@ -41,10 +41,8 @@ services:
 volumes:
   home-assistant-data:
     external: true
-    name: 'home-assistant-data-${ENVIRONMENT_NAME}'
   home-assistant-db:
     external: true
-    name: 'home-assistant-db-${ENVIRONMENT_NAME}'
 
 networks:
   default:

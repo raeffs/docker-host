@@ -1,5 +1,5 @@
 import { ExecutorContext, joinPathFragments } from '@nrwl/devkit';
-import { ExecutorResult, getEnvironment } from '../../utils';
+import { ExecutorResult } from '../../utils';
 import { normalizeOptions } from './normalize-options';
 import { restoreVolume } from './restore-volume';
 import { RestoreExecutorSchema } from './schema';
@@ -9,13 +9,11 @@ export default async function* runExecutor(
   context: ExecutorContext
 ): AsyncGenerator<ExecutorResult> {
   const options = normalizeOptions(schema, context);
-  const environment = getEnvironment();
 
   for (const volume of options.volumes) {
-    const volumeName = `${volume}-${environment.ENVIRONMENT_NAME}`;
-    const sourceFilePath = joinPathFragments(options.sourcePath, `${volume}-${options.sourceEnvironment}.tar.bz2`);
+    const sourceFilePath = joinPathFragments(options.sourcePath, `${volume}.tar.bz2`);
     yield await restoreVolume(context, {
-      volumeName,
+      volumeName: volume,
       sourceFilePath,
       force: options.force,
     });

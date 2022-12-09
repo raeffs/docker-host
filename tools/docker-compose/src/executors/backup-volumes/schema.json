@@ -10,9 +10,6 @@
     "targetPath": {
       "type": "string",
       "default": ".backups"
-    },
-    "targetEnvironment": {
-      "type": "string"
     }
   },
   "required": ["createTarget"]

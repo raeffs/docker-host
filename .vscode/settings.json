@@ -2,5 +2,9 @@
   "files.exclude": {
     "dist": true,
     "tmp": true
+  },
+  "files.associations": {
+    ".env.local": "properties",
+    ".local.env": "properties"
   }
 }

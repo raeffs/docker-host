@@ -5,7 +5,7 @@ services:
     extends:
       file: '../../libs/base/docker-compose.yml'
       service: 'base'
-    container_name: 'etesync-web-${ENVIRONMENT_NAME}'
+    container_name: 'etesync-web'
     image: 'victorrds/etesync:alpine'
     volumes:
       - 'etesync-data:/data'
@@ -38,7 +38,7 @@ services:
     extends:
       file: '../../libs/base/docker-compose.yml'
       service: 'base'
-    container_name: 'etesync-db-${ENVIRONMENT_NAME}'
+    container_name: 'etesync-db'
     image: 'postgres:alpine'
     volumes:
       - 'etesync-db:/var/lib/postgresql/data'
@@ -54,10 +54,8 @@ services:
 volumes:
   etesync-data:
     external: true
-    name: 'etesync-data-${ENVIRONMENT_NAME}'
   etesync-db:
     external: true
-    name: 'etesync-db-${ENVIRONMENT_NAME}'
 
 networks:
   default:

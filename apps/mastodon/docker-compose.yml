@@ -5,7 +5,7 @@ services:
     extends:
       file: 'docker-compose.base.yml'
       service: 'mastodon-base'
-    container_name: 'mastodon-web-${ENVIRONMENT_NAME}'
+    container_name: 'mastodon-web'
     command: 'bash -c "/provision.sh; rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000"'
     volumes:
       - './provision.sh:/provision.sh:ro'
@@ -39,7 +39,7 @@ services:
     extends:
       file: 'docker-compose.base.yml'
       service: 'mastodon-base'
-    container_name: 'mastodon-streaming-${ENVIRONMENT_NAME}'
+    container_name: 'mastodon-streaming'
     command: 'node ./streaming'
     healthcheck:
       test: ['CMD-SHELL', 'wget -q --spider --proxy=off localhost:4000/api/v1/streaming/health || exit 1']
@@ -61,7 +61,7 @@ services:
     extends:
       file: 'docker-compose.base.yml'
       service: 'mastodon-base'
-    container_name: 'mastodon-sidekiq-${ENVIRONMENT_NAME}'
+    container_name: 'mastodon-sidekiq'
     command: 'bundle exec sidekiq'
     healthcheck:
       test: ['CMD-SHELL', "ps aux | grep '[s]idekiq\ 6' || false"]
@@ -75,7 +75,7 @@ services:
     extends:
       file: '../../libs/base/docker-compose.yml'
       service: 'base'
-    container_name: 'mastodon-db-${ENVIRONMENT_NAME}'
+    container_name: 'mastodon-db'
     image: 'postgres:alpine'
     volumes:
       - 'mastodon-db:/var/lib/postgresql/data'
@@ -94,7 +94,7 @@ services:
     extends:
       file: '../../libs/base/docker-compose.yml'
       service: 'base'
-    container_name: 'mastodon-redis-${ENVIRONMENT_NAME}'
+    container_name: 'mastodon-redis'
     image: 'redis:alpine'
     command: 'redis-server --save 3600 1'
     volumes:
@@ -110,7 +110,7 @@ services:
     extends:
       file: '../../libs/base/docker-compose.yml'
       service: 'base'
-    container_name: 'mastodon-es-${ENVIRONMENT_NAME}'
+    container_name: 'mastodon-es'
     image: 'docker.elastic.co/elasticsearch/elasticsearch:7.17.7'
     volumes:
       - 'mastodon-es:/usr/share/elasticsearch/data'
@@ -137,16 +137,12 @@ services:
 volumes:
   mastodon-data:
     external: true
-    name: 'mastodon-data-${ENVIRONMENT_NAME}'
   mastodon-db:
     external: true
-    name: 'mastodon-db-${ENVIRONMENT_NAME}'
   mastodon-es:
     external: true
-    name: 'mastodon-es-${ENVIRONMENT_NAME}'
   mastodon-redis:
     external: true
-    name: 'mastodon-redis-${ENVIRONMENT_NAME}'
 
 networks:
   default:

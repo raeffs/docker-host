@@ -11,9 +11,6 @@
       "type": "string",
       "default": ".backups"
     },
-    "sourceEnvironment": {
-      "type": "string"
-    },
     "force": {
       "type": "boolean",
       "default": false

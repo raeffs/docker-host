@@ -5,7 +5,7 @@ services:
     extends:
       file: '../../libs/base/docker-compose.yml'
       service: 'base'
-    container_name: 'matomo-${ENVIRONMENT_NAME}'
+    container_name: 'matomo'
     image: 'bitnami/matomo:latest'
     volumes:
       - 'matomo-data:/bitnami/matomo/'
@@ -32,7 +32,7 @@ services:
     extends:
       file: '../../libs/base/docker-compose.yml'
       service: 'base'
-    container_name: 'matomo-db-${ENVIRONMENT_NAME}'
+    container_name: 'matomo-db'
     image: 'mariadb:latest'
     volumes:
       - 'matomo-db:/var/lib/mysql'
@@ -45,10 +45,8 @@ services:
 volumes:
   matomo-data:
     external: true
-    name: 'matomo-data-${ENVIRONMENT_NAME}'
   matomo-db:
     external: true
-    name: 'matomo-db-${ENVIRONMENT_NAME}'
 
 networks:
   default:

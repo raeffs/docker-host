@@ -5,7 +5,7 @@ services:
     extends:
       file: '../../libs/base/docker-compose.yml'
       service: 'base'
-    container_name: 'verdaccio-${ENVIRONMENT_NAME}'
+    container_name: 'verdaccio'
     image: 'raeffs/verdaccio:latest'
     volumes:
       - 'verdaccio-data:/verdaccio/storage'
@@ -24,7 +24,6 @@ services:
 volumes:
   verdaccio-data:
     external: true
-    name: 'verdaccio-data-${ENVIRONMENT_NAME}'
 
 networks:
   default:
