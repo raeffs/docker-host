@@ -1,0 +1,33 @@
+{
+  "name": "ofelia",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "targets": {
+    "up": {
+      "executor": "@raeffs/docker-compose:up"
+    },
+    "down": {
+      "executor": "@raeffs/docker-compose:down"
+    },
+    "pull": {
+      "executor": "@raeffs/docker-compose:pull"
+    },
+    "create-volumes": {
+      "executor": "@raeffs/docker-compose:create-volumes",
+      "options": {
+        "volumes": []
+      }
+    },
+    "backup-volumes": {
+      "executor": "@raeffs/docker-compose:backup-volumes",
+      "options": {
+        "createTarget": "ofelia:create-volumes"
+      }
+    },
+    "restore-volumes": {
+      "executor": "@raeffs/docker-compose:restore-volumes",
+      "options": {
+        "createTarget": "ofelia:create-volumes"
+      }
+    }
+  }
+}
