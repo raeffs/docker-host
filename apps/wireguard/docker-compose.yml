@@ -2,23 +2,32 @@ version: '3.8'
 
 services:
   wireguard:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
     container_name: 'wireguard'
     image: 'linuxserver/wireguard:latest'
-    restart: 'unless-stopped'
     cap_add:
       - NET_ADMIN
       - SYS_MODULE
     ports:
       - ${WIREGUARD_PORT}:51820/udp
     volumes:
-      - '/etc/timezone:/etc/timezone:ro'
-      - '/etc/localtime:/etc/localtime:ro'
       - '/lib/modules:/lib/modules'
-      - 'wireguard:/config'
+      - 'wireguard-data:/config'
     environment:
       PUID: 1000
       PGID: 1000
-      SERVERURL: 'wireguard.${DOMAIN_SUFFIX}'
+      SERVERURL: 'wireguard.${DEFAULT_DOMAIN_SUFFIX}'
       SERVERPORT: '${WIREGUARD_PORT}'
       PEERS: '${WIREGUARD_PEERS}'
       PEERDNS: '${WIREGUARD_PEERDNS}'
+
+volumes:
+  wireguard-data:
+    external: true
+
+networks:
+  default:
+    external:
+      name: docker-host-network
