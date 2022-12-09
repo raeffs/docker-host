@@ -15,3 +15,8 @@ services:
       WATCHTOWER_SCHEDULE: '${WATCHTOWER_SCHEDULE}'
       WATCHTOWER_NOTIFICATIONS: 'slack'
       WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL: '${WATCHTOWER_SLACK_URL}'
+
+networks:
+  default:
+    external:
+      name: docker-host-network
