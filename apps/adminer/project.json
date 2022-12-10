@@ -1,6 +1,7 @@
 {
   "name": "adminer",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": ["traefik"],
   "targets": {
     "up": {
       "executor": "@raeffs/docker-compose:up"
@@ -18,16 +19,19 @@
       }
     },
     "backup-volumes": {
-      "executor": "@raeffs/docker-compose:backup-volumes",
-      "options": {
-        "createTarget": "adminer:create-volumes"
-      }
+      "executor": "@raeffs/docker-compose:backup-volumes"
     },
     "restore-volumes": {
-      "executor": "@raeffs/docker-compose:restore-volumes",
+      "executor": "@raeffs/docker-compose:restore-volumes"
+    },
+    "configure": {
+      "executor": "@raeffs/docker-compose:configure",
       "options": {
-        "createTarget": "adminer:create-volumes"
+        "variables": []
       }
+    },
+    "init": {
+      "executor": "@raeffs/docker-compose:init"
     }
   }
 }

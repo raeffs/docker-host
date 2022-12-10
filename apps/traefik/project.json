@@ -18,16 +18,28 @@
       }
     },
     "backup-volumes": {
-      "executor": "@raeffs/docker-compose:backup-volumes",
-      "options": {
-        "createTarget": "traefik:create-volumes"
-      }
+      "executor": "@raeffs/docker-compose:backup-volumes"
     },
     "restore-volumes": {
-      "executor": "@raeffs/docker-compose:restore-volumes",
+      "executor": "@raeffs/docker-compose:restore-volumes"
+    },
+    "configure": {
+      "executor": "@raeffs/docker-compose:configure",
       "options": {
-        "createTarget": "traefik:create-volumes"
+        "variables": [
+          {
+            "name": "DEFAULT_DOMAIN_SUFFIX",
+            "description": "Public DNS name suffix that is used to reach the services. For each service published via reverse proxy a subdomain with this suffix is assigned."
+          },
+          {
+            "name": "TRAEFIK_ACME_EMAIL",
+            "description": "Email address used when issuing new SSL certificates with Let's Encrypt."
+          }
+        ]
       }
+    },
+    "init": {
+      "executor": "@raeffs/docker-compose:init"
     }
   }
 }

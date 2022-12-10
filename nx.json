@@ -15,6 +15,9 @@
     },
     "lint": {
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
+    },
+    "up": {
+      "dependsOn": ["^up"]
     }
   },
   "cli": {

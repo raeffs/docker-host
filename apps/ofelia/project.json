@@ -18,16 +18,19 @@
       }
     },
     "backup-volumes": {
-      "executor": "@raeffs/docker-compose:backup-volumes",
-      "options": {
-        "createTarget": "ofelia:create-volumes"
-      }
+      "executor": "@raeffs/docker-compose:backup-volumes"
     },
     "restore-volumes": {
-      "executor": "@raeffs/docker-compose:restore-volumes",
+      "executor": "@raeffs/docker-compose:restore-volumes"
+    },
+    "configure": {
+      "executor": "@raeffs/docker-compose:configure",
       "options": {
-        "createTarget": "ofelia:create-volumes"
+        "variables": []
       }
+    },
+    "init": {
+      "executor": "@raeffs/docker-compose:init"
     }
   }
 }

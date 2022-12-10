@@ -4,9 +4,6 @@
   "cli": "nx",
   "type": "object",
   "properties": {
-    "createTarget": {
-      "type": "string"
-    },
     "sourcePath": {
       "type": "string",
       "default": ".backups"
@@ -16,5 +13,5 @@
       "default": false
     }
   },
-  "required": ["createTarget"]
+  "required": []
 }

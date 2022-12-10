@@ -30,6 +30,16 @@
       "implementation": "./src/executors/restore-volumes/restore-volumes",
       "schema": "./src/executors/restore-volumes/schema.json",
       "description": "Restores docker volumes."
+    },
+    "configure": {
+      "implementation": "./src/executors/configure/configure",
+      "schema": "./src/executors/configure/schema.json",
+      "description": "Configures variables."
+    },
+    "init": {
+      "implementation": "./src/executors/init/init",
+      "schema": "./src/executors/init/schema.json",
+      "description": "Initializes a project by configuring variables and creating docker volumes."
     }
   }
 }
