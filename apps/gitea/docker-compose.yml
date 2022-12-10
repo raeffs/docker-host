@@ -51,7 +51,7 @@ services:
     volumes:
       - 'gitea-db:/var/lib/mysql'
     environment:
-      MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
+      MYSQL_RANDOM_ROOT_PASSWORD: 'true'
       MYSQL_DATABASE: 'gitea-db'
       MYSQL_USER: 'gitea-user'
       MYSQL_PASSWORD: '${GITEA_MYSQL_PASSWORD}'

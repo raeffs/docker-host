@@ -33,7 +33,7 @@ services:
     volumes:
       - 'home-assistant-db:/var/lib/mysql'
     environment:
-      MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
+      MYSQL_RANDOM_ROOT_PASSWORD: 'true'
       MYSQL_DATABASE: 'home-assistant-db'
       MYSQL_USER: 'home-assistant-user'
       MYSQL_PASSWORD: '${HA_MYSQL_PASSWORD}'

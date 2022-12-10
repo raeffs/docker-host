@@ -37,7 +37,7 @@ services:
     volumes:
       - 'matomo-db:/var/lib/mysql'
     environment:
-      MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
+      MYSQL_RANDOM_ROOT_PASSWORD: 'true'
       MYSQL_DATABASE: 'matomo-db'
       MYSQL_USER: 'matomo-user'
       MYSQL_PASSWORD: '${MATOMO_MYSQL_PASSWORD}'

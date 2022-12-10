@@ -1,6 +1,7 @@
 {
   "name": "dashboard",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": ["traefik"],
   "targets": {
     "up": {
       "executor": "@raeffs/docker-compose:up"

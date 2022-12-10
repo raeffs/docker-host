@@ -1,6 +1,7 @@
 {
   "name": "gitea",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": ["traefik"],
   "targets": {
     "up": {
       "executor": "@raeffs/docker-compose:up"
@@ -26,7 +27,12 @@
     "configure": {
       "executor": "@raeffs/docker-compose:configure",
       "options": {
-        "variables": []
+        "variables": [
+          {
+            "name": "GITEA_MYSQL_PASSWORD",
+            "description": "Password of the Gitea MySQL database."
+          }
+        ]
       }
     },
     "init": {
