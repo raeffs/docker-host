@@ -23,8 +23,8 @@
     "restore-volumes": {
       "executor": "@raeffs/docker-compose:restore-volumes"
     },
-    "configure": {
-      "executor": "@raeffs/docker-compose:configure",
+    "create-variables": {
+      "executor": "@raeffs/docker-compose:create-variables",
       "options": {
         "variables": [
           {
@@ -43,8 +43,8 @@
         ]
       }
     },
-    "init": {
-      "executor": "@raeffs/docker-compose:init"
+    "configure": {
+      "executor": "@raeffs/docker-compose:configure"
     }
   }
 }

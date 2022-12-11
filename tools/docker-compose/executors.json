@@ -31,15 +31,15 @@
       "schema": "./src/executors/restore-volumes/schema.json",
       "description": "Restores docker volumes."
     },
+    "create-variables": {
+      "implementation": "./src/executors/create-variables/create-variables",
+      "schema": "./src/executors/create-variables/schema.json",
+      "description": "Creates variables."
+    },
     "configure": {
       "implementation": "./src/executors/configure/configure",
       "schema": "./src/executors/configure/schema.json",
-      "description": "Configures variables."
-    },
-    "init": {
-      "implementation": "./src/executors/init/init",
-      "schema": "./src/executors/init/schema.json",
-      "description": "Initializes a project by configuring variables and creating docker volumes."
+      "description": "Configures a project by creating variables and docker volumes."
     }
   }
 }

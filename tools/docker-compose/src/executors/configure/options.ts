@@ -1,5 +1,3 @@
-import { ConfigureExecutorSchema, VariableDefinition } from './schema';
+import { ConfigureExecutorSchema } from './schema';
 
-export interface ConfigureExecutorOptions extends ConfigureExecutorSchema {
-  readonly variables: VariableDefinition[];
-}
+export interface ConfigureExecutorOptions extends ConfigureExecutorSchema {}
