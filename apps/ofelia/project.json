@@ -26,7 +26,12 @@
     "configure": {
       "executor": "@raeffs/docker-compose:configure",
       "options": {
-        "variables": []
+        "variables": [
+          {
+            "name": "OFELIA_SLACK_URL",
+            "description": "Slack webhook url used by Ofelia to post notifications."
+          }
+        ]
       }
     },
     "init": {

@@ -1,6 +1,7 @@
 {
   "name": "wallabag",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": ["traefik"],
   "targets": {
     "up": {
       "executor": "@raeffs/docker-compose:up"
@@ -26,7 +27,24 @@
     "configure": {
       "executor": "@raeffs/docker-compose:configure",
       "options": {
-        "variables": []
+        "variables": [
+          {
+            "name": "WALLABAG_POSTGRES_PASSWORD",
+            "description": "Password of the Wallabag PostgreSQL database."
+          },
+          {
+            "name": "WALLABAG_INITIAL_USER",
+            "description": "Username of the initial Wallabag user."
+          },
+          {
+            "name": "WALLABAG_INITIAL_PASSWORD",
+            "description": "Password of the initial Wallabag user."
+          },
+          {
+            "name": "WALLABAG_SECRET",
+            "description": "Random secret."
+          }
+        ]
       }
     },
     "init": {
