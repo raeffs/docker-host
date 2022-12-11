@@ -1,4 +1,0 @@
-[Git]
-title=Git over SSH exposed by Gitea
-description=Git over SSH exposed by Gitea
-ports=2222

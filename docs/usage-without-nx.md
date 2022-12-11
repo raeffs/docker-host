@@ -1,3 +1,0 @@
-# Usage without Nx
-
-TODO
