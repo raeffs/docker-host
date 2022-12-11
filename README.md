@@ -2,7 +2,7 @@
     <img width="25%" src="./logo.svg">
 </p>
 
-# Collection of Docker Compose configurations for Self-Hosting
+# Docker Compose configurations for Self-Hosting
 
 This repository used to contain the configuration of my docker host running in my home network. Nowadays it is more of a collection of different docker compose configurations for services I either run in my home network or on some cloud infrastructure.
 

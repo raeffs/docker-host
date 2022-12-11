@@ -12,6 +12,7 @@
     "down": "nx down",
     "pull": "nx pull",
     "create-volumes": "nx create-volumes",
+    "configure": "nx configure",
     "new:app": "nx generate application"
   },
   "devDependencies": {

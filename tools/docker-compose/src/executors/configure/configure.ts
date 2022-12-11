@@ -1,8 +1,43 @@
 import { ExecutorContext, logger } from '@nrwl/devkit';
 import { prompt } from 'enquirer';
-import { ExecutorResult, isEnvironmentVariableSet, setEnvironmentVariable } from '../../utils';
+import {
+  ExecutorResult,
+  expandEnvironmentVariables,
+  generateSecret,
+  isEnvironmentVariableSet,
+  setEnvironmentVariable,
+} from '../../utils';
 import { normalizeOptions } from './normalize-options';
-import { ConfigureExecutorSchema } from './schema';
+import { ConfigureExecutorSchema, VariableDefinition } from './schema';
+
+export function createPrompt(context: ExecutorContext, variable: VariableDefinition): any {
+  const base = {
+    type: 'input',
+    name: variable.name,
+    message: `${variable.description}\n${variable.name}`,
+    required: !variable.optional,
+    initial: expandEnvironmentVariables(variable.defaultValue),
+  };
+
+  switch (variable.type) {
+    default:
+      return base;
+    case 'password':
+      return {
+        ...base,
+        message: `${base.message} (leave empty to generate)`,
+        required: false,
+        result: async (value?: string) => value?.trim() || (await generateSecret(context)),
+      };
+    case 'generated':
+      return {
+        ...base,
+        skip: true,
+        required: false,
+        result: async _ => await generateSecret(context),
+      };
+  }
+}
 
 export default async function runExecutor(
   schema: ConfigureExecutorSchema,
@@ -15,7 +50,7 @@ export default async function runExecutor(
     return { success: true };
   }
 
-  const prompts = [];
+  const variablesToProcess = [];
 
   for (const variable of options.variables) {
     if (isEnvironmentVariableSet(variable.name)) {
@@ -23,23 +58,18 @@ export default async function runExecutor(
       continue;
     }
 
-    prompts.push({
-      type: 'input',
-      name: variable.name,
-      message: `${variable.description}\n${variable.name}`,
-      required: true,
-    });
+    variablesToProcess.push(variable);
   }
 
-  if (prompts.length === 0) {
+  if (variablesToProcess.length === 0) {
     return { success: true };
   }
 
   logger.info(`Answer the following questions to configure the project ${context.projectName}:`);
 
-  const values = await prompt(prompts);
-  for (const key of Object.keys(values)) {
-    await setEnvironmentVariable(context, key, values[key]);
+  for (const variable of variablesToProcess) {
+    const values = await prompt(createPrompt(context, variable));
+    await setEnvironmentVariable(context, variable.name, values[variable.name]);
   }
 
   return { success: true };

@@ -17,9 +17,18 @@
               },
               "description": {
                 "type": "string"
+              },
+              "optional": {
+                "type": "boolean"
+              },
+              "defaultValue": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
               }
             },
-            "required": []
+            "required": ["name", "description"]
           }
         ]
       }
