@@ -2,27 +2,19 @@
     <img width="25%" src="./logo.svg">
 </p>
 
-# Docker Host
+# Collection of Docker Compose configurations for Self-Hosting
 
-This repository contains the configuration of my docker host that aims to improve my home network with several services.
+This repository used to contain the configuration of my docker host running in my home network. Nowadays it is more of a collection of different docker compose configurations for services I either run in my home network or on some cloud infrastructure.
+
+The repository uses Nx with a local plugin to manage the different projects. But if you don't want to use Nx or load a ton of Node.js dependencies, you can still use the docker compose configurations without any of it.
 
 ## What's included?
 
-The configuration consists of several docker compose stacks, which can be started and stopped individually. For more information about what is included in each stack and how to configure them, check their documentation:
-
-- [Infrastructure](infrastructure)
-- [Networking](networking)
-- [Automation](automation)
-- [Monitoring](monitoring)
-- [Multimedia](multimedia)
-- [Smarthome](smarthome)
-- [Devops](devops)
-- [Hosting](hosting)
-- [Failover](failover)
+You can find a list of services that are included by opening the [apps](apps) folder. I try to create a folder (Nx project) per service / docker compose configuration. Almost all of the services depend on the reverse proxy / load balancer Traefik. But other than that, they should be mostly self contained.
 
 ## How to use it?
 
-For information on how to use my docker host configuration, check the [Setup Instructions](setup).
+You can find instructions on how to use this repository [here](docs/usage.md).
 
 ## How to contribute?
 
