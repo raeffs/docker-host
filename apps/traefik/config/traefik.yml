@@ -5,6 +5,7 @@ providers:
   docker:
     exposedByDefault: false
     watch: true
+    network: 'default-frontend'
   file:
     directory: '/etc/traefik/dynamic'
     watch: true
