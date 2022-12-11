@@ -27,7 +27,13 @@
     "configure": {
       "executor": "@raeffs/docker-compose:configure",
       "options": {
-        "variables": []
+        "variables": [
+          {
+            "name": "DOZZLE_DOMAIN",
+            "description": "Public domain name for Dozzle.",
+            "defaultValue": "dozzle.${DEFAULT_DOMAIN_SUFFIX}"
+          }
+        ]
       }
     },
     "init": {

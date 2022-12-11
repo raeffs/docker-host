@@ -27,7 +27,13 @@
     "configure": {
       "executor": "@raeffs/docker-compose:configure",
       "options": {
-        "variables": []
+        "variables": [
+          {
+            "name": "PORTAINER_DOMAIN",
+            "description": "Public domain name for Portainer.",
+            "defaultValue": "portainer.${DEFAULT_DOMAIN_SUFFIX}"
+          }
+        ]
       }
     },
     "init": {

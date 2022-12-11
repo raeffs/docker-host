@@ -12,11 +12,11 @@ services:
       - 'portainer-data:/data'
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.portainer.rule=Host(`portainer.${DEFAULT_DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.portainer.rule=Host(`${PORTAINER_DOMAIN}`)'
       - 'traefik.http.routers.portainer.entrypoints=websecure'
       - 'traefik.http.routers.portainer.tls=true'
       - 'traefik.http.routers.portainer.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.portainer.tls.domains[0].main=portainer.${DEFAULT_DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.portainer.tls.domains[0].main=${PORTAINER_DOMAIN}'
       - 'traefik.http.routers.portainer.middlewares=intranet@file'
       - 'traefik.http.services.portainer.loadbalancer.server.port=9000'
 

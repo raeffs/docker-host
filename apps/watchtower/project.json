@@ -29,7 +29,7 @@
         "variables": [
           {
             "name": "WATCHTOWER_SLACK_URL",
-            "description": "Slack webhook url used by Watchtower to post notifications."
+            "description": "Slack webhook url used by Watchtower to send notifications."
           }
         ]
       }

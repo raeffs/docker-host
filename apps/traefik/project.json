@@ -32,6 +32,11 @@
             "description": "Public DNS name suffix that is used to reach the services. For each service published via reverse proxy a subdomain with this suffix is assigned."
           },
           {
+            "name": "TRAEFIK_DOMAIN",
+            "description": "Public domain name for Traefik.",
+            "defaultValue": "traefik.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
             "name": "TRAEFIK_ACME_EMAIL",
             "description": "Email address used when issuing new SSL certificates with Let's Encrypt."
           }

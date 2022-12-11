@@ -11,11 +11,11 @@ services:
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.dozzle.rule=Host(`dozzle.${DEFAULT_DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.dozzle.rule=Host(`${DOZZLE_DOMAIN}`)'
       - 'traefik.http.routers.dozzle.entrypoints=websecure'
       - 'traefik.http.routers.dozzle.tls=true'
       - 'traefik.http.routers.dozzle.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.dozzle.tls.domains[0].main=dozzle.${DEFAULT_DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.dozzle.tls.domains[0].main=${DOZZLE_DOMAIN}'
       - 'traefik.http.routers.dozzle.middlewares=intranet@file'
       - 'traefik.http.services.dozzle.loadbalancer.server.port=8080'
 

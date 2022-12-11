@@ -23,11 +23,11 @@ services:
     labels:
       - 'com.centurylinklabs.watchtower.monitor-only=true'
       - 'traefik.enable=true'
-      - 'traefik.http.routers.traefik.rule=Host(`traefik.${DEFAULT_DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.traefik.rule=Host(`${TRAEFIK_DOMAIN}`)'
       - 'traefik.http.routers.traefik.entrypoints=websecure'
       - 'traefik.http.routers.traefik.tls=true'
       - 'traefik.http.routers.traefik.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.traefik.tls.domains[0].main=traefik.${DEFAULT_DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.traefik.tls.domains[0].main=${TRAEFIK_DOMAIN}'
       - 'traefik.http.routers.traefik.middlewares=intranet@file'
       - 'traefik.http.services.traefik.loadbalancer.server.port=8080'
 
