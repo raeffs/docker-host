@@ -1,0 +1,38 @@
+{
+  "name": "networks",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "targets": {
+    "create-volumes": {
+      "executor": "@raeffs/docker-compose:create-volumes"
+    },
+    "backup-volumes": {
+      "executor": "@raeffs/docker-compose:backup-volumes"
+    },
+    "restore-volumes": {
+      "executor": "@raeffs/docker-compose:restore-volumes"
+    },
+    "create-networks": {
+      "executor": "@raeffs/docker-compose:create-networks",
+      "options": {
+        "networks": [
+          {
+            "name": "default-frontend",
+            "subnet": "172.20.0.0/24",
+            "ipRange": "172.20.0.128/25"
+          },
+          {
+            "name": "default-backend",
+            "subnet": "172.30.0.0/24",
+            "ipRange": "172.30.0.128/25"
+          }
+        ]
+      }
+    },
+    "create-variables": {
+      "executor": "@raeffs/docker-compose:create-variables"
+    },
+    "configure": {
+      "executor": "@raeffs/docker-compose:configure"
+    }
+  }
+}

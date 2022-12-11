@@ -3,11 +3,11 @@ import { ExecutorResult, getLocalDockerVolumes } from '../../utils';
 import { createVolume } from './create-volume';
 import { deleteVolume } from './delete-volume';
 import { normalizeOptions } from './normalize-options';
-import { CreateExecutorSchema } from './schema';
+import { CreateVolumesExecutorSchema } from './schema';
 import { setVolumePermissions } from './set-volume-permission';
 
 export default async function* runExecutor(
-  schema: CreateExecutorSchema,
+  schema: CreateVolumesExecutorSchema,
   context: ExecutorContext
 ): AsyncGenerator<ExecutorResult> {
   const options = normalizeOptions(schema, context);

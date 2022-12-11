@@ -8,6 +8,8 @@ services:
     container_name: 'ofelia'
     image: 'mcuadros/ofelia:latest'
     command: daemon --docker
+    networks:
+      - 'default-frontend'
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
     labels:
@@ -33,6 +35,5 @@ services:
   #     - './powershell/:/home/jobs/:ro'
 
 networks:
-  default:
-    external:
-      name: docker-host-network
+  default-frontend:
+    external: true

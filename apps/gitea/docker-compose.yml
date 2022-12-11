@@ -9,6 +9,9 @@ services:
     image: 'gitea/gitea:1'
     ports:
       - '2222:2222'
+    networks:
+      - 'default-frontend'
+      - 'default-backend'
     volumes:
       - 'gitea-data:/data/'
       - './custom/public/:/data/gitea/public/:ro'
@@ -48,6 +51,8 @@ services:
       service: 'base'
     container_name: 'gitea-db'
     image: 'mariadb:latest'
+    networks:
+      - 'default-backend'
     volumes:
       - 'gitea-db:/var/lib/mysql'
     environment:
@@ -63,6 +68,7 @@ volumes:
     external: true
 
 networks:
-  default:
-    external:
-      name: docker-host-network
+  default-frontend:
+    external: true
+  default-backend:
+    external: true

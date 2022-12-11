@@ -7,6 +7,9 @@ services:
       service: 'base'
     container_name: 'miniflux'
     image: 'miniflux/miniflux:latest'
+    networks:
+      - 'default-frontend'
+      - 'default-backend'
     environment:
       DATABASE_URL: 'postgres://miniflux-user:${MINIFLUX_POSTGRES_PASSWORD}@miniflux-db:5432/miniflux?sslmode=disable'
       RUN_MIGRATIONS: '1'
@@ -38,6 +41,8 @@ services:
       service: 'base'
     container_name: 'miniflux-db'
     image: 'postgres'
+    networks:
+      - 'default-backend'
     volumes:
       - 'miniflux-db:/var/lib/postgresql/data'
     environment:
@@ -54,6 +59,7 @@ volumes:
     external: true
 
 networks:
-  default:
-    external:
-      name: docker-host-network
+  default-frontend:
+    external: true
+  default-backend:
+    external: true

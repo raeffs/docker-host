@@ -1,4 +1,4 @@
-export interface CreateExecutorSchema {
+export interface CreateVolumesExecutorSchema {
   readonly volumes?: (string | VolumeDefinition)[];
   readonly force: boolean;
 }

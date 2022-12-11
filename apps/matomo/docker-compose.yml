@@ -7,6 +7,9 @@ services:
       service: 'base'
     container_name: 'matomo'
     image: 'bitnami/matomo:latest'
+    networks:
+      - 'default-frontend'
+      - 'default-backend'
     volumes:
       - 'matomo-data:/bitnami/matomo/'
     environment:
@@ -34,6 +37,8 @@ services:
       service: 'base'
     container_name: 'matomo-db'
     image: 'mariadb:latest'
+    networks:
+      - 'default-backend'
     volumes:
       - 'matomo-db:/var/lib/mysql'
     environment:
@@ -49,6 +54,7 @@ volumes:
     external: true
 
 networks:
-  default:
-    external:
-      name: docker-host-network
+  default-frontend:
+    external: true
+  default-backend:
+    external: true

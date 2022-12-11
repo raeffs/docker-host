@@ -8,10 +8,9 @@ services:
     container_name: 'unbound'
     image: 'mvance/unbound:latest'
     networks:
-      default:
+      default-frontend:
         ipv4_address: 172.20.0.1
 
 networks:
-  default:
-    external:
-      name: docker-host-network
+  default-frontend:
+    external: true

@@ -8,6 +8,8 @@ services:
     container_name: 'prometheus'
     image: 'prom/prometheus:latest'
     user: 'root'
+    networks:
+      - 'default-frontend'
     volumes:
       - './config/:/etc/prometheus/:ro'
       - 'prometheus-data:/prometheus/'
@@ -27,6 +29,8 @@ services:
       service: 'base'
     container_name: 'blackbox-exporter'
     image: 'prom/blackbox-exporter:latest'
+    networks:
+      - 'default-frontend'
     volumes:
       - './config-blackbox-exporter:/etc/blackbox_exporter:ro'
 
@@ -36,6 +40,8 @@ services:
       service: 'base'
     container_name: 'speedtest-exporter'
     image: 'raeffs/speedtest-exporter:latest'
+    networks:
+      - 'default-frontend'
 
   pihole-exporter:
     extends:
@@ -43,6 +49,8 @@ services:
       service: 'base'
     container_name: 'pihole-exporter'
     image: 'ekofr/pihole-exporter:latest'
+    networks:
+      - 'default-frontend'
     environment:
       PIHOLE_HOSTNAME: 'pihole'
       PIHOLE_PASSWORD: '${PIHOLE_PASSWORD}'
@@ -54,6 +62,5 @@ volumes:
     external: true
 
 networks:
-  default:
-    external:
-      name: docker-host-network
+  default-frontend:
+    external: true

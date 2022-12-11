@@ -7,6 +7,8 @@ services:
       service: 'base'
     container_name: 'portainer'
     image: 'portainer/portainer-ce'
+    networks:
+      - 'default-frontend'
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
       - 'portainer-data:/data'
@@ -25,6 +27,5 @@ volumes:
     external: true
 
 networks:
-  default:
-    external:
-      name: docker-host-network
+  default-frontend:
+    external: true

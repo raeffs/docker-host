@@ -7,6 +7,8 @@ services:
       service: 'base'
     container_name: 'adminer'
     image: 'adminer:latest'
+    networks:
+      - 'default-frontend'
     volumes:
       - './plugins/:/var/www/html/plugins-enabled/:ro'
     environment:
@@ -24,6 +26,5 @@ services:
       - 'traefik.http.services.adminer.loadbalancer.server.port=8080'
 
 networks:
-  default:
-    external:
-      name: docker-host-network
+  default-frontend:
+    external: true

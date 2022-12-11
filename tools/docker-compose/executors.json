@@ -36,6 +36,11 @@
       "schema": "./src/executors/create-variables/schema.json",
       "description": "Creates variables."
     },
+    "create-networks": {
+      "implementation": "./src/executors/create-networks/create-networks",
+      "schema": "./src/executors/create-networks/schema.json",
+      "description": "Creates docker networks."
+    },
     "configure": {
       "implementation": "./src/executors/configure/configure",
       "schema": "./src/executors/configure/schema.json",

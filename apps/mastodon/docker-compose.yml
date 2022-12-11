@@ -7,6 +7,9 @@ services:
       service: 'mastodon-base'
     container_name: 'mastodon-web'
     command: 'bash -c "/provision.sh; rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000"'
+    networks:
+      - 'default-frontend'
+      - 'default-backend'
     volumes:
       - './provision.sh:/provision.sh:ro'
     environment:
@@ -41,6 +44,9 @@ services:
       service: 'mastodon-base'
     container_name: 'mastodon-streaming'
     command: 'node ./streaming'
+    networks:
+      - 'default-frontend'
+      - 'default-backend'
     healthcheck:
       test: ['CMD-SHELL', 'wget -q --spider --proxy=off localhost:4000/api/v1/streaming/health || exit 1']
     depends_on:
@@ -63,6 +69,8 @@ services:
       service: 'mastodon-base'
     container_name: 'mastodon-sidekiq'
     command: 'bundle exec sidekiq'
+    networks:
+      - 'default-backend'
     healthcheck:
       test: ['CMD-SHELL', "ps aux | grep '[s]idekiq\ 6' || false"]
     depends_on:
@@ -77,6 +85,8 @@ services:
       service: 'base'
     container_name: 'mastodon-db'
     image: 'postgres:alpine'
+    networks:
+      - 'default-backend'
     volumes:
       - 'mastodon-db:/var/lib/postgresql/data'
     environment:
@@ -97,6 +107,8 @@ services:
     container_name: 'mastodon-redis'
     image: 'redis:alpine'
     command: 'redis-server --save 3600 1'
+    networks:
+      - 'default-backend'
     volumes:
       - 'mastodon-redis:/data'
     healthcheck:
@@ -112,6 +124,8 @@ services:
       service: 'base'
     container_name: 'mastodon-es'
     image: 'docker.elastic.co/elasticsearch/elasticsearch:7.17.7'
+    networks:
+      - 'default-backend'
     volumes:
       - 'mastodon-es:/usr/share/elasticsearch/data'
     environment:
@@ -145,6 +159,7 @@ volumes:
     external: true
 
 networks:
-  default:
-    external:
-      name: docker-host-network
+  default-frontend:
+    external: true
+  default-backend:
+    external: true

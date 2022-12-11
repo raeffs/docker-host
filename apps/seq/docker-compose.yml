@@ -7,6 +7,8 @@ services:
       service: 'base'
     container_name: 'seq'
     image: 'datalust/seq:latest'
+    networks:
+      - 'default-frontend'
     volumes:
       - 'seq-data:/data/'
     environment:
@@ -35,6 +37,5 @@ volumes:
     external: true
 
 networks:
-  default:
-    external:
-      name: docker-host-network
+  default-frontend:
+    external: true

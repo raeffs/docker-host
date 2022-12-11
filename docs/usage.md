@@ -20,11 +20,11 @@ If you have Volta installed, all you need to do is run `yarn` in the root of the
 
 ## Configure services
 
-Before you can start any of the services, you need to configure them. To do that, you can run `yarn configure <project-name>`, where `project-name` is the name of the folder of the service you want to configure. The command will ask you for all the required configuration values and store them in a `.env.local` file in the root of the repository. It will also create all the required docker volumes for the service.
+Before you can start any of the services, you need to configure them. To do that, you can run `yarn configure <project-name>`, where `project-name` is the name of the folder of the service you want to configure. The command will ask you for all the required configuration values and store them in a `.env.local` file in the root of the repository. It will also create all the required docker volumes and networks for the service.
 
 If a service has a dependency on any other services, it will also configure those services. For example, most of the services depend on Traefik, so you will have to enter the configuration for that service too if not already done.
 
-If you don't want to use Nx, you will have to configure them by yourself and also manually create the required docker volumes. You can do that by either editing the `.env` file in the root of the repository, or by creating an additional `.env` file in the directory of the service.
+If you don't want to use Nx, you will have to configure them by yourself and also manually create the required docker volumes and networks. You can do that by either editing the `.env` file in the root of the repository, or by creating an additional `.env` file in the directory of the service.
 
 ## Start and stop services
 

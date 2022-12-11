@@ -8,6 +8,9 @@ services:
     container_name: 'wallabag'
     image: 'wallabag/wallabag:latest'
     command: 'sh -c "/entrypoint.sh migrate && /provision.sh && /entrypoint.sh wallabag"'
+    networks:
+      - 'default-frontend'
+      - 'default-backend'
     volumes:
       - './provision.sh:/provision.sh:ro'
     environment:
@@ -44,6 +47,8 @@ services:
       service: 'base'
     container_name: 'wallabag-db'
     image: 'postgres'
+    networks:
+      - 'default-backend'
     volumes:
       - 'wallabag-db:/var/lib/postgresql/data'
     environment:
@@ -60,12 +65,15 @@ services:
       service: 'base'
     container_name: 'wallabag-cache'
     image: 'redis:alpine'
+    networks:
+      - 'default-backend'
 
 volumes:
   wallabag-db:
     external: true
 
 networks:
-  default:
-    external:
-      name: docker-host-network
+  default-frontend:
+    external: true
+  default-backend:
+    external: true

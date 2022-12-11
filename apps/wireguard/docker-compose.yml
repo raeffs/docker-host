@@ -12,6 +12,8 @@ services:
       - SYS_MODULE
     ports:
       - ${WIREGUARD_PORT}:51820/udp
+    networks:
+      - 'default-frontend'
     volumes:
       - '/lib/modules:/lib/modules'
       - 'wireguard-data:/config'
@@ -28,6 +30,5 @@ volumes:
     external: true
 
 networks:
-  default:
-    external:
-      name: docker-host-network
+  default-frontend:
+    external: true

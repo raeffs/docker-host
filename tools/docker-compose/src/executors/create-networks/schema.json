@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "version": 2,
+  "cli": "nx",
+  "type": "object",
+  "properties": {
+    "networks": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "subnet": {
+                "type": "string"
+              },
+              "ipRange": {
+                "type": "string"
+              }
+            },
+            "required": ["name", "subnet", "ipRange"]
+          }
+        ]
+      }
+    }
+  },
+  "required": []
+}

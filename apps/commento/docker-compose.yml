@@ -7,6 +7,9 @@ services:
       service: 'base'
     container_name: 'commento'
     image: 'caroga/commentoplusplus:latest'
+    networks:
+      - 'default-frontend'
+      - 'default-backend'
     environment:
       COMMENTO_ORIGIN: 'https://commento.${DEFAULT_DOMAIN_SUFFIX}'
       COMMENTO_PORT: '8080'
@@ -29,6 +32,8 @@ services:
       service: 'base'
     container_name: 'commento-db'
     image: 'postgres'
+    networks:
+      - 'default-backend'
     volumes:
       - 'commento-db:/var/lib/postgresql/data'
     environment:
@@ -41,6 +46,7 @@ volumes:
     external: true
 
 networks:
-  default:
-    external:
-      name: docker-host-network
+  default-frontend:
+    external: true
+  default-backend:
+    external: true

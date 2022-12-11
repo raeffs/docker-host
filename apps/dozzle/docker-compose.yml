@@ -7,6 +7,8 @@ services:
       service: 'base'
     container_name: 'dozzle'
     image: 'amir20/dozzle:latest'
+    networks:
+      - 'default-frontend'
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
     labels:
@@ -20,6 +22,5 @@ services:
       - 'traefik.http.services.dozzle.loadbalancer.server.port=8080'
 
 networks:
-  default:
-    external:
-      name: docker-host-network
+  default-frontend:
+    external: true

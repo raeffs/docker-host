@@ -8,6 +8,8 @@ services:
     container_name: 'grafana'
     image: 'grafana/grafana:latest'
     user: 'root'
+    networks:
+      - 'default-frontend'
     volumes:
       - 'grafana-data:/var/lib/grafana'
       - './config/grafana.ini:/etc/grafana/grafana.ini:ro'
@@ -28,6 +30,5 @@ volumes:
     external: true
 
 networks:
-  default:
-    external:
-      name: docker-host-network
+  default-frontend:
+    external: true

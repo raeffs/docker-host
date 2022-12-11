@@ -1,11 +1,11 @@
 import { ExecutorContext, readTargetOptions } from '@nrwl/devkit';
 import { mapToVolumeDefinitions } from '../create-volumes/normalize-options';
-import { CreateExecutorSchema } from '../create-volumes/schema';
+import { CreateVolumesExecutorSchema } from '../create-volumes/schema';
 import { BackupExecutorOptions } from './options';
 import { BackupExecutorSchema } from './schema';
 
 export function normalizeOptions(schema: BackupExecutorSchema, context: ExecutorContext): BackupExecutorOptions {
-  const targetSchema: CreateExecutorSchema = readTargetOptions(
+  const targetSchema: CreateVolumesExecutorSchema = readTargetOptions(
     { project: context.projectName, target: 'create-volumes' },
     context
   );

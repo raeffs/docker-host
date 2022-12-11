@@ -14,7 +14,7 @@ export function normalizeOptions(
   const dependencies = getDependentPackagesForProject(context.projectGraph, context.projectName).workspaceLibraries;
   for (const dependency of dependencies) {
     const targetSchema: CreateVariablesExecutorSchema = readTargetOptions(
-      { project: dependency.name, target: 'configure' },
+      { project: dependency.name, target: 'create-variables' },
       context
     );
     options = {

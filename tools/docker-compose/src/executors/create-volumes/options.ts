@@ -1,5 +1,5 @@
-import { CreateExecutorSchema, VolumeDefinition } from './schema';
+import { CreateVolumesExecutorSchema, VolumeDefinition } from './schema';
 
-export interface CreateExecutorOptions extends CreateExecutorSchema {
+export interface CreateVolumesExecutorOptions extends CreateVolumesExecutorSchema {
   readonly volumes: VolumeDefinition[];
 }

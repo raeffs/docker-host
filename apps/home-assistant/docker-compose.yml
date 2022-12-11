@@ -7,6 +7,9 @@ services:
       service: 'base'
     container_name: 'home-assistant'
     image: 'homeassistant/home-assistant:stable'
+    networks:
+      - 'default-frontend'
+      - 'default-backend'
     volumes:
       - 'home-assistant-data:/config/'
       - './config/configuration.yaml:/config/configuration.yaml:ro'
@@ -30,6 +33,8 @@ services:
       service: 'base'
     container_name: 'home-assistant-db'
     image: 'mariadb:latest'
+    networks:
+      - 'default-backend'
     volumes:
       - 'home-assistant-db:/var/lib/mysql'
     environment:
@@ -45,6 +50,7 @@ volumes:
     external: true
 
 networks:
-  default:
-    external:
-      name: docker-host-network
+  default-frontend:
+    external: true
+  default-backend:
+    external: true

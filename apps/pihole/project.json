@@ -1,7 +1,7 @@
 {
   "name": "pihole",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "implicitDependencies": ["traefik"],
+  "implicitDependencies": ["networks", "traefik"],
   "targets": {
     "up": {
       "executor": "@raeffs/docker-compose:up"
@@ -23,6 +23,9 @@
     },
     "restore-volumes": {
       "executor": "@raeffs/docker-compose:restore-volumes"
+    },
+    "create-networks": {
+      "executor": "@raeffs/docker-compose:create-networks"
     },
     "create-variables": {
       "executor": "@raeffs/docker-compose:create-variables",

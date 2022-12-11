@@ -7,6 +7,8 @@ services:
       service: 'base'
     container_name: 'dashboard'
     image: 'nginx:alpine'
+    networks:
+      - 'default-frontend'
     volumes:
       - './wwwroot/:/usr/share/nginx/html/:ro'
     labels:
@@ -20,6 +22,5 @@ services:
       - 'traefik.http.services.hello.loadbalancer.server.port=80'
 
 networks:
-  default:
-    external:
-      name: docker-host-network
+  default-frontend:
+    external: true

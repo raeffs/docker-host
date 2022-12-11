@@ -7,6 +7,8 @@ services:
       service: 'base'
     container_name: 'watchtower'
     image: 'containrrr/watchtower:latest'
+    networks:
+      - 'default-frontend'
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
     environment:
@@ -17,6 +19,5 @@ services:
       WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL: '${WATCHTOWER_SLACK_URL}'
 
 networks:
-  default:
-    external:
-      name: docker-host-network
+  default-frontend:
+    external: true

@@ -10,6 +10,8 @@ services:
     ports:
       - '53:53/tcp'
       - '53:53/udp'
+    networks:
+      - 'default-frontend'
     volumes:
       - 'pihole-data:/etc/pihole/'
       - 'pihole-dnsmasq:/etc/dnsmasq.d/'
@@ -41,6 +43,8 @@ services:
     image: 'shirom/pihole-sync:latest'
     ports:
       - '22222:22'
+    networks:
+      - 'default-frontend'
     volumes:
       - 'pihole-sync-data:/root/'
       - 'pihole-sync-ssh:/etc/ssh/'
@@ -62,6 +66,5 @@ volumes:
     external: true
 
 networks:
-  default:
-    external:
-      name: docker-host-network
+  default-frontend:
+    external: true

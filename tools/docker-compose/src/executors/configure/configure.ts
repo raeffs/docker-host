@@ -27,5 +27,14 @@ export default async function runExecutor(
     if (!result.success) return result;
   }
 
+  const createNetworksResults = await runExternalExecutor(
+    { project: context.projectName, target: 'create-networks' },
+    {},
+    context
+  );
+  for await (const result of createNetworksResults) {
+    if (!result.success) return result;
+  }
+
   return { success: true };
 }

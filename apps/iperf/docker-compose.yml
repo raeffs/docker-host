@@ -9,9 +9,12 @@ services:
     image: 'networkstatic/iperf3:latest'
     ports:
       - '5200:5201'
+    networks:
+      - 'default-frontend'
     command: '-s'
 
 networks:
-  default:
-    external:
-      name: docker-host-network
+  default-frontend:
+    external: true
+  default-backend:
+    external: true
