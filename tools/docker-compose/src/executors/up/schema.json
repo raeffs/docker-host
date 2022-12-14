@@ -11,6 +11,10 @@
     "detach": {
       "type": "boolean",
       "default": true
+    },
+    "force": {
+      "type": "boolean",
+      "default": false
     }
   },
   "required": ["composeFile"]

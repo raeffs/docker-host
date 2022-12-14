@@ -7,6 +7,8 @@ services:
       service: 'base'
     container_name: '<%= applicationName %>'
     image: ''
+    networks:
+      - 'default-frontend'
     volumes:
       - '<%= applicationName %>-data:/data'
 
@@ -15,6 +17,5 @@ volumes:
     external: true
 
 networks:
-  default:
-    external:
-      name: docker-host-network
+  default-frontend:
+    external: true
