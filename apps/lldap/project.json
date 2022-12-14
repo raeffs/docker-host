@@ -1,0 +1,56 @@
+{
+  "name": "lldap",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": ["networks", "traefik"],
+  "targets": {
+    "up": {
+      "executor": "@raeffs/docker-compose:up"
+    },
+    "down": {
+      "executor": "@raeffs/docker-compose:down"
+    },
+    "pull": {
+      "executor": "@raeffs/docker-compose:pull"
+    },
+    "create-volumes": {
+      "executor": "@raeffs/docker-compose:create-volumes",
+      "options": {
+        "volumes": ["lldap-data"]
+      }
+    },
+    "backup-volumes": {
+      "executor": "@raeffs/docker-compose:backup-volumes"
+    },
+    "restore-volumes": {
+      "executor": "@raeffs/docker-compose:restore-volumes"
+    },
+    "create-networks": {
+      "executor": "@raeffs/docker-compose:create-networks"
+    },
+    "create-variables": {
+      "executor": "@raeffs/docker-compose:create-variables",
+      "options": {
+        "variables": [
+          {
+            "name": "LLDAP_DOMAIN",
+            "description": "Public domain name for lldap.",
+            "defaultValue": "lldap.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "LLDAP_INITIAL_ADMIN_PASSWORD",
+            "description": "Initial password of the lldap admin user (the username is always admin).",
+            "type": "password"
+          },
+          {
+            "name": "LLDAP_JWT_SECRET",
+            "description": "",
+            "type": "generated"
+          }
+        ]
+      }
+    },
+    "configure": {
+      "executor": "@raeffs/docker-compose:configure"
+    }
+  }
+}
