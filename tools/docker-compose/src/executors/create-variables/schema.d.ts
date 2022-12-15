@@ -8,4 +8,5 @@ export interface VariableDefinition {
   readonly optional?: boolean;
   readonly defaultValue?: string;
   readonly type?: 'password' | 'generated';
+  readonly isSecret?: boolean;
 }

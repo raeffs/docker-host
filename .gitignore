@@ -3,6 +3,8 @@
 /tmp
 /.backups/*
 !/.backups/.gitkeep
+/.secrets/*
+!/.secrets/.gitkeep
 
 .local.env
 .env.local

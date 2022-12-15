@@ -26,6 +26,9 @@
               },
               "type": {
                 "type": "string"
+              },
+              "isSecret": {
+                "type": "boolean"
               }
             },
             "required": ["name", "description"]

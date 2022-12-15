@@ -5,7 +5,9 @@ import {
   expandEnvironmentVariables,
   generateSecret,
   isEnvironmentVariableSet,
+  isSecretSet,
   setEnvironmentVariable,
+  setSecret,
 } from '../../utils';
 import { normalizeOptions } from './normalize-options';
 import { CreateVariablesExecutorSchema, VariableDefinition } from './schema';
@@ -39,6 +41,16 @@ export function createPrompt(context: ExecutorContext, variable: VariableDefinit
   }
 }
 
+function isVariableSet(context: ExecutorContext, variable: VariableDefinition): boolean {
+  return variable.isSecret ? isSecretSet(context, variable.name) : isEnvironmentVariableSet(variable.name);
+}
+
+function setVariable(context: ExecutorContext, variable: VariableDefinition, value: string): Promise<void> {
+  return variable.isSecret
+    ? setSecret(context, variable.name, value)
+    : setEnvironmentVariable(context, variable.name, value);
+}
+
 export default async function runExecutor(
   schema: CreateVariablesExecutorSchema,
   context: ExecutorContext
@@ -50,10 +62,10 @@ export default async function runExecutor(
     return { success: true };
   }
 
-  const variablesToProcess = [];
+  const variablesToProcess: VariableDefinition[] = [];
 
   for (const variable of options.variables) {
-    if (isEnvironmentVariableSet(variable.name)) {
+    if (isVariableSet(context, variable)) {
       logger.debug(`Skipping variable ${variable.name} because it is already configured.`);
       continue;
     }
@@ -65,11 +77,13 @@ export default async function runExecutor(
     return { success: true };
   }
 
-  logger.info(`Answer the following questions to configure the project ${context.projectName}:`);
+  if (variablesToProcess.some(x => x.type !== 'generated')) {
+    logger.info(`Answer the following questions to configure the project ${context.projectName}:`);
+  }
 
   for (const variable of variablesToProcess) {
     const values = await prompt(createPrompt(context, variable));
-    await setEnvironmentVariable(context, variable.name, values[variable.name]);
+    await setVariable(context, variable, values[variable.name]);
   }
 
   return { success: true };
