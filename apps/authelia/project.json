@@ -1,0 +1,98 @@
+{
+  "name": "authelia",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": ["networks", "traefik"],
+  "targets": {
+    "up": {
+      "executor": "@raeffs/docker-compose:up"
+    },
+    "down": {
+      "executor": "@raeffs/docker-compose:down"
+    },
+    "pull": {
+      "executor": "@raeffs/docker-compose:pull"
+    },
+    "create-volumes": {
+      "executor": "@raeffs/docker-compose:create-volumes",
+      "options": {
+        "volumes": ["authelia-db", "authelia-cache"]
+      }
+    },
+    "backup-volumes": {
+      "executor": "@raeffs/docker-compose:backup-volumes"
+    },
+    "restore-volumes": {
+      "executor": "@raeffs/docker-compose:restore-volumes"
+    },
+    "create-networks": {
+      "executor": "@raeffs/docker-compose:create-networks"
+    },
+    "create-variables": {
+      "executor": "@raeffs/docker-compose:create-variables",
+      "options": {
+        "variables": [
+          {
+            "name": "AUTHELIA_DOMAIN",
+            "description": "Public domain name for Authelia.",
+            "defaultValue": "authelia.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "AUTHELIA_SMTP_SERVER",
+            "description": "SMTP server used by Authelia to send emails."
+          },
+          {
+            "name": "AUTHELIA_SMTP_PORT",
+            "description": "SMTP port used by Authelia to send emails.",
+            "defaultValue": "587"
+          },
+          {
+            "name": "AUTHELIA_SMTP_LOGIN",
+            "description": "SMTP login used by Authelia to send emails."
+          },
+          {
+            "name": "AUTHELIA_SMTP_PASSWORD",
+            "description": "SMTP password used by Authelia to send emails.",
+            "isSecret": true
+          },
+          {
+            "name": "AUTHELIA_SMTP_FROM_ADDRESS",
+            "description": "Sender email address used by Authelia to send emails."
+          },
+          {
+            "name": "AUTHELIA_JWT_SECRET",
+            "description": "",
+            "type": "generated",
+            "isSecret": true
+          },
+          {
+            "name": "AUTHELIA_SESSION_SECRET",
+            "description": "",
+            "type": "generated",
+            "isSecret": true
+          },
+          {
+            "name": "AUTHELIA_STORAGE_ENCRYPTION_KEY",
+            "description": "",
+            "type": "generated",
+            "isSecret": true
+          },
+          {
+            "name": "AUTHELIA_POSTGRES_PASSWORD",
+            "description": "Password of the Authelia PostgreSQL database.",
+            "type": "password",
+            "isSecret": true
+          },
+          {
+            "name": "AUTHELIA_REDIS_PASSWORD",
+            "description": "Password of the Authelia Redis cache.",
+            "type": "password",
+            "isSecret": true
+          }
+        ]
+      }
+    },
+    "configure": {
+      "executor": "@raeffs/docker-compose:configure"
+    }
+  }
+}

@@ -1,0 +1,125 @@
+version: '3.8'
+
+services:
+  authelia:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'authelia'
+    image: 'authelia/authelia:latest'
+    networks:
+      - 'default-frontend'
+      - 'default-backend'
+    volumes:
+      - './configuration.yml:/config/configuration.yml:ro'
+      - './users.yml:/config/users.yml:ro'
+    environment:
+      AUTHELIA_DEFAULT_REDIRECTION_URL: 'https://${AUTHELIA_DOMAIN}'
+      AUTHELIA_SESSION_DOMAIN: '${DEFAULT_DOMAIN_SUFFIX}'
+      AUTHELIA_NOTIFIER_SMTP_HOST: '${AUTHELIA_SMTP_SERVER}'
+      AUTHELIA_NOTIFIER_SMTP_PORT: '${AUTHELIA_SMTP_PORT}'
+      AUTHELIA_NOTIFIER_SMTP_USERNAME: '${AUTHELIA_SMTP_LOGIN}'
+      AUTHELIA_NOTIFIER_SMTP_SENDER: '${AUTHELIA_SMTP_FROM_ADDRESS}'
+      AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE: '/run/secrets/smtp-password'
+      AUTHELIA_JWT_SECRET_FILE: '/run/secrets/jwt-secret'
+      AUTHELIA_SESSION_SECRET_FILE: '/run/secrets/session-secret'
+      AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE: '/run/secrets/storage-encryption-key'
+      AUTHELIA_STORAGE_POSTGRES_HOST: 'authelia-db'
+      AUTHELIA_STORAGE_POSTGRES_USERNAME: 'authelia-user'
+      AUTHELIA_STORAGE_POSTGRES_DATABASE: 'authelia'
+      AUTHELIA_STORAGE_POSTGRES_PASSWORD_FILE: '/run/secrets/postgres-password'
+      AUTHELIA_SESSION_REDIS_HOST: 'authelia-cache'
+      AUTHELIA_SESSION_REDIS_PASSWORD_FILE: '/run/secrets/redis-password'
+      AUTHELIA_SESSION_REDIS_PORT: '6379'
+    secrets:
+      - 'smtp-password'
+      - 'jwt-secret'
+      - 'session-secret'
+      - 'storage-encryption-key'
+      - 'postgres-password'
+      - 'redis-password'
+    depends_on:
+      authelia-db:
+        condition: service_healthy
+      authelia-cache:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD', '/app/healthcheck.sh']
+      interval: 5s
+      timeout: 5s
+      retries: 6
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.authelia.rule=Host(`${AUTHELIA_DOMAIN}`)'
+      - 'traefik.http.routers.authelia.entrypoints=websecure'
+      - 'traefik.http.routers.authelia.tls=true'
+      - 'traefik.http.routers.authelia.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.authelia.tls.domains[0].main=${AUTHELIA_DOMAIN}'
+      - 'traefik.http.routers.authelia.middlewares=extranet@file'
+      - 'traefik.http.services.authelia.loadbalancer.server.port=9091'
+
+  authelia-db:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'authelia-db'
+    image: 'postgres:alpine'
+    networks:
+      - 'default-backend'
+    volumes:
+      - 'authelia-db:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_DB: 'authelia'
+      POSTGRES_USER: 'authelia-user'
+      POSTGRES_PASSWORD_FILE: '/run/secrets/postgres-password'
+    secrets:
+      - 'postgres-password'
+    healthcheck:
+      test: ['CMD', 'pg_isready', '-U', 'authelia-user', '-d', 'authelia']
+      interval: 5s
+      timeout: 5s
+
+  authelia-cache:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'authelia-cache'
+    image: 'bitnami/redis:latest'
+    networks:
+      - 'default-backend'
+    volumes:
+      - 'authelia-cache:/bitnami/redis/data'
+    environment:
+      REDIS_PASSWORD_FILE: '/run/secrets/redis-password'
+    secrets:
+      - 'redis-password'
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 5s
+
+secrets:
+  smtp-password:
+    file: '../../.secrets/AUTHELIA_SMTP_PASSWORD'
+  jwt-secret:
+    file: '../../.secrets/AUTHELIA_JWT_SECRET'
+  session-secret:
+    file: '../../.secrets/AUTHELIA_SESSION_SECRET'
+  storage-encryption-key:
+    file: '../../.secrets/AUTHELIA_STORAGE_ENCRYPTION_KEY'
+  postgres-password:
+    file: '../../.secrets/AUTHELIA_POSTGRES_PASSWORD'
+  redis-password:
+    file: '../../.secrets/AUTHELIA_REDIS_PASSWORD'
+
+volumes:
+  authelia-db:
+    external: true
+  authelia-cache:
+    external: true
+
+networks:
+  default-frontend:
+    external: true
+  default-backend:
+    external: true

@@ -1,0 +1,16 @@
+access_control:
+  default_policy: two_factor
+
+session:
+  name: auth_session
+  same_site: strict
+  expiration: 12h
+  inactivity: 1h
+  remember_me_duration: -1
+
+notifier:
+  disable_startup_check: true
+
+authentication_backend:
+  file:
+    path: /config/users.yml
