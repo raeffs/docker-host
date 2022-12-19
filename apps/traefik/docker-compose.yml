@@ -22,6 +22,7 @@ services:
       - 'traefik-certificates:/certificates'
     environment:
       ACME_EMAIL: '${TRAEFIK_ACME_EMAIL}'
+      DEFAULT_DOMAIN_SUFFIX: '${DEFAULT_DOMAIN_SUFFIX}'
     labels:
       - 'com.centurylinklabs.watchtower.monitor-only=true'
       - 'traefik.enable=true'

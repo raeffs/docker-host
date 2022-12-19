@@ -5,10 +5,20 @@ http:
         middlewares:
           - local-only
           - default
+    intranet-authenticated:
+      chain:
+        middlewares:
+          - authenticated
+          - intranet
     extranet:
       chain:
         middlewares:
           - default
+    extranet-authenticated:
+      chain:
+        middlewares:
+          - authenticated
+          - extranet
     default:
       chain:
         middlewares:
@@ -30,6 +40,15 @@ http:
         permanent: true
     compressd:
       compress: {}
+    authenticated:
+      forwardAuth:
+        address: 'http://authelia:9091/api/verify?rd=https://authelia.{{ env "DEFAULT_DOMAIN_SUFFIX" }}'
+        trustForwardHeader: true
+        authResponseHeaders:
+          - 'Remote-User'
+          - 'Remote-Groups'
+          - 'Remote-Email'
+          - 'Remote-Name'
     local-only:
       ipWhiteList:
         sourceRange:

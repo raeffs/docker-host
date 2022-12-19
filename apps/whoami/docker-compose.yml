@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  whoami-extranet:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'whoami-extranet'
+    image: 'traefik/whoami:latest'
+    networks:
+      - 'default-frontend'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.whoami-extranet.rule=Host(`whoami-extranet.${DEFAULT_DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.whoami-extranet.entrypoints=websecure'
+      - 'traefik.http.routers.whoami-extranet.tls=true'
+      - 'traefik.http.routers.whoami-extranet.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.whoami-extranet.tls.domains[0].main=whoami-extranet.${DEFAULT_DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.whoami-extranet.middlewares=extranet@file'
+      - 'traefik.http.services.whoami-extranet.loadbalancer.server.port=80'
+
+  whoami-extranet-authenticated:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'whoami-extranet-authenticated'
+    image: 'traefik/whoami:latest'
+    networks:
+      - 'default-frontend'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.whoami-extranet-authenticated.rule=Host(`whoami-extranet-authenticated.${DEFAULT_DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.whoami-extranet-authenticated.entrypoints=websecure'
+      - 'traefik.http.routers.whoami-extranet-authenticated.tls=true'
+      - 'traefik.http.routers.whoami-extranet-authenticated.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.whoami-extranet-authenticated.tls.domains[0].main=whoami-extranet-authenticated.${DEFAULT_DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.whoami-extranet-authenticated.middlewares=extranet-authenticated@file'
+      - 'traefik.http.services.whoami-extranet-authenticated.loadbalancer.server.port=80'
+
+  whoami-intranet:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'whoami-intranet'
+    image: 'traefik/whoami:latest'
+    networks:
+      - 'default-frontend'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.whoami-intranet.rule=Host(`whoami-intranet.${DEFAULT_DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.whoami-intranet.entrypoints=websecure'
+      - 'traefik.http.routers.whoami-intranet.tls=true'
+      - 'traefik.http.routers.whoami-intranet.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.whoami-intranet.tls.domains[0].main=whoami-intranet.${DEFAULT_DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.whoami-intranet.middlewares=intranet@file'
+      - 'traefik.http.services.whoami-intranet.loadbalancer.server.port=80'
+
+  whoami-intranet-authenticated:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'whoami-intranet-authenticated'
+    image: 'traefik/whoami:latest'
+    networks:
+      - 'default-frontend'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.whoami-intranet-authenticated.rule=Host(`whoami-intranet-authenticated.${DEFAULT_DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.whoami-intranet-authenticated.entrypoints=websecure'
+      - 'traefik.http.routers.whoami-intranet-authenticated.tls=true'
+      - 'traefik.http.routers.whoami-intranet-authenticated.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.whoami-intranet-authenticated.tls.domains[0].main=whoami-intranet-authenticated.${DEFAULT_DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.whoami-intranet-authenticated.middlewares=intranet-authenticated@file'
+      - 'traefik.http.services.whoami-intranet-authenticated.loadbalancer.server.port=80'
+
+networks:
+  default-frontend:
+    external: true
