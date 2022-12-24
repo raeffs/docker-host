@@ -1,0 +1,10 @@
+server {
+  listen 80;
+  server_name ${MASTODON_STATIC_DOMAIN};
+  location / {
+    rewrite ^/(.*)$ ${MASTODON_S3_PATH_PREFIX}/$1 break;
+    proxy_set_header Host "";
+    proxy_buffering off;
+    proxy_pass ${MASTODON_S3_ENDPOINT};
+  }
+}

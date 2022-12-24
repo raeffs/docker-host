@@ -148,6 +148,30 @@ services:
     labels:
       - 'com.centurylinklabs.watchtower.monitor-only=true'
 
+  mastodon-static:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'mastodon-static'
+    image: 'nginx:latest'
+    networks:
+      - 'default-frontend'
+    volumes:
+      - './default.conf.template:/etc/nginx/templates/default.conf.template:ro'
+    environment:
+      MASTODON_STATIC_DOMAIN: '${MASTODON_STATIC_DOMAIN}'
+      MASTODON_S3_ENDPOINT: '${MASTODON_S3_ENDPOINT}'
+      MASTODON_S3_PATH_PREFIX: '${MASTODON_S3_PATH_PREFIX}'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.mastodon-static.rule=Host(`${MASTODON_STATIC_DOMAIN}`)'
+      - 'traefik.http.routers.mastodon-static.entrypoints=websecure'
+      - 'traefik.http.routers.mastodon-static.tls=true'
+      - 'traefik.http.routers.mastodon-static.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.mastodon-static.tls.domains[0].main=${MASTODON_STATIC_DOMAIN}'
+      - 'traefik.http.routers.mastodon-static.middlewares=extranet@file'
+      - 'traefik.http.services.mastodon-static.loadbalancer.server.port=80'
+
 volumes:
   mastodon-data:
     external: true

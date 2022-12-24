@@ -15,7 +15,7 @@
     "create-volumes": {
       "executor": "@raeffs/docker-compose:create-volumes",
       "options": {
-        "volumes": [{ "name": "mastodon-data", "userId": 991 }, "mastodon-db", "mastodon-es", "mastodon-redis"]
+        "volumes": ["mastodon-db", "mastodon-es", "mastodon-redis"]
       }
     },
     "backup-volumes": {
@@ -35,6 +35,11 @@
             "name": "MASTODON_DOMAIN",
             "description": "Public domain name for Mastodon.",
             "defaultValue": "mastodon.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "MASTODON_STATIC_DOMAIN",
+            "description": "Public domain name of user uploaded content to Mastodon (only used if S3 storage is activated).",
+            "defaultValue": "mastodon-static.${DEFAULT_DOMAIN_SUFFIX}"
           },
           {
             "name": "MASTODON_ADMIN_USERNAME",
