@@ -12,7 +12,9 @@
     "down": "nx down",
     "pull": "nx pull",
     "configure": "nx configure",
-    "new:app": "nx generate application"
+    "new:app": "nx generate application",
+    "backup-volumes": "nx backup-volumes",
+    "restore-volumes": "nx restore-volumes"
   },
   "devDependencies": {
     "@angular-devkit/schematics": "15.0.2",

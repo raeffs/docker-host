@@ -6,7 +6,7 @@ import { RestoreExecutorSchema } from './schema';
 
 export function normalizeOptions(schema: RestoreExecutorSchema, context: ExecutorContext): RestoreExecutorOptions {
   const targetSchema: CreateVolumesExecutorSchema = readTargetOptions(
-    { project: context.projectName, target: 'create-target' },
+    { project: context.projectName, target: 'create-volumes' },
     context
   );
 
