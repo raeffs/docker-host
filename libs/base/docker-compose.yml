@@ -4,5 +4,4 @@ services:
   base:
     restart: 'unless-stopped'
     volumes:
-      - '/etc/timezone:/etc/timezone:ro'
       - '/etc/localtime:/etc/localtime:ro'
