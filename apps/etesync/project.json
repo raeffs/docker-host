@@ -33,7 +33,8 @@
         "variables": [
           {
             "name": "ETESYNC_POSTGRES_PASSWORD",
-            "description": "Password of the Etesync PostgreSQL database."
+            "description": "Password of the Etesync PostgreSQL database.",
+            "type": "password"
           },
           {
             "name": "ETESYNC_ADMIN_USERNAME",
@@ -41,7 +42,8 @@
           },
           {
             "name": "ETESYNC_ADMIN_PASSWORD",
-            "description": "Password of the Etesync admin user."
+            "description": "Password of the Etesync admin user.",
+            "type": "password"
           }
         ]
       }
