@@ -6,5 +6,6 @@ server {
     proxy_set_header Host "";
     proxy_buffering off;
     proxy_pass ${MASTODON_S3_ENDPOINT};
+    add_header "Cache-Control" "public, max-age=315576000, immutable";
   }
 }
