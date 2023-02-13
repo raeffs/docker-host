@@ -1,0 +1,56 @@
+{
+  "name": "openproject",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": ["networks", "traefik"],
+  "targets": {
+    "up": {
+      "executor": "@raeffs/docker-compose:up"
+    },
+    "down": {
+      "executor": "@raeffs/docker-compose:down"
+    },
+    "pull": {
+      "executor": "@raeffs/docker-compose:pull"
+    },
+    "create-volumes": {
+      "executor": "@raeffs/docker-compose:create-volumes",
+      "options": {
+        "volumes": ["openproject-data", "openproject-db"]
+      }
+    },
+    "backup-volumes": {
+      "executor": "@raeffs/docker-compose:backup-volumes"
+    },
+    "restore-volumes": {
+      "executor": "@raeffs/docker-compose:restore-volumes"
+    },
+    "create-networks": {
+      "executor": "@raeffs/docker-compose:create-networks"
+    },
+    "create-variables": {
+      "executor": "@raeffs/docker-compose:create-variables",
+      "options": {
+        "variables": [
+          {
+            "name": "OPENPROJECT_DOMAIN",
+            "description": "Public domain name for OpenProject.",
+            "defaultValue": "openproject.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "OPENPROJECT_POSTGRES_PASSWORD",
+            "description": "Password of the OpenProject PostgreSQL database.",
+            "type": "password"
+          },
+          {
+            "name": "OPENPROJECT_SECRET_KEY_BASE",
+            "description": "",
+            "type": "generated"
+          }
+        ]
+      }
+    },
+    "configure": {
+      "executor": "@raeffs/docker-compose:configure"
+    }
+  }
+}

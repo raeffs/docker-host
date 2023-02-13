@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  openproject:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'openproject'
+    image: 'openproject/community:12'
+    networks:
+      - 'default-frontend'
+      - 'default-backend'
+    volumes:
+      - 'openproject-data:/var/openproject/assets'
+    environment:
+      OPENPROJECT_SECRET_KEY_BASE: '${OPENPROJECT_SECRET_KEY_BASE}'
+      OPENPROJECT_HOST__NAME: '${OPENPROJECT_DOMAIN}'
+      OPENPROJECT_HTTPS: 'true'
+      DATABASE_URL: 'postgres://openproject-user:${OPENPROJECT_POSTGRES_PASSWORD}@openproject-db:5432/openproject'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.openproject.rule=Host(`${OPENPROJECT_DOMAIN}`)'
+      - 'traefik.http.routers.openproject.entrypoints=websecure'
+      - 'traefik.http.routers.openproject.tls=true'
+      - 'traefik.http.routers.openproject.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.openproject.tls.domains[0].main=${OPENPROJECT_DOMAIN}'
+      - 'traefik.http.routers.openproject.middlewares=extranet@file'
+      - 'traefik.http.services.openproject.loadbalancer.server.port=80'
+
+  openproject-db:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'openproject-db'
+    image: 'postgres:alpine'
+    networks:
+      - 'default-backend'
+    volumes:
+      - 'openproject-db:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_DB: 'openproject'
+      POSTGRES_USER: 'openproject-user'
+      POSTGRES_PASSWORD: '${OPENPROJECT_POSTGRES_PASSWORD}'
+    healthcheck:
+      test: ['CMD', 'pg_isready', '-U', 'openproject-user', '-d', 'openproject']
+      interval: 5s
+      timeout: 5s
+
+volumes:
+  openproject-data:
+    external: true
+  openproject-db:
+    external: true
+
+networks:
+  default-frontend:
+    external: true
+  default-backend:
+    external: true
