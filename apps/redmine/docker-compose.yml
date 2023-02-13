@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  redmine:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'redmine'
+    image: 'bitnami/redmine:latest'
+    networks:
+      - 'default-frontend'
+      - 'default-backend'
+    volumes:
+      - 'redmine-data:/bitnami/redmine'
+      - './themes:/opt/bitnami/redmine/public/themes:ro'
+    environment:
+      REDMINE_USERNAME: '${REDMINE_ADMIN_USERNAME}'
+      REDMINE_PASSWORD: '${REDMINE_ADMIN_PASSWORD}'
+      REDMINE_EMAIL: '${REDMINE_ADMIN_EMAIL}'
+      REDMINE_DATABASE_TYPE: 'postgresql'
+      REDMINE_DATABASE_HOST: 'redmine-db'
+      REDMINE_DATABASE_NAME: 'redmine'
+      REDMINE_DATABASE_USER: 'redmine-user'
+      REDMINE_DATABASE_PASSWORD: '${REDMINE_POSTGRES_PASSWORD}'
+      REDMINE_DATABASE_PORT_NUMBER: '5432'
+      REDMINE_SMTP_HOST: '${REDMINE_SMTP_SERVER}'
+      REDMINE_SMTP_PORT: '${REDMINE_SMTP_PORT}'
+      REDMINE_SMTP_USER: '${REDMINE_SMTP_LOGIN}'
+      REDMINE_SMTP_PASSWORD: '${REDMINE_SMTP_PASSWORD}'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.redmine.rule=Host(`${REDMINE_DOMAIN}`)'
+      - 'traefik.http.routers.redmine.entrypoints=websecure'
+      - 'traefik.http.routers.redmine.tls=true'
+      - 'traefik.http.routers.redmine.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.redmine.tls.domains[0].main=${REDMINE_DOMAIN}'
+      - 'traefik.http.routers.redmine.middlewares=extranet@file'
+      - 'traefik.http.services.redmine.loadbalancer.server.port=3000'
+
+  redmine-db:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'redmine-db'
+    image: 'postgres:alpine'
+    networks:
+      - 'default-backend'
+    volumes:
+      - 'redmine-db:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_DB: 'redmine'
+      POSTGRES_USER: 'redmine-user'
+      POSTGRES_PASSWORD: '${REDMINE_POSTGRES_PASSWORD}'
+    healthcheck:
+      test: ['CMD', 'pg_isready', '-U', 'redmine-user', '-d', 'redmine']
+      interval: 5s
+      timeout: 5s
+
+volumes:
+  redmine-data:
+    external: true
+  redmine-db:
+    external: true
+
+networks:
+  default-frontend:
+    external: true
+  default-backend:
+    external: true

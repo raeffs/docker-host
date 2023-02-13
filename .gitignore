@@ -8,3 +8,6 @@
 
 .local.env
 .env.local
+
+/apps/redmine/themes/*
+!/apps/redmine/themes/.gitkeep

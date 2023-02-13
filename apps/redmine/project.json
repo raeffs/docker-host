@@ -1,0 +1,82 @@
+{
+  "name": "redmine",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": ["networks", "traefik"],
+  "targets": {
+    "up": {
+      "executor": "@raeffs/docker-compose:up"
+    },
+    "down": {
+      "executor": "@raeffs/docker-compose:down"
+    },
+    "pull": {
+      "executor": "@raeffs/docker-compose:pull"
+    },
+    "create-volumes": {
+      "executor": "@raeffs/docker-compose:create-volumes",
+      "options": {
+        "volumes": [{ "name": "redmine-data", "userId": 1001 }, "redmine-db"]
+      }
+    },
+    "backup-volumes": {
+      "executor": "@raeffs/docker-compose:backup-volumes"
+    },
+    "restore-volumes": {
+      "executor": "@raeffs/docker-compose:restore-volumes"
+    },
+    "create-networks": {
+      "executor": "@raeffs/docker-compose:create-networks"
+    },
+    "create-variables": {
+      "executor": "@raeffs/docker-compose:create-variables",
+      "options": {
+        "variables": [
+          {
+            "name": "REDMINE_ADMIN_USERNAME",
+            "description": "Username of the Redmine admin user.",
+            "defaultValue": "admin"
+          },
+          {
+            "name": "REDMINE_ADMIN_EMAIL",
+            "description": "Email address of the Redmine admin user."
+          },
+          {
+            "name": "REDMINE_ADMIN_PASSWORD",
+            "description": "Password of the Redmine admin user.",
+            "type": "password"
+          },
+          {
+            "name": "REDMINE_DOMAIN",
+            "description": "Public domain name for Redmine.",
+            "defaultValue": "redmine.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "REDMINE_POSTGRES_PASSWORD",
+            "description": "Password of the Redmine PostgreSQL database.",
+            "type": "password"
+          },
+          {
+            "name": "REDMINE_SMTP_SERVER",
+            "description": "SMTP server used by Redmine to send emails."
+          },
+          {
+            "name": "REDMINE_SMTP_PORT",
+            "description": "SMTP port used by Redmine to send emails.",
+            "defaultValue": "587"
+          },
+          {
+            "name": "REDMINE_SMTP_LOGIN",
+            "description": "SMTP login used by Redmine to send emails."
+          },
+          {
+            "name": "REDMINE_SMTP_PASSWORD",
+            "description": "SMTP password used by Redmine to send emails."
+          }
+        ]
+      }
+    },
+    "configure": {
+      "executor": "@raeffs/docker-compose:configure"
+    }
+  }
+}
