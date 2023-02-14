@@ -1,22 +1,28 @@
 version: '3.8'
 
 services:
-  openproject:
+  openproject-web:
     extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
-    container_name: 'openproject'
-    image: 'openproject/community:12'
+      file: 'docker-compose.base.yml'
+      service: 'openproject-base'
+    container_name: 'openproject-web'
+    command: './docker/prod/web'
     networks:
       - 'default-frontend'
       - 'default-backend'
-    volumes:
-      - 'openproject-data:/var/openproject/assets'
-    environment:
-      OPENPROJECT_SECRET_KEY_BASE: '${OPENPROJECT_SECRET_KEY_BASE}'
-      OPENPROJECT_HOST__NAME: '${OPENPROJECT_DOMAIN}'
-      OPENPROJECT_HTTPS: 'true'
-      DATABASE_URL: 'postgres://openproject-user:${OPENPROJECT_POSTGRES_PASSWORD}@openproject-db:5432/openproject'
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:8080/health_checks/default']
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 30s
+    depends_on:
+      openproject-db:
+        condition: service_healthy
+      openproject-cache:
+        condition: service_started
+      openproject-seeder:
+        condition: service_completed_successfully
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.openproject.rule=Host(`${OPENPROJECT_DOMAIN}`)'
@@ -25,7 +31,52 @@ services:
       - 'traefik.http.routers.openproject.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.openproject.tls.domains[0].main=${OPENPROJECT_DOMAIN}'
       - 'traefik.http.routers.openproject.middlewares=extranet@file'
-      - 'traefik.http.services.openproject.loadbalancer.server.port=80'
+      - 'traefik.http.services.openproject.loadbalancer.server.port=8080'
+
+  openproject-worker:
+    extends:
+      file: 'docker-compose.base.yml'
+      service: 'openproject-base'
+    container_name: 'openproject-worker'
+    command: './docker/prod/worker'
+    networks:
+      - 'default-backend'
+    depends_on:
+      openproject-db:
+        condition: service_healthy
+      openproject-cache:
+        condition: service_started
+      openproject-seeder:
+        condition: service_completed_successfully
+
+  openproject-cron:
+    extends:
+      file: 'docker-compose.base.yml'
+      service: 'openproject-base'
+    container_name: 'openproject-cron'
+    command: './docker/prod/cron'
+    networks:
+      - 'default-backend'
+    depends_on:
+      openproject-db:
+        condition: service_healthy
+      openproject-cache:
+        condition: service_started
+      openproject-seeder:
+        condition: service_completed_successfully
+
+  openproject-seeder:
+    extends:
+      file: 'docker-compose.base.yml'
+      service: 'openproject-base'
+    container_name: 'openproject-seeder'
+    command: './docker/prod/seeder'
+    restart: 'on-failure'
+    networks:
+      - 'default-backend'
+    depends_on:
+      openproject-db:
+        condition: service_healthy
 
   openproject-db:
     extends:
@@ -45,6 +96,15 @@ services:
       test: ['CMD', 'pg_isready', '-U', 'openproject-user', '-d', 'openproject']
       interval: 5s
       timeout: 5s
+
+  openproject-cache:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'openproject-cache'
+    image: 'bitnami/memcached:latest'
+    networks:
+      - 'default-backend'
 
 volumes:
   openproject-data:
