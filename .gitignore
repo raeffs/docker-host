@@ -1,6 +1,8 @@
 /node_modules
 /dist
 /tmp
+/.nx/cache
+
 /.backups/*
 !/.backups/.gitkeep
 /.secrets/*

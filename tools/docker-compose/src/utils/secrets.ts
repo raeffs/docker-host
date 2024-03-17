@@ -1,4 +1,4 @@
-import { ExecutorContext, joinPathFragments } from '@nrwl/devkit';
+import { ExecutorContext, joinPathFragments } from '@nx/devkit';
 import { existsSync } from 'fs';
 import { writeFile } from 'fs/promises';
 

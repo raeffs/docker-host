@@ -1,4 +1,4 @@
-import { ExecutorContext } from '@nrwl/devkit';
+import { ExecutorContext } from '@nx/devkit';
 import { ConfigureExecutorOptions } from './options';
 import { ConfigureExecutorSchema } from './schema';
 

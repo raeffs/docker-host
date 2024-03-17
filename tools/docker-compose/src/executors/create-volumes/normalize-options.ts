@@ -1,4 +1,5 @@
-import { ExecutorContext, getDependentPackagesForProject, readTargetOptions } from '@nrwl/devkit';
+import { ExecutorContext, , readTargetOptions } from '@nx/devkit';
+import { getDependentPackagesForProject } from '@nx/webpack';
 import { CreateVolumesExecutorOptions } from './options';
 import { CreateVolumesExecutorSchema, VolumeDefinition } from './schema';
 

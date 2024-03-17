@@ -1,4 +1,4 @@
-import { ExecutorContext, readTargetOptions } from '@nrwl/devkit';
+import { ExecutorContext, readTargetOptions } from '@nx/devkit';
 import { mapToVolumeDefinitions } from '../create-volumes/normalize-options';
 import { CreateVolumesExecutorSchema } from '../create-volumes/schema';
 import { BackupExecutorOptions } from './options';

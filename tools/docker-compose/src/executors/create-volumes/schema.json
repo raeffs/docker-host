@@ -1,7 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
   "version": 2,
-  "cli": "nx",
   "type": "object",
   "properties": {
     "volumes": {
@@ -21,7 +20,9 @@
                 "type": "number"
               }
             },
-            "required": ["name"]
+            "required": [
+              "name"
+            ]
           }
         ]
       }

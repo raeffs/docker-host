@@ -1,7 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
   "version": 2,
-  "cli": "nx",
   "type": "object",
   "properties": {
     "composeFile": {
@@ -17,5 +16,7 @@
       "default": false
     }
   },
-  "required": ["composeFile"]
+  "required": [
+    "composeFile"
+  ]
 }

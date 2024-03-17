@@ -1,7 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
   "version": 2,
-  "cli": "nx",
   "type": "object",
   "properties": {
     "networks": {
@@ -21,7 +20,11 @@
                 "type": "string"
               }
             },
-            "required": ["name", "subnet", "ipRange"]
+            "required": [
+              "name",
+              "subnet",
+              "ipRange"
+            ]
           }
         ]
       }

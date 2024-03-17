@@ -1,7 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
   "version": 2,
-  "cli": "nx",
   "outputCapture": false,
   "type": "object",
   "properties": {
@@ -31,7 +30,10 @@
                 "type": "boolean"
               }
             },
-            "required": ["name", "description"]
+            "required": [
+              "name",
+              "description"
+            ]
           }
         ]
       }

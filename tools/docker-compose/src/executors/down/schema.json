@@ -1,7 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
   "version": 2,
-  "cli": "nx",
   "type": "object",
   "properties": {
     "composeFile": {
@@ -9,5 +8,7 @@
       "default": "docker-compose.yml"
     }
   },
-  "required": ["composeFile"]
+  "required": [
+    "composeFile"
+  ]
 }

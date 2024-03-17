@@ -1,4 +1,4 @@
-import { ExecutorContext, runExecutor as runExternalExecutor } from '@nrwl/devkit';
+import { ExecutorContext, runExecutor as runExternalExecutor } from '@nx/devkit';
 import { ExecutorResult } from '../../utils';
 import { normalizeOptions } from './normalize-options';
 import { ConfigureExecutorSchema } from './schema';

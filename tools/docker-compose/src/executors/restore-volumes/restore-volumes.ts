@@ -1,4 +1,4 @@
-import { ExecutorContext, joinPathFragments } from '@nrwl/devkit';
+import { ExecutorContext, joinPathFragments } from '@nx/devkit';
 import { ExecutorResult } from '../../utils';
 import { normalizeOptions } from './normalize-options';
 import { restoreVolume } from './restore-volume';

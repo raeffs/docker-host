@@ -1,4 +1,4 @@
-import { ExecutorContext } from '@nrwl/devkit';
+import { ExecutorContext } from '@nx/devkit';
 import { ExecutorResult, getLocalDockerVolumes } from '../../utils';
 import { createVolume } from './create-volume';
 import { deleteVolume } from './delete-volume';

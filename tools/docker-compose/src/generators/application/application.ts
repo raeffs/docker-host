@@ -1,4 +1,4 @@
-import { generateFiles, joinPathFragments, Tree } from '@nrwl/devkit';
+import { generateFiles, joinPathFragments, Tree } from '@nx/devkit';
 import { normalizeOptions } from './normalize-options';
 import { ApplicationGeneratorSchema } from './schema';
 

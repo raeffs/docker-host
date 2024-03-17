@@ -1,4 +1,4 @@
-import { ExecutorContext } from '@nrwl/devkit';
+import { ExecutorContext } from '@nx/devkit';
 import { ExecutorResult, runDockerCompose } from '../../utils';
 import { normalizeOptions } from './normalize-options';
 import { UpExecutorSchema } from './schema';

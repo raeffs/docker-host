@@ -1,4 +1,4 @@
-import { ExecutorContext } from '@nrwl/devkit';
+import { ExecutorContext } from '@nx/devkit';
 import { spawn } from 'child_process';
 import { ExecutorResult, waitForExit } from '../../utils';
 import { NetworkDefinition } from './schema';

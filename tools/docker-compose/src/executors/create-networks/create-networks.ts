@@ -1,4 +1,4 @@
-import { ExecutorContext } from '@nrwl/devkit';
+import { ExecutorContext } from '@nx/devkit';
 import { ExecutorResult, getLocalDockerNetworks } from '../../utils';
 import { createNetwork } from './create-network';
 import { normalizeOptions } from './normalize-options';

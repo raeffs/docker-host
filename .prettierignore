@@ -1,5 +1,7 @@
 /node_modules
 /dist
 /tmp
+/.nx/cache
+
 /.backups
 /.secrets

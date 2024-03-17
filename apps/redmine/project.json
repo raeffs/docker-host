@@ -15,7 +15,13 @@
     "create-volumes": {
       "executor": "@raeffs/docker-compose:create-volumes",
       "options": {
-        "volumes": [{ "name": "redmine-data", "userId": 1001 }, "redmine-db"]
+        "volumes": [
+          {
+            "name": "redmine-data",
+            "userId": 1001
+          },
+          "redmine-db"
+        ]
       }
     },
     "backup-volumes": {

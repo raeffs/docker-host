@@ -1,4 +1,4 @@
-import { stringUtils } from '@nrwl/workspace';
+import { stringUtils } from '@nx/workspace';
 import { ApplicationGeneratorOptions } from './options';
 import { ApplicationGeneratorSchema } from './schema';
 
