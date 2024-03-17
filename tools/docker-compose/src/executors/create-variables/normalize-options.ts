@@ -1,4 +1,4 @@
-import { ExecutorContext, , readTargetOptions } from '@nx/devkit';
+import { ExecutorContext, readTargetOptions } from '@nx/devkit';
 import { getDependentPackagesForProject } from '@nx/webpack';
 import { CreateVariablesExecutorOptions } from './options';
 import { CreateVariablesExecutorSchema } from './schema';
