@@ -1,5 +1,6 @@
 log:
-  level: 'INFO'
+  # DEBUG, INFO, WARN, ERROR, FATAL, PANIC
+  level: 'WARN'
 
 providers:
   docker:
