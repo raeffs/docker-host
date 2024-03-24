@@ -50,7 +50,7 @@ http:
           - 'Remote-Email'
           - 'Remote-Name'
     local-only:
-      ipWhiteList:
+      ipAllowList:
         sourceRange:
           - '127.0.0.1/32'
           # local subnet
