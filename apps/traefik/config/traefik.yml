@@ -24,5 +24,6 @@ certificatesResolvers:
     acme:
       email: 'admin@example.com'
       storage: '/certificates/acme.json'
-      httpChallenge:
-        entryPoint: 'web'
+      # use the staging server to test acme settings
+      # caServer: https://acme-staging-v02.api.letsencrypt.org/directory
+      tlsChallenge: {}
