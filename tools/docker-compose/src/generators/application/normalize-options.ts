@@ -1,9 +1,9 @@
-import { stringUtils } from '@nx/workspace';
+import { names } from '@nx/devkit';
 import { ApplicationGeneratorOptions } from './options';
 import { ApplicationGeneratorSchema } from './schema';
 
 export function normalizeOptions(schema: ApplicationGeneratorSchema): ApplicationGeneratorOptions {
-  const applicationName = stringUtils.dasherize(schema.name);
+  const applicationName = names(schema.name).fileName;
 
   return {
     ...schema,
