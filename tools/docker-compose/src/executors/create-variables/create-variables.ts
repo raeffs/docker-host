@@ -38,6 +38,12 @@ export function createPrompt(context: ExecutorContext, variable: VariableDefinit
         required: false,
         result: async _ => await generateSecret(context),
       };
+    case 'boolean':
+      return {
+        ...base,
+        type: 'confirm',
+        required: true,
+      };
   }
 }
 
