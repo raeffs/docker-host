@@ -1,0 +1,39 @@
+
+services:
+  navidrome:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'navidrome'
+    image: 'deluan/navidrome:latest'
+    networks:
+      - 'default-frontend'
+    volumes:
+      - 'navidrome-data:/data'
+      - 'navidrome-music:/music:ro'
+    environment:
+      ND_LOGLEVEL: 'warn'
+      ND_BASEURL: 'https://${NAVIDROME_DOMAIN}'
+      ND_LASTFM_ENABLED: '${NAVIDROME_LASTFM_ENABLED}'
+      ND_LASTFM_APIKEY: '${NAVIDROME_LASTFM_APIKEY}'
+      ND_LASTFM_SECRET: '${NAVIDROME_LASTFM_SECRET}'
+      ND_PASSWORDENCRYPTIONKEY: '${NAVIDROME_PASSWORD_ENCRYPTION_KEY}'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.navidrome.rule=Host(`${NAVIDROME_DOMAIN}`)'
+      - 'traefik.http.routers.navidrome.entrypoints=websecure'
+      - 'traefik.http.routers.navidrome.tls=true'
+      - 'traefik.http.routers.navidrome.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.navidrome.tls.domains[0].main=${NAVIDROME_DOMAIN}'
+      - 'traefik.http.routers.navidrome.middlewares=intranet@file'
+      - 'traefik.http.services.navidrome.loadbalancer.server.port=4533'
+
+volumes:
+  navidrome-data:
+    external: true
+  navidrome-music:
+    external: true
+
+networks:
+  default-frontend:
+    external: true

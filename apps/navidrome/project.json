@@ -1,0 +1,64 @@
+{
+  "name": "navidrome",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": ["networks", "traefik"],
+  "targets": {
+    "up": {
+      "executor": "@raeffs/docker-compose:up"
+    },
+    "down": {
+      "executor": "@raeffs/docker-compose:down"
+    },
+    "pull": {
+      "executor": "@raeffs/docker-compose:pull"
+    },
+    "create-volumes": {
+      "executor": "@raeffs/docker-compose:create-volumes",
+      "options": {
+        "volumes": ["navidrome-data", "navidrome-music"]
+      }
+    },
+    "backup-volumes": {
+      "executor": "@raeffs/docker-compose:backup-volumes"
+    },
+    "restore-volumes": {
+      "executor": "@raeffs/docker-compose:restore-volumes"
+    },
+    "create-networks": {
+      "executor": "@raeffs/docker-compose:create-networks"
+    },
+    "create-variables": {
+      "executor": "@raeffs/docker-compose:create-variables",
+      "options": {
+        "variables": [
+          {
+            "name": "NAVIDROME_DOMAIN",
+            "description": "Public domain name for Navidrome.",
+            "defaultValue": "navidrome.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "NAVIDROME_LASTFM_ENABLED",
+            "description": "Enable Last.fm scrobbling?",
+            "type": "boolean"
+          },
+          {
+            "name": "NAVIDROME_LASTFM_APIKEY",
+            "description": "Last.fm API key."
+          },
+          {
+            "name": "NAVIDROME_LASTFM_SECRET",
+            "description": "Last.fm secret."
+          },
+          {
+            "name": "NAVIDROME_PASSWORD_ENCRYPTION_KEY",
+            "description": "",
+            "type": "generated"
+          }
+        ]
+      }
+    },
+    "configure": {
+      "executor": "@raeffs/docker-compose:configure"
+    }
+  }
+}
