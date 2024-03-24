@@ -1,4 +1,3 @@
-version: '3.8'
 
 services:
   <%= applicationName %>:
@@ -11,6 +10,15 @@ services:
       - 'default-frontend'
     volumes:
       - '<%= applicationName %>-data:/data'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.<%= applicationName %>.rule=Host(`<%= applicationName %>.${DEFAULT_DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.<%= applicationName %>.entrypoints=websecure'
+      - 'traefik.http.routers.<%= applicationName %>.tls=true'
+      - 'traefik.http.routers.<%= applicationName %>.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.<%= applicationName %>.tls.domains[0].main=<%= applicationName %>.${DEFAULT_DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.<%= applicationName %>.middlewares=intranet@file'
+      - 'traefik.http.services.<%= applicationName %>.loadbalancer.server.port=8080'
 
 volumes:
   <%= applicationName %>-data:

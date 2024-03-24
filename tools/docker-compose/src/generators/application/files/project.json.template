@@ -15,7 +15,7 @@
     "create-volumes": {
       "executor": "@raeffs/docker-compose:create-volumes",
       "options": {
-        "volumes": []
+        "volumes": ["<%= applicationName %>-data"]
       }
     },
     "backup-volumes": {
