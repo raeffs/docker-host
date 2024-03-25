@@ -11,8 +11,7 @@ providers:
     directory: '/etc/traefik/dynamic'
     watch: true
 
-api:
-  insecure: true
+api: {}
 
 entryPoints:
   web:
