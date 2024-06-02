@@ -1,0 +1,70 @@
+
+services:
+  mealie:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'mealie'
+    image: 'ghcr.io/mealie-recipes/mealie'
+    networks:
+      - 'default-frontend'
+      - 'default-backend'
+    volumes:
+      - 'mealie-data:/app/data'
+    environment:
+      BASE_URL: 'https://${MEALIE_DOMAIN}'
+      LOG_LEVEL: 'warning'
+      SMTP_HOST: '${MEALIE_SMTP_SERVER}'
+      SMTP_PORT: '${MEALIE_SMTP_PORT}'
+      SMTP_FROM_EMAIL: '${MEALIE_SMTP_FROM_ADDRESS}'
+      SMTP_USER: '${MEALIE_SMTP_LOGIN}'
+      SMTP_PASSWORD: '${MEALIE_SMTP_PASSWORD}'
+      DB_ENGINE: 'postgres'
+      POSTGRES_USER: 'mealie-user'
+      POSTGRES_PASSWORD: '${MEALIE_POSTGRES_PASSWORD}'
+      POSTGRES_SERVER: 'mealie-db'
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: 'mealie'
+    depends_on:
+      mealie-db:
+        condition: service_healthy
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.mealie.rule=Host(`${MEALIE_DOMAIN}`)'
+      - 'traefik.http.routers.mealie.entrypoints=websecure'
+      - 'traefik.http.routers.mealie.tls=true'
+      - 'traefik.http.routers.mealie.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.mealie.tls.domains[0].main=${MEALIE_DOMAIN}'
+      - 'traefik.http.routers.mealie.middlewares=intranet@file'
+      - 'traefik.http.services.mealie.loadbalancer.server.port=9000'
+
+  mealie-db:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'mealie-db'
+    image: 'postgres:alpine'
+    networks:
+      - 'default-backend'
+    volumes:
+      - 'mealie-db:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_DB: 'mealie'
+      POSTGRES_USER: 'mealie-user'
+      POSTGRES_PASSWORD: '${MEALIE_POSTGRES_PASSWORD}'
+    healthcheck:
+      test: ['CMD', 'pg_isready', '-U', 'mealie-user', '-d', 'mealie']
+      interval: 5s
+      timeout: 5s
+
+volumes:
+  mealie-data:
+    external: true
+  mealie-db:
+    external: true
+
+networks:
+  default-frontend:
+    external: true
+  default-backend:
+    external: true

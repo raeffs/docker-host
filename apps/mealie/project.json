@@ -1,0 +1,72 @@
+{
+  "name": "mealie",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": ["networks", "traefik"],
+  "targets": {
+    "up": {
+      "executor": "@raeffs/docker-compose:up"
+    },
+    "down": {
+      "executor": "@raeffs/docker-compose:down"
+    },
+    "pull": {
+      "executor": "@raeffs/docker-compose:pull"
+    },
+    "create-volumes": {
+      "executor": "@raeffs/docker-compose:create-volumes",
+      "options": {
+        "volumes": ["mealie-data", "mealie-db"]
+      }
+    },
+    "backup-volumes": {
+      "executor": "@raeffs/docker-compose:backup-volumes"
+    },
+    "restore-volumes": {
+      "executor": "@raeffs/docker-compose:restore-volumes"
+    },
+    "create-networks": {
+      "executor": "@raeffs/docker-compose:create-networks"
+    },
+    "create-variables": {
+      "executor": "@raeffs/docker-compose:create-variables",
+      "options": {
+        "variables": [
+          {
+            "name": "MEALIE_DOMAIN",
+            "description": "Public domain name for Mealie.",
+            "defaultValue": "mealie.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "MEALIE_SMTP_SERVER",
+            "description": "SMTP server used by Mealie to send emails."
+          },
+          {
+            "name": "MEALIE_SMTP_PORT",
+            "description": "SMTP port used by Mealie to send emails.",
+            "defaultValue": "587"
+          },
+          {
+            "name": "MEALIE_SMTP_LOGIN",
+            "description": "SMTP login used by Mealie to send emails."
+          },
+          {
+            "name": "MEALIE_SMTP_PASSWORD",
+            "description": "SMTP password used by Mealie to send emails."
+          },
+          {
+            "name": "MEALIE_SMTP_FROM_ADDRESS",
+            "description": "Sender email address used by Mealie to send emails."
+          },
+          {
+            "name": "MEALIE_POSTGRES_PASSWORD",
+            "description": "Password of the Mealie PostgreSQL database.",
+            "type": "password"
+          }
+        ]
+      }
+    },
+    "configure": {
+      "executor": "@raeffs/docker-compose:configure"
+    }
+  }
+}
