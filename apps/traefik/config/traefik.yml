@@ -31,4 +31,7 @@ certificatesResolvers:
       storage: '/certificates/acme.json'
       # use the staging server to test acme settings
       # caServer: https://acme-staging-v02.api.letsencrypt.org/directory
-      tlsChallenge: {}
+      dnsChallenge:
+        provider: cloudflare
+        delayBeforeCheck: 10
+        disablepropagationcheck: true 

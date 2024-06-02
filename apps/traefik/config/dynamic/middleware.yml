@@ -54,7 +54,7 @@ http:
         sourceRange:
           - '127.0.0.1/32'
           # local subnet
-          - '192.168.1.0/24'
+          - '192.168.1.0/16'
           # docker subnet
           - '172.20.0.0/24'
           # wireguard subnet

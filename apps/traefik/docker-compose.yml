@@ -21,6 +21,9 @@ services:
     environment:
       ACME_EMAIL: '${TRAEFIK_ACME_EMAIL}'
       DEFAULT_DOMAIN_SUFFIX: '${DEFAULT_DOMAIN_SUFFIX}'
+      CF_API_EMAIL: '${TRAEFIK_CF_EMAIL}'
+      CF_DNS_API_TOKEN: '${TRAEFIK_CF_API_TOKEN}'
+      CF_ZONE_API_TOKEN: '${TRAEFIK_CF_API_TOKEN}'
     labels:
       - 'com.centurylinklabs.watchtower.monitor-only=true'
       - 'traefik.enable=true'
