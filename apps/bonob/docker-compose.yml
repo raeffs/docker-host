@@ -1,0 +1,31 @@
+services:
+  bonob:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'bonob'
+    image: 'simojenki/bonob:latest'
+    networks:
+      - 'default-frontend'
+    environment:
+      BNB_URL: 'https://${BONOB_DOMAIN}'
+      BNB_SECRET: '${BONOB_ENCRYPTION_KEY}'
+      BNB_SONOS_AUTO_REGISTER: 'true'
+      BNB_SONOS_DEVICE_DISCOVERY: 'true'
+      BNB_SONOS_SEED_HOST: '${BONOB_SONOS_SEED_HOST}'
+      BNB_SONOS_SERVICE_NAME: 'Local Music Library'
+      BNB_SUBSONIC_URL: 'https://${NAVIDROME_DOMAIN}'
+      BNB_LOG_LEVEL: 'warn'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.bonob.rule=Host(`${BONOB_DOMAIN}`)'
+      - 'traefik.http.routers.bonob.entrypoints=websecure'
+      - 'traefik.http.routers.bonob.tls=true'
+      - 'traefik.http.routers.bonob.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.bonob.tls.domains[0].main=${BONOB_DOMAIN}'
+      - 'traefik.http.routers.bonob.middlewares=local-only@file'
+      - 'traefik.http.services.bonob.loadbalancer.server.port=4534'
+
+networks:
+  default-frontend:
+    external: true

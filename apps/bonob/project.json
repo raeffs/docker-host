@@ -1,0 +1,55 @@
+{
+  "name": "bonob",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": ["networks", "traefik", "navidrome"],
+  "targets": {
+    "up": {
+      "executor": "@raeffs/docker-compose:up"
+    },
+    "down": {
+      "executor": "@raeffs/docker-compose:down"
+    },
+    "pull": {
+      "executor": "@raeffs/docker-compose:pull"
+    },
+    "create-volumes": {
+      "executor": "@raeffs/docker-compose:create-volumes",
+      "options": {
+        "volumes": []
+      }
+    },
+    "backup-volumes": {
+      "executor": "@raeffs/docker-compose:backup-volumes"
+    },
+    "restore-volumes": {
+      "executor": "@raeffs/docker-compose:restore-volumes"
+    },
+    "create-networks": {
+      "executor": "@raeffs/docker-compose:create-networks"
+    },
+    "create-variables": {
+      "executor": "@raeffs/docker-compose:create-variables",
+      "options": {
+        "variables": [
+          {
+            "name": "BONOB_DOMAIN",
+            "description": "Public domain name for Bonob.",
+            "defaultValue": "bonob.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "BONOB_SONOS_SEED_HOST",
+            "description": "Address of a Sonos device for discovery."
+          },
+          {
+            "name": "BONOB_ENCRYPTION_KEY",
+            "description": "",
+            "type": "generated"
+          }
+        ]
+      }
+    },
+    "configure": {
+      "executor": "@raeffs/docker-compose:configure"
+    }
+  }
+}
