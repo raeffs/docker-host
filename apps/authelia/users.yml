@@ -1,7 +1,10 @@
 # To create a hashed password you can run the following command:
-# `docker run authelia/authelia:latest authelia hash-password YOUR_PASSWORD``
+# `docker run authelia/authelia:latest authelia crypto hash generate --password YOUR_PASSWORD``
 users:
   admin:
     displayname: 'Administrator'
     password: '$argon2id$v=19$m=65536,t=3,p=4$9DUYTmgJXpDMsK0YabsIPQ$3VQnbSeCZCd3SVZfa4YA262zRH6PF8xMlqNmQg5Tp6g'
     email: admin@my-domain.ch
+    groups:
+      - 'admins'
+      - 'users'

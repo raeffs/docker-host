@@ -1,12 +1,19 @@
 access_control:
-  default_policy: two_factor
+  default_policy: deny
+  rules:
+  - domain_regex: '^.*$'
+    policy: 'two_factor'
+    subject: 'group:admins'
+  - domain_regex: '^.*$'
+    policy: 'one_factor'
+    subject: 'group:users'
 
 session:
   name: auth_session
   same_site: strict
   expiration: 12h
   inactivity: 1h
-  remember_me_duration: -1
+  remember_me: -1
 
 notifier:
   disable_startup_check: true

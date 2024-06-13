@@ -4,6 +4,7 @@ services:
     extends:
       file: '../../libs/base/docker-compose.yml'
       service: 'base'
+    user: '1001:1001'
     container_name: 'authelia'
     image: 'authelia/authelia:latest'
     networks:
@@ -15,15 +16,14 @@ services:
     environment:
       AUTHELIA_DEFAULT_REDIRECTION_URL: 'https://${AUTHELIA_DOMAIN}'
       AUTHELIA_SESSION_DOMAIN: '${DEFAULT_DOMAIN_SUFFIX}'
-      AUTHELIA_NOTIFIER_SMTP_HOST: '${AUTHELIA_SMTP_SERVER}'
-      AUTHELIA_NOTIFIER_SMTP_PORT: '${AUTHELIA_SMTP_PORT}'
+      AUTHELIA_NOTIFIER_SMTP_ADDRESS: '${AUTHELIA_SMTP_SERVER}:${AUTHELIA_SMTP_PORT}'
       AUTHELIA_NOTIFIER_SMTP_USERNAME: '${AUTHELIA_SMTP_LOGIN}'
       AUTHELIA_NOTIFIER_SMTP_SENDER: '${AUTHELIA_SMTP_FROM_ADDRESS}'
       AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE: '/run/secrets/smtp-password'
-      AUTHELIA_JWT_SECRET_FILE: '/run/secrets/jwt-secret'
+      AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET_FILE: '/run/secrets/jwt-secret'
       AUTHELIA_SESSION_SECRET_FILE: '/run/secrets/session-secret'
       AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE: '/run/secrets/storage-encryption-key'
-      AUTHELIA_STORAGE_POSTGRES_HOST: 'authelia-db'
+      AUTHELIA_STORAGE_POSTGRES_ADDRESS: 'authelia-db'
       AUTHELIA_STORAGE_POSTGRES_USERNAME: 'authelia-user'
       AUTHELIA_STORAGE_POSTGRES_DATABASE: 'authelia'
       AUTHELIA_STORAGE_POSTGRES_PASSWORD_FILE: '/run/secrets/postgres-password'
