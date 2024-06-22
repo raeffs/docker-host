@@ -35,6 +35,8 @@ export default async function* runExecutor(
       yield await setVolumePermissions(context, {
         volumeName: volume.name,
         userId: volume.userId,
+        image: volume.image,
+        mountPath: volume.mountPath
       });
     }
   }

@@ -18,6 +18,12 @@
               },
               "userId": {
                 "type": "number"
+              },
+              "image": {
+                "type": "string"
+              },
+              "mountPath": {
+                "type": "string"
               }
             },
             "required": [

@@ -15,7 +15,15 @@
     "create-volumes": {
       "executor": "@raeffs/docker-compose:create-volumes",
       "options": {
-        "volumes": ["mealie-data", "mealie-db"]
+        "volumes": [
+          {
+            "name": "mealie-data",
+            "userId": 1001,
+            "image": "ghcr.io/mealie-recipes/mealie",
+            "mountPath": "/app/data"
+          },
+          "mealie-db"
+        ]
       }
     },
     "backup-volumes": {

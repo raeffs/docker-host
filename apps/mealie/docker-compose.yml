@@ -4,6 +4,7 @@ services:
     extends:
       file: '../../libs/base/docker-compose.yml'
       service: 'base'
+    user: '1001:1001'
     container_name: 'mealie'
     image: 'ghcr.io/mealie-recipes/mealie'
     networks:
@@ -12,6 +13,8 @@ services:
     volumes:
       - 'mealie-data:/app/data'
     environment:
+      PGID: 1001
+      PUID: 1001
       BASE_URL: 'https://${MEALIE_DOMAIN}'
       LOG_LEVEL: 'warning'
       SMTP_HOST: '${MEALIE_SMTP_SERVER}'

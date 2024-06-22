@@ -6,4 +6,6 @@ export interface CreateVolumesExecutorSchema {
 export interface VolumeDefinition {
   readonly name: string;
   readonly userId?: number;
+  readonly image?: string;
+  readonly mountPath?: string;
 }
