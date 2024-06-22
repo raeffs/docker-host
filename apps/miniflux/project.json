@@ -1,7 +1,7 @@
 {
   "name": "miniflux",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "implicitDependencies": ["networks", "traefik"],
+  "implicitDependencies": ["networks", "traefik", "authelia"],
   "targets": {
     "up": {
       "executor": "@raeffs/docker-compose:up"
@@ -33,7 +33,8 @@
         "variables": [
           {
             "name": "MINIFLUX_POSTGRES_PASSWORD",
-            "description": "Password of the Miniflux PostgreSQL database."
+            "description": "Password of the Miniflux PostgreSQL database.",
+            "type": "password"
           },
           {
             "name": "MINIFLUX_INITIAL_USER",
@@ -41,7 +42,8 @@
           },
           {
             "name": "MINIFLUX_INITIAL_PASSWORD",
-            "description": "Password of the initial Miniflux user."
+            "description": "Password of the initial Miniflux user.",
+            "type": "password"
           }
         ]
       }

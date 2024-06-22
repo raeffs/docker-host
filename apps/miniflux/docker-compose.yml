@@ -17,10 +17,12 @@ services:
       ADMIN_PASSWORD: '${MINIFLUX_INITIAL_PASSWORD}'
       POLLING_FREQUENCY: '15'
       BASE_URL: 'https://miniflux.${DEFAULT_DOMAIN_SUFFIX}'
-      # METRICS_COLLECTOR: '1'
-      # METRICS_ALLOWED_NETWORKS: '127.0.0.1/32,192.168.1.0/24,172.20.0.0/24,10.13.13.0/24'
+      AUTH_PROXY_HEADER: 'Remote-User'
+      AUTH_PROXY_USER_CREATION: '1'
     healthcheck:
       test: '/usr/bin/miniflux -healthcheck auto'
+      start_period: '5s'
+      interval: '5s'
     depends_on:
       miniflux-db:
         condition: 'service_healthy'
@@ -31,7 +33,7 @@ services:
       - 'traefik.http.routers.miniflux.tls=true'
       - 'traefik.http.routers.miniflux.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.miniflux.tls.domains[0].main=miniflux.${DEFAULT_DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.miniflux.middlewares=default@file'
+      - 'traefik.http.routers.miniflux.middlewares=intranet-authenticated@file'
       - 'traefik.http.services.miniflux.loadbalancer.server.port=8080'
 
   miniflux-db:
