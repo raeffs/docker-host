@@ -17,8 +17,15 @@ services:
       ADMIN_PASSWORD: '${MINIFLUX_INITIAL_PASSWORD}'
       POLLING_FREQUENCY: '15'
       BASE_URL: 'https://miniflux.${DEFAULT_DOMAIN_SUFFIX}'
-      AUTH_PROXY_HEADER: 'Remote-User'
-      AUTH_PROXY_USER_CREATION: '1'
+      OAUTH2_PROVIDER: 'oidc'
+      OAUTH2_CLIENT_ID_FILE: '/run/secrets/client-id'
+      OAUTH2_CLIENT_SECRET_FILE: '/run/secrets/client-secret'
+      OAUTH2_REDIRECT_URL: 'https://miniflux.${DEFAULT_DOMAIN_SUFFIX}/oauth2/oidc/callback'
+      OAUTH2_OIDC_DISCOVERY_ENDPOINT: '${MINIFLUX_OAUTH_DISCOVERY_ENDPOINT}'
+      OAUTH2_USER_CREATION: '1'
+    secrets:
+      - 'client-id'
+      - 'client-secret'
     healthcheck:
       test: '/usr/bin/miniflux -healthcheck auto'
       start_period: '5s'
@@ -33,7 +40,7 @@ services:
       - 'traefik.http.routers.miniflux.tls=true'
       - 'traefik.http.routers.miniflux.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.miniflux.tls.domains[0].main=miniflux.${DEFAULT_DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.miniflux.middlewares=intranet-authenticated@file'
+      - 'traefik.http.routers.miniflux.middlewares=intranet@file'
       - 'traefik.http.services.miniflux.loadbalancer.server.port=8080'
 
   miniflux-db:
@@ -54,6 +61,12 @@ services:
       test: 'pg_isready -U miniflux-user -d miniflux'
       start_period: '5s'
       interval: '5s'
+
+secrets:
+  client-id:
+    file: '../../.secrets/MINIFLUX_OAUTH_CLIENT_ID'
+  client-secret:
+    file: '../../.secrets/MINIFLUX_OAUTH_CLIENT_SECRET'
 
 volumes:
   miniflux-db:
