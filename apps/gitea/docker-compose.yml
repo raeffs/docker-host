@@ -13,6 +13,7 @@ services:
       - 'default-backend'
     volumes:
       - 'gitea-data:/data/'
+      - '/etc/timezone:/etc/timezone:ro'
       - './custom/public/:/data/gitea/public/:ro'
       - './custom/templates/:/data/gitea/templates/:ro'
       # https://github.com/go-gitea/gitea/blob/master/docker/root/etc/templates/app.ini
@@ -20,27 +21,28 @@ services:
     environment:
       APP_NAME: 'Gitea'
       RUN_MODE: 'prod'
-      DOMAIN: 'gitea.${DEFAULT_DOMAIN_SUFFIX}'
-      ROOT_URL: 'https://gitea.${DEFAULT_DOMAIN_SUFFIX}'
-      SSH_DOMAIN: 'gitea.${DEFAULT_DOMAIN_SUFFIX}'
+      DOMAIN: '${GITEA_DOMAIN}'
+      ROOT_URL: 'https://${GITEA_DOMAIN}'
+      SSH_DOMAIN: '${GITEA_DOMAIN}'
       SSH_PORT: '2222'
       SSH_LISTEN_PORT: '2222'
-      DB_TYPE: 'mysql'
-      DB_HOST: 'gitea-db:3306'
-      DB_NAME: 'gitea-db'
+      DB_TYPE: 'postgres'
+      DB_HOST: 'gitea-db:5432'
+      DB_NAME: 'gitea'
       DB_USER: 'gitea-user'
-      DB_PASSWD: '${GITEA_MYSQL_PASSWORD}'
+      DB_PASSWD: '${GITEA_POSTGRES_PASSWORD}'
       INSTALL_LOCK: 'true'
       GITEA_CUSTOM: '/data/gitea'
     depends_on:
-      - 'gitea-db'
+      gitea-db:
+        condition: 'service_healthy'
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.gitea.rule=Host(`gitea.${DEFAULT_DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.gitea.rule=Host(`${GITEA_DOMAIN}`)'
       - 'traefik.http.routers.gitea.entrypoints=websecure'
       - 'traefik.http.routers.gitea.tls=true'
       - 'traefik.http.routers.gitea.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.gitea.tls.domains[0].main=gitea.${DEFAULT_DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.gitea.tls.domains[0].main=${GITEA_DOMAIN}'
       - 'traefik.http.routers.gitea.middlewares=default@file'
       - 'traefik.http.services.gitea.loadbalancer.server.port=3000'
 
@@ -49,16 +51,19 @@ services:
       file: '../../libs/base/docker-compose.yml'
       service: 'base'
     container_name: 'gitea-db'
-    image: 'mariadb:latest'
+    image: 'postgres'
     networks:
       - 'default-backend'
     volumes:
-      - 'gitea-db:/var/lib/mysql'
+      - 'gitea-db:/var/lib/postgresql/data'
     environment:
-      MYSQL_RANDOM_ROOT_PASSWORD: 'true'
-      MYSQL_DATABASE: 'gitea-db'
-      MYSQL_USER: 'gitea-user'
-      MYSQL_PASSWORD: '${GITEA_MYSQL_PASSWORD}'
+      POSTGRES_DB: 'gitea'
+      POSTGRES_USER: 'gitea-user'
+      POSTGRES_PASSWORD: '${GITEA_POSTGRES_PASSWORD}'
+    healthcheck:
+      test: 'pg_isready -U gitea-user -d gitea'
+      start_period: '5s'
+      interval: '5s'
 
 volumes:
   gitea-data:

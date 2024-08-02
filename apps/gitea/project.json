@@ -32,8 +32,14 @@
       "options": {
         "variables": [
           {
-            "name": "GITEA_MYSQL_PASSWORD",
-            "description": "Password of the Gitea MySQL database."
+            "name": "GITEA_DOMAIN",
+            "description": "Public domain name for Gitea.",
+            "defaultValue": "gitea.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "GITEA_POSTGRES_PASSWORD",
+            "description": "Password of the Gitea PostgreSQL database.",
+            "type": "password"
           }
         ]
       }
