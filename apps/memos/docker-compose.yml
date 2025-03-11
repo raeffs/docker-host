@@ -1,0 +1,29 @@
+
+services:
+  memos:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'memos'
+    image: 'neosmemo/memos:stable'
+    networks:
+      - 'default-frontend'
+    volumes:
+      - 'memos-data:/var/opt/memos'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.memos.rule=Host(`memos.${DEFAULT_DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.memos.entrypoints=websecure'
+      - 'traefik.http.routers.memos.tls=true'
+      - 'traefik.http.routers.memos.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.memos.tls.domains[0].main=memos.${DEFAULT_DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.memos.middlewares=intranet@file'
+      - 'traefik.http.services.memos.loadbalancer.server.port=5230'
+
+volumes:
+  memos-data:
+    external: true
+
+networks:
+  default-frontend:
+    external: true
