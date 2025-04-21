@@ -1,0 +1,35 @@
+
+services:
+  grocy:
+    extends:
+      file: '../../libs/base/docker-compose.yml'
+      service: 'base'
+    container_name: 'grocy'
+    image: 'lscr.io/linuxserver/grocy:latest'
+    networks:
+      - 'default-frontend'
+    volumes:
+      - 'grocy-data:/config'
+      - './config/config.php:/config/data/config.php:ro'
+    environment:
+      PUID: 1000
+      PGID: 1000
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.grocy.rule=Host(`grocy.${DEFAULT_DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.grocy.entrypoints=websecure'
+      - 'traefik.http.routers.grocy.tls=true'
+      - 'traefik.http.routers.grocy.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.grocy.tls.domains[0].main=grocy.${DEFAULT_DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.grocy.middlewares=grocy'
+      - 'traefik.http.services.grocy.loadbalancer.server.port=80'
+      - 'traefik.http.middlewares.grocy.chain.middlewares=grocy-headers,intranet@file'
+      - 'traefik.http.middlewares.grocy-headers.headers.customFrameOptionsValue=SAMEORIGIN'
+
+volumes:
+  grocy-data:
+    external: true
+
+networks:
+  default-frontend:
+    external: true
