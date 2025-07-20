@@ -4,7 +4,7 @@ services:
     extends:
       file: '../../libs/base/docker-compose.yml'
       service: 'base'
-    image: 'tootsuite/mastodon:v4.0'
+    image: 'tootsuite/mastodon:v4.4'
     environment:
       RAILS_ENV: 'production'
       LOCAL_DOMAIN: '${MASTODON_DOMAIN}'
