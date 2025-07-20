@@ -8,5 +8,6 @@
   "files.associations": {
     ".env.local": "properties",
     ".local.env": "properties"
-  }
+  },
+  "editor.formatOnSave": true
 }
