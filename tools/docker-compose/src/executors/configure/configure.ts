@@ -7,6 +7,7 @@ export default async function runExecutor(
   schema: ConfigureExecutorSchema,
   context: ExecutorContext
 ): Promise<ExecutorResult> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const options = normalizeOptions(schema, context);
 
   const createVariablesResults = await runExternalExecutor(

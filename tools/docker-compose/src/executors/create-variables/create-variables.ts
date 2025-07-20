@@ -12,6 +12,7 @@ import {
 import { normalizeOptions } from './normalize-options';
 import { CreateVariablesExecutorSchema, VariableDefinition } from './schema';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function createPrompt(context: ExecutorContext, variable: VariableDefinition): any {
   const base = {
     type: 'input',
@@ -36,7 +37,7 @@ export function createPrompt(context: ExecutorContext, variable: VariableDefinit
         ...base,
         skip: true,
         required: false,
-        result: async _ => await generateSecret(context),
+        result: async () => await generateSecret(context),
       };
     case 'boolean':
       return {
