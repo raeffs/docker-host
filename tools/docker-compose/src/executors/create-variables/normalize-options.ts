@@ -1,7 +1,7 @@
 import { ExecutorContext, readTargetOptions } from '@nx/devkit';
-import { getDependentPackagesForProject } from '@nx/webpack';
 import { CreateVariablesExecutorOptions } from './options';
 import { CreateVariablesExecutorSchema } from './schema';
+import { getWorkspaceDependencies } from '../../utils';
 
 export function normalizeOptions(
   schema: CreateVariablesExecutorSchema,
@@ -12,10 +12,10 @@ export function normalizeOptions(
     variables: schema.variables ?? [],
   };
 
-  const dependencies = getDependentPackagesForProject(context.projectGraph, context.projectName).workspaceLibraries;
+  const dependencies = getWorkspaceDependencies(context.projectName, context.projectGraph);
   for (const dependency of dependencies) {
     const targetSchema: CreateVariablesExecutorSchema = readTargetOptions(
-      { project: dependency.name, target: 'create-variables' },
+      { project: dependency, target: 'create-variables' },
       context
     );
     options = {
