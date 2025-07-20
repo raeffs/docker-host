@@ -1,7 +1,7 @@
 import { ExecutorContext, readTargetOptions } from '@nx/devkit';
-import { getDependentPackagesForProject } from '@nx/webpack';
 import { CreateNetworksExecutorOptions } from './options';
 import { CreateNetworksExecutorSchema } from './schema';
+import { getWorkspaceDependencies } from '../../utils';
 
 export function normalizeOptions(
   schema: CreateNetworksExecutorSchema,
@@ -12,10 +12,10 @@ export function normalizeOptions(
     networks: schema.networks ?? [],
   };
 
-  const dependencies = getDependentPackagesForProject(context.projectGraph, context.projectName).workspaceLibraries;
+  const dependencies = getWorkspaceDependencies(context.projectName, context.projectGraph);
   for (const dependency of dependencies) {
     const targetSchema: CreateNetworksExecutorSchema = readTargetOptions(
-      { project: dependency.name, target: 'create-networks' },
+      { project: dependency, target: 'create-networks' },
       context
     );
     options = {
