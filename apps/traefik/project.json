@@ -41,10 +41,6 @@
             "defaultValue": "traefik.${DEFAULT_DOMAIN_SUFFIX}"
           },
           {
-            "name": "TRAEFIK_ACME_EMAIL",
-            "description": "Email address used when issuing new SSL certificates with Let's Encrypt."
-          },
-          {
             "name": "TRAEFIK_CF_EMAIL",
             "description": "Cloudflare account email used by Traefik for the Let's Encrypt DNS challange."
           },
