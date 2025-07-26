@@ -7,6 +7,6 @@ export interface VariableDefinition {
   readonly description: string;
   readonly optional?: boolean;
   readonly defaultValue?: string;
-  readonly type?: 'password' | 'generated' | 'boolean';
+  readonly type?: 'password' | 'generated' | 'boolean' | 'docker-group';
   readonly isSecret?: boolean;
 }
