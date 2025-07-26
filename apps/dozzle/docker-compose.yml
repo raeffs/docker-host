@@ -16,6 +16,7 @@ services:
     volumes:
       - '/etc/localtime:/etc/localtime:ro'
     environment:
+      DOZZLE_NO_ANALYTICS: 'true'
       DOZZLE_REMOTE_HOST: 'tcp://dozzle-dockerproxy:2375'
     labels:
       - 'traefik.enable=true'
