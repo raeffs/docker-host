@@ -1,31 +1,35 @@
 services:
   traefik:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
     container_name: 'traefik'
     image: 'traefik:latest'
+    restart: 'unless-stopped'
     entrypoint: []
     command: 'sh -c "/provision.sh && traefik"'
+    user: '65001:65001'
+    read_only: true
+    mem_limit: 256M
+    cap_drop:
+      - 'ALL'
+    security_opt:
+      - 'no-new-privileges'
     ports:
       - '80:80'
       - '443:443'
     networks:
       - 'default-frontend'
+      - 'traefik-dockerproxynet'
     volumes:
-      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - '/etc/localtime:/etc/localtime:ro'
       - './provision.sh:/provision.sh:ro'
       - './config/dynamic:/etc/traefik/dynamic/:ro'
-      - './config/traefik.yml:/traefik.template.yml:ro'
+      - './config/traefik.yml:/traefik.yml:ro'
       - 'traefik-certificates:/certificates'
     environment:
-      ACME_EMAIL: '${TRAEFIK_ACME_EMAIL}'
       DEFAULT_DOMAIN_SUFFIX: '${DEFAULT_DOMAIN_SUFFIX}'
       CF_API_EMAIL: '${TRAEFIK_CF_EMAIL}'
       CF_DNS_API_TOKEN: '${TRAEFIK_CF_API_TOKEN}'
       CF_ZONE_API_TOKEN: '${TRAEFIK_CF_API_TOKEN}'
     labels:
-      - 'com.centurylinklabs.watchtower.monitor-only=true'
       - 'traefik.enable=true'
       - 'traefik.http.routers.traefik.rule=Host(`${TRAEFIK_DOMAIN}`)'
       - 'traefik.http.routers.traefik.service=api@internal'
@@ -33,6 +37,35 @@ services:
       - 'traefik.http.routers.traefik.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.traefik.tls.domains[0].main=${TRAEFIK_DOMAIN}'
       - 'traefik.http.routers.traefik.middlewares=intranet@file'
+    depends_on:
+      - 'traefik-dockerproxy'
+
+  traefik-dockerproxy:
+    container_name: 'traefik-dockerproxy'
+    image: 'wollomatic/socket-proxy:1'
+    command:
+      - '-loglevel=info'
+      - '-allowfrom=traefik'
+      - '-listenip=0.0.0.0'
+      - '-shutdowngracetime=10'
+      - '-allowGET=/v1\..{1,2}/(version|containers/.*|events.*)'
+      - '-watchdoginterval=3600'
+      - '-stoponwatchdog'
+    restart: 'unless-stopped'
+    user: '65002:${TRAEFIK_DOCKER_GID}'
+    read_only: true
+    mem_limit: 64M
+    cap_drop:
+      - 'ALL'
+    security_opt:
+      - 'no-new-privileges'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+    networks:
+      - 'traefik-dockerproxynet'
+    labels:
+      - 'com.centurylinklabs.watchtower.monitor-only=true'
 
 volumes:
   traefik-certificates:
@@ -41,3 +74,7 @@ volumes:
 networks:
   default-frontend:
     external: true
+  traefik-dockerproxynet:
+    name: 'traefik-dockerproxynet'
+    internal: true
+    attachable: false
