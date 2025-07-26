@@ -15,7 +15,7 @@
     "create-volumes": {
       "executor": "@raeffs/docker-compose:create-volumes",
       "options": {
-        "volumes": ["traefik-certificates"]
+        "volumes": [{ "name": "traefik-certificates", "userId": 65001 }]
       }
     },
     "backup-volumes": {
@@ -47,6 +47,11 @@
           {
             "name": "TRAEFIK_CF_API_TOKEN",
             "description": "Cloudflare API token used by Traefik for the Let's Encrypt DNS challange. Needs Zone:Read and DNS:Edit permissions."
+          },
+          {
+            "name": "TRAEFIK_DOCKER_GID",
+            "description": "GID of the docker group. The docker proxy will run under this GID to access the docker socket.",
+            "type": "docker-group"
           }
         ]
       }
