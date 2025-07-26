@@ -1,15 +1,22 @@
-
 services:
   dozzle:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
     container_name: 'dozzle'
     image: 'amir20/dozzle:latest'
+    restart: 'unless-stopped'
+    user: '65003:65003'
+    read_only: true
+    mem_limit: 64M
+    cap_drop:
+      - 'ALL'
+    security_opt:
+      - 'no-new-privileges'
     networks:
       - 'default-frontend'
+      - 'dozzle-dockerproxynet'
     volumes:
-      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+    environment:
+      DOZZLE_REMOTE_HOST: 'tcp://dozzle-dockerproxy:2375'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.dozzle.rule=Host(`${DOZZLE_DOMAIN}`)'
@@ -19,7 +26,40 @@ services:
       - 'traefik.http.routers.dozzle.tls.domains[0].main=${DOZZLE_DOMAIN}'
       - 'traefik.http.routers.dozzle.middlewares=intranet@file'
       - 'traefik.http.services.dozzle.loadbalancer.server.port=8080'
+    depends_on:
+      - 'dozzle-dockerproxy'
+
+  dozzle-dockerproxy:
+    container_name: 'dozzle-dockerproxy'
+    image: 'wollomatic/socket-proxy:1'
+    restart: 'unless-stopped'
+    command:
+      - '-loglevel=info'
+      - '-allowfrom=dozzle'
+      - '-listenip=0.0.0.0'
+      - '-allowGET=.*'
+      # - '-allowGET=/v1\..{2}/(containers/.*|events)|/_ping'
+      - '-allowHEAD=/_ping'
+      - '-watchdoginterval=300'
+      - '-stoponwatchdog'
+      - '-shutdowngracetime=10'
+    user: '65004:${DOZZLE_DOCKER_GID}'
+    read_only: true
+    mem_limit: 64M
+    cap_drop:
+      - 'ALL'
+    security_opt:
+      - 'no-new-privileges'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+    networks:
+      - 'dozzle-dockerproxynet'
 
 networks:
   default-frontend:
     external: true
+  dozzle-dockerproxynet:
+    name: 'dozzle-dockerproxynet'
+    internal: true
+    attachable: false

@@ -35,6 +35,11 @@
             "name": "DOZZLE_DOMAIN",
             "description": "Public domain name for Dozzle.",
             "defaultValue": "dozzle.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "DOZZLE_DOCKER_GID",
+            "description": "GID of the docker group. The docker proxy will run under this GID to access the docker socket.",
+            "type": "docker-group"
           }
         ]
       }
