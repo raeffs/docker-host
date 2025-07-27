@@ -31,9 +31,10 @@ services:
       - 'dozzle-dockerproxy'
 
   dozzle-dockerproxy:
+    extends:
+      file: '../../libs/docker-socket-proxy/docker-compose.yml'
+      service: 'docker-socket-proxy'
     container_name: 'dozzle-dockerproxy'
-    image: 'wollomatic/socket-proxy:1'
-    restart: 'unless-stopped'
     command:
       - '-loglevel=info'
       - '-allowfrom=dozzle'
@@ -45,15 +46,6 @@ services:
       - '-stoponwatchdog'
       - '-shutdowngracetime=10'
     user: '65004:${DOZZLE_DOCKER_GID}'
-    read_only: true
-    mem_limit: 64M
-    cap_drop:
-      - 'ALL'
-    security_opt:
-      - 'no-new-privileges'
-    volumes:
-      - '/etc/localtime:/etc/localtime:ro'
-      - '/var/run/docker.sock:/var/run/docker.sock:ro'
     networks:
       - 'dozzle-dockerproxynet'
 
