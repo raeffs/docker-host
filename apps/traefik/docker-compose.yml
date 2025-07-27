@@ -41,8 +41,10 @@ services:
       - 'traefik-dockerproxy'
 
   traefik-dockerproxy:
+    extends:
+      file: '../../libs/docker-socket-proxy/docker-compose.yml'
+      service: 'docker-socket-proxy'
     container_name: 'traefik-dockerproxy'
-    image: 'wollomatic/socket-proxy:1'
     command:
       - '-loglevel=info'
       - '-allowfrom=traefik'
@@ -51,21 +53,9 @@ services:
       - '-allowGET=/v1\..{1,2}/(version|containers/.*|events.*)'
       - '-watchdoginterval=3600'
       - '-stoponwatchdog'
-    restart: 'unless-stopped'
     user: '65002:${TRAEFIK_DOCKER_GID}'
-    read_only: true
-    mem_limit: 64M
-    cap_drop:
-      - 'ALL'
-    security_opt:
-      - 'no-new-privileges'
-    volumes:
-      - '/etc/localtime:/etc/localtime:ro'
-      - '/var/run/docker.sock:/var/run/docker.sock:ro'
     networks:
       - 'traefik-dockerproxynet'
-    labels:
-      - 'com.centurylinklabs.watchtower.monitor-only=true'
 
 volumes:
   traefik-certificates:

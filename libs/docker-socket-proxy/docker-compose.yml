@@ -1,0 +1,13 @@
+services:
+  docker-socket-proxy:
+    image: 'wollomatic/socket-proxy:1.7.0'
+    restart: 'unless-stopped'
+    read_only: true
+    mem_limit: 64M
+    cap_drop:
+      - 'ALL'
+    security_opt:
+      - 'no-new-privileges'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
