@@ -1,21 +1,64 @@
-
 services:
   watchtower:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
     container_name: 'watchtower'
     image: 'containrrr/watchtower:latest'
+    restart: 'unless-stopped'
+    user: '65005:65005'
+    read_only: true
+    mem_limit: 64M
+    cap_drop:
+      - 'ALL'
+    security_opt:
+      - 'no-new-privileges'
     networks:
-      - 'default-frontend'
+      - 'watchtower-isolated'
+      - 'watchtower-dockerproxynet'
     volumes:
-      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - '/etc/localtime:/etc/localtime:ro'
     environment:
+      DOCKER_HOST: 'tcp://watchtower-dockerproxy:2375'
       WATCHTOWER_CLEANUP: 'true'
       WATCHTOWER_MONITOR_ONLY: '${WATCHTOWER_MONITOR_ONLY}'
       WATCHTOWER_SCHEDULE: '${WATCHTOWER_SCHEDULE}'
       WATCHTOWER_NOTIFICATION_URL: '${WATCHTOWER_NOTIFICATION_URL}'
+    depends_on:
+      - 'watchtower-dockerproxy'
+
+  watchtower-dockerproxy:
+    container_name: 'watchtower-dockerproxy'
+    image: 'wollomatic/socket-proxy:1'
+    restart: 'unless-stopped'
+    command:
+      - '-loglevel=info'
+      - '-allowfrom=watchtower'
+      - '-listenip=0.0.0.0'
+      - '-shutdowngracetime=10'
+      - '-allowGET=/v1\..{2}/(containers/.*|images/.*)'
+      - '-allowPOST=/v1\..{2}/(containers/.*|images/.*|networks/.*)'
+      - '-allowDELETE=/v1\..{2}/(containers/.*|images/.*)'
+      - '-watchdoginterval=3600'
+      - '-stoponwatchdog'
+    user: '65006:${WATCHTOWER_DOCKER_GID}'
+    read_only: true
+    mem_limit: 64M
+    cap_drop:
+      - 'ALL'
+    security_opt:
+      - 'no-new-privileges'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+    networks:
+      - 'watchtower-dockerproxynet'
+    labels:
+      - 'com.centurylinklabs.watchtower.monitor-only=true'
 
 networks:
-  default-frontend:
-    external: true
+  watchtower-isolated:
+    name: 'watchtower-isolated'
+    driver: 'bridge'
+    attachable: false
+  watchtower-dockerproxynet:
+    name: 'watchtower-dockerproxynet'
+    internal: true
+    attachable: false

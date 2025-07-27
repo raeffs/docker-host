@@ -34,6 +34,11 @@
           {
             "name": "WATCHTOWER_NOTIFICATION_URL",
             "description": "Webhook url(s) used by Watchtower to send notifications."
+          },
+          {
+            "name": "WATCHTOWER_DOCKER_GID",
+            "description": "GID of the docker group. The docker proxy will run under this GID to access the docker socket.",
+            "type": "docker-group"
           }
         ]
       }
