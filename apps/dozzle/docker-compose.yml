@@ -36,15 +36,10 @@ services:
       service: 'docker-socket-proxy'
     container_name: 'dozzle-dockerproxy'
     command:
-      - '-loglevel=info'
       - '-allowfrom=dozzle'
-      - '-listenip=0.0.0.0'
       - '-allowGET=.*'
       # - '-allowGET=/v1\..{2}/(containers/.*|events)|/_ping'
       - '-allowHEAD=/_ping'
-      - '-watchdoginterval=300'
-      - '-stoponwatchdog'
-      - '-shutdowngracetime=10'
     user: '65004:${DOZZLE_DOCKER_GID}'
     networks:
       - 'dozzle-dockerproxynet'

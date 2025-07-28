@@ -12,7 +12,12 @@ services:
       - '/etc/localtime:/etc/localtime:ro'
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
     environment:
+      SP_LOGLEVEL: 'info'
+      SP_LISTENIP: '0.0.0.0'
       SP_ALLOWHEALTHCHECK: true
+      SP_WATCHDOGINTERVAL: '300'
+      SP_STOPONWATCHDOG: true
+      SP_SHUTDOWNGRACETIME: '2'
     healthcheck:
       test: ['CMD', './healthcheck']
       interval: 10s
