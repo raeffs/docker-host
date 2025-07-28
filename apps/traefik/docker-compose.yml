@@ -46,13 +46,8 @@ services:
       service: 'docker-socket-proxy'
     container_name: 'traefik-dockerproxy'
     command:
-      - '-loglevel=info'
       - '-allowfrom=traefik'
-      - '-listenip=0.0.0.0'
-      - '-shutdowngracetime=10'
       - '-allowGET=/v1\..{1,2}/(version|containers/.*|events.*)'
-      - '-watchdoginterval=3600'
-      - '-stoponwatchdog'
     user: '65002:${TRAEFIK_DOCKER_GID}'
     networks:
       - 'traefik-dockerproxynet'

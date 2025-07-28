@@ -32,16 +32,11 @@ services:
       service: 'docker-socket-proxy'
     container_name: 'watchtower-dockerproxy'
     command:
-      - '-loglevel=info'
       - '-allowfrom=watchtower'
-      - '-listenip=0.0.0.0'
-      - '-shutdowngracetime=10'
       - '-allowHEAD=/_ping'
       - '-allowGET=/v1\..{2}/(version|containers/.*|images/.*)|/_ping'
       - '-allowPOST=/v1\..{2}/(containers/.*|images/.*|networks/.*)'
       - '-allowDELETE=/v1\..{2}/(containers/.*|images/.*)'
-      - '-watchdoginterval=3600'
-      - '-stoponwatchdog'
     user: '65006:${WATCHTOWER_DOCKER_GID}'
     networks:
       - 'watchtower-dockerproxynet'
