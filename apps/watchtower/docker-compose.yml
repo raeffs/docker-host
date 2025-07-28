@@ -1,7 +1,7 @@
 services:
   watchtower:
     container_name: 'watchtower'
-    image: 'containrrr/watchtower:latest'
+    image: 'ghcr.io/nicholas-fedor/watchtower:1.11.6'
     restart: 'unless-stopped'
     user: '65005:65005'
     read_only: true
@@ -21,6 +21,8 @@ services:
       WATCHTOWER_MONITOR_ONLY: '${WATCHTOWER_MONITOR_ONLY}'
       WATCHTOWER_SCHEDULE: '${WATCHTOWER_SCHEDULE}'
       WATCHTOWER_NOTIFICATION_URL: '${WATCHTOWER_NOTIFICATION_URL}'
+    labels:
+      - 'com.centurylinklabs.watchtower.monitor-only=true'
     depends_on:
       - 'watchtower-dockerproxy'
 
@@ -34,7 +36,8 @@ services:
       - '-allowfrom=watchtower'
       - '-listenip=0.0.0.0'
       - '-shutdowngracetime=10'
-      - '-allowGET=/v1\..{2}/(containers/.*|images/.*)'
+      - '-allowHEAD=/_ping'
+      - '-allowGET=/v1\..{2}/(version|containers/.*|images/.*)|/_ping'
       - '-allowPOST=/v1\..{2}/(containers/.*|images/.*|networks/.*)'
       - '-allowDELETE=/v1\..{2}/(containers/.*|images/.*)'
       - '-watchdoginterval=3600'
