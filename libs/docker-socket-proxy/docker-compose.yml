@@ -11,3 +11,10 @@ services:
     volumes:
       - '/etc/localtime:/etc/localtime:ro'
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
+    environment:
+      SP_ALLOWHEALTHCHECK: true
+    healthcheck:
+      test: ['CMD', './healthcheck']
+      interval: 10s
+      timeout: 5s
+      retries: 2
