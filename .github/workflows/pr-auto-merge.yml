@@ -18,7 +18,10 @@ jobs:
       contents: write
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: Enable Auto-Merge for trusted Authors
-        run: gh pr merge --rebase --auto --delete-branch
+        run: gh pr merge ${{ github.event.pull_request.number }} --rebase --auto --delete-branch
         env:
           GH_TOKEN: ${{ secrets.PAT }}
