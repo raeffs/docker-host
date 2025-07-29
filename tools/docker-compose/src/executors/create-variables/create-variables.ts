@@ -5,6 +5,7 @@ import {
   expandEnvironmentVariables,
   generateSecret,
   getDockerGroupId,
+  getHostname,
   isEnvironmentVariableSet,
   isSecretSet,
   setEnvironmentVariable,
@@ -49,8 +50,12 @@ export function createPrompt(context: ExecutorContext, variable: VariableDefinit
     case 'docker-group':
       return {
         ...base,
-        required: true,
         initial: async () => await getDockerGroupId(),
+      };
+    case 'hostname':
+      return {
+        ...base,
+        initial: async () => await getHostname(),
       };
   }
 }

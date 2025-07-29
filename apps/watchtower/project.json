@@ -39,6 +39,11 @@
             "name": "WATCHTOWER_DOCKER_GID",
             "description": "GID of the docker group. The docker proxy will run under this GID to access the docker socket.",
             "type": "docker-group"
+          },
+          {
+            "name": "WATCHTOWER_HOSTNAME",
+            "description": "The hostname that Watchtower will report in the notifications.",
+            "type": "hostname"
           }
         ]
       }
