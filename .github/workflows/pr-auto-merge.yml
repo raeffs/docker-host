@@ -1,0 +1,24 @@
+name: PR Auto-Merge
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - synchronize
+      - ready_for_review
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+
+    if: github.actor == 'raeffs' || github.actor == 'renovate[bot]'
+
+    permissions:
+      pull-requests: write
+      contents: write
+
+    steps:
+      - name: Enable Auto-Merge for trusted Authors
+        run: gh pr merge --rebase --auto --delete-branch
+        env:
+          GH_TOKEN: ${{ secrets.PAT }}
