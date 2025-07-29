@@ -6,5 +6,6 @@ export * from './get-local-docker-networks';
 export * from './get-local-docker-volumes';
 export * from './get-workspace-dependencies';
 export * from './get-docker-group-id';
+export * from './get-hostname';
 export * from './secrets';
 export * from './wait-for-exit';
