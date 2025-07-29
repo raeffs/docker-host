@@ -17,7 +17,7 @@ services:
       - '/etc/localtime:/etc/localtime:ro'
     environment:
       DOCKER_HOST: 'tcp://watchtower-dockerproxy:2375'
-      WATCHTOWER_CLEANUP: 'true'
+      WATCHTOWER_CLEANUP: '${WATCHTOWER_CLEANUP}'
       WATCHTOWER_MONITOR_ONLY: '${WATCHTOWER_MONITOR_ONLY}'
       WATCHTOWER_SCHEDULE: '${WATCHTOWER_SCHEDULE}'
       WATCHTOWER_NOTIFICATION_URL: '${WATCHTOWER_NOTIFICATION_URL}'

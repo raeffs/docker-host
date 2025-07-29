@@ -33,7 +33,8 @@
         "variables": [
           {
             "name": "WATCHTOWER_NOTIFICATION_URL",
-            "description": "Webhook url(s) used by Watchtower to send notifications."
+            "description": "Configures the notification service URL.",
+            "defaultValue": "discord://token@channel"
           },
           {
             "name": "WATCHTOWER_DOCKER_GID",
