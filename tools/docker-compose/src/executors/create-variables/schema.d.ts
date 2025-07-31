@@ -1,4 +1,5 @@
 export interface CreateVariablesExecutorSchema {
+  readonly useDefaults: boolean;
   readonly variables?: VariableDefinition[];
 }
 

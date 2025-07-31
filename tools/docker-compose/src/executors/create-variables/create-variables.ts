@@ -5,6 +5,7 @@ import {
   expandEnvironmentVariables,
   generateSecret,
   getDockerGroupId,
+  getEnvironment,
   getHostname,
   isEnvironmentVariableSet,
   isSecretSet,
@@ -13,9 +14,10 @@ import {
 } from '../../utils';
 import { normalizeOptions } from './normalize-options';
 import { CreateVariablesExecutorSchema, VariableDefinition } from './schema';
+import { PromptOptions } from './enquirer-definitions';
+import { promisify } from 'util';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function createPrompt(context: ExecutorContext, variable: VariableDefinition): any {
+function createPrompt(context: ExecutorContext, variable: VariableDefinition): PromptOptions {
   const base = {
     type: 'input',
     name: variable.name,
@@ -60,6 +62,15 @@ export function createPrompt(context: ExecutorContext, variable: VariableDefinit
   }
 }
 
+function applyDefaults(options: PromptOptions): PromptOptions {
+  return {
+    ...options,
+    skip: true,
+    required: false,
+    result: options.result ?? options.initial ?? getEnvironment()[options.name],
+  };
+}
+
 function isVariableSet(context: ExecutorContext, variable: VariableDefinition): boolean {
   return variable.isSecret ? isSecretSet(context, variable.name) : isEnvironmentVariableSet(variable.name);
 }
@@ -100,8 +111,13 @@ export default async function runExecutor(
     logger.info(`Answer the following questions to configure the project ${context.projectName}:`);
   }
 
+  const createPromptOptions = options.useDefaults
+    ? (variable: VariableDefinition) => applyDefaults(createPrompt(context, variable))
+    : (variable: VariableDefinition) => createPrompt(context, variable);
+
   for (const variable of variablesToProcess) {
-    const values = await prompt(createPrompt(context, variable));
+    const promptOptions = createPromptOptions(variable);
+    const values = await prompt(promptOptions);
     await setVariable(context, variable, values[variable.name]);
   }
 

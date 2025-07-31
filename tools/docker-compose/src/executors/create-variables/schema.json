@@ -4,6 +4,10 @@
   "outputCapture": false,
   "type": "object",
   "properties": {
+    "useDefaults": {
+      "type": "boolean",
+      "default": false
+    },
     "variables": {
       "type": "array",
       "items": {
@@ -30,10 +34,7 @@
                 "type": "boolean"
               }
             },
-            "required": [
-              "name",
-              "description"
-            ]
+            "required": ["name", "description"]
           }
         ]
       }
