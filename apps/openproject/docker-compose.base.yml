@@ -4,7 +4,7 @@ services:
     extends:
       file: '../../libs/base/docker-compose.yml'
       service: 'base'
-    image: 'openproject/community:12'
+    image: 'openproject/community:13'
     volumes:
       - 'openproject-data:/var/openproject/assets'
     environment:
