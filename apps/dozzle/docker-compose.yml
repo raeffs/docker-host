@@ -37,8 +37,7 @@ services:
     container_name: 'dozzle-dockerproxy'
     command:
       - '-allowfrom=dozzle'
-      - '-allowGET=.*'
-      # - '-allowGET=/v1\..{2}/(containers/.*|events)|/_ping'
+      - '-allowGET=/v1\..{2}/(containers/.*|events|info)|/_ping'
       - '-allowHEAD=/_ping'
     user: '65004:${DOZZLE_DOCKER_GID}'
     networks:
