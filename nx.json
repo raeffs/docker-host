@@ -13,5 +13,8 @@
       "cache": true
     }
   },
-  "useInferencePlugins": false
+  "useInferencePlugins": false,
+  "tui": {
+    "enabled": false
+  }
 }
