@@ -3,6 +3,11 @@
   "version": 2,
   "outputCapture": false,
   "type": "object",
-  "properties": {},
+  "properties": {
+    "useDefaults": {
+      "type": "boolean",
+      "default": false
+    }
+  },
   "required": []
 }

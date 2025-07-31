@@ -7,12 +7,11 @@ export default async function runExecutor(
   schema: ConfigureExecutorSchema,
   context: ExecutorContext
 ): Promise<ExecutorResult> {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const options = normalizeOptions(schema, context);
 
   const createVariablesResults = await runExternalExecutor(
     { project: context.projectName, target: 'create-variables' },
-    {},
+    { useDefaults: options.useDefaults },
     context
   );
   for await (const result of createVariablesResults) {
