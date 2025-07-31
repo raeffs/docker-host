@@ -40,6 +40,11 @@
             "name": "DOZZLE_DOCKER_GID",
             "description": "GID of the docker group. The docker proxy will run under this GID to access the docker socket.",
             "type": "docker-group"
+          },
+          {
+            "name": "DOZZLE_HOSTNAME",
+            "description": "The hostname that Dozzle will report.",
+            "type": "hostname"
           }
         ]
       }
