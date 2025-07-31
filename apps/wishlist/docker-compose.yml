@@ -1,0 +1,40 @@
+services:
+  wishlist:
+    container_name: 'wishlist'
+    image: 'ghcr.io/cmintey/wishlist:latest'
+    restart: 'unless-stopped'
+    user: '65007:65007'
+    mem_limit: 256M
+    cap_drop:
+      - 'ALL'
+    security_opt:
+      - 'no-new-privileges'
+    networks:
+      - 'default-frontend'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+      - 'wishlist-uploads:/usr/src/app/uploads'
+      - 'wishlist-data:/usr/src/app/data'
+    environment:
+      ORIGIN: 'https://${WISHLIST_DOMAIN}'
+      TOKEN_TIME: '${WISHLIST_TOKEN_TIME}'
+      DEFAULT_CURRENCY: '${WISHLIST_DEFAULT_CURRENCY}'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.wishlist.rule=Host(`${WISHLIST_DOMAIN}`)'
+      - 'traefik.http.routers.wishlist.entrypoints=websecure'
+      - 'traefik.http.routers.wishlist.tls=true'
+      - 'traefik.http.routers.wishlist.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.wishlist.tls.domains[0].main=${WISHLIST_DOMAIN}'
+      - 'traefik.http.routers.wishlist.middlewares=intranet@file'
+      - 'traefik.http.services.wishlist.loadbalancer.server.port=3280'
+
+volumes:
+  wishlist-data:
+    external: true
+  wishlist-uploads:
+    external: true
+
+networks:
+  default-frontend:
+    external: true
