@@ -2,18 +2,11 @@ name: Watchtower Checks
 
 on:
   pull_request:
-    paths:
-      - 'apps/watchtower/**'
-      - '.github/workflows/apps-watchtower.yml'
-  push:
     branches:
-      - main
-    paths:
-      - 'apps/watchtower/**'
-      - '.github/workflows/apps-watchtower.yml'
+      - '**'
 
 jobs:
-  healthcheck:
+  watchtower-healthcheck:
     runs-on: ubuntu-latest
 
     steps:

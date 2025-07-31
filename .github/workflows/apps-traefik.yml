@@ -2,18 +2,11 @@ name: Traefik Checks
 
 on:
   pull_request:
-    paths:
-      - 'apps/traefik/**'
-      - '.github/workflows/apps-traefik.yml'
-  push:
     branches:
-      - main
-    paths:
-      - 'apps/traefik/**'
-      - '.github/workflows/apps-traefik.yml'
+      - '**'
 
 jobs:
-  healthcheck:
+  traefik-healthcheck:
     runs-on: ubuntu-latest
 
     steps:
