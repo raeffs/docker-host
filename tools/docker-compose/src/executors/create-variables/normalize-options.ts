@@ -14,14 +14,16 @@ export function normalizeOptions(
 
   const dependencies = getWorkspaceDependencies(context.projectName, context.projectGraph);
   for (const dependency of dependencies) {
-    const targetSchema: CreateVariablesExecutorSchema = readTargetOptions(
-      { project: dependency, target: 'create-variables' },
-      context
-    );
-    options = {
-      ...options,
-      variables: [...(targetSchema.variables ?? []), ...options.variables],
-    };
+    if (context.projectsConfigurations.projects[dependency].targets['create-variables']) {
+      const targetSchema: CreateVariablesExecutorSchema = readTargetOptions(
+        { project: dependency, target: 'create-variables' },
+        context
+      );
+      options = {
+        ...options,
+        variables: [...(targetSchema.variables ?? []), ...options.variables],
+      };
+    }
   }
 
   return options;

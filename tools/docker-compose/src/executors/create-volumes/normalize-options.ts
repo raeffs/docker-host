@@ -14,14 +14,16 @@ export function normalizeOptions(
 
   const dependencies = getWorkspaceDependencies(context.projectName, context.projectGraph);
   for (const dependency of dependencies) {
-    const targetSchema: CreateVolumesExecutorSchema = readTargetOptions(
-      { project: dependency, target: 'create-volumes' },
-      context
-    );
-    options = {
-      ...options,
-      volumes: [...mapToVolumeDefinitions(targetSchema.volumes), ...options.volumes],
-    };
+    if (context.projectsConfigurations.projects[dependency].targets['create-volumes']) {
+      const targetSchema: CreateVolumesExecutorSchema = readTargetOptions(
+        { project: dependency, target: 'create-volumes' },
+        context
+      );
+      options = {
+        ...options,
+        volumes: [...mapToVolumeDefinitions(targetSchema.volumes), ...options.volumes],
+      };
+    }
   }
 
   return options;
