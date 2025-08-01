@@ -19,6 +19,7 @@ services:
       APP_URL: 'https://${POCKET_ID_DOMAIN}'
       TRUST_PROXY: 'true'
       ANALYTICS_DISABLED: '${POCKET_ID_ANALYTICS_DISABLED}'
+      ENCRYPTION_KEY: '${POCKET_ID_ENCRYPTION_KEY}'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.pocket-id.rule=Host(`${POCKET_ID_DOMAIN}`)'

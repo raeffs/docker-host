@@ -15,6 +15,11 @@
             "name": "POCKET_ID_DOMAIN",
             "description": "Public domain name for Pocket ID.",
             "defaultValue": "pocket-id.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "POCKET_ID_ENCRYPTION_KEY",
+            "description": "",
+            "type": "generated"
           }
         ]
       }
