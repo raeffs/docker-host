@@ -37,6 +37,12 @@ services:
       - 'traefik.http.routers.traefik.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.traefik.tls.domains[0].main=${TRAEFIK_DOMAIN}'
       - 'traefik.http.routers.traefik.middlewares=intranet@file'
+    healthcheck:
+      test: ['CMD', 'traefik', 'healthcheck', '--ping']
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
     depends_on:
       - 'traefik-dockerproxy'
 
