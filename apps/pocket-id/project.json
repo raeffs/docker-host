@@ -1,0 +1,23 @@
+{
+  "name": "pocket-id",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": ["networks", "traefik"],
+  "targets": {
+    "create-volumes": {
+      "options": {
+        "volumes": [{ "name": "pocket-id-data", "userId": 65008 }]
+      }
+    },
+    "create-variables": {
+      "options": {
+        "variables": [
+          {
+            "name": "POCKET_ID_DOMAIN",
+            "description": "Public domain name for Pocket ID.",
+            "defaultValue": "pocket-id.${DEFAULT_DOMAIN_SUFFIX}"
+          }
+        ]
+      }
+    }
+  }
+}
