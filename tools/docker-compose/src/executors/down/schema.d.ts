@@ -1,3 +1,1 @@
-export interface DownExecutorSchema {
-  readonly composeFile: string;
-}
+export interface DownExecutorSchema {}
