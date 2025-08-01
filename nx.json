@@ -1,12 +1,15 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "plugins": [
+    {
+      "plugin": "@raeffs/docker-compose",
+      "options": {}
+    }
+  ],
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"],
       "cache": true
-    },
-    "up": {
-      "dependsOn": ["^up"]
     },
     "@nx/eslint:lint": {
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
