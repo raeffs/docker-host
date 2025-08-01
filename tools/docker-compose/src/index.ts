@@ -3,7 +3,6 @@ import {
   createNodesFromFiles,
   CreateNodesResult,
   CreateNodesV2,
-  logger,
   TargetConfiguration,
 } from '@nx/devkit';
 import { existsSync } from 'fs';
