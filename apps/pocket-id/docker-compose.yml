@@ -1,0 +1,44 @@
+services:
+  pocket-id:
+    container_name: 'pocket-id'
+    image: 'ghcr.io/pocket-id/pocket-id:v1.6.4-distroless'
+    restart: 'unless-stopped'
+    user: '65008:65008'
+    read_only: true
+    mem_limit: 64M
+    cap_drop:
+      - 'ALL'
+    security_opt:
+      - 'no-new-privileges'
+    networks:
+      - 'default-frontend'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+      - 'pocket-id-data:/app/data'
+    environment:
+      APP_URL: 'https://${POCKET_ID_DOMAIN}'
+      TRUST_PROXY: 'true'
+      ANALYTICS_DISABLED: 'true'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.pocket-id.rule=Host(`${POCKET_ID_DOMAIN}`)'
+      - 'traefik.http.routers.pocket-id.entrypoints=websecure'
+      - 'traefik.http.routers.pocket-id.tls=true'
+      - 'traefik.http.routers.pocket-id.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.pocket-id.tls.domains[0].main=${POCKET_ID_DOMAIN}'
+      - 'traefik.http.routers.pocket-id.middlewares=intranet@file'
+      - 'traefik.http.services.pocket-id.loadbalancer.server.port=1411'
+    healthcheck:
+      test: ['CMD', '/app/pocket-id', 'healthcheck']
+      interval: 1m30s
+      timeout: 5s
+      retries: 2
+      start_period: 10s
+
+volumes:
+  pocket-id-data:
+    external: true
+
+networks:
+  default-frontend:
+    external: true
