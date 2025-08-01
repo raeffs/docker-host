@@ -1,7 +1,7 @@
 services:
   traefik:
     container_name: 'traefik'
-    image: 'traefik:3.5'
+    image: 'traefik:3.5.0'
     restart: 'unless-stopped'
     entrypoint: []
     command: 'sh -c "/provision.sh && traefik"'
