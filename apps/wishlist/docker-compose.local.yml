@@ -1,0 +1,3 @@
+services:
+  wishlist:
+    image: 'ghcr.io/cmintey/wishlist:latest'
