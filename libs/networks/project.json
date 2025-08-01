@@ -2,15 +2,6 @@
   "name": "networks",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "targets": {
-    "create-volumes": {
-      "executor": "@raeffs/docker-compose:create-volumes"
-    },
-    "backup-volumes": {
-      "executor": "@raeffs/docker-compose:backup-volumes"
-    },
-    "restore-volumes": {
-      "executor": "@raeffs/docker-compose:restore-volumes"
-    },
     "create-networks": {
       "executor": "@raeffs/docker-compose:create-networks",
       "options": {
@@ -27,12 +18,6 @@
           }
         ]
       }
-    },
-    "create-variables": {
-      "executor": "@raeffs/docker-compose:create-variables"
-    },
-    "configure": {
-      "executor": "@raeffs/docker-compose:configure"
     }
   }
 }
