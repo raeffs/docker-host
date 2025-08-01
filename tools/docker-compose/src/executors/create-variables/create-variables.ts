@@ -15,7 +15,6 @@ import {
 import { normalizeOptions } from './normalize-options';
 import { CreateVariablesExecutorSchema, VariableDefinition } from './schema';
 import { PromptOptions } from './enquirer-definitions';
-import { promisify } from 'util';
 
 function createPrompt(context: ExecutorContext, variable: VariableDefinition): PromptOptions {
   const base = {

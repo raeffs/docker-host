@@ -1,22 +1,14 @@
-import * as Enquirer from 'enquirer';
-
 export interface BasePromptOptions {
   name: string;
   type: string | (() => string);
   message: string | (() => string) | (() => Promise<string>);
-  prefix?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   initial?: any;
   required?: boolean;
-  enabled?: boolean | string;
-  disabled?: boolean | string;
   format?(value: string): string | Promise<string>;
   result?(value: string): string | Promise<string>;
   skip?: ((state: object) => boolean | Promise<boolean>) | boolean;
   validate?(value: string): boolean | string | Promise<boolean | string>;
-  onSubmit?(name: string, value: any, prompt: Enquirer.Prompt): boolean | Promise<boolean>;
-  onCancel?(name: string, value: any, prompt: Enquirer.Prompt): boolean | Promise<boolean>;
-  stdin?: NodeJS.ReadStream;
-  stdout?: NodeJS.WriteStream;
 }
 
 export interface Choice {
