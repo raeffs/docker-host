@@ -3,17 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "implicitDependencies": ["networks", "traefik"],
   "targets": {
-    "up": {
-      "executor": "@raeffs/docker-compose:up"
-    },
-    "down": {
-      "executor": "@raeffs/docker-compose:down"
-    },
-    "pull": {
-      "executor": "@raeffs/docker-compose:pull"
-    },
     "create-volumes": {
-      "executor": "@raeffs/docker-compose:create-volumes",
       "options": {
         "volumes": [
           { "name": "wishlist-data", "userId": 65007 },
@@ -21,17 +11,7 @@
         ]
       }
     },
-    "backup-volumes": {
-      "executor": "@raeffs/docker-compose:backup-volumes"
-    },
-    "restore-volumes": {
-      "executor": "@raeffs/docker-compose:restore-volumes"
-    },
-    "create-networks": {
-      "executor": "@raeffs/docker-compose:create-networks"
-    },
     "create-variables": {
-      "executor": "@raeffs/docker-compose:create-variables",
       "options": {
         "variables": [
           {
@@ -41,9 +21,6 @@
           }
         ]
       }
-    },
-    "configure": {
-      "executor": "@raeffs/docker-compose:configure"
     }
   }
 }
