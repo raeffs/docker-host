@@ -1,3 +1,1 @@
-export interface PullExecutorSchema {
-  readonly composeFile: string;
-}
+export interface PullExecutorSchema {}

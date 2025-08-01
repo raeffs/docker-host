@@ -3,10 +3,6 @@
   "version": 2,
   "type": "object",
   "properties": {
-    "composeFile": {
-      "type": "string",
-      "default": "docker-compose.yml"
-    },
     "detach": {
       "type": "boolean",
       "default": true
@@ -15,8 +11,5 @@
       "type": "boolean",
       "default": false
     }
-  },
-  "required": [
-    "composeFile"
-  ]
+  }
 }

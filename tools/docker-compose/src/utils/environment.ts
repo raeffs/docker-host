@@ -26,3 +26,7 @@ export async function setEnvironmentVariable(context: ExecutorContext, name: str
 export function expandEnvironmentVariables(value?: string): string {
   return (value ?? '').replaceAll(/\$\{(?<name>\w+)\}/g, (match, group) => env[group]);
 }
+
+export function isCiEnvironment(): boolean {
+  return isEnvironmentVariableSet('CI');
+}
