@@ -26,6 +26,6 @@
 [watchtower-status]: https://img.shields.io/badge/active_(in_use)-blue?style=for-the-badge&label=status
 [watchtower-rootless]: https://img.shields.io/badge/yes-blue?style=for-the-badge&label=rootless
 [watchtower-healthchecks]: https://img.shields.io/badge/yes-blue?style=for-the-badge&label=healtchecks
-[watchtower-checks]: https://img.shields.io/github/actions/workflow/status/raeffs/docker-host/apps-watchtower.yml?branch=main&event=push&style=for-the-badge
+[watchtower-checks]: https://img.shields.io/github/actions/workflow/status/raeffs/docker-host/apps-watchtower.yml?branch=main&event=push&style=for-the-badge&label=ci%20checks
 [watchtower-version]: https://img.shields.io/github/v/release/nicholas-fedor/watchtower?style=for-the-badge
 [watchtower-commit]: https://img.shields.io/github/last-commit/nicholas-fedor/watchtower?style=for-the-badge

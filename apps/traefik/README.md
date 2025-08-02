@@ -26,6 +26,6 @@
 [traefik-status]: https://img.shields.io/badge/active_(in_use)-blue?style=for-the-badge&label=status
 [traefik-rootless]: https://img.shields.io/badge/yes-blue?style=for-the-badge&label=rootless
 [traefik-healthchecks]: https://img.shields.io/badge/yes-blue?style=for-the-badge&label=healthchecks
-[traefik-checks]: https://img.shields.io/github/actions/workflow/status/raeffs/docker-host/apps-traefik.yml?branch=main&event=push&style=for-the-badge
+[traefik-checks]: https://img.shields.io/github/actions/workflow/status/raeffs/docker-host/apps-traefik.yml?branch=main&event=push&style=for-the-badge&label=ci%20checks
 [traefik-version]: https://img.shields.io/github/v/release/traefik/traefik?style=for-the-badge
 [traefik-commit]: https://img.shields.io/github/last-commit/traefik/traefik?style=for-the-badge
