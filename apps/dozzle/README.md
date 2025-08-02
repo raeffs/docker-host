@@ -26,6 +26,6 @@
 [dozzle-status]: https://img.shields.io/badge/active_(in_use)-blue?style=for-the-badge&label=status
 [dozzle-rootless]: https://img.shields.io/badge/yes-blue?style=for-the-badge&label=rootless
 [dozzle-healthchecks]: https://img.shields.io/badge/yes-blue?style=for-the-badge&label=healthchecks
-[dozzle-checks]: https://img.shields.io/github/actions/workflow/status/raeffs/docker-host/apps-dozzle.yml?branch=main&event=push&style=for-the-badge
+[dozzle-checks]: https://img.shields.io/github/actions/workflow/status/raeffs/docker-host/apps-dozzle.yml?branch=main&event=push&style=for-the-badge&label=ci%20checks
 [dozzle-version]: https://img.shields.io/github/v/release/amir20/dozzle?style=for-the-badge
 [dozzle-commit]: https://img.shields.io/github/last-commit/amir20/dozzle?style=for-the-badge

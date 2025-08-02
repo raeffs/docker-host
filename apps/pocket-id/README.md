@@ -26,6 +26,6 @@
 [pocket-id-status]: https://img.shields.io/badge/active_(in_use)-blue?style=for-the-badge&label=status
 [pocket-id-rootless]: https://img.shields.io/badge/yes-blue?style=for-the-badge&label=rootless
 [pocket-id-healthchecks]: https://img.shields.io/badge/yes-blue?style=for-the-badge&label=healthchecks
-[pocket-id-checks]: https://img.shields.io/github/actions/workflow/status/raeffs/docker-host/apps-pocket-id.yml?branch=main&event=push&style=for-the-badge
+[pocket-id-checks]: https://img.shields.io/github/actions/workflow/status/raeffs/docker-host/apps-pocket-id.yml?branch=main&event=push&style=for-the-badge&label=ci%20checks
 [pocket-id-version]: https://img.shields.io/github/v/release/pocket-id/pocket-id?style=for-the-badge
 [pocket-id-commit]: https://img.shields.io/github/last-commit/pocket-id/pocket-id?style=for-the-badge
