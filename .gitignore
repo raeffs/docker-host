@@ -9,7 +9,6 @@
 /.secrets/*
 !/.secrets/.gitkeep
 
-.local.env
 .env.local
 
 /apps/redmine/themes/*
