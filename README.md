@@ -12,14 +12,14 @@ The repository uses Nx with a local plugin to manage the different projects. But
 
 You can find a list of services that are included below. I try to create a folder (Nx project) per service / docker compose configuration. Almost all of the services depend on the reverse proxy Traefik. But other than that, they should be mostly self contained.
 
-| Service                               | Status               | Rootless               | Healthchecks               | CI Checks            | Latest Version        | Last Commit          |
-| ------------------------------------- | -------------------- | ---------------------- | -------------------------- | -------------------- | --------------------- | -------------------- |
+| Service                               |        Status        |        Rootless        |        Healthchecks        |      CI Checks       |    Latest Version     |     Last Commit      |
+| ------------------------------------- | :------------------: | :--------------------: | :------------------------: | :------------------: | :-------------------: | :------------------: |
 | [Adminer](apps/adminer)               |                      |                        |                            |                      |                       |                      |
 | [Authelia](apps/authelia)             |                      |                        |                            |                      |                       |                      |
 | [Baikal](apps/baikal)                 |                      |                        |                            |                      |                       |                      |
 | [Bonob](apps/bonob)                   |                      |                        |                            |                      |                       |                      |
 | [Commento](apps/commento)             |                      |                        |                            |                      |                       |                      |
-| [Dozzle](apps/dozzle)                 | ![dozzle-status]     | ![dozzle-rootless]     | ![dozzle-healthchecks]     | ![dozzle-checks]     | ![dozzle-version]     | ![dozzle-commit]     |
+| [Dozzle](apps/dozzle)                 |   ![dozzle-status]   |   ![dozzle-rootless]   |   ![dozzle-healthchecks]   |   ![dozzle-checks]   |   ![dozzle-version]   |   ![dozzle-commit]   |
 | [Etesync](apps/etesync)               |                      |                        |                            |                      |                       |                      |
 | [Gitea](apps/gitea)                   |                      |                        |                            |                      |                       |                      |
 | [Grafana](apps/grafana)               |                      |                        |                            |                      |                       |                      |
@@ -27,7 +27,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Home Assistant](apps/home-assistant) |                      |                        |                            |                      |                       |                      |
 | [Iperf](apps/iperf)                   |                      |                        |                            |                      |                       |                      |
 | [Leantime](apps/leantime)             |                      |                        |                            |                      |                       |                      |
-| [Mastodon](apps/mastodon)             | ![mastodon-status]   |                        |                            |                      |                       |                      |
+| [Mastodon](apps/mastodon)             |  ![mastodon-status]  |                        |                            |                      |                       |                      |
 | [Matomo](apps/matomo)                 |                      |                        |                            |                      |                       |                      |
 | [Mealie](apps/mealie)                 |                      |                        |                            |                      |                       |                      |
 | [Memos](apps/memos)                   |                      |                        |                            |                      |                       |                      |
@@ -41,14 +41,14 @@ You can find a list of services that are included below. I try to create a folde
 | [Prometheus](apps/prometheus)         |                      |                        |                            |                      |                       |                      |
 | [Redmine](apps/redmine)               |                      |                        |                            |                      |                       |                      |
 | [Seq](apps/seq)                       |                      |                        |                            |                      |                       |                      |
-| [Traefik](apps/traefik)               | ![traefik-status]    | ![traefik-rootless]    | ![traefik-healthchecks]    | ![traefik-checks]    | ![traefik-version]    | ![traefik-commit]    |
+| [Traefik](apps/traefik)               |  ![traefik-status]   |  ![traefik-rootless]   |  ![traefik-healthchecks]   |  ![traefik-checks]   |  ![traefik-version]   |  ![traefik-commit]   |
 | [Unbound](apps/unbound)               |                      |                        |                            |                      |                       |                      |
 | [Verdaccio](apps/verdaccio)           |                      |                        |                            |                      |                       |                      |
 | [Wallabag](apps/wallabag)             |                      |                        |                            |                      |                       |                      |
 | [Watchtower](apps/watchtower)         | ![watchtower-status] | ![watchtower-rootless] | ![watchtower-healthchecks] | ![watchtower-checks] | ![watchtower-version] | ![watchtower-commit] |
 | [WhoAmI](apps/whoami)                 |                      |                        |                            |                      |                       |                      |
 | [Wireguard](apps/wireguard)           |                      |                        |                            |                      |                       |                      |
-| [Wishlist](apps/wishlist)             | ![wishlist-status]   | ![wishlist-rootless]   | ![wishlist-healthchecks]   | ![wishlist-checks]   | ![wishlist-version]   | ![wishlist-commit]   |
+| [Wishlist](apps/wishlist)             |  ![wishlist-status]  |  ![wishlist-rootless]  |  ![wishlist-healthchecks]  |  ![wishlist-checks]  |  ![wishlist-version]  |  ![wishlist-commit]  |
 
 ## How to use it?
 
