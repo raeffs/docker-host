@@ -1,0 +1,4 @@
+
+# https://www.navidrome.org/docs/usage/configuration-options/#available-options
+
+EnableInsightsCollector = 'false'

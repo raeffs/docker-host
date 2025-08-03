@@ -5,7 +5,10 @@
   "targets": {
     "create-volumes": {
       "options": {
-        "volumes": ["navidrome-data", "navidrome-music"]
+        "volumes": [
+          { "name": "navidrome-data", "userId": 65009 },
+          { "name": "navidrome-music", "userId": 65009 }
+        ]
       }
     },
     "create-variables": {
