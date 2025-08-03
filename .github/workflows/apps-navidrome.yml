@@ -1,0 +1,46 @@
+name: Navidrome Checks
+
+on:
+  pull_request:
+    branches:
+      - '**'
+  push:
+    branches:
+      - main
+
+jobs:
+  navidrome-healthcheck:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Volta
+        uses: volta-cli/action@v4
+
+      - name: Restore cached Yarn Dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            **/node_modules
+            ~/.yarn
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Configure Navidrome
+        run: yarn configure navidrome --use-defaults
+
+      - name: Start Navidrome
+        run: yarn up navidrome
+
+      - name: Wait for Containers to be healthy
+        uses: jaracogmbh/docker-compose-health-check-action@v1.0.0
+        with:
+          retry-interval: 5
+          max-retries: 10
+          compose-file: apps/navidrome/docker-compose.yml
