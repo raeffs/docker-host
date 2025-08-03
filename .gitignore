@@ -10,6 +10,8 @@
 !/.secrets/.gitkeep
 
 .env.local
+docker-compose.*.yml
+!docker-compose.local.yml
 
 /apps/redmine/themes/*
 !/apps/redmine/themes/.gitkeep
