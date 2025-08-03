@@ -32,7 +32,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Mealie](apps/mealie)                 |                      |                        |                            |                      |                       |                      |
 | [Memos](apps/memos)                   |                      |                        |                            |                      |                       |                      |
 | [Miniflux](apps/miniflux)             |                      |                        |                            |                      |                       |                      |
-| [Navidrome](apps/navidrome)           |                      |                        |                            |                      |                       |                      |
+| [Navidrome](apps/navidrome)           | ![navidrome-status]  | ![navidrome-rootless]  | ![navidrome-healthchecks]  | ![navidrome-checks]  | ![navidrome-version]  | ![navidrome-commit]  |
 | [Ofelia](apps/ofelia)                 |                      |                        |                            |                      |                       |                      |
 | [OpenProject](apps/openproject)       |                      |                        |                            |                      |                       |                      |
 | [PiHole](apps/pihole)                 |                      |                        |                            |                      |                       |                      |
@@ -115,6 +115,13 @@ Icons made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> from
 <!-- Miniflux -->
 
 <!-- Navidrome -->
+
+[navidrome-status]: https://img.shields.io/badge/active_(in_use)-blue?style=flat-square
+[navidrome-rootless]: https://img.shields.io/badge/yes-blue?style=flat-square
+[navidrome-healthchecks]: https://img.shields.io/badge/no-red?style=flat-square
+[navidrome-checks]: https://img.shields.io/github/actions/workflow/status/raeffs/docker-host/apps-navidrome.yml?branch=main&event=push&style=flat-square&label=%20
+[navidrome-version]: https://img.shields.io/github/v/release/navidrome/navidrome?style=flat-square&label=%20
+[navidrome-commit]: https://img.shields.io/github/last-commit/navidrome/navidrome?style=flat-square&label=%20
 
 <!-- Ofelia -->
 
