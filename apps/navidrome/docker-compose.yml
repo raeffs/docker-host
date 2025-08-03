@@ -1,7 +1,7 @@
 services:
   navidrome:
     container_name: 'navidrome'
-    image: 'deluan/navidrome:latest'
+    image: 'ghcr.io/navidrome/navidrome:0.58.0'
     restart: 'unless-stopped'
     user: '65009:65009'
     mem_limit: 256M
