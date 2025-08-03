@@ -1,18 +1,24 @@
-
 services:
   navidrome:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
     container_name: 'navidrome'
     image: 'deluan/navidrome:latest'
+    restart: 'unless-stopped'
+    user: '65009:65009'
+    mem_limit: 256M
+    cap_drop:
+      - 'ALL'
+    security_opt:
+      - 'no-new-privileges'
     networks:
       - 'default-frontend'
     volumes:
+      - '/etc/localtime:/etc/localtime:ro'
       - 'navidrome-data:/data'
+      - './config/navidrome.toml:/data/navidrome.toml:ro'
       - 'navidrome-music:/music:ro'
     environment:
       ND_LOGLEVEL: 'warn'
+      ND_CONFIGFILE: '/data/navidrome.toml'
       ND_BASEURL: 'https://${NAVIDROME_DOMAIN}'
       ND_LASTFM_ENABLED: '${NAVIDROME_LASTFM_ENABLED}'
       ND_LASTFM_APIKEY: '${NAVIDROME_LASTFM_APIKEY}'
