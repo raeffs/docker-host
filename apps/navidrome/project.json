@@ -20,17 +20,14 @@
             "defaultValue": "navidrome.${DEFAULT_DOMAIN_SUFFIX}"
           },
           {
-            "name": "NAVIDROME_LASTFM_ENABLED",
-            "description": "Enable Last.fm scrobbling?",
-            "type": "boolean"
-          },
-          {
             "name": "NAVIDROME_LASTFM_APIKEY",
-            "description": "Last.fm API key."
+            "description": "Last.fm API key.",
+            "optional": true
           },
           {
             "name": "NAVIDROME_LASTFM_SECRET",
-            "description": "Last.fm secret."
+            "description": "Last.fm secret.",
+            "optional": true
           },
           {
             "name": "NAVIDROME_PASSWORD_ENCRYPTION_KEY",
