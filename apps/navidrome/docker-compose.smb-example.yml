@@ -1,0 +1,8 @@
+volumes:
+  navidrome-music:
+    external: false
+    driver: local
+    driver_opts:
+      type: 'cifs'
+      device: '//${NAVIDROME_SMB_SERVER_IP}/${NAVIDROME_SMB_SHARE_PATH}'
+      o: 'username=${NAVIDROME_SMB_USERNAME},password=${NAVIDROME_SMB_PASSWORD},domain=${NAVIDROME_SMB_WORKGROUP}'
