@@ -33,6 +33,11 @@ services:
       - 'traefik.http.routers.bonob.tls.domains[0].main=${BONOB_DOMAIN}'
       - 'traefik.http.routers.bonob.middlewares=local-only@file'
       - 'traefik.http.services.bonob.loadbalancer.server.port=4534'
+    healthcheck:
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
 
 networks:
   default-frontend:
