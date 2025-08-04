@@ -17,7 +17,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Adminer](apps/adminer)               |                      |                        |                            |                      |                       |                      |
 | [Authelia](apps/authelia)             |                      |                        |                            |                      |                       |                      |
 | [Baikal](apps/baikal)                 |                      |                        |                            |                      |                       |                      |
-| [Bonob](apps/bonob)                   |                      |                        |                            |                      |                       |                      |
+| [Bonob](apps/bonob)                   |   ![bonob-status]    |   ![bonob-rootless]    |   ![bonob-healthchecks]    |   ![bonob-checks]    |   ![bonob-version]    |   ![bonob-commit]    |
 | [Commento](apps/commento)             |                      |                        |                            |                      |                       |                      |
 | [Dozzle](apps/dozzle)                 |   ![dozzle-status]   |   ![dozzle-rootless]   |   ![dozzle-healthchecks]   |   ![dozzle-checks]   |   ![dozzle-version]   |   ![dozzle-commit]   |
 | [Etesync](apps/etesync)               |                      |                        |                            |                      |                       |                      |
@@ -76,6 +76,13 @@ Icons made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> from
 <!-- Baikal -->
 
 <!-- Bonob -->
+
+[bonob-status]: https://img.shields.io/badge/active_(in_use)-blue?style=flat-square
+[bonob-rootless]: https://img.shields.io/badge/yes-blue?style=flat-square
+[bonob-healthchecks]: https://img.shields.io/badge/yes-blue?style=flat-square
+[bonob-checks]: https://img.shields.io/github/actions/workflow/status/raeffs/docker-host/apps-bonob.yml?branch=main&event=push&style=flat-square&label=%20
+[bonob-version]: https://img.shields.io/github/v/release/simojenki/bonob?style=flat-square&label=%20
+[bonob-commit]: https://img.shields.io/github/last-commit/simojenki/bonob?style=flat-square&label=%20
 
 <!-- Commento -->
 
