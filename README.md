@@ -46,7 +46,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Verdaccio](apps/verdaccio)           |                      |                        |                            |                      |                       |                      |
 | [Wallabag](apps/wallabag)             |                      |                        |                            |                      |                       |                      |
 | [Watchtower](apps/watchtower)         | ![watchtower-status] | ![watchtower-rootless] | ![watchtower-healthchecks] | ![watchtower-checks] | ![watchtower-version] | ![watchtower-commit] |
-| [WhoAmI](apps/whoami)                 |                      |                        |                            |                      |                       |                      |
+| [Whoami](apps/whoami)                 |   ![whoami-status]   |   ![whoami-rootless]   |   ![whoami-healthchecks]   |   ![whoami-checks]   |   ![whoami-version]   |   ![whoami-commit]   |
 | [Wireguard](apps/wireguard)           |                      |                        |                            |                      |                       |                      |
 | [Wishlist](apps/wishlist)             |  ![wishlist-status]  |  ![wishlist-rootless]  |  ![wishlist-healthchecks]  |  ![wishlist-checks]  |  ![wishlist-version]  |  ![wishlist-commit]  |
 
@@ -170,7 +170,14 @@ Icons made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> from
 [watchtower-version]: https://img.shields.io/github/v/release/nicholas-fedor/watchtower?style=flat-square&label=%20
 [watchtower-commit]: https://img.shields.io/github/last-commit/nicholas-fedor/watchtower?style=flat-square&label=%20
 
-<!-- WhoAmI -->
+<!-- Whoami -->
+
+[whoami-status]: https://img.shields.io/badge/active_(in_use)-blue?style=flat-square
+[whoami-rootless]: https://img.shields.io/badge/yes-blue?style=flat-square
+[whoami-healthchecks]: https://img.shields.io/badge/no-red?style=flat-square
+[whoami-checks]: https://img.shields.io/github/actions/workflow/status/raeffs/docker-host/apps-whoami.yml?branch=main&event=push&style=flat-square&label=%20
+[whoami-version]: https://img.shields.io/github/v/release/traefik/whoami?style=flat-square&label=%20
+[whoami-commit]: https://img.shields.io/github/last-commit/traefik/whoami?style=flat-square&label=%20
 
 <!-- Wireguard -->
 
