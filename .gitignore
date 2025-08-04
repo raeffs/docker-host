@@ -12,6 +12,7 @@
 .env.local
 docker-compose.*.yml
 !docker-compose.local.yml
+!docker-compose.base.yml
 
 /apps/redmine/themes/*
 !/apps/redmine/themes/.gitkeep

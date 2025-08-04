@@ -1,5 +1,5 @@
 {
   "name": "whoami",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "implicitDependencies": ["networks", "traefik", "authelia"]
+  "implicitDependencies": ["networks", "traefik"]
 }
