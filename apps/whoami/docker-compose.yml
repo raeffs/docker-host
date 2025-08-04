@@ -1,13 +1,9 @@
-
 services:
   whoami-extranet:
     extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+      file: 'docker-compose.base.yml'
+      service: 'whoami-base'
     container_name: 'whoami-extranet'
-    image: 'traefik/whoami:latest'
-    networks:
-      - 'default-frontend'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.whoami-extranet.rule=Host(`whoami-extranet.${DEFAULT_DOMAIN_SUFFIX}`)'
@@ -20,12 +16,9 @@ services:
 
   whoami-extranet-authenticated:
     extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+      file: 'docker-compose.base.yml'
+      service: 'whoami-base'
     container_name: 'whoami-extranet-authenticated'
-    image: 'traefik/whoami:latest'
-    networks:
-      - 'default-frontend'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.whoami-extranet-authenticated.rule=Host(`whoami-extranet-authenticated.${DEFAULT_DOMAIN_SUFFIX}`)'
@@ -38,12 +31,9 @@ services:
 
   whoami-intranet:
     extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+      file: 'docker-compose.base.yml'
+      service: 'whoami-base'
     container_name: 'whoami-intranet'
-    image: 'traefik/whoami:latest'
-    networks:
-      - 'default-frontend'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.whoami-intranet.rule=Host(`whoami-intranet.${DEFAULT_DOMAIN_SUFFIX}`)'
@@ -56,12 +46,9 @@ services:
 
   whoami-intranet-authenticated:
     extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+      file: 'docker-compose.base.yml'
+      service: 'whoami-base'
     container_name: 'whoami-intranet-authenticated'
-    image: 'traefik/whoami:latest'
-    networks:
-      - 'default-frontend'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.whoami-intranet-authenticated.rule=Host(`whoami-intranet-authenticated.${DEFAULT_DOMAIN_SUFFIX}`)'

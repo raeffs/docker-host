@@ -1,0 +1,19 @@
+services:
+  whoami-base:
+    image: 'ghcr.io/traefik/whoami:v1.11.0'
+    restart: 'unless-stopped'
+    user: '65010:65010'
+    read_only: true
+    mem_limit: 8M
+    cap_drop:
+      - 'ALL'
+    security_opt:
+      - 'no-new-privileges'
+    networks:
+      - 'default-frontend'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+
+networks:
+  default-frontend:
+    external: true
