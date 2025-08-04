@@ -1,21 +1,29 @@
 services:
   bonob:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
     container_name: 'bonob'
-    image: 'simojenki/bonob:latest'
+    image: 'ghcr.io/simojenki/bonob:v0.9.0'
+    restart: 'unless-stopped'
+    user: '65011:65011'
+    read_only: true
+    mem_limit: 256M
+    cap_drop:
+      - 'ALL'
+    security_opt:
+      - 'no-new-privileges'
     networks:
       - 'default-frontend'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
     environment:
       BNB_URL: 'https://${BONOB_DOMAIN}'
       BNB_SECRET: '${BONOB_ENCRYPTION_KEY}'
       BNB_SONOS_AUTO_REGISTER: 'true'
       BNB_SONOS_DEVICE_DISCOVERY: 'true'
       BNB_SONOS_SEED_HOST: '${BONOB_SONOS_SEED_HOST}'
-      BNB_SONOS_SERVICE_NAME: 'Local Music Library'
+      BNB_SONOS_SERVICE_ID: '${BONOB_SONOS_SERVICE_ID}'
+      BNB_SONOS_SERVICE_NAME: '${BONOB_SONOS_SERVICE_NAME}'
       BNB_SUBSONIC_URL: 'https://${NAVIDROME_DOMAIN}'
-      BNB_LOG_LEVEL: 'warn'
+      BNB_LOG_LEVEL: 'info'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.bonob.rule=Host(`${BONOB_DOMAIN}`)'
