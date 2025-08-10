@@ -30,7 +30,8 @@
           },
           {
             "name": "MINIFLUX_INITIAL_USER",
-            "description": "Username of the initial Miniflux user."
+            "description": "Username of the initial Miniflux user.",
+            "defaultValue": "admin"
           },
           {
             "name": "MINIFLUX_INITIAL_PASSWORD",
