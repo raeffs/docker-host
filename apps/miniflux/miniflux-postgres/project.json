@@ -1,7 +1,7 @@
 {
   "name": "miniflux-postgres",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "implicitDependencies": ["networks", "traefik", "authelia"],
+  "implicitDependencies": ["networks", "traefik"],
   "targets": {
     "create-volumes": {
       "options": {
@@ -11,6 +11,11 @@
     "create-variables": {
       "options": {
         "variables": [
+          {
+            "name": "MINIFLUX_DOMAIN",
+            "description": "Public domain name for Miniflux.",
+            "defaultValue": "miniflux.${DEFAULT_DOMAIN_SUFFIX}"
+          },
           {
             "name": "MINIFLUX_POSTGRES_PASSWORD",
             "description": "Password of the Miniflux PostgreSQL database.",

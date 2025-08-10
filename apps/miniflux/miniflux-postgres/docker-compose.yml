@@ -1,21 +1,13 @@
 services:
   miniflux:
     extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
-    container_name: 'miniflux'
-    image: 'miniflux/miniflux:latest'
+      file: '../miniflux/docker-compose.yml'
+      service: 'miniflux'
     networks:
       - 'default-frontend'
       - 'default-backend'
     environment:
       DATABASE_URL: 'postgres://miniflux-user:${MINIFLUX_POSTGRES_PASSWORD}@miniflux-db:5432/miniflux?sslmode=disable'
-      RUN_MIGRATIONS: '1'
-      CREATE_ADMIN: '1'
-      ADMIN_USERNAME: '${MINIFLUX_INITIAL_USER}'
-      ADMIN_PASSWORD: '${MINIFLUX_INITIAL_PASSWORD}'
-      POLLING_FREQUENCY: '15'
-      BASE_URL: 'https://miniflux.${DEFAULT_DOMAIN_SUFFIX}'
       OAUTH2_PROVIDER: 'oidc'
       OAUTH2_CLIENT_ID_FILE: '/run/secrets/client-id'
       OAUTH2_CLIENT_SECRET_FILE: '/run/secrets/client-secret'
@@ -25,26 +17,13 @@ services:
     secrets:
       - 'client-id'
       - 'client-secret'
-    healthcheck:
-      test: '/usr/bin/miniflux -healthcheck auto'
-      start_period: '5s'
-      interval: '5s'
     depends_on:
       miniflux-db:
         condition: 'service_healthy'
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.miniflux.rule=Host(`miniflux.${DEFAULT_DOMAIN_SUFFIX}`)'
-      - 'traefik.http.routers.miniflux.entrypoints=websecure'
-      - 'traefik.http.routers.miniflux.tls=true'
-      - 'traefik.http.routers.miniflux.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.miniflux.tls.domains[0].main=miniflux.${DEFAULT_DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.miniflux.middlewares=intranet@file'
-      - 'traefik.http.services.miniflux.loadbalancer.server.port=8080'
 
   miniflux-db:
     extends:
-      file: '../../libs/base/docker-compose.yml'
+      file: '../../../libs/base/docker-compose.yml'
       service: 'base'
     container_name: 'miniflux-db'
     image: 'postgres'
