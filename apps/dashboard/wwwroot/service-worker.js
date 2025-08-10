@@ -1,1 +1,0 @@
-addEventListener("fetch",t=>{const e=t.request;"GET"===e.method&&t.respondWith(async function(){const c=fetch(e);if(t.waitUntil(async function(){const t=(await c).clone(),a=await caches.open("files");await a.put(e,t)}()),!e.headers.get("Accept").includes("text/html")){return await caches.match(e)||c}try{return await c}catch(t){return caches.match(e)}}())});
