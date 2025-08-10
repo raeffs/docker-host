@@ -1,0 +1,41 @@
+services:
+  miniflux:
+    container_name: 'miniflux'
+    image: 'miniflux/miniflux:latest'
+    restart: 'unless-stopped'
+    user: '65012:65012'
+    read_only: true
+    mem_limit: 256M
+    cap_drop:
+      - 'ALL'
+    security_opt:
+      - 'no-new-privileges'
+    networks:
+      - 'default-frontend'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+    environment:
+      DATABASE_URL: 'postgres://${MINIFLUX_POSTGRES_USER}:${MINIFLUX_POSTGRES_PASSWORD}@${MINIFLUX_POSTGRES_SERVER}:${MINIFLUX_POSTGRES_PORT}/${MINIFLUX_POSTGRES_DATABASE}?sslmode=disable'
+      RUN_MIGRATIONS: '1'
+      CREATE_ADMIN: '1'
+      ADMIN_USERNAME: '${MINIFLUX_INITIAL_USER}'
+      ADMIN_PASSWORD: '${MINIFLUX_INITIAL_PASSWORD}'
+      POLLING_FREQUENCY: '15'
+      BASE_URL: 'https://${MINIFLUX_DOMAIN}'
+    healthcheck:
+      test: '/usr/bin/miniflux -healthcheck auto'
+      start_period: '5s'
+      interval: '5s'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.miniflux.rule=Host(`${MINIFLUX_DOMAIN}`)'
+      - 'traefik.http.routers.miniflux.entrypoints=websecure'
+      - 'traefik.http.routers.miniflux.tls=true'
+      - 'traefik.http.routers.miniflux.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.miniflux.tls.domains[0].main=${MINIFLUX_DOMAIN}'
+      - 'traefik.http.routers.miniflux.middlewares=intranet@file'
+      - 'traefik.http.services.miniflux.loadbalancer.server.port=8080'
+
+networks:
+  default-frontend:
+    external: true

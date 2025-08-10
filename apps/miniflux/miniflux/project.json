@@ -1,0 +1,44 @@
+{
+  "name": "miniflux",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": ["networks", "traefik"],
+  "targets": {
+    "create-variables": {
+      "options": {
+        "variables": [
+          {
+            "name": "MINIFLUX_DOMAIN",
+            "description": "Public domain name for Miniflux.",
+            "defaultValue": "miniflux.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "MINIFLUX_POSTGRES_SERVER",
+            "description": "Server where the Miniflux PostgreSQL database is located."
+          },
+          {
+            "name": "MINIFLUX_POSTGRES_USER",
+            "description": "User used to connect to the Miniflux PostgreSQL database."
+          },
+          {
+            "name": "MINIFLUX_POSTGRES_PASSWORD",
+            "description": "Password used to connect to the Miniflux PostgreSQL database.",
+            "type": "password"
+          },
+          {
+            "name": "MINIFLUX_POSTGRES_DATABASE",
+            "description": "Name of the Miniflux PostgreSQL database."
+          },
+          {
+            "name": "MINIFLUX_INITIAL_USER",
+            "description": "Username of the initial Miniflux user."
+          },
+          {
+            "name": "MINIFLUX_INITIAL_PASSWORD",
+            "description": "Password of the initial Miniflux user.",
+            "type": "password"
+          }
+        ]
+      }
+    }
+  }
+}
