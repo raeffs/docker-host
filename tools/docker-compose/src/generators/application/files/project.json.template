@@ -1,11 +1,27 @@
 {
   "name": "<%= applicationName %>",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "implicitDependencies": ["networks", "traefik"],
+  "implicitDependencies": [
+    "networks",
+    "traefik"
+  ],
   "targets": {
     "create-volumes": {
       "options": {
-        "volumes": ["<%= applicationName %>-data"]
+        "volumes": [
+          "<%= applicationName %>-data"
+        ]
+      }
+    },
+    "create-variables": {
+      "options": {
+        "variables": [
+          {
+            "name": "<%= names(applicationName).constantName %>_DOMAIN",
+            "description": "Public domain name for <%= names(applicationName).className %>.",
+            "defaultValue": "<%= applicationName %>.${DEFAULT_DOMAIN_SUFFIX}"
+          }
+        ]
       }
     }
   }

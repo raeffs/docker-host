@@ -1,22 +1,20 @@
-
 services:
   <%= applicationName %>:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
     container_name: '<%= applicationName %>'
     image: ''
+    restart: 'unless-stopped'
     networks:
       - 'default-frontend'
     volumes:
+      - '/etc/localtime:/etc/localtime:ro'
       - '<%= applicationName %>-data:/data'
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.<%= applicationName %>.rule=Host(`<%= applicationName %>.${DEFAULT_DOMAIN_SUFFIX}`)'
+      - 'traefik.http.routers.<%= applicationName %>.rule=Host(`${<%= names(applicationName).constantName %>_DOMAIN}`)'
       - 'traefik.http.routers.<%= applicationName %>.entrypoints=websecure'
       - 'traefik.http.routers.<%= applicationName %>.tls=true'
       - 'traefik.http.routers.<%= applicationName %>.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.<%= applicationName %>.tls.domains[0].main=<%= applicationName %>.${DEFAULT_DOMAIN_SUFFIX}'
+      - 'traefik.http.routers.<%= applicationName %>.tls.domains[0].main=${<%= names(applicationName).constantName %>_DOMAIN}'
       - 'traefik.http.routers.<%= applicationName %>.middlewares=intranet@file'
       - 'traefik.http.services.<%= applicationName %>.loadbalancer.server.port=8080'
 
