@@ -31,7 +31,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Matomo](apps/matomo)                 |                      |                        |                            |                      |                       |                      |
 | [Mealie](apps/mealie)                 |                      |                        |                            |                      |                       |                      |
 | [Memos](apps/memos)                   |                      |                        |                            |                      |                       |                      |
-| [Miniflux](apps/miniflux)             |                      |                        |                            |                      |                       |                      |
+| [Miniflux](apps/miniflux)             |  ![miniflux-status]  |  ![miniflux-rootless]  |  ![miniflux-healthchecks]  |  ![miniflux-checks]  |  ![miniflux-version]  |  ![miniflux-commit]  |
 | [Navidrome](apps/navidrome)           | ![navidrome-status]  | ![navidrome-rootless]  | ![navidrome-healthchecks]  | ![navidrome-checks]  | ![navidrome-version]  | ![navidrome-commit]  |
 | [Ofelia](apps/ofelia)                 |                      |                        |                            |                      |                       |                      |
 | [OpenProject](apps/openproject)       |                      |                        |                            |                      |                       |                      |
@@ -120,6 +120,13 @@ Icons made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> from
 <!-- Memos -->
 
 <!-- Miniflux -->
+
+[miniflux-status]: https://img.shields.io/badge/active_(in_use)-blue?style=flat-square
+[miniflux-rootless]: https://img.shields.io/badge/yes-blue?style=flat-square
+[miniflux-healthchecks]: https://img.shields.io/badge/yes-blue?style=flat-square
+[miniflux-checks]: https://img.shields.io/github/actions/workflow/status/raeffs/docker-host/apps-miniflux.yml?branch=main&event=push&style=flat-square&label=%20
+[miniflux-version]: https://img.shields.io/github/v/release/miniflux/v2?style=flat-square&label=%20
+[miniflux-commit]: https://img.shields.io/github/last-commit/miniflux/v2?style=flat-square&label=%20
 
 <!-- Navidrome -->
 
