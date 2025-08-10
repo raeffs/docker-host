@@ -1,0 +1,52 @@
+services:
+  homepage:
+    container_name: 'homepage'
+    image: 'ghcr.io/gethomepage/homepage:v1.4.4'
+    restart: 'unless-stopped'
+    user: '65013:65013'
+    read_only: true
+    mem_limit: 256M
+    cap_drop:
+      - 'ALL'
+    security_opt:
+      - 'no-new-privileges'
+    networks:
+      - 'default-frontend'
+      - 'homepage-dockerproxynet'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+      - './config:/app/config:ro'
+    environment:
+      HOMEPAGE_ALLOWED_HOSTS: '${HOMEPAGE_DOMAIN}'
+      LOG_TARGETS: 'stdout'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.homepage.rule=Host(`${HOMEPAGE_DOMAIN}`)'
+      - 'traefik.http.routers.homepage.entrypoints=websecure'
+      - 'traefik.http.routers.homepage.tls=true'
+      - 'traefik.http.routers.homepage.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.homepage.tls.domains[0].main=${HOMEPAGE_DOMAIN}'
+      - 'traefik.http.routers.homepage.middlewares=intranet@file'
+      - 'traefik.http.services.homepage.loadbalancer.server.port=3000'
+    depends_on:
+      - 'homepage-dockerproxy'
+
+  homepage-dockerproxy:
+    extends:
+      file: '../../libs/docker-socket-proxy/docker-compose.yml'
+      service: 'docker-socket-proxy'
+    container_name: 'homepage-dockerproxy'
+    command:
+      - '-allowfrom=homepage'
+      - '-allowGET=/(containers/.*)'
+    user: '65014:${HOMEPAGE_DOCKER_GID}'
+    networks:
+      - 'homepage-dockerproxynet'
+
+networks:
+  default-frontend:
+    external: true
+  homepage-dockerproxynet:
+    name: 'homepage-dockerproxynet'
+    internal: true
+    attachable: false
