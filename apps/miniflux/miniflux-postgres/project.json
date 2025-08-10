@@ -1,6 +1,6 @@
 {
-  "name": "miniflux",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "miniflux-postgres",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "implicitDependencies": ["networks", "traefik", "authelia"],
   "targets": {
     "create-volumes": {
