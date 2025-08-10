@@ -43,4 +43,4 @@ jobs:
         with:
           retry-interval: 5
           max-retries: 10
-          compose-file: apps/miniflux-postgres/docker-compose.yml
+          compose-file: apps/miniflux/miniflux-postgres/docker-compose.yml
