@@ -25,6 +25,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Grafana](apps/grafana)               |                      |                        |                            |                      |                       |                      |
 | [Grocy](apps/grocy)                   |                      |                        |                            |                      |                       |                      |
 | [Home Assistant](apps/home-assistant) |                      |                        |                            |                      |                       |                      |
+| [Homepage](apps/homepage)             |  ![homepage-status]  |  ![homepage-rootless]  |  ![homepage-healthchecks]  |  ![homepage-checks]  |  ![homepage-version]  |  ![homepage-commit]  |
 | [Iperf](apps/iperf)                   |                      |                        |                            |                      |                       |                      |
 | [Leantime](apps/leantime)             |                      |                        |                            |                      |                       |                      |
 | [Mastodon](apps/mastodon)             |  ![mastodon-status]  |                        |                            |                      |                       |                      |
@@ -104,6 +105,15 @@ Icons made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> from
 <!-- Grocy -->
 
 <!-- Home Assistant -->
+
+<!-- Homepage -->
+
+[homepage-status]: https://img.shields.io/badge/active_(in_use)-blue?style=flat-square
+[homepage-rootless]: https://img.shields.io/badge/yes-blue?style=flat-square
+[homepage-healthchecks]: https://img.shields.io/badge/yes-blue?style=flat-square
+[homepage-checks]: https://img.shields.io/github/actions/workflow/status/raeffs/docker-host/apps-homepage.yml?branch=main&event=push&style=flat-square&label=%20
+[homepage-version]: https://img.shields.io/github/v/release/gethomepage/homepage?style=flat-square&label=%20
+[homepage-commit]: https://img.shields.io/github/last-commit/gethomepage/homepage?style=flat-square&label=%20
 
 <!-- Iperf -->
 
