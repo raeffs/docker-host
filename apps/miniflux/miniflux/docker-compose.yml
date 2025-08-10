@@ -1,7 +1,7 @@
 services:
   miniflux:
     container_name: 'miniflux'
-    image: 'miniflux/miniflux:latest'
+    image: 'ghcr.io/miniflux/miniflux:2.2.11'
     restart: 'unless-stopped'
     user: '65012:65012'
     read_only: true

@@ -1,0 +1,3 @@
+services:
+  miniflux:
+    image: 'ghcr.io/miniflux/miniflux:latest'
