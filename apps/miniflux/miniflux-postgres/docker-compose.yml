@@ -8,15 +8,6 @@ services:
       - 'default-backend'
     environment:
       DATABASE_URL: 'postgres://miniflux-user:${MINIFLUX_POSTGRES_PASSWORD}@miniflux-db:5432/miniflux?sslmode=disable'
-      OAUTH2_PROVIDER: 'oidc'
-      OAUTH2_CLIENT_ID_FILE: '/run/secrets/client-id'
-      OAUTH2_CLIENT_SECRET_FILE: '/run/secrets/client-secret'
-      OAUTH2_REDIRECT_URL: 'https://miniflux.${DEFAULT_DOMAIN_SUFFIX}/oauth2/oidc/callback'
-      OAUTH2_OIDC_DISCOVERY_ENDPOINT: '${MINIFLUX_OAUTH_DISCOVERY_ENDPOINT}'
-      OAUTH2_USER_CREATION: '1'
-    secrets:
-      - 'client-id'
-      - 'client-secret'
     depends_on:
       miniflux-db:
         condition: 'service_healthy'
@@ -39,12 +30,6 @@ services:
       test: 'pg_isready -U miniflux-user -d miniflux'
       start_period: '5s'
       interval: '5s'
-
-secrets:
-  client-id:
-    file: '../../.secrets/MINIFLUX_OAUTH_CLIENT_ID'
-  client-secret:
-    file: '../../.secrets/MINIFLUX_OAUTH_CLIENT_SECRET'
 
 volumes:
   miniflux-db:

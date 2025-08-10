@@ -29,20 +29,6 @@
             "name": "MINIFLUX_INITIAL_PASSWORD",
             "description": "Password of the initial Miniflux user.",
             "type": "password"
-          },
-          {
-            "name": "MINIFLUX_OAUTH_CLIENT_ID",
-            "description": "The OAuth2 client id used by Miniflux.",
-            "isSecret": true
-          },
-          {
-            "name": "MINIFLUX_OAUTH_CLIENT_SECRET",
-            "description": "The OAuth2 client secret used by Miniflux.",
-            "isSecret": true
-          },
-          {
-            "name": "MINIFLUX_OAUTH_DISCOVERY_ENDPOINT",
-            "description": "The OAuth2 discovery endpoint used by Miniflux."
           }
         ]
       }
