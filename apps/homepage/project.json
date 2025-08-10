@@ -1,0 +1,23 @@
+{
+  "name": "homepage",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": ["networks", "traefik"],
+  "targets": {
+    "create-variables": {
+      "options": {
+        "variables": [
+          {
+            "name": "HOMEPAGE_DOMAIN",
+            "description": "Public domain name for Homepage.",
+            "defaultValue": "homepage.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "HOMEPAGE_DOCKER_GID",
+            "description": "GID of the docker group. The docker proxy will run under this GID to access the docker socket.",
+            "type": "docker-group"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/info-widgets/
+
+- openmeteo:
+    label: 'Lucerne'
+    latitude: 47.0505
+    longitude: 8.3064
+    timezone: 'Europe/Zurich'
+    units: 'metric'
+    cache: 5
+    format:
+      maximumFractionDigits: 1
+
+- search:
+    provider: 'google'
+    focus: true
+    showSearchSuggestions: false
+    target: '_blank'

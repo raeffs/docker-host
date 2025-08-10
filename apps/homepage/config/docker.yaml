@@ -1,0 +1,7 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/docker/
+
+docker:
+  host: 'homepage-dockerproxy'
+  port: 2375
