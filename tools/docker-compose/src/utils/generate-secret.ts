@@ -17,5 +17,5 @@ export async function generateSecret(context: ExecutorContext): Promise<string> 
 
   await waitForExit(openssl);
 
-  return allData.trim().replaceAll(/\s/g, '');
+  return allData.trim().replaceAll(/\W/g, '');
 }
