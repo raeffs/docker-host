@@ -12,44 +12,44 @@ The repository uses Nx with a local plugin to manage the different projects. But
 
 You can find a list of services that are included below. I try to create a folder (Nx project) per service / docker compose configuration. Almost all of the services depend on the reverse proxy Traefik. But other than that, they should be mostly self contained.
 
-| Service                               |        Status        |        Rootless        |        Healthchecks        |      CI Checks       |    Latest Version     |     Last Commit      |
-| ------------------------------------- | :------------------: | :--------------------: | :------------------------: | :------------------: | :-------------------: | :------------------: |
-| [Adminer](apps/adminer)               |                      |                        |                            |                      |                       |                      |
-| [Authelia](apps/authelia)             |                      |                        |                            |                      |                       |                      |
-| [Baikal](apps/baikal)                 |                      |                        |                            |                      |                       |                      |
-| [Bonob](apps/bonob)                   |   ![bonob-status]    |   ![bonob-rootless]    |   ![bonob-healthchecks]    |   ![bonob-checks]    |   ![bonob-version]    |   ![bonob-commit]    |
-| [Commento](apps/commento)             |                      |                        |                            |                      |                       |                      |
-| [Dozzle](apps/dozzle)                 |   ![dozzle-status]   |   ![dozzle-rootless]   |   ![dozzle-healthchecks]   |   ![dozzle-checks]   |   ![dozzle-version]   |   ![dozzle-commit]   |
-| [Etesync](apps/etesync)               |                      |                        |                            |                      |                       |                      |
-| [Gitea](apps/gitea)                   |                      |                        |                            |                      |                       |                      |
-| [Grafana](apps/grafana)               |                      |                        |                            |                      |                       |                      |
-| [Grocy](apps/grocy)                   |                      |                        |                            |                      |                       |                      |
-| [Home Assistant](apps/home-assistant) |                      |                        |                            |                      |                       |                      |
-| [Homepage](apps/homepage)             |  ![homepage-status]  |  ![homepage-rootless]  |  ![homepage-healthchecks]  |  ![homepage-checks]  |  ![homepage-version]  |  ![homepage-commit]  |
-| [Iperf](apps/iperf)                   |                      |                        |                            |                      |                       |                      |
-| [Leantime](apps/leantime)             |                      |                        |                            |                      |                       |                      |
-| [Mastodon](apps/mastodon)             |  ![mastodon-status]  |                        |                            |                      |                       |                      |
-| [Matomo](apps/matomo)                 |                      |                        |                            |                      |                       |                      |
-| [Mealie](apps/mealie)                 |                      |                        |                            |                      |                       |                      |
-| [Memos](apps/memos)                   |                      |                        |                            |                      |                       |                      |
-| [Miniflux](apps/miniflux)             |  ![miniflux-status]  |  ![miniflux-rootless]  |  ![miniflux-healthchecks]  |  ![miniflux-checks]  |  ![miniflux-version]  |  ![miniflux-commit]  |
-| [Navidrome](apps/navidrome)           | ![navidrome-status]  | ![navidrome-rootless]  | ![navidrome-healthchecks]  | ![navidrome-checks]  | ![navidrome-version]  | ![navidrome-commit]  |
-| [Ofelia](apps/ofelia)                 |                      |                        |                            |                      |                       |                      |
-| [OpenProject](apps/openproject)       |                      |                        |                            |                      |                       |                      |
-| [PiHole](apps/pihole)                 |                      |                        |                            |                      |                       |                      |
-| [Pocket ID](apps/pocket-id)           | ![pocket-id-status]  | ![pocket-id-rootless]  | ![pocket-id-healthchecks]  | ![pocket-id-checks]  | ![pocket-id-version]  | ![pocket-id-commit]  |
-| [Portainer](apps/portainer)           |                      |                        |                            |                      |                       |                      |
-| [Prometheus](apps/prometheus)         |                      |                        |                            |                      |                       |                      |
-| [Redmine](apps/redmine)               |                      |                        |                            |                      |                       |                      |
-| [Seq](apps/seq)                       |                      |                        |                            |                      |                       |                      |
-| [Traefik](apps/traefik)               |  ![traefik-status]   |  ![traefik-rootless]   |  ![traefik-healthchecks]   |  ![traefik-checks]   |  ![traefik-version]   |  ![traefik-commit]   |
-| [Unbound](apps/unbound)               |                      |                        |                            |                      |                       |                      |
-| [Verdaccio](apps/verdaccio)           |                      |                        |                            |                      |                       |                      |
-| [Wallabag](apps/wallabag)             |                      |                        |                            |                      |                       |                      |
-| [Watchtower](apps/watchtower)         | ![watchtower-status] | ![watchtower-rootless] | ![watchtower-healthchecks] | ![watchtower-checks] | ![watchtower-version] | ![watchtower-commit] |
-| [Whoami](apps/whoami)                 |   ![whoami-status]   |   ![whoami-rootless]   |   ![whoami-healthchecks]   |   ![whoami-checks]   |   ![whoami-version]   |   ![whoami-commit]   |
-| [Wireguard](apps/wireguard)           |                      |                        |                            |                      |                       |                      |
-| [Wishlist](apps/wishlist)             |  ![wishlist-status]  |  ![wishlist-rootless]  |  ![wishlist-healthchecks]  |  ![wishlist-checks]  |  ![wishlist-version]  |  ![wishlist-commit]  |
+| Service                               |          Status          |        Rootless        |        Healthchecks        |      CI Checks       |    Latest Version     |     Last Commit      |
+| ------------------------------------- | :----------------------: | :--------------------: | :------------------------: | :------------------: | :-------------------: | :------------------: |
+| [Adminer](apps/adminer)               |                          |                        |                            |                      |                       |                      |
+| [Authelia](apps/authelia)             |                          |                        |                            |                      |                       |                      |
+| [Baikal](apps/baikal)                 |                          |                        |                            |                      |                       |                      |
+| [Bonob](apps/bonob)                   |     ![bonob-status]      |   ![bonob-rootless]    |   ![bonob-healthchecks]    |   ![bonob-checks]    |   ![bonob-version]    |   ![bonob-commit]    |
+| [Commento](apps/commento)             |                          |                        |                            |                      |                       |                      |
+| [Dozzle](apps/dozzle)                 |     ![dozzle-status]     |   ![dozzle-rootless]   |   ![dozzle-healthchecks]   |   ![dozzle-checks]   |   ![dozzle-version]   |   ![dozzle-commit]   |
+| [Etesync](apps/etesync)               |                          |                        |                            |                      |                       |                      |
+| [Gitea](apps/gitea)                   |                          |                        |                            |                      |                       |                      |
+| [Grafana](apps/grafana)               |                          |                        |                            |                      |                       |                      |
+| [Grocy](apps/grocy)                   |                          |                        |                            |                      |                       |                      |
+| [Home Assistant](apps/home-assistant) | ![home-assistant-status] |                        |                            |                      |                       |                      |
+| [Homepage](apps/homepage)             |    ![homepage-status]    |  ![homepage-rootless]  |  ![homepage-healthchecks]  |  ![homepage-checks]  |  ![homepage-version]  |  ![homepage-commit]  |
+| [Iperf](apps/iperf)                   |                          |                        |                            |                      |                       |                      |
+| [Leantime](apps/leantime)             |                          |                        |                            |                      |                       |                      |
+| [Mastodon](apps/mastodon)             |    ![mastodon-status]    |                        |                            |                      |                       |                      |
+| [Matomo](apps/matomo)                 |                          |                        |                            |                      |                       |                      |
+| [Mealie](apps/mealie)                 |                          |                        |                            |                      |                       |                      |
+| [Memos](apps/memos)                   |                          |                        |                            |                      |                       |                      |
+| [Miniflux](apps/miniflux)             |    ![miniflux-status]    |  ![miniflux-rootless]  |  ![miniflux-healthchecks]  |  ![miniflux-checks]  |  ![miniflux-version]  |  ![miniflux-commit]  |
+| [Navidrome](apps/navidrome)           |   ![navidrome-status]    | ![navidrome-rootless]  | ![navidrome-healthchecks]  | ![navidrome-checks]  | ![navidrome-version]  | ![navidrome-commit]  |
+| [Ofelia](apps/ofelia)                 |                          |                        |                            |                      |                       |                      |
+| [OpenProject](apps/openproject)       |                          |                        |                            |                      |                       |                      |
+| [PiHole](apps/pihole)                 |                          |                        |                            |                      |                       |                      |
+| [Pocket ID](apps/pocket-id)           |   ![pocket-id-status]    | ![pocket-id-rootless]  | ![pocket-id-healthchecks]  | ![pocket-id-checks]  | ![pocket-id-version]  | ![pocket-id-commit]  |
+| [Portainer](apps/portainer)           |                          |                        |                            |                      |                       |                      |
+| [Prometheus](apps/prometheus)         |                          |                        |                            |                      |                       |                      |
+| [Redmine](apps/redmine)               |                          |                        |                            |                      |                       |                      |
+| [Seq](apps/seq)                       |                          |                        |                            |                      |                       |                      |
+| [Traefik](apps/traefik)               |    ![traefik-status]     |  ![traefik-rootless]   |  ![traefik-healthchecks]   |  ![traefik-checks]   |  ![traefik-version]   |  ![traefik-commit]   |
+| [Unbound](apps/unbound)               |                          |                        |                            |                      |                       |                      |
+| [Verdaccio](apps/verdaccio)           |                          |                        |                            |                      |                       |                      |
+| [Wallabag](apps/wallabag)             |                          |                        |                            |                      |                       |                      |
+| [Watchtower](apps/watchtower)         |   ![watchtower-status]   | ![watchtower-rootless] | ![watchtower-healthchecks] | ![watchtower-checks] | ![watchtower-version] | ![watchtower-commit] |
+| [Whoami](apps/whoami)                 |     ![whoami-status]     |   ![whoami-rootless]   |   ![whoami-healthchecks]   |   ![whoami-checks]   |   ![whoami-version]   |   ![whoami-commit]   |
+| [Wireguard](apps/wireguard)           |                          |                        |                            |                      |                       |                      |
+| [Wishlist](apps/wishlist)             |    ![wishlist-status]    |  ![wishlist-rootless]  |  ![wishlist-healthchecks]  |  ![wishlist-checks]  |  ![wishlist-version]  |  ![wishlist-commit]  |
 
 ## How to use it?
 
@@ -105,6 +105,8 @@ Icons made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> from
 <!-- Grocy -->
 
 <!-- Home Assistant -->
+
+[home-assistant-status]: https://img.shields.io/badge/archived-red?style=flat-square
 
 <!-- Homepage -->
 
