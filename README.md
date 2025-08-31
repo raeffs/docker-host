@@ -48,7 +48,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Wallabag](apps/wallabag)             |                          |                        |                            |                      |                       |                      |
 | [Watchtower](apps/watchtower)         |   ![watchtower-status]   | ![watchtower-rootless] | ![watchtower-healthchecks] | ![watchtower-checks] | ![watchtower-version] | ![watchtower-commit] |
 | [Whoami](apps/whoami)                 |     ![whoami-status]     |   ![whoami-rootless]   |   ![whoami-healthchecks]   |   ![whoami-checks]   |   ![whoami-version]   |   ![whoami-commit]   |
-| [Wireguard](apps/wireguard)           |                          |                        |                            |                      |                       |                      |
+| [WireGuard](apps/wireguard)           |   ![wireguard-status]    |                        |                            |                      |                       |                      |
 | [Wishlist](apps/wishlist)             |    ![wishlist-status]    |  ![wishlist-rootless]  |  ![wishlist-healthchecks]  |  ![wishlist-checks]  |  ![wishlist-version]  |  ![wishlist-commit]  |
 
 ## How to use it?
@@ -205,7 +205,9 @@ Icons made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> from
 [whoami-version]: https://img.shields.io/github/v/release/traefik/whoami?style=flat-square&label=%20
 [whoami-commit]: https://img.shields.io/github/last-commit/traefik/whoami?style=flat-square&label=%20
 
-<!-- Wireguard -->
+<!-- WireGuard -->
+
+[wireguard-status]: https://img.shields.io/badge/archived-red?style=flat-square
 
 <!-- Wishlist -->
 
