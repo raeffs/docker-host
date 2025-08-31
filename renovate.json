@@ -5,5 +5,11 @@
     "enabled": true,
     "schedule": ["before 4am on sunday"]
   },
-  "ignorePaths": ["**/node_modules/**", "**/bower_components/**", "apps/mastodon", "apps/home-assistant"]
+  "ignorePaths": [
+    "**/node_modules/**",
+    "**/bower_components/**",
+    "apps/mastodon",
+    "apps/home-assistant",
+    "apps/wireguard"
+  ]
 }
