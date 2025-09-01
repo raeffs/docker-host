@@ -1,0 +1,46 @@
+services:
+  wallabag:
+    container_name: 'wallabag'
+    image: 'wallabag/wallabag:2.6.13'
+    restart: 'unless-stopped'
+    mem_limit: 256M
+    cap_drop:
+      - 'ALL'
+    cap_add:
+      - 'CAP_DAC_OVERRIDE'
+      - 'CAP_SETGID'
+      - 'CAP_SETUID'
+      - 'CHOWN'
+    security_opt:
+      - 'no-new-privileges'
+    command: 'sh -c "/entrypoint.sh migrate && /provision.sh && /entrypoint.sh wallabag"'
+    networks:
+      - 'default-frontend'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+      - './provision.sh:/provision.sh:ro'
+    environment:
+      WALLABAG_INITIAL_USER: '${WALLABAG_INITIAL_USER}'
+      WALLABAG_INITIAL_PASSWORD: '${WALLABAG_INITIAL_PASSWORD}'
+      SYMFONY__ENV__DATABASE_DRIVER: 'pdo_pgsql'
+      SYMFONY__ENV__DATABASE_HOST: '${WALLABAG_POSTGRES_SERVER}'
+      SYMFONY__ENV__DATABASE_PORT: '${WALLABAG_POSTGRES_PORT}'
+      SYMFONY__ENV__DATABASE_USER: '${WALLABAG_POSTGRES_USER}'
+      SYMFONY__ENV__DATABASE_PASSWORD: '${WALLABAG_POSTGRES_PASSWORD}'
+      SYMFONY__ENV__DATABASE_NAME: '${WALLABAG_POSTGRES_DATABASE}'
+      SYMFONY__ENV__DOMAIN_NAME: 'https://${WALLABAG_DOMAIN}'
+      SYMFONY__ENV__FOSUSER_REGISTRATION: 'false'
+      SYMFONY__ENV__SECRET: '${WALLABAG_SECRET}'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.wallabag.rule=Host(`${WALLABAG_DOMAIN}`)'
+      - 'traefik.http.routers.wallabag.entrypoints=websecure'
+      - 'traefik.http.routers.wallabag.tls=true'
+      - 'traefik.http.routers.wallabag.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.wallabag.tls.domains[0].main=${WALLABAG_DOMAIN}'
+      - 'traefik.http.routers.wallabag.middlewares=default@file'
+      - 'traefik.http.services.wallabag.loadbalancer.server.port=80'
+
+networks:
+  default-frontend:
+    external: true
