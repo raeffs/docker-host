@@ -5,6 +5,7 @@
     "enabled": true,
     "schedule": ["before 4am on sunday"]
   },
+  "minimumReleaseAge": "7 days",
   "ignorePaths": [
     "**/node_modules/**",
     "**/bower_components/**",
