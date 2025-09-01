@@ -1,8 +1,7 @@
-
 services:
   wallabag:
     extends:
-      file: '../../libs/base/docker-compose.yml'
+      file: '../../../libs/base/docker-compose.yml'
       service: 'base'
     container_name: 'wallabag'
     image: 'wallabag/wallabag:latest'
@@ -42,7 +41,7 @@ services:
 
   wallabag-db:
     extends:
-      file: '../../libs/base/docker-compose.yml'
+      file: '../../../libs/base/docker-compose.yml'
       service: 'base'
     container_name: 'wallabag-db'
     image: 'postgres'
@@ -60,7 +59,7 @@ services:
 
   wallabag-cache:
     extends:
-      file: '../../libs/base/docker-compose.yml'
+      file: '../../../libs/base/docker-compose.yml'
       service: 'base'
     container_name: 'wallabag-cache'
     image: 'redis:alpine'
