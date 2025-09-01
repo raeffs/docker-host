@@ -45,7 +45,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Traefik](apps/traefik)               |    ![traefik-status]     |  ![traefik-rootless]   |  ![traefik-healthchecks]   |  ![traefik-checks]   |  ![traefik-version]   |  ![traefik-commit]   |
 | [Unbound](apps/unbound)               |                          |                        |                            |                      |                       |                      |
 | [Verdaccio](apps/verdaccio)           |                          |                        |                            |                      |                       |                      |
-| [Wallabag](apps/wallabag)             |                          |                        |                            |                      |                       |                      |
+| [Wallabag](apps/wallabag)             |    ![wallabag-status]    |  ![wallabag-rootless]  |  ![wallabag-healthchecks]  |  ![wallabag-checks]  |  ![wallabag-version]  |  ![wallabag-commit]  |
 | [Watchtower](apps/watchtower)         |   ![watchtower-status]   | ![watchtower-rootless] | ![watchtower-healthchecks] | ![watchtower-checks] | ![watchtower-version] | ![watchtower-commit] |
 | [Whoami](apps/whoami)                 |     ![whoami-status]     |   ![whoami-rootless]   |   ![whoami-healthchecks]   |   ![whoami-checks]   |   ![whoami-version]   |   ![whoami-commit]   |
 | [WireGuard](apps/wireguard)           |   ![wireguard-status]    |                        |                            |                      |                       |                      |
@@ -186,6 +186,13 @@ Icons made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> from
 <!-- Verdaccio -->
 
 <!-- Wallabag -->
+
+[wallabag-status]: https://img.shields.io/badge/active_(in_use)-blue?style=flat-square
+[wallabag-rootless]: https://img.shields.io/badge/no-red?style=flat-square
+[wallabag-healthchecks]: https://img.shields.io/badge/yes-blue?style=flat-square
+[wallabag-checks]: https://img.shields.io/github/actions/workflow/status/raeffs/docker-host/apps-wallabag.yml?branch=main&event=push&style=flat-square&label=%20
+[wallabag-version]: https://img.shields.io/github/v/release/wallabag/wallabag?style=flat-square&label=%20
+[wallabag-commit]: https://img.shields.io/github/last-commit/wallabag/wallabag?style=flat-square&label=%20
 
 <!-- Watchtower -->
 
