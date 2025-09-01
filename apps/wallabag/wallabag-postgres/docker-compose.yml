@@ -1,43 +1,20 @@
 services:
   wallabag:
     extends:
-      file: '../../../libs/base/docker-compose.yml'
-      service: 'base'
-    container_name: 'wallabag'
-    image: 'wallabag/wallabag:latest'
-    command: 'sh -c "/entrypoint.sh migrate && /provision.sh && /entrypoint.sh wallabag"'
+      file: '../wallabag/docker-compose.yml'
+      service: 'wallabag'
     networks:
       - 'default-frontend'
       - 'default-backend'
-    volumes:
-      - './provision.sh:/provision.sh:ro'
     environment:
-      WALLABAG_INITIAL_USER: '${WALLABAG_INITIAL_USER}'
-      WALLABAG_INITIAL_PASSWORD: '${WALLABAG_INITIAL_PASSWORD}'
-      POSTGRES_USER: 'wallabag-user'
-      POSTGRES_PASSWORD: '${WALLABAG_POSTGRES_PASSWORD}'
-      SYMFONY__ENV__DATABASE_DRIVER: 'pdo_pgsql'
       SYMFONY__ENV__DATABASE_HOST: 'wallabag-db'
       SYMFONY__ENV__DATABASE_PORT: '5432'
       SYMFONY__ENV__DATABASE_USER: 'wallabag-user'
       SYMFONY__ENV__DATABASE_PASSWORD: '${WALLABAG_POSTGRES_PASSWORD}'
       SYMFONY__ENV__DATABASE_NAME: 'wallabag'
-      SYMFONY__ENV__DOMAIN_NAME: 'https://wallabag.${DEFAULT_DOMAIN_SUFFIX}'
-      SYMFONY__ENV__REDIS_HOST: 'wallabag-cache'
-      SYMFONY__ENV__FOSUSER_REGISTRATION: 'false'
-      SYMFONY__ENV__SECRET: '${WALLABAG_SECRET}'
     depends_on:
       wallabag-db:
         condition: 'service_healthy'
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.wallabag.rule=Host(`wallabag.${DEFAULT_DOMAIN_SUFFIX}`)'
-      - 'traefik.http.routers.wallabag.entrypoints=websecure'
-      - 'traefik.http.routers.wallabag.tls=true'
-      - 'traefik.http.routers.wallabag.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.wallabag.tls.domains[0].main=wallabag.${DEFAULT_DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.wallabag.middlewares=default@file'
-      - 'traefik.http.services.wallabag.loadbalancer.server.port=80'
 
   wallabag-db:
     extends:
@@ -50,21 +27,13 @@ services:
     volumes:
       - 'wallabag-db:/var/lib/postgresql/data'
     environment:
+      POSTGRES_DB: 'wallabag'
       POSTGRES_USER: 'wallabag-user'
       POSTGRES_PASSWORD: '${WALLABAG_POSTGRES_PASSWORD}'
     healthcheck:
-      test: 'pg_isready -U wallabag-user'
+      test: 'pg_isready -U wallabag-user -d wallabag'
       start_period: '5s'
       interval: '5s'
-
-  wallabag-cache:
-    extends:
-      file: '../../../libs/base/docker-compose.yml'
-      service: 'base'
-    container_name: 'wallabag-cache'
-    image: 'redis:alpine'
-    networks:
-      - 'default-backend'
 
 volumes:
   wallabag-db:
