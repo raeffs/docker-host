@@ -12,20 +12,29 @@
       "options": {
         "variables": [
           {
+            "name": "WALLABAG_DOMAIN",
+            "description": "Public domain name for Wallabag.",
+            "defaultValue": "wallabag.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
             "name": "WALLABAG_POSTGRES_PASSWORD",
-            "description": "Password of the Wallabag PostgreSQL database."
+            "description": "Password of the Wallabag PostgreSQL database.",
+            "type": "password"
           },
           {
             "name": "WALLABAG_INITIAL_USER",
-            "description": "Username of the initial Wallabag user."
+            "description": "Username of the initial Wallabag user.",
+            "defaultValue": "admin"
           },
           {
             "name": "WALLABAG_INITIAL_PASSWORD",
-            "description": "Password of the initial Wallabag user."
+            "description": "Password of the initial Wallabag user.",
+            "type": "password"
           },
           {
             "name": "WALLABAG_SECRET",
-            "description": "Random secret."
+            "description": "",
+            "type": "generated"
           }
         ]
       }
