@@ -9,5 +9,3 @@ else
     echo 'Creating initial user'
     /var/www/wallabag/bin/console --env=prod fos:user:create ${WALLABAG_INITIAL_USER} ${WALLABAG_INITIAL_USER}@wallabag.io ${WALLABAG_INITIAL_PASSWORD} --super-admin
 fi
-
-/var/www/wallabag/bin/console --env=prod fos:user:deactivate wallabag
