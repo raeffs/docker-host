@@ -9,8 +9,9 @@
   "ignorePaths": [
     "**/node_modules/**",
     "**/bower_components/**",
-    "apps/mastodon",
+    "apps/adminer",
     "apps/home-assistant",
+    "apps/mastodon",
     "apps/wireguard"
   ]
 }
