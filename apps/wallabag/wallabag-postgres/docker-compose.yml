@@ -6,34 +6,21 @@ services:
     networks:
       - 'default-frontend'
       - 'default-backend'
-    environment:
-      SYMFONY__ENV__DATABASE_HOST: 'wallabag-db'
-      SYMFONY__ENV__DATABASE_PORT: '5432'
-      SYMFONY__ENV__DATABASE_USER: 'wallabag-user'
-      SYMFONY__ENV__DATABASE_PASSWORD: '${WALLABAG_POSTGRES_PASSWORD}'
-      SYMFONY__ENV__DATABASE_NAME: 'wallabag'
     depends_on:
       wallabag-db:
         condition: 'service_healthy'
 
   wallabag-db:
     extends:
-      file: '../../../libs/base/docker-compose.yml'
-      service: 'base'
+      file: '../../../libs/postgres/docker-compose.yml'
+      service: 'postgres'
     container_name: 'wallabag-db'
-    image: 'postgres'
     networks:
       - 'default-backend'
     volumes:
       - 'wallabag-db:/var/lib/postgresql/data'
     environment:
-      POSTGRES_DB: 'wallabag'
-      POSTGRES_USER: 'wallabag-user'
       POSTGRES_PASSWORD: '${WALLABAG_POSTGRES_PASSWORD}'
-    healthcheck:
-      test: 'pg_isready -U wallabag-user -d wallabag'
-      start_period: '5s'
-      interval: '5s'
 
 volumes:
   wallabag-db:
