@@ -14,7 +14,7 @@ You can find a list of services that are included below. I try to create a folde
 
 | Service                               |          Status          |        Rootless        |        Healthchecks        |      CI Checks       |    Latest Version     |     Last Commit      |
 | ------------------------------------- | :----------------------: | :--------------------: | :------------------------: | :------------------: | :-------------------: | :------------------: |
-| [Adminer](apps/adminer)               |                          |                        |                            |                      |                       |                      |
+| [Adminer](apps/adminer)               |    ![adminer-status]     |                        |                            |                      |                       |                      |
 | [Authelia](apps/authelia)             |                          |                        |                            |                      |                       |                      |
 | [Baikal](apps/baikal)                 |                          |                        |                            |                      |                       |                      |
 | [Bonob](apps/bonob)                   |     ![bonob-status]      |   ![bonob-rootless]    |   ![bonob-healthchecks]    |   ![bonob-checks]    |   ![bonob-version]    |   ![bonob-commit]    |
@@ -71,6 +71,8 @@ If you found a bug or have an idea on how to improve the setup, feel free to sen
 Icons made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
 
 <!-- Adminer -->
+
+[adminer-status]: https://img.shields.io/badge/archived-red?style=flat-square
 
 <!-- Authelia -->
 
