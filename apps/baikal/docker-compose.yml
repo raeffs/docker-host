@@ -1,18 +1,17 @@
-
 services:
   baikal:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
     container_name: 'baikal'
-    image: 'ckulka/baikal'
+    image: 'ckulka/baikal:0.10.1-nginx'
+    restart: 'unless-stopped'
     networks:
       - 'default-frontend'
     volumes:
+      - '/etc/localtime:/etc/localtime:ro'
       - 'baikal-data:/var/www/baikal/Specific'
       - 'baikal-config:/var/www/baikal/config'
     environment:
       TZ: 'Europe/Zurich'
+      BAIKAL_SKIP_CHOWN: 'TRUE'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.baikal.rule=Host(`${BAIKAL_DOMAIN}`)'
