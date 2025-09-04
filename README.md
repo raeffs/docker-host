@@ -16,7 +16,7 @@ You can find a list of services that are included below. I try to create a folde
 | ------------------------------------- | :----------------------: | :--------------------: | :------------------------: | :------------------: | :-------------------: | :------------------: |
 | [Adminer](apps/adminer)               |    ![adminer-status]     |                        |                            |                      |                       |                      |
 | [Authelia](apps/authelia)             |                          |                        |                            |                      |                       |                      |
-| [Baikal](apps/baikal)                 |                          |                        |                            |                      |                       |                      |
+| [Baikal](apps/baikal)                 |     ![baikal-status]     |   ![baikal-rootless]   |   ![baikal-healthchecks]   |   ![baikal-checks]   |   ![baikal-version]   |   ![baikal-commit]   |
 | [Bonob](apps/bonob)                   |     ![bonob-status]      |   ![bonob-rootless]    |   ![bonob-healthchecks]    |   ![bonob-checks]    |   ![bonob-version]    |   ![bonob-commit]    |
 | [Commento](apps/commento)             |                          |                        |                            |                      |                       |                      |
 | [Dozzle](apps/dozzle)                 |     ![dozzle-status]     |   ![dozzle-rootless]   |   ![dozzle-healthchecks]   |   ![dozzle-checks]   |   ![dozzle-version]   |   ![dozzle-commit]   |
@@ -77,6 +77,13 @@ Icons made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> from
 <!-- Authelia -->
 
 <!-- Baikal -->
+
+[baikal-status]: https://img.shields.io/badge/active_(in_use)-blue?style=flat-square
+[baikal-rootless]: https://img.shields.io/badge/no-red?style=flat-square
+[baikal-healthchecks]: https://img.shields.io/badge/no-red?style=flat-square
+[baikal-checks]: https://img.shields.io/github/actions/workflow/status/raeffs/docker-host/apps-baikal.yml?branch=main&event=push&style=flat-square&label=%20
+[baikal-version]: https://img.shields.io/github/v/release/sabre-io/Baikal?style=flat-square&label=%20
+[baikal-commit]: https://img.shields.io/github/last-commit/sabre-io/Baikal?style=flat-square&label=%20
 
 <!-- Bonob -->
 
