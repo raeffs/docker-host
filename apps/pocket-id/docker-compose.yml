@@ -1,7 +1,7 @@
 services:
   pocket-id:
     container_name: 'pocket-id'
-    image: 'ghcr.io/pocket-id/pocket-id:v1.11.2-distroless'
+    image: 'ghcr.io/pocket-id/pocket-id:v1.12.0-distroless'
     restart: 'unless-stopped'
     user: '65008:65008'
     read_only: true
