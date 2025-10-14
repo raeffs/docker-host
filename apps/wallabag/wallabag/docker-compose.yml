@@ -1,7 +1,7 @@
 services:
   wallabag:
     container_name: 'wallabag'
-    image: 'wallabag/wallabag:2.6.13'
+    image: 'wallabag/wallabag:2.6.14'
     restart: 'unless-stopped'
     mem_limit: 256M
     cap_drop:
