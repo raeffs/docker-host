@@ -27,6 +27,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Home Assistant](apps/home-assistant) | ![home-assistant-status] |                        |                            |                      |                       |                      |
 | [Homepage](apps/homepage)             |    ![homepage-status]    |  ![homepage-rootless]  |  ![homepage-healthchecks]  |  ![homepage-checks]  |  ![homepage-version]  |  ![homepage-commit]  |
 | [Iperf](apps/iperf)                   |                          |                        |                            |                      |                       |                      |
+| [Keycloak](apps/keycloak)             |    ![keycloak-status]    |  ![keycloak-rootless]  |  ![keycloak-healthchecks]  |  ![keycloak-checks]  |  ![keycloak-version]  |  ![keycloak-commit]  |
 | [Leantime](apps/leantime)             |                          |                        |                            |                      |                       |                      |
 | [Mastodon](apps/mastodon)             |    ![mastodon-status]    |                        |                            |                      |                       |                      |
 | [Matomo](apps/matomo)                 |                          |                        |                            |                      |                       |                      |
@@ -127,6 +128,15 @@ Icons made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> from
 [homepage-commit]: https://img.shields.io/github/last-commit/gethomepage/homepage?style=flat-square&label=%20
 
 <!-- Iperf -->
+
+<!-- Keycloak -->
+
+[keycloak-status]: https://img.shields.io/badge/active_(in_use)-blue?style=flat-square
+[keycloak-rootless]: https://img.shields.io/badge/no-red?style=flat-square
+[keycloak-healthchecks]: https://img.shields.io/badge/no-red?style=flat-square
+[keycloak-checks]: https://img.shields.io/github/actions/workflow/status/raeffs/docker-host/apps-keycloak.yml?branch=main&event=push&style=flat-square&label=%20
+[keycloak-version]: https://img.shields.io/github/v/release/keycloak/keycloak?style=flat-square&label=%20
+[keycloak-commit]: https://img.shields.io/github/last-commit/keycloak/keycloak?style=flat-square&label=%20
 
 <!-- Leantime -->
 

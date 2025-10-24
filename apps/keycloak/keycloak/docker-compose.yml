@@ -1,0 +1,37 @@
+services:
+  keycloak:
+    container_name: 'keycloak'
+    image: 'quay.io/keycloak/keycloak:26.4.2'
+    command: 'start'
+    restart: 'unless-stopped'
+    mem_limit: 1024M
+    networks:
+      - 'default-frontend'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+      - './config/keycloak.conf:/opt/keycloak/conf/keycloak.conf:ro'
+    environment:
+      KC_HOSTNAME: 'https://${KEYCLOAK_DOMAIN}'
+      KC_DB: 'postgres'
+      KC_DB_USERNAME: '${KEYCLOAK_POSTGRES_USER}'
+      KC_DB_PASSWORD: '${KEYCLOAK_POSTGRES_PASSWORD}'
+      KC_DB_URL_HOST: '${KEYCLOAK_POSTGRES_SERVER}'
+      KC_DB_URL_DATABASE: '${KEYCLOAK_POSTGRES_DATABASE}'
+      KC_DB_URL_PORT: '${KEYCLOAK_POSTGRES_PORT}'
+      KC_BOOTSTRAP_ADMIN_USERNAME: '${KEYCLOAK_INITIAL_USER}'
+      KC_BOOTSTRAP_ADMIN_PASSWORD: '${KEYCLOAK_INITIAL_PASSWORD}'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.keycloak.rule=Host(`${KEYCLOAK_DOMAIN}`)'
+      - 'traefik.http.routers.keycloak.entrypoints=websecure'
+      - 'traefik.http.routers.keycloak.tls=true'
+      - 'traefik.http.routers.keycloak.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.keycloak.tls.domains[0].main=${KEYCLOAK_DOMAIN}'
+      - 'traefik.http.routers.keycloak.middlewares=keycloak'
+      - 'traefik.http.services.keycloak.loadbalancer.server.port=8080'
+      - 'traefik.http.middlewares.keycloak.chain.middlewares=keycloak-headers,intranet@file'
+      - 'traefik.http.middlewares.keycloak-headers.headers.customFrameOptionsValue=SAMEORIGIN'
+
+networks:
+  default-frontend:
+    external: true
