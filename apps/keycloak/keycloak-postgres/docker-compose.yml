@@ -1,0 +1,33 @@
+services:
+  keycloak:
+    extends:
+      file: '../keycloak/docker-compose.yml'
+      service: 'keycloak'
+    networks:
+      - 'default-frontend'
+      - 'default-backend'
+    depends_on:
+      keycloak-db:
+        condition: 'service_healthy'
+
+  keycloak-db:
+    extends:
+      file: '../../../libs/postgres/docker-compose.yml'
+      service: 'postgres'
+    container_name: 'keycloak-db'
+    networks:
+      - 'default-backend'
+    volumes:
+      - 'keycloak-db:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_PASSWORD: '${KEYCLOAK_POSTGRES_PASSWORD}'
+
+volumes:
+  keycloak-db:
+    external: true
+
+networks:
+  default-frontend:
+    external: true
+  default-backend:
+    external: true
