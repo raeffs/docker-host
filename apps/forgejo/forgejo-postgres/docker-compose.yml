@@ -1,0 +1,35 @@
+services:
+  forgejo:
+    extends:
+      file: '../forgejo/docker-compose.yml'
+      service: 'forgejo'
+    networks:
+      - 'default-frontend'
+      - 'default-backend'
+    depends_on:
+      forgejo-db:
+        condition: 'service_healthy'
+
+  forgejo-db:
+    extends:
+      file: '../../../libs/postgres/docker-compose.yml'
+      service: 'postgres'
+    container_name: 'forgejo-db'
+    networks:
+      - 'default-backend'
+    volumes:
+      - 'forgejo-db:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_PASSWORD: '${FORGEJO_POSTGRES_PASSWORD}'
+
+volumes:
+  forgejo-data:
+    external: true
+  forgejo-db:
+    external: true
+
+networks:
+  default-frontend:
+    external: true
+  default-backend:
+    external: true

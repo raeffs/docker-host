@@ -1,6 +1,10 @@
+global:
+  checkNewVersion: false
+  sendAnonymousUsage: false
+
 log:
   # DEBUG, INFO, WARN, ERROR, FATAL, PANIC
-  level: 'WARN'
+  level: 'INFO'
 
 providers:
   docker:
@@ -19,6 +23,8 @@ ping: {}
 entryPoints:
   websecure:
     address: :443
+  ssh-forgejo:
+    address: :2222
 
 certificatesResolvers:
   letsencrypt:
