@@ -21,7 +21,8 @@ You can find a list of services that are included below. I try to create a folde
 | [Commento](apps/commento)             |                          |                        |                            |                      |                       |                      |
 | [Dozzle](apps/dozzle)                 |     ![dozzle-status]     |   ![dozzle-rootless]   |   ![dozzle-healthchecks]   |   ![dozzle-checks]   |   ![dozzle-version]   |   ![dozzle-commit]   |
 | [Etesync](apps/etesync)               |                          |                        |                            |                      |                       |                      |
-| [Gitea](apps/gitea)                   |                          |                        |                            |                      |                       |                      |
+| [Forgejo](apps/forgejo)               |    ![forgejo-status]     |  ![forgejo-rootless]   |  ![forgejo-healthchecks]   |  ![forgejo-checks]   |  ![forgejo-version]   |  ![forgejo-commit]   |
+| [Gitea](apps/gitea)                   |     ![gitea-status]      |                        |                            |                      |                       |                      |
 | [Grafana](apps/grafana)               |                          |                        |                            |                      |                       |                      |
 | [Grocy](apps/grocy)                   |                          |                        |                            |                      |                       |                      |
 | [Home Assistant](apps/home-assistant) | ![home-assistant-status] |                        |                            |                      |                       |                      |
@@ -108,7 +109,18 @@ Icons made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> from
 
 <!-- Etesync -->
 
+<!-- Forgejo -->
+
+[forgejo-status]: https://img.shields.io/badge/active_(in_use)-blue?style=flat-square
+[forgejo-rootless]: https://img.shields.io/badge/no-red?style=flat-square
+[forgejo-healthchecks]: https://img.shields.io/badge/no-red?style=flat-square
+[forgejo-checks]: https://img.shields.io/github/actions/workflow/status/raeffs/docker-host/apps-forgejo.yml?branch=main&event=push&style=flat-square&label=%20
+[forgejo-version]: https://img.shields.io/gitea/v/release/forgejo/forgejo?gitea_url=https%3A%2F%2Fcodeberg.org&style=flat-square&label=%20
+[forgejo-commit]: https://img.shields.io/gitea/last-commit/forgejo/forgejo?gitea_url=https%3A%2F%2Fcodeberg.org&style=flat-square&label=%20
+
 <!-- Gitea -->
+
+[gitea-status]: https://img.shields.io/badge/archived-red?style=flat-square
 
 <!-- Grafana -->
 

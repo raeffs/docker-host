@@ -1,0 +1,28 @@
+{
+  "name": "forgejo-postgres",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": ["networks", "traefik"],
+  "targets": {
+    "create-volumes": {
+      "options": {
+        "volumes": ["forgejo-data", "forgejo-db"]
+      }
+    },
+    "create-variables": {
+      "options": {
+        "variables": [
+          {
+            "name": "FORGEJO_DOMAIN",
+            "description": "Public domain name for Forgejo.",
+            "defaultValue": "forgejo.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "FORGEJO_POSTGRES_PASSWORD",
+            "description": "Password used to connect to the Forgejo PostgreSQL database.",
+            "type": "password"
+          }
+        ]
+      }
+    }
+  }
+}

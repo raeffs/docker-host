@@ -1,0 +1,50 @@
+{
+  "name": "forgejo",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": ["networks", "traefik"],
+  "targets": {
+    "create-volumes": {
+      "options": {
+        "volumes": ["forgejo-data"]
+      }
+    },
+    "create-variables": {
+      "options": {
+        "variables": [
+          {
+            "name": "FORGEJO_DOMAIN",
+            "description": "Public domain name for Forgejo.",
+            "defaultValue": "forgejo.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "FORGEJO_POSTGRES_SERVER",
+            "description": "Server where the Forgejo PostgreSQL database is located."
+          },
+          {
+            "name": "FORGEJO_POSTGRES_USER",
+            "description": "User used to connect to the Forgejo PostgreSQL database."
+          },
+          {
+            "name": "FORGEJO_POSTGRES_PASSWORD",
+            "description": "Password used to connect to the Forgejo PostgreSQL database.",
+            "type": "password"
+          },
+          {
+            "name": "FORGEJO_POSTGRES_DATABASE",
+            "description": "Name of the Forgejo PostgreSQL database."
+          },
+          {
+            "name": "FORGEJO_SECRET_KEY",
+            "description": "",
+            "type": "generated"
+          },
+          {
+            "name": "FORGEJO_LFS_JWT_SECRET",
+            "description": "",
+            "type": "generated"
+          }
+        ]
+      }
+    }
+  }
+}

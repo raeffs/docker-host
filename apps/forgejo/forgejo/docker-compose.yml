@@ -1,0 +1,45 @@
+services:
+  forgejo:
+    container_name: 'forgejo'
+    image: 'codeberg.org/forgejo/forgejo:13'
+    restart: 'unless-stopped'
+    command: ['sh', '-c', 'rm -f /data/gitea/conf/app.ini && /usr/bin/s6-svscan /etc/s6']
+    networks:
+      - 'default-frontend'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+      - '/etc/timezone:/etc/timezone:ro'
+      - './config/template.app.ini:/etc/templates/app.ini:ro'
+      - 'forgejo-data:/data'
+    environment:
+      DOMAIN: '${FORGEJO_DOMAIN}'
+      SECRET_KEY: '${FORGEJO_SECRET_KEY}'
+      LFS_JWT_SECRET: '${FORGEJO_LFS_JWT_SECRET}'
+      DB_TYPE: 'postgres'
+      DB_HOST: '${FORGEJO_POSTGRES_SERVER}'
+      DB_PORT: '${FORGEJO_POSTGRES_PORT}'
+      DB_NAME: '${FORGEJO_POSTGRES_DATABASE}'
+      DB_USER: '${FORGEJO_POSTGRES_USER}'
+      DB_PASSWD: '${FORGEJO_POSTGRES_PASSWORD}'
+      SSH_PORT: '2222'
+      SSH_LISTEN_PORT: '2222'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.forgejo.rule=Host(`${FORGEJO_DOMAIN}`)'
+      - 'traefik.http.routers.forgejo.entrypoints=websecure'
+      - 'traefik.http.routers.forgejo.tls=true'
+      - 'traefik.http.routers.forgejo.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.forgejo.tls.domains[0].main=${FORGEJO_DOMAIN}'
+      - 'traefik.http.routers.forgejo.middlewares=intranet@file'
+      - 'traefik.http.services.forgejo.loadbalancer.server.port=3000'
+      - 'traefik.tcp.routers.forgejo-ssh.entrypoints=ssh-forgejo'
+      - 'traefik.tcp.routers.forgejo-ssh.rule=HostSNI(`*`)'
+      - 'traefik.tcp.services.forgejo-ssh.loadbalancer.server.port=2222'
+
+volumes:
+  forgejo-data:
+    external: true
+
+networks:
+  default-frontend:
+    external: true
