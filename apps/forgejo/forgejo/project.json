@@ -42,6 +42,18 @@
             "name": "FORGEJO_LFS_JWT_SECRET",
             "description": "",
             "type": "generated"
+          },
+          {
+            "name": "FORGEJO_SMTP_SERVER",
+            "description": "SMTP server used by Forgejo to send emails."
+          },
+          {
+            "name": "FORGEJO_SMTP_USER",
+            "description": "SMTP login used by Forgejo to send emails."
+          },
+          {
+            "name": "FORGEJO_SMTP_PASSWORD",
+            "description": "SMTP password used by Forgejo to send emails."
           }
         ]
       }
