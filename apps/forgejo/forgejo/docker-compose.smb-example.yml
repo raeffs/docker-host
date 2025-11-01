@@ -1,0 +1,8 @@
+volumes:
+  navidrome-music:
+    external: false
+    driver: local
+    driver_opts:
+      type: 'cifs'
+      device: '//${FORGEJO_SMB_SERVER_IP}/${FORGEJO_SMB_SHARE_PATH}'
+      o: 'username=${FORGEJO_SMB_USERNAME},password=${FORGEJO_SMB_PASSWORD},domain=${FORGEJO_SMB_WORKGROUP},uid=1000,forceuid,gid=1000,forcegid'
