@@ -13,6 +13,7 @@
 docker-compose.*.yml
 !docker-compose.local.yml
 !docker-compose.base.yml
+!docker-compose.smb-example.yml
 
 /apps/redmine/themes/*
 !/apps/redmine/themes/.gitkeep

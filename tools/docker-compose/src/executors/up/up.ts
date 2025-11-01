@@ -12,6 +12,7 @@ export default function runExecutor(
     pathToComposeFile: options.pathToComposeFile,
     additionalArgs: [
       'up',
+      '--yes',
       '--remove-orphans',
       ...(options.detach ? ['--detach'] : []),
       ...(options.force ? ['--force-recreate'] : []),
