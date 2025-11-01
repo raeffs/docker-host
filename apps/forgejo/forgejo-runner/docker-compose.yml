@@ -1,0 +1,31 @@
+services:
+  forgejo-runner-dind:
+    container_name: 'forgejo-runner-dind'
+    image: 'code.forgejo.org/oci/docker:dind'
+    restart: 'unless-stopped'
+    command: ['dockerd', '-H', 'tcp://0.0.0.0:2375', '--tls=false']
+    privileged: true
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+      - '/etc/timezone:/etc/timezone:ro'
+    environment:
+      DOCKER_HOST: 'forgejo-runner-dind'
+
+  forgejo-runner:
+    container_name: 'forgejo-runner'
+    image: 'data.forgejo.org/forgejo/runner:11'
+    restart: 'unless-stopped'
+    stop_signal: 'SIGKILL'
+    command: >-
+      bash -c '
+      while : ; do forgejo-runner create-runner-file --connect --instance https://${FORGEJO_DOMAIN} --secret ${FORGEJO_RUNNER_SHARED_SECRET} && break ; sleep 1 ; done ;
+      while : ; do test -w .runner && forgejo-runner daemon --config config.yml ; sleep 1 ; done
+      '
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+      - '/etc/timezone:/etc/timezone:ro'
+      - './config/config.yml:/data/config.yml:ro'
+    environment:
+      DOCKER_HOST: 'tcp://forgejo-runner-dind:2375'
+    links:
+      - 'forgejo-runner-dind'
