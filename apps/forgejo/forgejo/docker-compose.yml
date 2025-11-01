@@ -27,6 +27,9 @@ services:
       SMTP_USER: '${FORGEJO_SMTP_USER}'
       SMTP_PASSWORD: '${FORGEJO_SMTP_PASSWORD}'
       SMTP_FROM: '${FORGEJO_SMTP_FROM_ADDRESS}'
+      HTTP_PORT: '3000'
+      SSH_PORT: '2222'
+      SSH_LISTEN_PORT: '2222'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.forgejo.rule=Host(`${FORGEJO_DOMAIN}`)'
