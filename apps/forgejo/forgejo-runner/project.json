@@ -1,0 +1,22 @@
+{
+  "name": "forgejo-runner",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": [],
+  "targets": {
+    "create-variables": {
+      "options": {
+        "variables": [
+          {
+            "name": "FORGEJO_DOMAIN",
+            "description": "Public domain name of the Forgejo instance.",
+            "defaultValue": "forgejo.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "FORGEJO_RUNNER_SHARED_SECRET",
+            "description": "Shared secret used to initialize the runner and register it at the Forgejo instance."
+          }
+        ]
+      }
+    }
+  }
+}

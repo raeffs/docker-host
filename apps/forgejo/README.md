@@ -27,3 +27,19 @@
 [forgejo-checks]: https://img.shields.io/github/actions/workflow/status/raeffs/docker-host/apps-forgejo.yml?branch=main&event=push&style=for-the-badge&label=ci%20checks
 [forgejo-version]: https://img.shields.io/gitea/v/release/forgejo/forgejo?gitea_url=https%3A%2F%2Fcodeberg.org&style=for-the-badge
 [forgejo-commit]: https://img.shields.io/gitea/last-commit/forgejo/forgejo?gitea_url=https%3A%2F%2Fcodeberg.org&style=for-the-badge
+
+## Runner Configuration
+
+Create a shared secret to configure a runner:
+
+```
+docker exec -u 1000 forgejo forgejo forgejo-cli actions generate-secret
+```
+
+Then register a runner with the shared secret:
+
+```
+docker exec -u 1000 forgejo forgejo forgejo-cli actions register --name {runner name} --scope {runner scope} --secret {shared secret}
+```
+
+Then use the shared secret to start up the runner container.
