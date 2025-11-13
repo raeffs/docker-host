@@ -1,7 +1,7 @@
 services:
   dozzle:
     container_name: 'dozzle'
-    image: 'amir20/dozzle:v8.14.6'
+    image: 'amir20/dozzle:v8.14.7'
     restart: 'unless-stopped'
     user: '65003:65003'
     read_only: true
