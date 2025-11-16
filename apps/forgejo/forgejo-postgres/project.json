@@ -20,6 +20,24 @@
             "name": "FORGEJO_POSTGRES_PASSWORD",
             "description": "Password used to connect to the Forgejo PostgreSQL database.",
             "type": "password"
+          },
+          {
+            "name": "FORGEJO_OAUTH_PROVIDER_NAME",
+            "description": "Name used for the OIDC provider.",
+            "defaultValue": "pocket-id"
+          },
+          {
+            "name": "FORGEJO_OAUTH_PROVIDER_DOMAIN",
+            "description": "Domain of the OIDC provider.",
+            "defaultValue": "${POCKET_ID_DOMAIN}"
+          },
+          {
+            "name": "FORGEJO_OAUTH_CLIENT_ID",
+            "description": "Client ID for Forgejo to authenticate against the OIDC provider."
+          },
+          {
+            "name": "FORGEJO_OAUTH_CLIENT_SECRET",
+            "description": "Client secret for Forgejo to authenticate against the OIDC provider."
           }
         ]
       }
