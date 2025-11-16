@@ -3,12 +3,36 @@ services:
     container_name: 'forgejo'
     image: 'codeberg.org/forgejo/forgejo:13'
     restart: 'unless-stopped'
-    command: ['sh', '-c', 'rm -f /data/gitea/conf/app.ini && /usr/bin/s6-svscan /etc/s6']
+    command: >
+      sh -c '
+        echo "Starting container entrypoint..."
+
+        rm -f /data/gitea/conf/app.ini
+
+        /usr/bin/s6-svscan /etc/s6 &
+        S6_PID=$$!
+
+        echo "Waiting for Forgejo service to become available..."
+        while ! curl -s -f http://localhost:3000 > /dev/null; do
+          if ! kill -0 $$S6_PID 2>/dev/null; then
+            echo "s6 supervisor process exited prematurely. Check logs."
+            exit 1
+          fi
+          sleep 1
+        done
+
+        echo "Forgejo is up. Running provisioning script."
+        /opt/provision.sh
+
+        echo "Provisioning finished. Bringing Forgejo process to foreground."
+        wait $$S6_PID
+      '
     networks:
       - 'default-frontend'
     volumes:
       - '/etc/localtime:/etc/localtime:ro'
       - '/etc/timezone:/etc/timezone:ro'
+      - './provision.sh:/opt/provision.sh:ro'
       - './config/template.app.ini:/etc/templates/app.ini:ro'
       - 'forgejo-data:/data'
     environment:
@@ -30,6 +54,10 @@ services:
       HTTP_PORT: '3000'
       SSH_PORT: '2222'
       SSH_LISTEN_PORT: '2222'
+      OAUTH_PROVIDER_NAME: '${FORGEJO_OAUTH_PROVIDER_NAME}'
+      OAUTH_AUTO_DISCOVER_URL: 'https://${FORGEJO_OAUTH_PROVIDER_DOMAIN}/.well-known/openid-configuration'
+      OAUTH_CLIENT_ID: '${FORGEJO_OAUTH_CLIENT_ID}'
+      OAUTH_CLIENT_SECRET: '${FORGEJO_OAUTH_CLIENT_SECRET}'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.forgejo.rule=Host(`${FORGEJO_DOMAIN}`)'
