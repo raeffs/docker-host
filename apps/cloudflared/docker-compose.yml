@@ -1,0 +1,17 @@
+services:
+  cloudflared:
+    container_name: 'cloudflared'
+    image: 'cloudflare/cloudflared:2025.11.1'
+    command: 'tunnel --no-autoupdate run'
+    restart: 'unless-stopped'
+    user: '65014:65014'
+    read_only: true
+    mem_limit: 64M
+    cap_drop:
+      - 'ALL'
+    security_opt:
+      - 'no-new-privileges'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+    environment:
+      TUNNEL_TOKEN: '${CLOUDFLARED_TOKEN}'
