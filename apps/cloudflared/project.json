@@ -1,0 +1,16 @@
+{
+  "name": "cloudflared",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "targets": {
+    "create-variables": {
+      "options": {
+        "variables": [
+          {
+            "name": "CLOUDFLARED_TOKEN",
+            "description": "Token used to connect to Cloudflare."
+          }
+        ]
+      }
+    }
+  }
+}
