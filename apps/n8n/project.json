@@ -1,0 +1,40 @@
+{
+  "name": "n8n",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": ["networks", "traefik"],
+  "targets": {
+    "create-volumes": {
+      "options": {
+        "volumes": ["n8n-data"]
+      }
+    },
+    "create-variables": {
+      "options": {
+        "variables": [
+          {
+            "name": "N8N_DOMAIN",
+            "description": "Public domain name for N8n.",
+            "defaultValue": "n8n.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "N8N_POSTGRES_SERVER",
+            "description": "Server where the n8n PostgreSQL database is located."
+          },
+          {
+            "name": "N8N_POSTGRES_USER",
+            "description": "User used to connect to the n8n PostgreSQL database."
+          },
+          {
+            "name": "N8N_POSTGRES_PASSWORD",
+            "description": "Password used to connect to the n8n PostgreSQL database.",
+            "type": "password"
+          },
+          {
+            "name": "N8N_POSTGRES_DATABASE",
+            "description": "Name of the n8n PostgreSQL database."
+          }
+        ]
+      }
+    }
+  }
+}
