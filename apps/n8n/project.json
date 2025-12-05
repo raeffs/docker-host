@@ -13,8 +13,13 @@
         "variables": [
           {
             "name": "N8N_DOMAIN",
-            "description": "Public domain name for N8n.",
+            "description": "Public domain name for n8n.",
             "defaultValue": "n8n.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "N8N_WEBHOOK_DOMAIN",
+            "description": "Domain used for webhooks in n8n.",
+            "defaultValue": "${N8N_DOMAIN}"
           },
           {
             "name": "N8N_POSTGRES_SERVER",

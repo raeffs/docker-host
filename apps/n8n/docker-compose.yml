@@ -10,7 +10,7 @@ services:
       - 'n8n-data:/home/node/.n8n'
     environment:
       N8N_EDITOR_BASE_URL: 'https://${N8N_DOMAIN}'
-      WEBHOOK_URL: 'https://${N8N_DOMAIN}'
+      WEBHOOK_URL: 'https://${N8N_WEBHOOK_DOMAIN}'
       DB_TYPE: 'postgresdb'
       DB_POSTGRESDB_HOST: '${N8N_POSTGRES_SERVER}'
       DB_POSTGRESDB_PORT: '${N8N_POSTGRES_PORT}'
