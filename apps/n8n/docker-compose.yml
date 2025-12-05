@@ -18,6 +18,8 @@ services:
       DB_POSTGRESDB_USER: '${N8N_POSTGRES_USER}'
       DB_POSTGRESDB_PASSWORD: '${N8N_POSTGRES_PASSWORD}'
       N8N_RUNNERS_ENABLED: true
+      TZ: 'Europe/Zurich'
+      GENERIC_TIMEZONE: 'Europe/Zurich'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.n8n.rule=Host(`${N8N_DOMAIN}`)'
