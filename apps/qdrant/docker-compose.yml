@@ -1,0 +1,32 @@
+services:
+  qdrant:
+    container_name: 'qdrant'
+    image: 'qdrant/qdrant:v1.16.2-unprivileged'
+    restart: 'unless-stopped'
+    mem_limit: 128M
+    networks:
+      - 'default-frontend'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+      - './config/production.yaml:/qdrant/config/production.yaml:ro'
+      - 'qdrant-data:/qdrant/storage'
+    environment:
+      QDRANT__SERVICE__API_KEY: '${QDRANT_APIKEY}'
+      QDRANT__SERVICE__READ_ONLY_API_KEY: '${QDRANT_READONLY_APIKEY}'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.qdrant.rule=Host(`${QDRANT_DOMAIN}`)'
+      - 'traefik.http.routers.qdrant.entrypoints=websecure'
+      - 'traefik.http.routers.qdrant.tls=true'
+      - 'traefik.http.routers.qdrant.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.qdrant.tls.domains[0].main=${QDRANT_DOMAIN}'
+      - 'traefik.http.routers.qdrant.middlewares=intranet@file'
+      - 'traefik.http.services.qdrant.loadbalancer.server.port=6333'
+
+volumes:
+  qdrant-data:
+    external: true
+
+networks:
+  default-frontend:
+    external: true
