@@ -4,7 +4,7 @@ services:
     image: 'cloudflare/cloudflared:2025.11.1'
     command: 'tunnel --no-autoupdate run'
     restart: 'unless-stopped'
-    user: '65014:65014'
+    user: '65015:65015'
     read_only: true
     mem_limit: 64M
     cap_drop:

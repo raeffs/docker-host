@@ -1,0 +1,6 @@
+telemetry_disabled: true
+
+log_level: INFO
+
+service:
+  grpc_port: null

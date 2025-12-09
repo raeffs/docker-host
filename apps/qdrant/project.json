@@ -1,0 +1,33 @@
+{
+  "name": "qdrant",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": ["networks", "traefik"],
+  "targets": {
+    "create-volumes": {
+      "options": {
+        "volumes": ["qdrant-data"]
+      }
+    },
+    "create-variables": {
+      "options": {
+        "variables": [
+          {
+            "name": "QDRANT_DOMAIN",
+            "description": "Public domain name for Qdrant.",
+            "defaultValue": "qdrant.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "QDRANT_APIKEY",
+            "description": "API key required to access the Qdrant API.",
+            "type": "generated"
+          },
+          {
+            "name": "QDRANT_READONLY_APIKEY",
+            "description": "API key required to access the Qdrant API in readonly mode.",
+            "type": "generated"
+          }
+        ]
+      }
+    }
+  }
+}
