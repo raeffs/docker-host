@@ -17,7 +17,7 @@ jobs:
         uses: volta-cli/action@v4
 
       - name: Restore cached Yarn Dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             **/node_modules
