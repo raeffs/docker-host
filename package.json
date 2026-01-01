@@ -27,7 +27,7 @@
     "@swc-node/register": "1.11.1",
     "@swc/cli": "0.7.9",
     "@swc/core": "1.15.7",
-    "@swc/helpers": "0.5.17",
+    "@swc/helpers": "0.5.18",
     "@typescript-eslint/eslint-plugin": "8.50.1",
     "@typescript-eslint/parser": "8.50.1",
     "enquirer": "2.4.1",
