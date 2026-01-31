@@ -6,6 +6,7 @@
     "schedule": ["before 4am on sunday"]
   },
   "minimumReleaseAge": "7 days",
+  "minimumReleaseAgeBehaviour": "timestamp-optional",
   "ignorePaths": [
     "**/node_modules/**",
     "**/bower_components/**",
