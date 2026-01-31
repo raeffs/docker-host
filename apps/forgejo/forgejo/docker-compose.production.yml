@@ -1,3 +1,7 @@
+services:
+  forgejo:
+    image: 'codeberg.org/forgejo/forgejo:13'
+
 volumes:
   forgejo-data:
     external: false
