@@ -1,12 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
-  "lockFileMaintenance": {
-    "enabled": true,
-    "schedule": ["before 4am on sunday"]
-  },
-  "minimumReleaseAge": "7 days",
-  "minimumReleaseAgeBehaviour": "timestamp-optional",
+  "extends": ["config:best-practices"],
   "ignorePaths": [
     "**/node_modules/**",
     "**/bower_components/**",
