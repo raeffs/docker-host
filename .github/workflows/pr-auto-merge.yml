@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
       - name: Enable Auto-Merge for trusted Authors
         run: gh pr merge ${{ github.event.pull_request.number }} --rebase --auto --delete-branch
