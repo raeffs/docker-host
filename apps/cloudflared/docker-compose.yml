@@ -1,7 +1,7 @@
 services:
   cloudflared:
     container_name: 'cloudflared'
-    image: 'cloudflare/cloudflared:2026.1.1'
+    image: 'cloudflare/cloudflared:2026.1.2'
     command: 'tunnel --no-autoupdate run'
     restart: 'unless-stopped'
     user: '65015:65015'
