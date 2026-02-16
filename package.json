@@ -17,13 +17,13 @@
     "restore-volumes": "nx restore-volumes"
   },
   "devDependencies": {
-    "@nx/devkit": "22.5.0",
-    "@nx/eslint-plugin": "22.5.0",
-    "@nx/jest": "22.5.0",
-    "@nx/js": "22.5.0",
-    "@nx/plugin": "22.5.0",
-    "@nx/webpack": "22.5.0",
-    "@nx/workspace": "22.5.0",
+    "@nx/devkit": "22.5.1",
+    "@nx/eslint-plugin": "22.5.1",
+    "@nx/jest": "22.5.1",
+    "@nx/js": "22.5.1",
+    "@nx/plugin": "22.5.1",
+    "@nx/webpack": "22.5.1",
+    "@nx/workspace": "22.5.1",
     "@swc-node/register": "1.11.1",
     "@swc/cli": "0.8.0",
     "@swc/core": "1.15.11",
@@ -34,11 +34,11 @@
     "eslint": "9.39.2",
     "eslint-config-prettier": "10.1.8",
     "jsonc-eslint-parser": "2.4.2",
-    "nx": "22.5.0",
+    "nx": "22.5.1",
     "prettier": "3.8.1",
     "tslib": "2.8.1",
     "typescript": "5.9.3",
-    "@nx/eslint": "22.5.0"
+    "@nx/eslint": "22.5.1"
   },
   "volta": {
     "node": "24.13.1",
