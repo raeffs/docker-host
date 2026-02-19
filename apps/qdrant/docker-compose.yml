@@ -1,7 +1,7 @@
 services:
   qdrant:
     container_name: 'qdrant'
-    image: 'qdrant/qdrant:v1.16.3-unprivileged'
+    image: 'qdrant/qdrant:v1.17.0-unprivileged'
     restart: 'unless-stopped'
     mem_limit: 256M
     networks:
