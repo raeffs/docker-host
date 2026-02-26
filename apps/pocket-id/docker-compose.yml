@@ -15,11 +15,10 @@ services:
     volumes:
       - '/etc/localtime:/etc/localtime:ro'
       - 'pocket-id-data:/app/data'
+    env_file: 'static.env'
     environment:
       APP_URL: 'https://${POCKET_ID_DOMAIN}'
       TRUST_PROXY: 'true'
-      VERSION_CHECK_DISABLED: '${POCKET_ID_VERSION_CHECK_DISABLED}'
-      ANALYTICS_DISABLED: '${POCKET_ID_ANALYTICS_DISABLED}'
       ENCRYPTION_KEY: '${POCKET_ID_ENCRYPTION_KEY}'
     labels:
       - 'traefik.enable=true'
