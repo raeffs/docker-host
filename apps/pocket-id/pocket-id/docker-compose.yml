@@ -21,6 +21,12 @@ services:
       ENCRYPTION_KEY: '${POCKET_ID_ENCRYPTION_KEY}'
       DB_CONNECTION_STRING: 'postgres://${POCKET_ID_POSTGRES_USER}:${POCKET_ID_POSTGRES_PASSWORD}@${POCKET_ID_POSTGRES_SERVER}:${POCKET_ID_POSTGRES_PORT}/${POCKET_ID_POSTGRES_DATABASE}?sslmode=require'
       FILE_BACKEND: 'database'
+      SMTP_HOST: '${POCKET_ID_SMTP_HOST}'
+      SMTP_PORT: '${POCKET_ID_SMTP_PORT}'
+      SMTP_FROM: '${POCKET_ID_SMTP_USER}'
+      SMTP_USER: '${POCKET_ID_SMTP_USER}'
+      SMTP_PASSWORD: '${POCKET_ID_SMTP_PASSWORD}'
+      SMTP_TLS: '${POCKET_ID_SMTP_TLS}'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.pocket-id.rule=Host(`${POCKET_ID_DOMAIN}`)'
