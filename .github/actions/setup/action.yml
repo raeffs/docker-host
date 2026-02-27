@@ -1,12 +1,9 @@
 name: Repository Setup
-description: Checkout repository, install Volta, restore Yarn cache, and install dependencies
+description: Install Volta, restore Yarn cache, and install dependencies
 
 runs:
   using: composite
   steps:
-    - name: Checkout Repository
-      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-
     - name: Install Volta
       uses: volta-cli/action@5c175f92dea6f48441c436471e6479dbc192e194 # v4
 
