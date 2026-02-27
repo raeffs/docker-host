@@ -32,6 +32,18 @@
           {
             "name": "POCKET_ID_POSTGRES_DATABASE",
             "description": "Name of the Pocket ID PostgreSQL database."
+          },
+          {
+            "name": "POCKET_ID_SMTP_HOST",
+            "description": "SMTP server used by Pocket ID to send emails."
+          },
+          {
+            "name": "POCKET_ID_SMTP_USER",
+            "description": "SMTP login used by Pocket ID to send emails."
+          },
+          {
+            "name": "POCKET_ID_SMTP_PASSWORD",
+            "description": "SMTP password used by Pocket ID to send emails."
           }
         ]
       }
