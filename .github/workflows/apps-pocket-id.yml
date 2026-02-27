@@ -43,4 +43,4 @@ jobs:
         with:
           retry-interval: 5
           max-retries: 10
-          compose-file: apps/pocket-id/docker-compose.yml
+          compose-file: apps/pocket-id-postgres/docker-compose.yml
