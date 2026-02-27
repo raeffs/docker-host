@@ -3,11 +3,6 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "implicitDependencies": ["networks", "traefik"],
   "targets": {
-    "create-volumes": {
-      "options": {
-        "volumes": [{ "name": "pocket-id-data", "userId": 65008 }]
-      }
-    },
     "create-variables": {
       "options": {
         "variables": [
@@ -20,6 +15,23 @@
             "name": "POCKET_ID_ENCRYPTION_KEY",
             "description": "",
             "type": "generated"
+          },
+          {
+            "name": "POCKET_ID_POSTGRES_SERVER",
+            "description": "Server where the Pocket ID PostgreSQL database is located."
+          },
+          {
+            "name": "POCKET_ID_POSTGRES_USER",
+            "description": "User used to connect to the Pocket ID PostgreSQL database."
+          },
+          {
+            "name": "POCKET_ID_POSTGRES_PASSWORD",
+            "description": "Password used to connect to the Pocket ID PostgreSQL database.",
+            "type": "password"
+          },
+          {
+            "name": "POCKET_ID_POSTGRES_DATABASE",
+            "description": "Name of the Pocket ID PostgreSQL database."
           }
         ]
       }

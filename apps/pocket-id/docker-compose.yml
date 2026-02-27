@@ -14,12 +14,13 @@ services:
       - 'default-frontend'
     volumes:
       - '/etc/localtime:/etc/localtime:ro'
-      - 'pocket-id-data:/app/data'
     env_file: 'static.env'
     environment:
       APP_URL: 'https://${POCKET_ID_DOMAIN}'
       TRUST_PROXY: 'true'
       ENCRYPTION_KEY: '${POCKET_ID_ENCRYPTION_KEY}'
+      DB_CONNECTION_STRING: 'postgres://${POCKET_ID_POSTGRES_USER}:${POCKET_ID_POSTGRES_PASSWORD}@${POCKET_ID_POSTGRES_SERVER}:${POCKET_ID_POSTGRES_PORT}/${POCKET_ID_POSTGRES_DATABASE}?sslmode=require'
+      FILE_BACKEND: 'database'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.pocket-id.rule=Host(`${POCKET_ID_DOMAIN}`)'
@@ -35,10 +36,6 @@ services:
       timeout: 5s
       retries: 2
       start_period: 10s
-
-volumes:
-  pocket-id-data:
-    external: true
 
 networks:
   default-frontend:
