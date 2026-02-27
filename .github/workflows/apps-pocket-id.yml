@@ -32,15 +32,8 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Configure Pocket ID
-        run: yarn configure pocket-id-postgres --use-defaults
-
-      - name: Start Pocket ID
-        run: yarn up pocket-id-postgres
-
-      - name: Wait for Containers to be healthy
-        uses: jaracogmbh/docker-compose-health-check-action@973fbdccf7c8e396b652d3501984c8e530a9fa80 # v1.0.0
+      - name: Healthcheck
+        uses: ./.github/actions/healthcheck
         with:
-          retry-interval: 5
-          max-retries: 10
+          app-name: pocket-id-postgres
           compose-file: apps/pocket-id/pocket-id-postgres/docker-compose.yml

@@ -32,15 +32,8 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Configure Homepage
-        run: yarn configure homepage --use-defaults
-
-      - name: Start Homepage
-        run: yarn up homepage
-
-      - name: Wait for Containers to be healthy
-        uses: jaracogmbh/docker-compose-health-check-action@973fbdccf7c8e396b652d3501984c8e530a9fa80 # v1.0.0
+      - name: Healthcheck
+        uses: ./.github/actions/healthcheck
         with:
-          retry-interval: 5
-          max-retries: 10
+          app-name: homepage
           compose-file: apps/homepage/docker-compose.yml
