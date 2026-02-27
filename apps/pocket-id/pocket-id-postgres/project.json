@@ -1,0 +1,33 @@
+{
+  "name": "pocket-id-postgres",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": ["networks", "traefik"],
+  "targets": {
+    "create-volumes": {
+      "options": {
+        "volumes": ["pocket-id-db"]
+      }
+    },
+    "create-variables": {
+      "options": {
+        "variables": [
+          {
+            "name": "POCKET_ID_DOMAIN",
+            "description": "Public domain name for Pocket ID.",
+            "defaultValue": "pocket-id.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "POCKET_ID_ENCRYPTION_KEY",
+            "description": "",
+            "type": "generated"
+          },
+          {
+            "name": "POCKET_ID_POSTGRES_PASSWORD",
+            "description": "Password used to connect to the Pocket ID PostgreSQL database.",
+            "type": "password"
+          }
+        ]
+      }
+    }
+  }
+}

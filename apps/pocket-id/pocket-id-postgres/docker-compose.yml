@@ -1,0 +1,33 @@
+services:
+  pocket-id:
+    extends:
+      file: '../pocket-id/docker-compose.yml'
+      service: 'pocket-id'
+    networks:
+      - 'default-frontend'
+      - 'default-backend'
+    depends_on:
+      pocket-id-db:
+        condition: 'service_healthy'
+
+  pocket-id-db:
+    extends:
+      file: '../../../libs/postgres/docker-compose.yml'
+      service: 'postgres'
+    container_name: 'pocket-id-db'
+    networks:
+      - 'default-backend'
+    volumes:
+      - 'pocket-id-db:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_PASSWORD: '${POCKET_ID_POSTGRES_PASSWORD}'
+
+volumes:
+  pocket-id-db:
+    external: true
+
+networks:
+  default-frontend:
+    external: true
+  default-backend:
+    external: true
