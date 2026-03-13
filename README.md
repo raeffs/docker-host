@@ -45,7 +45,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Redmine](apps/redmine)                  |        |          |              |                      |                       |                      |
 | [Seq](apps/seq)                          |        |          |              |                      |                       |                      |
 | [Traefik](apps/traefik)                  |   🟢   |    ✅    |      ✅      |  ![traefik-checks]   |  ![traefik-version]   |  ![traefik-commit]   |
-| [Unbound](apps/unbound)                  |        |          |              |                      |                       |                      |
+| [Unbound](archive/unbound)               |   📦   |          |              |                      |                       |                      |
 | [Verdaccio](apps/verdaccio)              |        |          |              |                      |                       |                      |
 | [Wallabag](apps/wallabag)                |   🟢   |    ❌    |      ✅      |  ![wallabag-checks]  |  ![wallabag-version]  |  ![wallabag-commit]  |
 | [Watchtower](apps/watchtower)            |   🟢   |    ✅    |      ✅      | ![watchtower-checks] | ![watchtower-version] | ![watchtower-commit] |
