@@ -1,4 +1,3 @@
-
 services:
   commento:
     extends:
@@ -22,7 +21,7 @@ services:
       - 'traefik.http.routers.commento.tls=true'
       - 'traefik.http.routers.commento.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.commento.tls.domains[0].main=commento.${DEFAULT_DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.commento.middlewares=intranet@file'
+      - 'traefik.http.routers.commento.middlewares=default@file'
       - 'traefik.http.services.commento.loadbalancer.server.port=8080'
 
   commento-db:

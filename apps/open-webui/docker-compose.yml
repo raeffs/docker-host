@@ -23,7 +23,7 @@ services:
       - 'traefik.http.routers.open-webui.tls=true'
       - 'traefik.http.routers.open-webui.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.open-webui.tls.domains[0].main=${OPEN_WEBUI_DOMAIN}'
-      - 'traefik.http.routers.open-webui.middlewares=intranet@file'
+      - 'traefik.http.routers.open-webui.middlewares=default@file'
       - 'traefik.http.services.open-webui.loadbalancer.server.port=8080'
 
 volumes:

@@ -33,7 +33,7 @@ services:
       - 'traefik.http.routers.miniflux.tls=true'
       - 'traefik.http.routers.miniflux.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.miniflux.tls.domains[0].main=${MINIFLUX_DOMAIN}'
-      - 'traefik.http.routers.miniflux.middlewares=intranet@file'
+      - 'traefik.http.routers.miniflux.middlewares=default@file'
       - 'traefik.http.services.miniflux.loadbalancer.server.port=8080'
 
 networks:

@@ -65,7 +65,7 @@ services:
       - 'traefik.http.routers.forgejo.tls=true'
       - 'traefik.http.routers.forgejo.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.forgejo.tls.domains[0].main=${FORGEJO_DOMAIN}'
-      - 'traefik.http.routers.forgejo.middlewares=intranet@file'
+      - 'traefik.http.routers.forgejo.middlewares=default@file'
       - 'traefik.http.services.forgejo.loadbalancer.server.port=3000'
       - 'traefik.tcp.routers.forgejo-ssh.entrypoints=ssh-forgejo'
       - 'traefik.tcp.routers.forgejo-ssh.rule=HostSNI(`*`)'

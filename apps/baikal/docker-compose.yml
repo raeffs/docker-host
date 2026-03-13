@@ -19,7 +19,7 @@ services:
       - 'traefik.http.routers.baikal.tls=true'
       - 'traefik.http.routers.baikal.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.baikal.tls.domains[0].main=${BAIKAL_DOMAIN}'
-      - 'traefik.http.routers.baikal.middlewares=intranet@file'
+      - 'traefik.http.routers.baikal.middlewares=default@file'
       - 'traefik.http.services.baikal.loadbalancer.server.port=80'
 
 volumes:

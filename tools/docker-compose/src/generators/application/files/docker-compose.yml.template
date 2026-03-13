@@ -15,7 +15,7 @@ services:
       - 'traefik.http.routers.<%= applicationName %>.tls=true'
       - 'traefik.http.routers.<%= applicationName %>.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.<%= applicationName %>.tls.domains[0].main=${<%= names(applicationName).constantName %>_DOMAIN}'
-      - 'traefik.http.routers.<%= applicationName %>.middlewares=intranet@file'
+      - 'traefik.http.routers.<%= applicationName %>.middlewares=default@file'
       - 'traefik.http.services.<%= applicationName %>.loadbalancer.server.port=8080'
 
 volumes:

@@ -30,7 +30,7 @@ services:
       - 'traefik.http.routers.navidrome.tls=true'
       - 'traefik.http.routers.navidrome.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.navidrome.tls.domains[0].main=${NAVIDROME_DOMAIN}'
-      - 'traefik.http.routers.navidrome.middlewares=intranet@file'
+      - 'traefik.http.routers.navidrome.middlewares=default@file'
       - 'traefik.http.services.navidrome.loadbalancer.server.port=4533'
 
 volumes:

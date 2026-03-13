@@ -1,4 +1,3 @@
-
 services:
   adminer:
     extends:
@@ -21,7 +20,7 @@ services:
       - 'traefik.http.routers.adminer.tls=true'
       - 'traefik.http.routers.adminer.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.adminer.tls.domains[0].main=adminer.${DEFAULT_DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.adminer.middlewares=intranet@file'
+      - 'traefik.http.routers.adminer.middlewares=default@file'
       - 'traefik.http.services.adminer.loadbalancer.server.port=8080'
 
 networks:

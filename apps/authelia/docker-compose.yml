@@ -1,4 +1,3 @@
-
 services:
   authelia:
     extends:
@@ -54,7 +53,7 @@ services:
       - 'traefik.http.routers.authelia.tls=true'
       - 'traefik.http.routers.authelia.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.authelia.tls.domains[0].main=${AUTHELIA_DOMAIN}'
-      - 'traefik.http.routers.authelia.middlewares=extranet@file'
+      - 'traefik.http.routers.authelia.middlewares=default@file'
       - 'traefik.http.services.authelia.loadbalancer.server.port=9091'
 
   authelia-db:

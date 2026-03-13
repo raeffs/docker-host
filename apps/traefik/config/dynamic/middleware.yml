@@ -1,24 +1,5 @@
 http:
   middlewares:
-    intranet:
-      chain:
-        middlewares:
-          - local-only
-          - default
-    intranet-authenticated:
-      chain:
-        middlewares:
-          - authenticated
-          - intranet
-    extranet:
-      chain:
-        middlewares:
-          - default
-    extranet-authenticated:
-      chain:
-        middlewares:
-          - authenticated
-          - extranet
     default:
       chain:
         middlewares:
@@ -40,22 +21,3 @@ http:
         permanent: true
     compressd:
       compress: {}
-    authenticated:
-      forwardAuth:
-        address: 'http://authelia:9091/api/verify?rd=https://authelia.{{ env "DEFAULT_DOMAIN_SUFFIX" }}'
-        trustForwardHeader: true
-        authResponseHeaders:
-          - 'Remote-User'
-          - 'Remote-Groups'
-          - 'Remote-Email'
-          - 'Remote-Name'
-    local-only:
-      ipAllowList:
-        sourceRange:
-          - '127.0.0.1/32'
-          # local subnet
-          - '192.168.1.0/16'
-          # docker subnet
-          - '172.20.0.0/24'
-          # wireguard subnet
-          - '10.200.159.0/24'

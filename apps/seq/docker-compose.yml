@@ -1,4 +1,3 @@
-
 services:
   seq:
     extends:
@@ -19,7 +18,7 @@ services:
       - 'traefik.http.routers.seq.tls=true'
       - 'traefik.http.routers.seq.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.seq.tls.domains[0].main=seq.${DEFAULT_DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.seq.middlewares=intranet@file'
+      - 'traefik.http.routers.seq.middlewares=default@file'
       - 'traefik.http.routers.seq.service=seq'
       - 'traefik.http.services.seq.loadbalancer.server.port=80'
       - 'traefik.http.routers.seq-ingest.rule=Host(`seq-ingest.${DEFAULT_DOMAIN_SUFFIX}`)'

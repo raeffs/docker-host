@@ -1,4 +1,3 @@
-
 services:
   leantime:
     extends:
@@ -21,7 +20,7 @@ services:
       - 'traefik.http.routers.mastodon.tls=true'
       - 'traefik.http.routers.mastodon.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.mastodon.tls.domains[0].main=${LEANTIME_DOMAIN}'
-      - 'traefik.http.routers.mastodon.middlewares=extranet@file'
+      - 'traefik.http.routers.mastodon.middlewares=default@file'
       - 'traefik.http.services.mastodon.loadbalancer.server.port=80'
 
   leantime-db:

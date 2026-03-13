@@ -29,7 +29,7 @@ services:
       - 'traefik.http.routers.keycloak.tls.domains[0].main=${KEYCLOAK_DOMAIN}'
       - 'traefik.http.routers.keycloak.middlewares=keycloak'
       - 'traefik.http.services.keycloak.loadbalancer.server.port=8080'
-      - 'traefik.http.middlewares.keycloak.chain.middlewares=keycloak-headers,intranet@file'
+      - 'traefik.http.middlewares.keycloak.chain.middlewares=keycloak-headers,default@file'
       - 'traefik.http.middlewares.keycloak-headers.headers.customFrameOptionsValue=SAMEORIGIN'
 
 networks:
