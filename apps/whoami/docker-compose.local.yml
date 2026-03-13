@@ -1,12 +1,3 @@
 services:
-  whoami-extranet:
-    image: 'ghcr.io/traefik/whoami:latest'
-
-  whoami-extranet-authenticated:
-    image: 'ghcr.io/traefik/whoami:latest'
-
-  whoami-intranet:
-    image: 'ghcr.io/traefik/whoami:latest'
-
-  whoami-intranet-authenticated:
+  whoami:
     image: 'ghcr.io/traefik/whoami:latest'
