@@ -38,7 +38,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Navidrome](apps/navidrome)              |   🟢   |    ✅    |      ❌      | ![navidrome-checks]  | ![navidrome-version]  | ![navidrome-commit]  |
 | [Ofelia](apps/ofelia)                    |        |          |              |                      |                       |                      |
 | [OpenProject](apps/openproject)          |        |          |              |                      |                       |                      |
-| [PiHole](apps/pihole)                    |        |          |              |                      |                       |                      |
+| [PiHole](archive/pihole)                 |   📦   |          |              |                      |                       |                      |
 | [Pocket ID](apps/pocket-id)              |   🟢   |    ✅    |      ✅      | ![pocket-id-checks]  | ![pocket-id-version]  | ![pocket-id-commit]  |
 | [Portainer](apps/portainer)              |        |          |              |                      |                       |                      |
 | [Prometheus](apps/prometheus)            |        |          |              |                      |                       |                      |
