@@ -1,4 +1,5 @@
 import nxPlugin from '@nx/eslint-plugin';
+import eslintConfigPrettier from 'eslint-config-prettier';
 import * as jsoncParser from 'jsonc-eslint-parser';
 
 export default [
@@ -39,6 +40,6 @@ export default [
     languageOptions: {
       parser: jsoncParser,
     },
-    rules: {},
   },
+  eslintConfigPrettier,
 ];
