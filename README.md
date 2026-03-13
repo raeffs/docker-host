@@ -15,7 +15,7 @@ You can find a list of services that are included below. I try to create a folde
 | Service                                  | Status | Rootless | Healthchecks |      CI Checks       |    Latest Version     |     Last Commit      |
 | ---------------------------------------- | :----: | :------: | :----------: | :------------------: | :-------------------: | :------------------: |
 | [Adminer](archive/adminer)               |   📦   |          |              |                      |                       |                      |
-| [Authelia](apps/authelia)                |        |          |              |                      |                       |                      |
+| [Authelia](archive/authelia)             |   📦   |          |              |                      |                       |                      |
 | [Baikal](apps/baikal)                    |   🟢   |    ❌    |      ❌      |   ![baikal-checks]   |   ![baikal-version]   |   ![baikal-commit]   |
 | [Bonob](apps/bonob)                      |   🟢   |    ✅    |      ✅      |   ![bonob-checks]    |   ![bonob-version]    |   ![bonob-commit]    |
 | [Commento](apps/commento)                |        |          |              |                      |                       |                      |
@@ -49,7 +49,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Verdaccio](apps/verdaccio)              |        |          |              |                      |                       |                      |
 | [Wallabag](apps/wallabag)                |   🟢   |    ❌    |      ✅      |  ![wallabag-checks]  |  ![wallabag-version]  |  ![wallabag-commit]  |
 | [Watchtower](apps/watchtower)            |   🟢   |    ✅    |      ✅      | ![watchtower-checks] | ![watchtower-version] | ![watchtower-commit] |
-| [Whoami](apps/whoami)                    |   🟢   |    ✅    |      ❌      |  ![whoami-checks]    |  ![whoami-version]    |  ![whoami-commit]    |
+| [Whoami](apps/whoami)                    |   🟢   |    ✅    |      ❌      |   ![whoami-checks]   |   ![whoami-version]   |   ![whoami-commit]   |
 | [WireGuard](archive/wireguard)           |   📦   |          |              |                      |                       |                      |
 | [Wishlist](apps/wishlist)                |   🟢   |    ✅    |      ❌      |  ![wishlist-checks]  |  ![wishlist-version]  |  ![wishlist-commit]  |
 
