@@ -40,7 +40,7 @@ You can find a list of services that are included below. I try to create a folde
 | [OpenProject](apps/openproject)          |        |          |              |                      |                       |                      |
 | [PiHole](archive/pihole)                 |   📦   |          |              |                      |                       |                      |
 | [Pocket ID](apps/pocket-id)              |   🟢   |    ✅    |      ✅      | ![pocket-id-checks]  | ![pocket-id-version]  | ![pocket-id-commit]  |
-| [Portainer](apps/portainer)              |        |          |              |                      |                       |                      |
+| [Portainer](archive/portainer)           |   📦   |          |              |                      |                       |                      |
 | [Prometheus](apps/prometheus)            |        |          |              |                      |                       |                      |
 | [Redmine](apps/redmine)                  |        |          |              |                      |                       |                      |
 | [Seq](apps/seq)                          |        |          |              |                      |                       |                      |
