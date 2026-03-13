@@ -34,5 +34,9 @@ certificatesResolvers:
       # caServer: https://acme-staging-v02.api.letsencrypt.org/directory
       dnsChallenge:
         provider: cloudflare
-        delayBeforeCheck: 10
-        disablepropagationcheck: true
+        propagation:
+          delayBeforeChecks: 10s
+          disableChecks: true
+        resolvers:
+          - '1.1.1.1:53'
+          - '8.8.8.8:53'
