@@ -34,7 +34,7 @@ services:
       - 'traefik.http.routers.pocket-id.tls=true'
       - 'traefik.http.routers.pocket-id.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.pocket-id.tls.domains[0].main=${POCKET_ID_DOMAIN}'
-      - 'traefik.http.routers.pocket-id.middlewares=intranet@file'
+      - 'traefik.http.routers.pocket-id.middlewares=default@file'
       - 'traefik.http.services.pocket-id.loadbalancer.server.port=1411'
     healthcheck:
       test: ['CMD', '/app/pocket-id', 'healthcheck']
