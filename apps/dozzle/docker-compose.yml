@@ -25,7 +25,7 @@ services:
       - 'traefik.http.routers.dozzle.tls=true'
       - 'traefik.http.routers.dozzle.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.dozzle.tls.domains[0].main=${DOZZLE_DOMAIN}'
-      - 'traefik.http.routers.dozzle.middlewares=intranet@file'
+      - 'traefik.http.routers.dozzle.middlewares=default@file'
       - 'traefik.http.services.dozzle.loadbalancer.server.port=8080'
     healthcheck:
       test: ['CMD', '/dozzle', 'healthcheck']

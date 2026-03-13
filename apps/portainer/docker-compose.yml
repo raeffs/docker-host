@@ -1,4 +1,3 @@
-
 services:
   portainer:
     extends:
@@ -18,7 +17,7 @@ services:
       - 'traefik.http.routers.portainer.tls=true'
       - 'traefik.http.routers.portainer.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.portainer.tls.domains[0].main=${PORTAINER_DOMAIN}'
-      - 'traefik.http.routers.portainer.middlewares=intranet@file'
+      - 'traefik.http.routers.portainer.middlewares=default@file'
       - 'traefik.http.services.portainer.loadbalancer.server.port=9000'
 
 volumes:

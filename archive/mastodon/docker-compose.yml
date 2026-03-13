@@ -1,4 +1,3 @@
-
 services:
   mastodon-web:
     extends:
@@ -34,7 +33,7 @@ services:
       - 'traefik.http.routers.mastodon.tls=true'
       - 'traefik.http.routers.mastodon.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.mastodon.tls.domains[0].main=${MASTODON_DOMAIN}'
-      - 'traefik.http.routers.mastodon.middlewares=extranet@file'
+      - 'traefik.http.routers.mastodon.middlewares=default@file'
       - 'traefik.http.services.mastodon.loadbalancer.server.port=3000'
 
   mastodon-streaming:
@@ -59,7 +58,7 @@ services:
       - 'traefik.http.routers.mastodon-streaming.tls=true'
       - 'traefik.http.routers.mastodon-streaming.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.mastodon-streaming.tls.domains[0].main=${MASTODON_DOMAIN}'
-      - 'traefik.http.routers.mastodon-streaming.middlewares=extranet@file'
+      - 'traefik.http.routers.mastodon-streaming.middlewares=default@file'
       - 'traefik.http.services.mastodon-streaming.loadbalancer.server.port=4000'
 
   mastodon-sidekiq:
@@ -168,7 +167,7 @@ services:
       - 'traefik.http.routers.mastodon-static.tls=true'
       - 'traefik.http.routers.mastodon-static.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.mastodon-static.tls.domains[0].main=${MASTODON_STATIC_DOMAIN}'
-      - 'traefik.http.routers.mastodon-static.middlewares=extranet@file'
+      - 'traefik.http.routers.mastodon-static.middlewares=default@file'
       - 'traefik.http.services.mastodon-static.loadbalancer.server.port=80'
 
 volumes:

@@ -37,7 +37,7 @@ services:
       - 'traefik.http.routers.traefik.tls=true'
       - 'traefik.http.routers.traefik.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.traefik.tls.domains[0].main=${TRAEFIK_DOMAIN}'
-      - 'traefik.http.routers.traefik.middlewares=intranet@file'
+      - 'traefik.http.routers.traefik.middlewares=default@file'
     healthcheck:
       test: ['CMD', 'traefik', 'healthcheck', '--ping']
       interval: 10s

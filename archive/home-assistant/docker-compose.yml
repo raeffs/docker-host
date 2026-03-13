@@ -1,4 +1,3 @@
-
 services:
   home-assistant:
     extends:
@@ -23,7 +22,7 @@ services:
       - 'traefik.http.routers.home-assistant.tls=true'
       - 'traefik.http.routers.home-assistant.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.home-assistant.tls.domains[0].main=home-assistant.${DEFAULT_DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.home-assistant.middlewares=intranet@file'
+      - 'traefik.http.routers.home-assistant.middlewares=default@file'
       - 'traefik.http.services.home-assistant.loadbalancer.server.port=8123'
 
   home-assistant-db:

@@ -1,4 +1,3 @@
-
 services:
   prometheus:
     extends:
@@ -19,7 +18,7 @@ services:
       - 'traefik.http.routers.prometheus.tls=true'
       - 'traefik.http.routers.prometheus.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.prometheus.tls.domains[0].main=prometheus.${DEFAULT_DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.prometheus.middlewares=intranet@file'
+      - 'traefik.http.routers.prometheus.middlewares=default@file'
       - 'traefik.http.services.prometheus.loadbalancer.server.port=9090'
 
   blackbox-exporter:

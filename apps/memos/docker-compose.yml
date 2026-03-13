@@ -1,4 +1,3 @@
-
 services:
   memos:
     extends:
@@ -17,7 +16,7 @@ services:
       - 'traefik.http.routers.memos.tls=true'
       - 'traefik.http.routers.memos.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.memos.tls.domains[0].main=memos.${DEFAULT_DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.memos.middlewares=intranet@file'
+      - 'traefik.http.routers.memos.middlewares=default@file'
       - 'traefik.http.services.memos.loadbalancer.server.port=5230'
 
 volumes:

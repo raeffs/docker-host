@@ -1,4 +1,3 @@
-
 services:
   mealie:
     extends:
@@ -38,7 +37,7 @@ services:
       - 'traefik.http.routers.mealie.tls=true'
       - 'traefik.http.routers.mealie.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.mealie.tls.domains[0].main=${MEALIE_DOMAIN}'
-      - 'traefik.http.routers.mealie.middlewares=intranet@file'
+      - 'traefik.http.routers.mealie.middlewares=default@file'
       - 'traefik.http.services.mealie.loadbalancer.server.port=9000'
 
   mealie-db:

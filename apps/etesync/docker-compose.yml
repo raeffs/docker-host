@@ -1,4 +1,3 @@
-
 services:
   etesync-web:
     extends:
@@ -33,7 +32,7 @@ services:
       - 'traefik.http.routers.etesync.tls=true'
       - 'traefik.http.routers.etesync.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.etesync.tls.domains[0].main=etesync.${DEFAULT_DOMAIN_SUFFIX}'
-      - 'traefik.http.routers.etesync.middlewares=extranet@file'
+      - 'traefik.http.routers.etesync.middlewares=default@file'
       - 'traefik.http.services.etesync.loadbalancer.server.port=3735'
 
   etesync-db:

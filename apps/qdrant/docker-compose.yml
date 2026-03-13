@@ -20,7 +20,7 @@ services:
       - 'traefik.http.routers.qdrant.tls=true'
       - 'traefik.http.routers.qdrant.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.qdrant.tls.domains[0].main=${QDRANT_DOMAIN}'
-      - 'traefik.http.routers.qdrant.middlewares=intranet@file'
+      - 'traefik.http.routers.qdrant.middlewares=default@file'
       - 'traefik.http.services.qdrant.loadbalancer.server.port=6333'
 
 volumes:

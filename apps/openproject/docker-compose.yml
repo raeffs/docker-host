@@ -1,4 +1,3 @@
-
 services:
   openproject-web:
     extends:
@@ -29,7 +28,7 @@ services:
       - 'traefik.http.routers.openproject.tls=true'
       - 'traefik.http.routers.openproject.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.openproject.tls.domains[0].main=${OPENPROJECT_DOMAIN}'
-      - 'traefik.http.routers.openproject.middlewares=extranet@file'
+      - 'traefik.http.routers.openproject.middlewares=default@file'
       - 'traefik.http.services.openproject.loadbalancer.server.port=8080'
 
   openproject-worker:
