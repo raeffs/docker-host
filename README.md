@@ -23,6 +23,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Dozzle](apps/dozzle)                    |   🟢   |    ✅    |      ✅      |     ✅     |
 | [Etesync](apps/etesync)                  |        |          |              |           |
 | [Forgejo](apps/forgejo)                  |   🟢   |    ❌    |      ❌      |     ✅     |
+| [Forgejo Runner](apps/forgejo-runner)    |   🟢   |    ❌    |      ❌      |     ❌     |
 | [Gitea](archive/gitea)                   |   📦   |          |              |           |
 | [Grafana](apps/grafana)                  |        |          |              |           |
 | [Grocy](apps/grocy)                      |        |          |              |           |
