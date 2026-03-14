@@ -6,6 +6,8 @@ services:
     networks:
       - 'default-frontend'
       - 'default-backend'
+    environment:
+      DB_SSL_MODE: 'disable'
     depends_on:
       forgejo-db:
         condition: 'service_healthy'
