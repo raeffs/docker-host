@@ -3,11 +3,19 @@ services:
     container_name: 'gotify'
     image: 'ghcr.io/gotify/server:2.9.1'
     restart: 'unless-stopped'
+    mem_limit: 128M
+    cap_drop:
+      - 'ALL'
+    security_opt:
+      - 'no-new-privileges'
     networks:
       - 'default-frontend'
     volumes:
       - '/etc/localtime:/etc/localtime:ro'
       - 'gotify-data:/app/data'
+    environment:
+      GOTIFY_DATABASE_DIALECT: 'postgres'
+      GOTIFY_DATABASE_CONNECTION: 'host=${GOTIFY_POSTGRES_SERVER} port=${GOTIFY_POSTGRES_PORT} user=${GOTIFY_POSTGRES_USER} dbname=${GOTIFY_POSTGRES_DATABASE} password=${GOTIFY_POSTGRES_PASSWORD} sslmode=verify-full'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.gotify.rule=Host(`${GOTIFY_DOMAIN}`)'
