@@ -1,0 +1,28 @@
+{
+  "name": "gotify",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": [
+    "networks",
+    "traefik"
+  ],
+  "targets": {
+    "create-volumes": {
+      "options": {
+        "volumes": [
+          "gotify-data"
+        ]
+      }
+    },
+    "create-variables": {
+      "options": {
+        "variables": [
+          {
+            "name": "GOTIFY_DOMAIN",
+            "description": "Public domain name for Gotify.",
+            "defaultValue": "gotify.${DEFAULT_DOMAIN_SUFFIX}"
+          }
+        ]
+      }
+    }
+  }
+}

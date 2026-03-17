@@ -1,0 +1,3 @@
+services:
+  gotify:
+    image: 'ghcr.io/gotify/server:latest'

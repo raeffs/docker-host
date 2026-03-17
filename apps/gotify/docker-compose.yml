@@ -1,0 +1,27 @@
+services:
+  gotify:
+    container_name: 'gotify'
+    image: 'ghcr.io/gotify/server:2.9.1'
+    restart: 'unless-stopped'
+    networks:
+      - 'default-frontend'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+      - 'gotify-data:/app/data'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.gotify.rule=Host(`${GOTIFY_DOMAIN}`)'
+      - 'traefik.http.routers.gotify.entrypoints=websecure'
+      - 'traefik.http.routers.gotify.tls=true'
+      - 'traefik.http.routers.gotify.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.gotify.tls.domains[0].main=${GOTIFY_DOMAIN}'
+      - 'traefik.http.routers.gotify.middlewares=default@file'
+      - 'traefik.http.services.gotify.loadbalancer.server.port=80'
+
+volumes:
+  gotify-data:
+    external: true
+
+networks:
+  default-frontend:
+    external: true
