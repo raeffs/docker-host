@@ -1,16 +1,11 @@
 {
   "name": "gotify",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "implicitDependencies": [
-    "networks",
-    "traefik"
-  ],
+  "implicitDependencies": ["networks", "traefik"],
   "targets": {
     "create-volumes": {
       "options": {
-        "volumes": [
-          "gotify-data"
-        ]
+        "volumes": ["gotify-data"]
       }
     },
     "create-variables": {
@@ -20,6 +15,23 @@
             "name": "GOTIFY_DOMAIN",
             "description": "Public domain name for Gotify.",
             "defaultValue": "gotify.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "GOTIFY_POSTGRES_SERVER",
+            "description": "Server where the Gotify PostgreSQL database is located."
+          },
+          {
+            "name": "GOTIFY_POSTGRES_USER",
+            "description": "User used to connect to the Gotify PostgreSQL database."
+          },
+          {
+            "name": "GOTIFY_POSTGRES_PASSWORD",
+            "description": "Password used to connect to the Gotify PostgreSQL database.",
+            "type": "password"
+          },
+          {
+            "name": "GOTIFY_POSTGRES_DATABASE",
+            "description": "Name of the Gotify PostgreSQL database."
           }
         ]
       }
