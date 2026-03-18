@@ -22,5 +22,5 @@ jobs:
       - name: Healthcheck
         uses: ./.github/actions/healthcheck
         with:
-          app-name: keycloak-postgres
-          compose-file: apps/keycloak/keycloak-postgres/docker-compose.yml
+          app-name: keycloak
+          compose-file: apps/keycloak/docker-compose.yml

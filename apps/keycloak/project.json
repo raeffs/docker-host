@@ -1,13 +1,8 @@
 {
-  "name": "keycloak-postgres",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "name": "keycloak",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "implicitDependencies": ["networks", "traefik"],
   "targets": {
-    "create-volumes": {
-      "options": {
-        "volumes": ["keycloak-db"]
-      }
-    },
     "create-variables": {
       "options": {
         "variables": [
@@ -17,9 +12,21 @@
             "defaultValue": "keycloak.${DEFAULT_DOMAIN_SUFFIX}"
           },
           {
+            "name": "KEYCLOAK_POSTGRES_SERVER",
+            "description": "Server where the Keycloak PostgreSQL database is located."
+          },
+          {
+            "name": "KEYCLOAK_POSTGRES_USER",
+            "description": "User used to connect to the Keycloak PostgreSQL database."
+          },
+          {
             "name": "KEYCLOAK_POSTGRES_PASSWORD",
             "description": "Password used to connect to the Keycloak PostgreSQL database.",
             "type": "password"
+          },
+          {
+            "name": "KEYCLOAK_POSTGRES_DATABASE",
+            "description": "Name of the Keycloak PostgreSQL database."
           },
           {
             "name": "KEYCLOAK_INITIAL_USER",
