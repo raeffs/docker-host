@@ -1,0 +1,31 @@
+services:
+  pocket-id:
+    restart: 'no'
+    networks:
+      - 'backend'
+    environment:
+      APP_URL: 'http://localhost:1411'
+      DB_CONNECTION_STRING: 'postgres://pocket-id:pocket-id@pocket-id-db:5432/pocket-id?sslmode=disable'
+    depends_on:
+      pocket-id-db:
+        condition: 'service_healthy'
+
+  pocket-id-db:
+    extends:
+      file: '../../libs/postgres/docker-compose.yml'
+      service: 'postgres'
+    container_name: 'pocket-id-db'
+    networks:
+      - 'backend'
+    volumes:
+      - 'pocket-id-db:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_USER: 'pocket-id'
+      POSTGRES_DB: 'pocket-id'
+      POSTGRES_PASSWORD: 'pocket-id'
+
+volumes:
+  pocket-id-db:
+
+networks:
+  backend:
