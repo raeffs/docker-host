@@ -1,0 +1,35 @@
+services:
+  wallabag:
+    networks:
+      - 'backend'
+    environment:
+      WALLABAG_INITIAL_USER: 'admin'
+      WALLABAG_INITIAL_PASSWORD: 'admin'
+      SYMFONY__ENV__DATABASE_HOST: 'wallabag-db'
+      SYMFONY__ENV__DATABASE_USER: 'wallabag'
+      SYMFONY__ENV__DATABASE_PASSWORD: 'wallabag'
+      SYMFONY__ENV__DATABASE_NAME: 'wallabag'
+      SYMFONY__ENV__DOMAIN_NAME: 'http://localhost'
+    depends_on:
+      wallabag-db:
+        condition: 'service_healthy'
+
+  wallabag-db:
+    extends:
+      file: '../../libs/postgres/docker-compose.yml'
+      service: 'postgres'
+    container_name: 'wallabag-db'
+    networks:
+      - 'backend'
+    volumes:
+      - 'wallabag-db:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_USER: 'wallabag'
+      POSTGRES_DB: 'wallabag'
+      POSTGRES_PASSWORD: 'wallabag'
+
+volumes:
+  wallabag-db:
+
+networks:
+  backend:

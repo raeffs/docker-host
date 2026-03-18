@@ -22,5 +22,5 @@ jobs:
       - name: Healthcheck
         uses: ./.github/actions/healthcheck
         with:
-          app-name: wallabag-postgres
-          compose-file: apps/wallabag/wallabag-postgres/docker-compose.yml
+          app-name: wallabag
+          compose-file: apps/wallabag/docker-compose.yml
