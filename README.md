@@ -16,47 +16,48 @@ You can find a list of services that are included below. I try to create a folde
 | ---------------------------------------- | :----: | :------: | :----------: | :-------: |
 | [Adminer](archive/adminer)               |   📦   |          |              |           |
 | [Authelia](archive/authelia)             |   📦   |          |              |           |
-| [Baikal](apps/baikal)                    |   🟢   |    ❌    |      ❌      |     ✅     |
-| [Bonob](apps/bonob)                      |   🟢   |    ✅    |      ✅      |     ✅     |
+| [Baikal](apps/baikal)                    |   🟢   |    ❌    |      ❌      |    ✅     |
+| [Bonob](apps/bonob)                      |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Cloudflared](apps/cloudflared)          |        |          |              |           |
 | [Commento](apps/commento)                |        |          |              |           |
-| [Dozzle](apps/dozzle)                    |   🟢   |    ✅    |      ✅      |     ✅     |
+| [Dozzle](apps/dozzle)                    |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Etesync](apps/etesync)                  |        |          |              |           |
-| [Forgejo](apps/forgejo)                  |   🟢   |    ❌    |      ❌      |     ✅     |
-| [Forgejo Runner](apps/forgejo-runner)    |   🟢   |    ❌    |      ❌      |     ❌     |
+| [Forgejo](apps/forgejo)                  |   🟢   |    ❌    |      ❌      |    ✅     |
+| [Forgejo Runner](apps/forgejo-runner)    |   🟢   |    ❌    |      ❌      |    ❌     |
 | [Gitea](archive/gitea)                   |   📦   |          |              |           |
+| [Gotify](apps/gotify)                    |   🟢   |    ❌    |      ✅      |    ✅     |
 | [Grafana](apps/grafana)                  |        |          |              |           |
 | [Grocy](apps/grocy)                      |        |          |              |           |
 | [Home Assistant](archive/home-assistant) |   📦   |          |              |           |
-| [Homepage](apps/homepage)                |   🟢   |    ✅    |      ✅      |     ✅     |
+| [Homepage](apps/homepage)                |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Iperf](apps/iperf)                      |        |          |              |           |
-| [Keycloak](apps/keycloak)                |   🟢   |    ❌    |      ❌      |     ✅     |
+| [Keycloak](apps/keycloak)                |   🟢   |    ❌    |      ❌      |    ✅     |
 | [Leantime](apps/leantime)                |        |          |              |           |
 | [Mastodon](archive/mastodon)             |   📦   |          |              |           |
 | [Matomo](apps/matomo)                    |        |          |              |           |
 | [Mealie](apps/mealie)                    |        |          |              |           |
 | [Memos](apps/memos)                      |        |          |              |           |
-| [Miniflux](apps/miniflux)                |   🟢   |    ✅    |      ✅      |     ✅     |
+| [Miniflux](apps/miniflux)                |   🟢   |    ✅    |      ✅      |    ✅     |
 | [n8n](apps/n8n)                          |        |          |              |           |
-| [Navidrome](apps/navidrome)              |   🟢   |    ✅    |      ❌      |     ✅     |
+| [Navidrome](apps/navidrome)              |   🟢   |    ✅    |      ❌      |    ✅     |
 | [Ofelia](apps/ofelia)                    |        |          |              |           |
 | [Open WebUI](apps/open-webui)            |        |          |              |           |
 | [OpenProject](apps/openproject)          |        |          |              |           |
 | [PiHole](archive/pihole)                 |   📦   |          |              |           |
-| [Pocket ID](apps/pocket-id)              |   🟢   |    ✅    |      ✅      |     ✅     |
+| [Pocket ID](apps/pocket-id)              |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Portainer](archive/portainer)           |   📦   |          |              |           |
 | [Prometheus](apps/prometheus)            |        |          |              |           |
 | [Qdrant](apps/qdrant)                    |        |          |              |           |
 | [Redmine](apps/redmine)                  |        |          |              |           |
 | [Seq](apps/seq)                          |        |          |              |           |
-| [Traefik](apps/traefik)                  |   🟢   |    ✅    |      ✅      |     ✅     |
+| [Traefik](apps/traefik)                  |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Unbound](archive/unbound)               |   📦   |          |              |           |
 | [Verdaccio](apps/verdaccio)              |        |          |              |           |
-| [Wallabag](apps/wallabag)                |   🟢   |    ❌    |      ✅      |     ✅     |
-| [Watchtower](apps/watchtower)            |   🟢   |    ✅    |      ✅      |     ✅     |
-| [Whoami](apps/whoami)                    |   🟢   |    ✅    |      ❌      |     ✅     |
+| [Wallabag](apps/wallabag)                |   🟢   |    ❌    |      ✅      |    ✅     |
+| [Watchtower](apps/watchtower)            |   🟢   |    ✅    |      ✅      |    ✅     |
+| [Whoami](apps/whoami)                    |   🟢   |    ✅    |      ❌      |    ✅     |
 | [WireGuard](archive/wireguard)           |   📦   |          |              |           |
-| [Wishlist](apps/wishlist)                |   🟢   |    ✅    |      ❌      |     ✅     |
+| [Wishlist](apps/wishlist)                |   🟢   |    ✅    |      ❌      |    ✅     |
 
 ## How to use it?
 
