@@ -5,7 +5,7 @@ services:
     environment:
       DATABASE_URL: 'postgres://miniflux:miniflux@miniflux-db:5432/miniflux?sslmode=disable'
       ADMIN_USERNAME: 'admin'
-      ADMIN_PASSWORD: 'admin'
+      ADMIN_PASSWORD: 'supersecure'
       BASE_URL: 'http://localhost'
     depends_on:
       miniflux-db:
