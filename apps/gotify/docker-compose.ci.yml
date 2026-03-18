@@ -1,0 +1,29 @@
+services:
+  gotify:
+    networks:
+      - 'backend'
+    environment:
+      GOTIFY_DATABASE_CONNECTION: 'host=gotify-db port=5432 user=gotify dbname=gotify password=gotify sslmode=disable'
+    depends_on:
+      gotify-db:
+        condition: 'service_healthy'
+
+  gotify-db:
+    extends:
+      file: '../../../libs/postgres/docker-compose.yml'
+      service: 'postgres'
+    container_name: 'gotify-db'
+    networks:
+      - 'backend'
+    volumes:
+      - 'gotify-db:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_USER: 'gotify'
+      POSTGRES_DB: 'gotify'
+      POSTGRES_PASSWORD: 'gotify'
+
+volumes:
+  gotify-db:
+
+networks:
+  backend:
