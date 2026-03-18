@@ -22,5 +22,5 @@ jobs:
       - name: Healthcheck
         uses: ./.github/actions/healthcheck
         with:
-          app-name: forgejo-postgres
-          compose-file: apps/forgejo/forgejo-postgres/docker-compose.yml
+          app-name: forgejo
+          compose-file: apps/forgejo/docker-compose.yml

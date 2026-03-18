@@ -1,0 +1,35 @@
+services:
+  forgejo:
+    restart: 'no'
+    networks:
+      - 'backend'
+    environment:
+      DB_HOST: 'forgejo-db'
+      DB_PORT: '5432'
+      DB_NAME: 'forgejo'
+      DB_USER: 'forgejo'
+      DB_PASSWD: 'forgejo'
+      DB_SSL_MODE: 'disable'
+    depends_on:
+      forgejo-db:
+        condition: 'service_healthy'
+
+  forgejo-db:
+    extends:
+      file: '../../libs/postgres/docker-compose.yml'
+      service: 'postgres'
+    container_name: 'forgejo-db'
+    networks:
+      - 'backend'
+    volumes:
+      - 'forgejo-db:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_USER: 'forgejo'
+      POSTGRES_DB: 'forgejo'
+      POSTGRES_PASSWORD: 'forgejo'
+
+volumes:
+  forgejo-db:
+
+networks:
+  backend:
