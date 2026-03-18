@@ -1,0 +1,3 @@
+services:
+  homepage:
+    restart: 'no'
