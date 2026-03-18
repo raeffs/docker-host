@@ -26,3 +26,13 @@ runs:
         retry-interval: 5
         max-retries: 10
         compose-file: ${{ inputs.compose-file }}
+
+    - name: Dump container logs on failure
+      if: failure()
+      shell: bash
+      run: |
+        for id in $(docker ps -aq); do
+          echo "::group::$(docker inspect --format '{{.Name}}' "$id") ($(docker inspect --format '{{.State.Status}}' "$id"))"
+          docker logs --tail 100 "$id" 2>&1
+          echo "::endgroup::"
+        done
