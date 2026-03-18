@@ -10,7 +10,7 @@ services:
 
   gotify-db:
     extends:
-      file: '../../../libs/postgres/docker-compose.yml'
+      file: '../../libs/postgres/docker-compose.yml'
       service: 'postgres'
     container_name: 'gotify-db'
     networks:
