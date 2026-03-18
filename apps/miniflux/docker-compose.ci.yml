@@ -1,0 +1,32 @@
+services:
+  miniflux:
+    networks:
+      - 'backend'
+    environment:
+      DATABASE_URL: 'postgres://miniflux:miniflux@miniflux-db:5432/miniflux?sslmode=disable'
+      ADMIN_USERNAME: 'admin'
+      ADMIN_PASSWORD: 'admin'
+      BASE_URL: 'http://localhost'
+    depends_on:
+      miniflux-db:
+        condition: 'service_healthy'
+
+  miniflux-db:
+    extends:
+      file: '../../libs/postgres/docker-compose.yml'
+      service: 'postgres'
+    container_name: 'miniflux-db'
+    networks:
+      - 'backend'
+    volumes:
+      - 'miniflux-db:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_USER: 'miniflux'
+      POSTGRES_DB: 'miniflux'
+      POSTGRES_PASSWORD: 'miniflux'
+
+volumes:
+  miniflux-db:
+
+networks:
+  backend:

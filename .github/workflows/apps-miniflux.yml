@@ -22,5 +22,5 @@ jobs:
       - name: Healthcheck
         uses: ./.github/actions/healthcheck
         with:
-          app-name: miniflux-postgres
-          compose-file: apps/miniflux/miniflux-postgres/docker-compose.yml
+          app-name: miniflux
+          compose-file: apps/miniflux/docker-compose.yml
