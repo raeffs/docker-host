@@ -1,5 +1,6 @@
 services:
   wallabag:
+    restart: 'no'
     networks:
       - 'backend'
     environment:

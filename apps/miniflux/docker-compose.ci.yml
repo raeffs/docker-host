@@ -1,5 +1,6 @@
 services:
   miniflux:
+    restart: 'no'
     networks:
       - 'backend'
     environment:

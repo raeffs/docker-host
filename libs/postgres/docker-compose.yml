@@ -1,7 +1,7 @@
 services:
   postgres:
     image: 'postgres:18.3-alpine'
-    restart: 'unless-stopped'
+    restart: 'no'
     volumes:
       - '/etc/localtime:/etc/localtime:ro'
     environment:
