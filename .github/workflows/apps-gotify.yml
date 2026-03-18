@@ -1,0 +1,26 @@
+name: Gotify Checks
+
+on:
+  pull_request:
+    branches:
+      - '**'
+  push:
+    branches:
+      - main
+
+jobs:
+  gotify-healthcheck:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Healthcheck
+        uses: ./.github/actions/healthcheck
+        with:
+          app-name: gotify
+          compose-file: apps/gotify/docker-compose.yml
