@@ -7,6 +7,22 @@
       "options": {
         "volumes": ["seq-data"]
       }
+    },
+    "create-variables": {
+      "options": {
+        "variables": [
+          {
+            "name": "SEQ_DOMAIN",
+            "description": "Public domain name for Seq.",
+            "defaultValue": "seq.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "SEQ_INGEST_DOMAIN",
+            "description": "Public domain name for Seq ingest only endpoint.",
+            "defaultValue": "seq-ingest.${DEFAULT_DOMAIN_SUFFIX}"
+          }
+        ]
+      }
     }
   }
 }
