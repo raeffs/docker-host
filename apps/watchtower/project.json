@@ -9,7 +9,7 @@
           {
             "name": "WATCHTOWER_NOTIFICATION_URL",
             "description": "Configures the notification service URL.",
-            "defaultValue": "discord://token@channel"
+            "defaultValue": "gotify://gotify.${DEFAULT_DOMAIN_SUFFIX}/token"
           },
           {
             "name": "WATCHTOWER_DOCKER_GID",
