@@ -1,5 +1,5 @@
 import { ExecutorContext, runExecutor as runExternalExecutor } from '@nx/devkit';
-import { ExecutorResult } from '../../utils';
+import { ExecutorResult, getProjectName } from '../../utils';
 import { normalizeOptions } from './normalize-options';
 import { ConfigureExecutorSchema } from './schema';
 
@@ -7,10 +7,11 @@ export default async function runExecutor(
   schema: ConfigureExecutorSchema,
   context: ExecutorContext
 ): Promise<ExecutorResult> {
+  const projectName = getProjectName(context);
   const options = normalizeOptions(schema, context);
 
   const createVariablesResults = await runExternalExecutor(
-    { project: context.projectName, target: 'create-variables' },
+    { project: projectName, target: 'create-variables' },
     { useDefaults: options.useDefaults },
     context
   );
@@ -19,7 +20,7 @@ export default async function runExecutor(
   }
 
   const createVolumesResults = await runExternalExecutor(
-    { project: context.projectName, target: 'create-volumes' },
+    { project: projectName, target: 'create-volumes' },
     {},
     context
   );
@@ -28,7 +29,7 @@ export default async function runExecutor(
   }
 
   const createNetworksResults = await runExternalExecutor(
-    { project: context.projectName, target: 'create-networks' },
+    { project: projectName, target: 'create-networks' },
     {},
     context
   );

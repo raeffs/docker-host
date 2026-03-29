@@ -1,4 +1,5 @@
 import { ExecutorContext, readTargetOptions } from '@nx/devkit';
+import { getProjectName } from '../../utils';
 import { mapToVolumeDefinitions } from '../create-volumes/normalize-options';
 import { CreateVolumesExecutorSchema } from '../create-volumes/schema';
 import { RestoreExecutorOptions } from './options';
@@ -6,7 +7,7 @@ import { RestoreExecutorSchema } from './schema';
 
 export function normalizeOptions(schema: RestoreExecutorSchema, context: ExecutorContext): RestoreExecutorOptions {
   const targetSchema: CreateVolumesExecutorSchema = readTargetOptions(
-    { project: context.projectName, target: 'create-volumes' },
+    { project: getProjectName(context), target: 'create-volumes' },
     context
   );
 

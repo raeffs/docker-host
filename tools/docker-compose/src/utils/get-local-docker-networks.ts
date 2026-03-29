@@ -20,7 +20,8 @@ export async function getLocalDockerNetworks(context: ExecutorContext): Promise<
   await waitForExit(docker);
 
   for (const match of allData.matchAll(/^\S+\s+(?<network>\S+)\s+\S+\s+local$/gim)) {
-    networks.push(match.groups['network']);
+    const network = match.groups?.['network'];
+    if (network !== undefined) networks.push(network);
   }
 
   return networks;

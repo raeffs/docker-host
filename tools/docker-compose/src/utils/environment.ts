@@ -13,9 +13,9 @@ let env = {
  * Returns all known environment variables.
  */
 export function getEnvironment(): Record<string, string> {
-  return {
-    ...env,
-  };
+  return Object.fromEntries(
+    Object.entries(env).filter((entry): entry is [string, string] => entry[1] !== undefined)
+  );
 }
 
 /**
@@ -41,7 +41,7 @@ export async function setEnvironmentVariable(context: ExecutorContext, name: str
  * Replaces all environment variables found in the provided string, looking for the pattern `${VariableName}`.
  */
 export function expandEnvironmentVariables(value?: string): string {
-  return (value ?? '').replaceAll(/\$\{(?<name>\w+)\}/g, (match, group) => env[group]);
+  return (value ?? '').replaceAll(/\$\{(?<name>\w+)\}/g, (match, group) => env[group] ?? match);
 }
 
 /**

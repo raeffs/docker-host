@@ -1,23 +1,29 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "analytics": false,
   "plugins": [
     {
-      "plugin": "@raeffs/docker-compose",
-      "options": {}
+      "options": {},
+      "plugin": "@raeffs/docker-compose"
     }
   ],
   "targetDefaults": {
-    "build": {
-      "dependsOn": ["^build"],
-      "cache": true
-    },
     "@nx/eslint:lint": {
-      "inputs": ["default", "{workspaceRoot}/eslint.config.mjs"],
-      "cache": true
+      "cache": true,
+      "inputs": [
+        "default",
+        "{workspaceRoot}/eslint.config.mjs"
+      ]
+    },
+    "build": {
+      "cache": true,
+      "dependsOn": [
+        "^build"
+      ]
     }
   },
-  "useInferencePlugins": false,
   "tui": {
     "enabled": false
-  }
+  },
+  "useInferencePlugins": false
 }

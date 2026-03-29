@@ -2,7 +2,7 @@ import { logger } from '@nx/devkit';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 
-export async function getHostname(): Promise<string> {
+export async function getHostname(): Promise<string | null> {
   try {
     const command = 'hostname';
     const { stdout } = await promisify(exec)(command);
@@ -11,7 +11,7 @@ export async function getHostname(): Promise<string> {
 
     return hostname;
   } catch (error) {
-    logger.debug(`Could not get the hostname: ${error.message}`);
+    logger.debug(`Could not get the hostname: ${error instanceof Error ? error.message : String(error)}`);
     return null;
   }
 }
