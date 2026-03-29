@@ -8,9 +8,9 @@ import {
 import { existsSync } from 'fs';
 import { dirname, join } from 'path';
 
-export const createNodesV2: CreateNodesV2 = [
+export const createNodesV2: CreateNodesV2<undefined> = [
   '**/docker-compose.yml',
-  (projectConfigurationFiles: string[], options: undefined, context: CreateNodesContextV2) => {
+  (projectConfigurationFiles: readonly string[], options: undefined, context: CreateNodesContextV2) => {
     return createNodesFromFiles(
       configFile => createNodesInternal(configFile),
       projectConfigurationFiles,

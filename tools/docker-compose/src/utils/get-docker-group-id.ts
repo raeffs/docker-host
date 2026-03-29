@@ -2,7 +2,7 @@ import { logger } from '@nx/devkit';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 
-export async function getDockerGroupId(): Promise<string> {
+export async function getDockerGroupId(): Promise<string | null> {
   try {
     const command = 'getent group docker | cut -d: -f3';
     const { stdout } = await promisify(exec)(command);
@@ -11,7 +11,7 @@ export async function getDockerGroupId(): Promise<string> {
 
     return gid;
   } catch (error) {
-    logger.debug(`Could not get the Docker GID: ${error.message}`);
+    logger.debug(`Could not get the Docker GID: ${error instanceof Error ? error.message : String(error)}`);
     return null;
   }
 }

@@ -1,7 +1,7 @@
 import { ExecutorContext, readTargetOptions } from '@nx/devkit';
+import { getProjectName, getWorkspaceDependencies } from '../../utils';
 import { CreateVolumesExecutorOptions } from './options';
 import { CreateVolumesExecutorSchema, VolumeDefinition } from './schema';
-import { getWorkspaceDependencies } from '../../utils';
 
 export function normalizeOptions(
   schema: CreateVolumesExecutorSchema,
@@ -12,9 +12,9 @@ export function normalizeOptions(
     volumes: mapToVolumeDefinitions(schema.volumes),
   };
 
-  const dependencies = getWorkspaceDependencies(context.projectName, context.projectGraph);
+  const dependencies = getWorkspaceDependencies(getProjectName(context), context.projectGraph);
   for (const dependency of dependencies) {
-    if (context.projectsConfigurations.projects[dependency].targets['create-volumes']) {
+    if (context.projectsConfigurations.projects[dependency]?.targets?.['create-volumes']) {
       const targetSchema: CreateVolumesExecutorSchema = readTargetOptions(
         { project: dependency, target: 'create-volumes' },
         context

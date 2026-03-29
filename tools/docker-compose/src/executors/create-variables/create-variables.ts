@@ -116,7 +116,7 @@ export default async function runExecutor(
 
   for (const variable of variablesToProcess) {
     const promptOptions = createPromptOptions(variable);
-    const values = await prompt(promptOptions);
+    const values = await prompt(promptOptions) as Record<string, string>;
     await setVariable(context, variable, values[variable.name]);
   }
 

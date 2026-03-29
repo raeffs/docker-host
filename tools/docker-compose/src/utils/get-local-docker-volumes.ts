@@ -20,7 +20,8 @@ export async function getLocalDockerVolumes(context: ExecutorContext): Promise<s
   await waitForExit(docker);
 
   for (const match of allData.matchAll(/^local\W*(?<volume>\S*)$/gim)) {
-    volumes.push(match.groups['volume']);
+    const volume = match.groups?.['volume'];
+    if (volume !== undefined) volumes.push(volume);
   }
 
   return volumes;

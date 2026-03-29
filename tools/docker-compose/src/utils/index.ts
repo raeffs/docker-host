@@ -4,6 +4,7 @@ export * from './executor-result';
 export * from './generate-secret';
 export * from './get-local-docker-networks';
 export * from './get-local-docker-volumes';
+export * from './get-project-name';
 export * from './get-workspace-dependencies';
 export * from './get-docker-group-id';
 export * from './get-hostname';
