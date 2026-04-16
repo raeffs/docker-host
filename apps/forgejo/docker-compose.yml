@@ -1,7 +1,7 @@
 services:
   forgejo:
     container_name: 'forgejo'
-    image: 'codeberg.org/forgejo/forgejo:14'
+    image: 'codeberg.org/forgejo/forgejo:15'
     restart: 'unless-stopped'
     command: >
       sh -c '
