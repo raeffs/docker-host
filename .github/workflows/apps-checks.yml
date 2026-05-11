@@ -50,3 +50,14 @@ jobs:
         with:
           app-name: ${{ matrix.app }}
           compose-file: apps/${{ matrix.app }}/docker-compose.yml
+
+  all-checks:
+    name: All Checks
+    if: always()
+    needs: healthcheck
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Verify healthcheck result
+        if: needs.healthcheck.result != 'success' && needs.healthcheck.result != 'skipped'
+        run: exit 1
