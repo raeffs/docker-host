@@ -20,7 +20,7 @@ services:
     networks:
       - 'backend'
     volumes:
-      - 'miniflux-db:/var/lib/postgresql/data'
+      - 'miniflux-db:/var/lib/postgresql'
     environment:
       POSTGRES_USER: 'miniflux'
       POSTGRES_DB: 'miniflux'
