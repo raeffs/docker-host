@@ -21,7 +21,7 @@ services:
     networks:
       - 'backend'
     volumes:
-      - 'keycloak-db:/var/lib/postgresql/data'
+      - 'keycloak-db:/var/lib/postgresql'
     environment:
       POSTGRES_USER: 'keycloak'
       POSTGRES_DB: 'keycloak'

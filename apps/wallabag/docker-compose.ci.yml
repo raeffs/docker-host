@@ -23,7 +23,7 @@ services:
     networks:
       - 'backend'
     volumes:
-      - 'wallabag-db:/var/lib/postgresql/data'
+      - 'wallabag-db:/var/lib/postgresql'
     environment:
       POSTGRES_USER: 'wallabag'
       POSTGRES_DB: 'wallabag'

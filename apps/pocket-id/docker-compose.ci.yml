@@ -18,7 +18,7 @@ services:
     networks:
       - 'backend'
     volumes:
-      - 'pocket-id-db:/var/lib/postgresql/data'
+      - 'pocket-id-db:/var/lib/postgresql'
     environment:
       POSTGRES_USER: 'pocket-id'
       POSTGRES_DB: 'pocket-id'

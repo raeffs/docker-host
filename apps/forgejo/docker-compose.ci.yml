@@ -22,7 +22,7 @@ services:
     networks:
       - 'backend'
     volumes:
-      - 'forgejo-db:/var/lib/postgresql/data'
+      - 'forgejo-db:/var/lib/postgresql'
     environment:
       POSTGRES_USER: 'forgejo'
       POSTGRES_DB: 'forgejo'
