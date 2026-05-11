@@ -1,0 +1,52 @@
+name: App Checks
+
+on:
+  pull_request:
+    branches:
+      - '**'
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: app-checks
+  cancel-in-progress: false
+
+jobs:
+  healthcheck:
+    name: ${{ matrix.app }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        app:
+          - baikal
+          - bonob
+          - dozzle
+          - forgejo
+          - gotify
+          - homepage
+          - keycloak
+          - miniflux
+          - navidrome
+          - pocket-id
+          - seq
+          - traefik
+          - wallabag
+          - watchtower
+          - whoami
+          - wishlist
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Healthcheck
+        uses: ./.github/actions/healthcheck
+        with:
+          app-name: ${{ matrix.app }}
+          compose-file: apps/${{ matrix.app }}/docker-compose.yml
