@@ -41,7 +41,7 @@
     "@nx/eslint": "22.7.5"
   },
   "volta": {
-    "node": "24.17.0",
+    "node": "24.18.0",
     "yarn": "1.22.22"
   },
   "dependencies": {}
