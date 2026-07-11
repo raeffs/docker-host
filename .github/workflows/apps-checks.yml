@@ -9,8 +9,8 @@ on:
       - main
 
 concurrency:
-  group: app-checks
-  cancel-in-progress: false
+  group: app-checks-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   healthcheck:
