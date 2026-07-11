@@ -1,5 +1,6 @@
 {
   "name": "@raeffs/docker-compose",
+  "type": "commonjs",
   "main": "src/index.js",
   "nx-plugin": "src/index.js",
   "generators": "./generators.json",
