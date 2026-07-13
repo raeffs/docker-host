@@ -54,7 +54,8 @@ services:
     container_name: 'traefik-dockerproxy'
     command:
       - '-allowfrom=traefik'
-      - '-allowGET=/v1\..{1,2}/(version|containers/.*|events.*)'
+      - '-allowGET=/(_ping|v1\..{1,2}/(version|containers/.*|events.*))'
+      - '-allowHEAD=/_ping'
     user: '65002:${TRAEFIK_DOCKER_GID}'
     networks:
       - 'traefik-dockerproxynet'
