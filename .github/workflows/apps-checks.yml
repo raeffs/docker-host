@@ -49,7 +49,6 @@ jobs:
         uses: ./.github/actions/healthcheck
         with:
           app-name: ${{ matrix.app }}
-          compose-file: apps/${{ matrix.app }}/docker-compose.yml
 
   all-checks:
     name: All Checks
