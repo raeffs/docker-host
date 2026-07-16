@@ -59,6 +59,12 @@ services:
       OAUTH_AUTO_DISCOVER_URL: 'https://${FORGEJO_OAUTH_PROVIDER_DOMAIN}/.well-known/openid-configuration'
       OAUTH_CLIENT_ID: '${FORGEJO_OAUTH_CLIENT_ID}'
       OAUTH_CLIENT_SECRET: '${FORGEJO_OAUTH_CLIENT_SECRET}'
+    healthcheck:
+      test: ['CMD', 'curl', '-sf', 'http://localhost:3000/api/healthz']
+      start_period: '30s'
+      interval: '5s'
+      timeout: '5s'
+      retries: 3
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.forgejo.rule=Host(`${FORGEJO_DOMAIN}`)'
