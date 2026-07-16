@@ -16,6 +16,7 @@ export default function runExecutor(
       '--remove-orphans',
       ...(options.detach ? ['--detach'] : []),
       ...(options.force ? ['--force-recreate'] : []),
+      ...(options.wait ? ['--wait', '--wait-timeout', `${options.waitTimeout}`] : []),
     ],
   });
 }

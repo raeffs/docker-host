@@ -5,9 +5,6 @@ inputs:
   app-name:
     description: The app name passed to `yarn configure` and `yarn up`
     required: true
-  compose-file:
-    description: Path to the docker-compose.yml file for the health check
-    required: true
 
 runs:
   using: composite
@@ -16,16 +13,9 @@ runs:
       shell: bash
       run: yarn configure ${{ inputs.app-name }} --use-defaults
 
-    - name: Start ${{ inputs.app-name }}
+    - name: Start ${{ inputs.app-name }} and wait for it to be healthy
       shell: bash
-      run: yarn up ${{ inputs.app-name }}
-
-    - name: Wait for Containers to be healthy
-      uses: jaracogmbh/docker-compose-health-check-action@973fbdccf7c8e396b652d3501984c8e530a9fa80 # v1.0.0
-      with:
-        retry-interval: 5
-        max-retries: 10
-        compose-file: ${{ inputs.compose-file }}
+      run: yarn up ${{ inputs.app-name }} --wait
 
     - name: Dump container logs on failure
       if: failure()

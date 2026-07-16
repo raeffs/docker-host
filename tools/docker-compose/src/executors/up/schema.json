@@ -10,6 +10,14 @@
     "force": {
       "type": "boolean",
       "default": false
+    },
+    "wait": {
+      "type": "boolean",
+      "default": false
+    },
+    "waitTimeout": {
+      "type": "number",
+      "default": 120
     }
   }
 }
