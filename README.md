@@ -61,11 +61,11 @@ You can find a list of services that are included below. I try to create a folde
 
 ## How to use it?
 
-You can find instructions on how to use this repository [here](apps/docs/usage.md).
+You can find instructions on how to use this repository [here](docs/usage.md).
 
 ## How to contribute?
 
-If you found a bug or have an idea on how to improve the setup, feel free to send me a pull request or open an issue. Same if you have a question or need help with the setup. And if you would like to support me, you can [buy me a beer](apps/https://www.buymeacoffee.com/raeffs).
+If you found a bug or have an idea on how to improve the setup, feel free to send me a pull request or open an issue. Same if you have a question or need help with the setup. And if you would like to support me, you can [buy me a beer](https://www.buymeacoffee.com/raeffs).
 
 </br>
 <p align="center">
