@@ -1,0 +1,3 @@
+[submodule "apps/redmine/plugins/redmine_oidc"]
+	path = apps/redmine/plugins/redmine_oidc
+	url = https://github.com/enricohuang/redmine_oidc.git

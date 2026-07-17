@@ -15,6 +15,8 @@ services:
       - '/etc/localtime:/etc/localtime:ro'
       - 'redmine-files:/usr/src/redmine/files'
       - './configuration.yml:/usr/src/redmine/config/configuration.yml:ro'
+      # git submodule pinned to https://github.com/enricohuang/redmine_oidc
+      - './plugins/redmine_oidc:/usr/src/redmine/plugins/redmine_oidc:ro'
     environment:
       REDMINE_DB_POSTGRES: '${REDMINE_POSTGRES_SERVER}'
       REDMINE_DB_PORT: '${REDMINE_POSTGRES_PORT}'
@@ -22,6 +24,7 @@ services:
       REDMINE_DB_PASSWORD: '${REDMINE_POSTGRES_PASSWORD}'
       REDMINE_DB_DATABASE: '${REDMINE_POSTGRES_DATABASE}'
       REDMINE_SECRET_KEY_BASE: '${REDMINE_SECRET_KEY_BASE}'
+      REDMINE_PLUGINS_MIGRATE: '1'
       PGSSLMODE: 'verify-full'
       PGSSLROOTCERT: '/etc/ssl/certs/ca-certificates.crt'
       REDMINE_SMTP_HOST: '${REDMINE_SMTP_HOST}'
@@ -29,7 +32,14 @@ services:
       REDMINE_SMTP_USER: '${REDMINE_SMTP_USER}'
       REDMINE_SMTP_PASSWORD: '${REDMINE_SMTP_PASSWORD}'
     healthcheck:
-      test: ['CMD', 'ruby', '-rnet/http', '-e', 'exit(Net::HTTP.get_response(URI("http://localhost:3000/")).code.to_i < 400 ? 0 : 1)']
+      test:
+        [
+          'CMD',
+          'ruby',
+          '-rnet/http',
+          '-e',
+          'exit(Net::HTTP.get_response(URI("http://localhost:3000/")).code.to_i < 400 ? 0 : 1)',
+        ]
       start_period: '90s'
       interval: '30s'
       timeout: '10s'
