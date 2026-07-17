@@ -1,0 +1,37 @@
+services:
+  vikunja:
+    restart: 'no'
+    networks:
+      - 'backend'
+    environment:
+      VIKUNJA_SERVICE_PUBLICURL: 'http://localhost:3456'
+      VIKUNJA_DATABASE_HOST: 'vikunja-db:5432'
+      VIKUNJA_DATABASE_USER: 'vikunja'
+      VIKUNJA_DATABASE_PASSWORD: 'vikunja'
+      VIKUNJA_DATABASE_DATABASE: 'vikunja'
+      VIKUNJA_DATABASE_SSLMODE: 'disable'
+      VIKUNJA_AUTH_LOCAL_ENABLED: 'true'
+      VIKUNJA_AUTH_OPENID_ENABLED: 'false'
+    depends_on:
+      vikunja-db:
+        condition: 'service_healthy'
+
+  vikunja-db:
+    extends:
+      file: '../../libs/postgres/docker-compose.yml'
+      service: 'postgres'
+    container_name: 'vikunja-db'
+    networks:
+      - 'backend'
+    volumes:
+      - 'vikunja-db:/var/lib/postgresql'
+    environment:
+      POSTGRES_USER: 'vikunja'
+      POSTGRES_DB: 'vikunja'
+      POSTGRES_PASSWORD: 'vikunja'
+
+volumes:
+  vikunja-db:
+
+networks:
+  backend:

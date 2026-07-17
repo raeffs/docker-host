@@ -53,6 +53,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Traefik](apps/traefik)                  |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Unbound](archive/unbound)               |   📦   |          |              |           |
 | [Verdaccio](apps/verdaccio)              |        |          |              |           |
+| [Vikunja](apps/vikunja)                  |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Wallabag](apps/wallabag)                |   🟢   |    ❌    |      ✅      |    ✅     |
 | [Watchtower](apps/watchtower)            |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Whoami](apps/whoami)                    |   🟢   |    ✅    |      ❌      |    ✅     |

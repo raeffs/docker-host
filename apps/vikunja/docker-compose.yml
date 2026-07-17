@@ -1,0 +1,53 @@
+services:
+  vikunja:
+    container_name: 'vikunja'
+    image: 'vikunja/vikunja:2.3.0'
+    restart: 'unless-stopped'
+    mem_limit: 256M
+    cap_drop:
+      - 'ALL'
+    security_opt:
+      - 'no-new-privileges'
+    networks:
+      - 'default-frontend'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+      - 'vikunja-files:/app/vikunja/files'
+    environment:
+      VIKUNJA_SERVICE_PUBLICURL: 'https://${VIKUNJA_DOMAIN}'
+      VIKUNJA_SERVICE_SECRET: '${VIKUNJA_JWT_SECRET}'
+      VIKUNJA_SERVICE_ENABLEREGISTRATION: 'false'
+      VIKUNJA_FILES_BASEPATH: '/app/vikunja/files'
+      VIKUNJA_DATABASE_TYPE: 'postgres'
+      VIKUNJA_DATABASE_HOST: '${VIKUNJA_POSTGRES_SERVER}:${VIKUNJA_POSTGRES_PORT}'
+      VIKUNJA_DATABASE_USER: '${VIKUNJA_POSTGRES_USER}'
+      VIKUNJA_DATABASE_PASSWORD: '${VIKUNJA_POSTGRES_PASSWORD}'
+      VIKUNJA_DATABASE_DATABASE: '${VIKUNJA_POSTGRES_DATABASE}'
+      VIKUNJA_DATABASE_SSLMODE: 'verify-full'
+      VIKUNJA_AUTH_LOCAL_ENABLED: 'false'
+      VIKUNJA_AUTH_OPENID_ENABLED: 'true'
+      VIKUNJA_AUTH_OPENID_PROVIDERS_POCKETID_NAME: 'Pocket ID'
+      VIKUNJA_AUTH_OPENID_PROVIDERS_POCKETID_AUTHURL: '${VIKUNJA_OIDC_AUTH_URL}'
+      VIKUNJA_AUTH_OPENID_PROVIDERS_POCKETID_CLIENTID: '${VIKUNJA_OIDC_CLIENT_ID}'
+      VIKUNJA_AUTH_OPENID_PROVIDERS_POCKETID_CLIENTSECRET: '${VIKUNJA_OIDC_CLIENT_SECRET}'
+    healthcheck:
+      test: ['CMD', '/app/vikunja/vikunja', 'healthcheck']
+      start_period: '15s'
+      interval: '30s'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.vikunja.rule=Host(`${VIKUNJA_DOMAIN}`)'
+      - 'traefik.http.routers.vikunja.entrypoints=websecure'
+      - 'traefik.http.routers.vikunja.tls=true'
+      - 'traefik.http.routers.vikunja.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.vikunja.tls.domains[0].main=${VIKUNJA_DOMAIN}'
+      - 'traefik.http.routers.vikunja.middlewares=default@file'
+      - 'traefik.http.services.vikunja.loadbalancer.server.port=3456'
+
+volumes:
+  vikunja-files:
+    external: true
+
+networks:
+  default-frontend:
+    external: true
