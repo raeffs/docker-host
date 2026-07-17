@@ -1,30 +1,38 @@
 services:
   redmine:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
     container_name: 'redmine'
-    image: 'bitnami/redmine:latest'
+    image: 'redmine:6.1.3'
+    restart: 'unless-stopped'
+    user: '999:999'
+    mem_limit: 1G
+    cap_drop:
+      - 'ALL'
+    security_opt:
+      - 'no-new-privileges'
     networks:
       - 'default-frontend'
-      - 'default-backend'
     volumes:
-      - 'redmine-data:/bitnami/redmine'
-      - './themes:/opt/bitnami/redmine/public/themes:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+      - 'redmine-files:/usr/src/redmine/files'
+      - './configuration.yml:/usr/src/redmine/config/configuration.yml:ro'
     environment:
-      REDMINE_USERNAME: '${REDMINE_ADMIN_USERNAME}'
-      REDMINE_PASSWORD: '${REDMINE_ADMIN_PASSWORD}'
-      REDMINE_EMAIL: '${REDMINE_ADMIN_EMAIL}'
-      REDMINE_DATABASE_TYPE: 'postgresql'
-      REDMINE_DATABASE_HOST: 'redmine-db'
-      REDMINE_DATABASE_NAME: 'redmine'
-      REDMINE_DATABASE_USER: 'redmine-user'
-      REDMINE_DATABASE_PASSWORD: '${REDMINE_POSTGRES_PASSWORD}'
-      REDMINE_DATABASE_PORT_NUMBER: '5432'
-      REDMINE_SMTP_HOST: '${REDMINE_SMTP_SERVER}'
+      REDMINE_DB_POSTGRES: '${REDMINE_POSTGRES_SERVER}'
+      REDMINE_DB_PORT: '${REDMINE_POSTGRES_PORT}'
+      REDMINE_DB_USERNAME: '${REDMINE_POSTGRES_USER}'
+      REDMINE_DB_PASSWORD: '${REDMINE_POSTGRES_PASSWORD}'
+      REDMINE_DB_DATABASE: '${REDMINE_POSTGRES_DATABASE}'
+      REDMINE_SECRET_KEY_BASE: '${REDMINE_SECRET_KEY_BASE}'
+      PGSSLMODE: 'verify-full'
+      PGSSLROOTCERT: '/etc/ssl/certs/ca-certificates.crt'
+      REDMINE_SMTP_HOST: '${REDMINE_SMTP_HOST}'
       REDMINE_SMTP_PORT: '${REDMINE_SMTP_PORT}'
-      REDMINE_SMTP_USER: '${REDMINE_SMTP_LOGIN}'
+      REDMINE_SMTP_USER: '${REDMINE_SMTP_USER}'
       REDMINE_SMTP_PASSWORD: '${REDMINE_SMTP_PASSWORD}'
+    healthcheck:
+      test: ['CMD', 'ruby', '-rnet/http', '-e', 'exit(Net::HTTP.get_response(URI("http://localhost:3000/")).code.to_i < 400 ? 0 : 1)']
+      start_period: '90s'
+      interval: '30s'
+      timeout: '10s'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.redmine.rule=Host(`${REDMINE_DOMAIN}`)'
@@ -35,33 +43,10 @@ services:
       - 'traefik.http.routers.redmine.middlewares=default@file'
       - 'traefik.http.services.redmine.loadbalancer.server.port=3000'
 
-  redmine-db:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
-    container_name: 'redmine-db'
-    image: 'postgres:alpine'
-    networks:
-      - 'default-backend'
-    volumes:
-      - 'redmine-db:/var/lib/postgresql/data'
-    environment:
-      POSTGRES_DB: 'redmine'
-      POSTGRES_USER: 'redmine-user'
-      POSTGRES_PASSWORD: '${REDMINE_POSTGRES_PASSWORD}'
-    healthcheck:
-      test: ['CMD', 'pg_isready', '-U', 'redmine-user', '-d', 'redmine']
-      interval: 5s
-      timeout: 5s
-
 volumes:
-  redmine-data:
-    external: true
-  redmine-db:
+  redmine-files:
     external: true
 
 networks:
   default-frontend:
-    external: true
-  default-backend:
     external: true

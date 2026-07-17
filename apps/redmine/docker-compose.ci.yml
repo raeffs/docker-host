@@ -1,0 +1,35 @@
+services:
+  redmine:
+    restart: 'no'
+    networks:
+      - 'backend'
+    environment:
+      REDMINE_DB_POSTGRES: 'redmine-db'
+      REDMINE_DB_PORT: '5432'
+      REDMINE_DB_USERNAME: 'redmine'
+      REDMINE_DB_PASSWORD: 'redmine'
+      REDMINE_DB_DATABASE: 'redmine'
+      PGSSLMODE: 'disable'
+    depends_on:
+      redmine-db:
+        condition: 'service_healthy'
+
+  redmine-db:
+    extends:
+      file: '../../libs/postgres/docker-compose.yml'
+      service: 'postgres'
+    container_name: 'redmine-db'
+    networks:
+      - 'backend'
+    volumes:
+      - 'redmine-db:/var/lib/postgresql'
+    environment:
+      POSTGRES_USER: 'redmine'
+      POSTGRES_DB: 'redmine'
+      POSTGRES_PASSWORD: 'redmine'
+
+volumes:
+  redmine-db:
+
+networks:
+  backend:
