@@ -15,13 +15,13 @@ services:
       LEAN_DB_PASSWORD: '${LEANTIME_MYSQL_PASSWORD}'
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.mastodon.rule=Host(`${LEANTIME_DOMAIN}`)'
-      - 'traefik.http.routers.mastodon.entrypoints=websecure'
-      - 'traefik.http.routers.mastodon.tls=true'
-      - 'traefik.http.routers.mastodon.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.mastodon.tls.domains[0].main=${LEANTIME_DOMAIN}'
-      - 'traefik.http.routers.mastodon.middlewares=default@file'
-      - 'traefik.http.services.mastodon.loadbalancer.server.port=80'
+      - 'traefik.http.routers.leantime.rule=Host(`${LEANTIME_DOMAIN}`)'
+      - 'traefik.http.routers.leantime.entrypoints=websecure'
+      - 'traefik.http.routers.leantime.tls=true'
+      - 'traefik.http.routers.leantime.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.leantime.tls.domains[0].main=${LEANTIME_DOMAIN}'
+      - 'traefik.http.routers.leantime.middlewares=default@file'
+      - 'traefik.http.services.leantime.loadbalancer.server.port=80'
 
   leantime-db:
     extends:
