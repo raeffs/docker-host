@@ -7,10 +7,9 @@
       "options": {
         "volumes": [
           {
-            "name": "redmine-data",
-            "userId": 1001
-          },
-          "redmine-db"
+            "name": "redmine-files",
+            "userId": 999
+          }
         ]
       }
     },
@@ -18,45 +17,44 @@
       "options": {
         "variables": [
           {
-            "name": "REDMINE_ADMIN_USERNAME",
-            "description": "Username of the Redmine admin user.",
-            "defaultValue": "admin"
-          },
-          {
-            "name": "REDMINE_ADMIN_EMAIL",
-            "description": "Email address of the Redmine admin user."
-          },
-          {
-            "name": "REDMINE_ADMIN_PASSWORD",
-            "description": "Password of the Redmine admin user.",
-            "type": "password"
-          },
-          {
             "name": "REDMINE_DOMAIN",
             "description": "Public domain name for Redmine.",
             "defaultValue": "redmine.${DEFAULT_DOMAIN_SUFFIX}"
           },
           {
+            "name": "REDMINE_SECRET_KEY_BASE",
+            "description": "Secret used by Redmine to sign session cookies.",
+            "type": "generated"
+          },
+          {
+            "name": "REDMINE_POSTGRES_SERVER",
+            "description": "Server where the Redmine PostgreSQL database is located."
+          },
+          {
+            "name": "REDMINE_POSTGRES_USER",
+            "description": "User used to connect to the Redmine PostgreSQL database."
+          },
+          {
             "name": "REDMINE_POSTGRES_PASSWORD",
-            "description": "Password of the Redmine PostgreSQL database.",
+            "description": "Password used to connect to the Redmine PostgreSQL database.",
             "type": "password"
           },
           {
-            "name": "REDMINE_SMTP_SERVER",
+            "name": "REDMINE_POSTGRES_DATABASE",
+            "description": "Name of the Redmine PostgreSQL database."
+          },
+          {
+            "name": "REDMINE_SMTP_HOST",
             "description": "SMTP server used by Redmine to send emails."
           },
           {
-            "name": "REDMINE_SMTP_PORT",
-            "description": "SMTP port used by Redmine to send emails.",
-            "defaultValue": "587"
-          },
-          {
-            "name": "REDMINE_SMTP_LOGIN",
+            "name": "REDMINE_SMTP_USER",
             "description": "SMTP login used by Redmine to send emails."
           },
           {
             "name": "REDMINE_SMTP_PASSWORD",
-            "description": "SMTP password used by Redmine to send emails."
+            "description": "SMTP password used by Redmine to send emails.",
+            "type": "password"
           }
         ]
       }

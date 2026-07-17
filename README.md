@@ -48,7 +48,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Portainer](archive/portainer)           |   📦   |          |              |           |
 | [Prometheus](apps/prometheus)            |        |          |              |           |
 | [Qdrant](apps/qdrant)                    |        |          |              |           |
-| [Redmine](apps/redmine)                  |        |          |              |           |
+| [Redmine](apps/redmine)                  |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Seq](apps/seq)                          |        |          |              |           |
 | [Traefik](apps/traefik)                  |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Unbound](archive/unbound)               |   📦   |          |              |           |
