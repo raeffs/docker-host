@@ -1,15 +1,26 @@
 services:
   forgejo-runner-dind:
     container_name: 'forgejo-runner-dind'
-    image: 'code.forgejo.org/oci/docker:dind'
+    image: 'docker:29.6.2-dind'
     restart: 'unless-stopped'
     command: ['dockerd', '-H', 'tcp://0.0.0.0:2375', '--tls=false']
+    # Required for docker-in-docker; the plaintext TCP socket is confined to
+    # the forgejo-runner-backend network below.
     privileged: true
+    mem_limit: 4G
+    networks:
+      - 'forgejo-runner-backend'
     volumes:
       - '/etc/localtime:/etc/localtime:ro'
       - '/etc/timezone:/etc/timezone:ro'
     environment:
-      DOCKER_HOST: 'forgejo-runner-dind'
+      DOCKER_HOST: 'tcp://localhost:2375'
+    healthcheck:
+      test: ['CMD', 'docker', 'info']
+      start_period: '30s'
+      interval: '30s'
+      timeout: '5s'
+      retries: 3
 
   forgejo-runner:
     container_name: 'forgejo-runner'
@@ -21,11 +32,28 @@ services:
       while : ; do forgejo-runner create-runner-file --connect --instance https://${FORGEJO_DOMAIN} --secret ${FORGEJO_RUNNER_SHARED_SECRET} && break ; sleep 1 ; done ;
       while : ; do test -w .runner && forgejo-runner daemon --config config.yml ; sleep 1 ; done
       '
+    mem_limit: 256M
+    cap_drop:
+      - 'ALL'
+    security_opt:
+      - 'no-new-privileges'
+    networks:
+      - 'forgejo-runner-backend'
     volumes:
       - '/etc/localtime:/etc/localtime:ro'
       - '/etc/timezone:/etc/timezone:ro'
       - './config/config.yml:/data/config.yml:ro'
     environment:
       DOCKER_HOST: 'tcp://forgejo-runner-dind:2375'
-    links:
-      - 'forgejo-runner-dind'
+    healthcheck:
+      test: ['CMD', 'bash', '-c', 'test -w .runner && pgrep -x forgejo-runner']
+      start_period: '30s'
+      interval: '30s'
+      timeout: '5s'
+      retries: 3
+    depends_on:
+      forgejo-runner-dind:
+        condition: 'service_healthy'
+
+networks:
+  forgejo-runner-backend:

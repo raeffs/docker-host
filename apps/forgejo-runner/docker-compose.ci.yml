@@ -1,0 +1,10 @@
+services:
+  forgejo-runner-dind:
+    restart: 'no'
+
+  forgejo-runner:
+    restart: 'no'
+    # There is no Forgejo instance in CI, so registration is expected to fail
+    # and retry forever. Only assert that the retry loop is alive.
+    healthcheck:
+      test: ['CMD', 'pgrep', '-f', 'create-runner-file']
