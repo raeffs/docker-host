@@ -32,7 +32,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Homepage](apps/homepage)                |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Iperf](apps/iperf)                      |        |          |              |           |
 | [Keycloak](apps/keycloak)                |   🟢   |    ❌    |      ❌      |    ✅     |
-| [Leantime](apps/leantime)                |        |          |              |           |
+| [Leantime](archive/leantime)             |   📦   |          |              |           |
 | [Mastodon](archive/mastodon)             |   📦   |          |              |           |
 | [Matomo](apps/matomo)                    |        |          |              |           |
 | [Mealie](apps/mealie)                    |        |          |              |           |
