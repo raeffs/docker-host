@@ -13,8 +13,13 @@ services:
     volumes:
       - '/etc/localtime:/etc/localtime:ro'
       - '/etc/timezone:/etc/timezone:ro'
+      - 'forgejo-runner-dind-data:/var/lib/docker'
     environment:
       DOCKER_HOST: 'tcp://localhost:2375'
+    labels:
+      ofelia.enabled: 'true'
+      ofelia.job-exec.prune-dind.schedule: '@daily'
+      ofelia.job-exec.prune-dind.command: 'sh -c "docker system prune -af --filter until=168h && docker volume prune -af"'
     healthcheck:
       test: ['CMD', 'docker', 'info']
       start_period: '30s'
@@ -58,6 +63,10 @@ services:
     depends_on:
       forgejo-runner-dind:
         condition: 'service_healthy'
+
+volumes:
+  forgejo-runner-dind-data:
+    name: 'forgejo-runner-dind-data'
 
 networks:
   forgejo-runner-backend:
