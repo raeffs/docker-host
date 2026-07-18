@@ -25,6 +25,7 @@ jobs:
           - bonob
           - dozzle
           - forgejo
+          - forgejo-runner
           - gotify
           - homepage
           - keycloak

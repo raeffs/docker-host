@@ -13,7 +13,8 @@
           },
           {
             "name": "FORGEJO_RUNNER_SHARED_SECRET",
-            "description": "Shared secret used to initialize the runner and register it at the Forgejo instance."
+            "description": "Shared secret used to initialize the runner and register it at the Forgejo instance.",
+            "type": "password"
           }
         ]
       }
