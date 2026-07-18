@@ -1,25 +1,58 @@
-
 services:
   ofelia:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
     container_name: 'ofelia'
-    image: 'mcuadros/ofelia:latest'
+    image: 'mcuadros/ofelia:0.3.22'
+    restart: 'unless-stopped'
+    user: '65016:65016'
+    read_only: true
+    mem_limit: 64M
+    cap_drop:
+      - 'ALL'
+    security_opt:
+      - 'no-new-privileges'
     command: daemon --docker
     networks:
-      - 'default-frontend'
+      - 'ofelia-isolated'
+      - 'ofelia-dockerproxynet'
     volumes:
-      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+    environment:
+      DOCKER_HOST: 'tcp://ofelia-dockerproxy:2375'
     labels:
       ofelia.slack-webhook: '${OFELIA_SLACK_URL}'
       ofelia.slack-only-on-error: 'true'
+      # ofelia refuses to start with an empty scheduler, so at least one job must always be active
+      ofelia.job-local.noop.schedule: '@yearly'
+      ofelia.job-local.noop.command: 'true'
       # ofelia.job-run.dyndns.schedule: '@every 5m'
       # ofelia.job-run.dyndns.image: 'curlimages/curl:latest'
       # ofelia.job-run.dyndns.command: '-u ${DYNDNS_USERNAME}:${DYNDNS_PASSWORD} ${DYNDNS_PROVIDER_URL}?hostname=${DEFAULT_DOMAIN_SUFFIX}'
       # ofelia.job-exec.create-github-mirrors.schedule: '@every 24h'
       # ofelia.job-exec.create-github-mirrors.container: 'powershell-runner'
       # ofelia.job-exec.create-github-mirrors.command: 'pwsh -File /home/jobs/create-github-mirrors.ps1 "http://gitea:3000" "${GITEA_TOKEN}" "${GITHUB_USERNAME}" "${GITHUB_TOKEN}"'
+    healthcheck:
+      test: ['CMD', 'pgrep', 'ofelia']
+      interval: 10s
+      timeout: 5s
+      retries: 2
+    depends_on:
+      - 'ofelia-dockerproxy'
+
+  ofelia-dockerproxy:
+    extends:
+      file: '../../libs/docker-socket-proxy/docker-compose.yml'
+      service: 'docker-socket-proxy'
+    container_name: 'ofelia-dockerproxy'
+    command:
+      - '-allowfrom=ofelia'
+      - '-allowHEAD=/_ping'
+      # ofelia sends unversioned api paths, therefore the version prefix must be optional
+      - '-allowGET=(/v1\..{2})?/(containers/.*|events|exec/.*|version)|/_ping'
+      - '-allowPOST=(/v1\..{2})?/(containers/.*|exec/.*|images/create)'
+      - '-allowDELETE=(/v1\..{2})?/containers/.*'
+    user: '65017:${OFELIA_DOCKER_GID}'
+    networks:
+      - 'ofelia-dockerproxynet'
 
   # powershell-runner:
   #   extends:
@@ -34,5 +67,11 @@ services:
   #     - './powershell/:/home/jobs/:ro'
 
 networks:
-  default-frontend:
-    external: true
+  ofelia-isolated:
+    name: 'ofelia-isolated'
+    driver: 'bridge'
+    attachable: false
+  ofelia-dockerproxynet:
+    name: 'ofelia-dockerproxynet'
+    internal: true
+    attachable: false
