@@ -30,6 +30,7 @@ jobs:
           - keycloak
           - miniflux
           - navidrome
+          - ofelia
           - pocket-id
           - redmine
           - seq

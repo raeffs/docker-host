@@ -40,7 +40,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Miniflux](apps/miniflux)                |   🟢   |    ✅    |      ✅      |    ✅     |
 | [n8n](apps/n8n)                          |        |          |              |           |
 | [Navidrome](apps/navidrome)              |   🟢   |    ✅    |      ❌      |    ✅     |
-| [Ofelia](apps/ofelia)                    |        |          |              |           |
+| [Ofelia](apps/ofelia)                    |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Open WebUI](apps/open-webui)            |        |          |              |           |
 | [OpenProject](apps/openproject)          |        |          |              |           |
 | [PiHole](archive/pihole)                 |   📦   |          |              |           |

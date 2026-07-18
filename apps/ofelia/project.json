@@ -9,6 +9,11 @@
           {
             "name": "OFELIA_SLACK_URL",
             "description": "Slack webhook url used by Ofelia to post notifications."
+          },
+          {
+            "name": "OFELIA_DOCKER_GID",
+            "description": "GID of the docker group. The docker proxy will run under this GID to access the docker socket.",
+            "type": "docker-group"
           }
         ]
       }
