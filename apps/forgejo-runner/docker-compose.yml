@@ -51,6 +51,7 @@ services:
     volumes:
       - '/etc/localtime:/etc/localtime:ro'
       - '/etc/timezone:/etc/timezone:ro'
+      - 'forgejo-runner-data:/data'
       - './config/config.yml:/data/config.yml:ro'
     environment:
       DOCKER_HOST: 'tcp://forgejo-runner-dind:2375'
@@ -67,6 +68,8 @@ services:
 volumes:
   forgejo-runner-dind-data:
     name: 'forgejo-runner-dind-data'
+  forgejo-runner-data:
+    name: 'forgejo-runner-data'
 
 networks:
   forgejo-runner-backend:
