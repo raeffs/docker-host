@@ -1,7 +1,7 @@
 services:
   ofelia:
     container_name: 'ofelia'
-    image: 'mcuadros/ofelia:0.3.22'
+    image: 'mcuadros/ofelia:v3.0.8'
     restart: 'unless-stopped'
     user: '65016:65016'
     read_only: true
