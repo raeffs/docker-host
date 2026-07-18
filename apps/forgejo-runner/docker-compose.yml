@@ -29,8 +29,12 @@ services:
     stop_signal: 'SIGKILL'
     command: >-
       bash -c '
-      while : ; do forgejo-runner create-runner-file --connect --instance https://${FORGEJO_DOMAIN} --secret ${FORGEJO_RUNNER_SHARED_SECRET} && break ; sleep 1 ; done ;
-      while : ; do test -w .runner && forgejo-runner daemon --config config.yml ; sleep 1 ; done
+      umask 077 ;
+      secret="${FORGEJO_RUNNER_SHARED_SECRET}" ;
+      printf %s "$$secret" > /tmp/runner-token ;
+      hex=$$(printf %s "$${secret:0:16}" | od -A n -t x1 | tr -d " \n") ;
+      uuid="$${hex:0:8}-$${hex:8:4}-$${hex:12:4}-$${hex:16:4}-$${hex:20:12}" ;
+      while : ; do forgejo-runner daemon --config config.yml --url "https://${FORGEJO_DOMAIN}" --uuid "$$uuid" --token-url file:/tmp/runner-token ; sleep 5 ; done
       '
     mem_limit: 256M
     cap_drop:
@@ -46,7 +50,7 @@ services:
     environment:
       DOCKER_HOST: 'tcp://forgejo-runner-dind:2375'
     healthcheck:
-      test: ['CMD', 'bash', '-c', 'test -w .runner && pgrep -x forgejo-runner']
+      test: ['CMD', 'pgrep', '-x', 'forgejo-runner']
       start_period: '30s'
       interval: '30s'
       timeout: '5s'

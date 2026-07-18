@@ -4,7 +4,8 @@ services:
 
   forgejo-runner:
     restart: 'no'
-    # There is no Forgejo instance in CI, so registration is expected to fail
-    # and retry forever. Only assert that the retry loop is alive.
+    # There is no Forgejo instance in CI, so the daemon exits on startup and
+    # the wrapper retries forever. Only assert that the retry loop is alive
+    # (the wrapper argv contains the daemon invocation).
     healthcheck:
-      test: ['CMD', 'pgrep', '-f', 'create-runner-file']
+      test: ['CMD', 'pgrep', '-f', 'forgejo-runner daemon']
