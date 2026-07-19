@@ -3,15 +3,30 @@ description: Configures, starts, and waits for an app's containers to be healthy
 
 inputs:
   app-name:
-    description: The app name passed to `yarn configure` and `yarn up`
+    description: The app name passed to `tug configure` and `yarn up`
     required: true
 
 runs:
   using: composite
   steps:
+    - name: Install tug
+      shell: bash
+      run: |
+        set -euo pipefail
+        TAG=v0.1.0
+        ASSET=tug-${TAG}-x86_64-unknown-linux-musl
+        BASE=https://github.com/raeffs-dev/tug/releases/download/${TAG}
+        cd "$RUNNER_TEMP"
+        curl -fSL -o "$ASSET" "$BASE/$ASSET"                 # download the binary
+        curl -fSL -o "$ASSET.sha256" "$BASE/$ASSET.sha256"   # download the checksum
+        sha256sum -c "$ASSET.sha256"                         # verify (fails the job on mismatch)
+        mkdir -p "$HOME/.local/bin"
+        install -m 0755 "$ASSET" "$HOME/.local/bin/tug"      # chmod +x + place on PATH
+        echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
     - name: Configure ${{ inputs.app-name }}
       shell: bash
-      run: yarn configure ${{ inputs.app-name }} --use-defaults
+      run: tug configure ${{ inputs.app-name }} --use-defaults
 
     - name: Start ${{ inputs.app-name }} and wait for it to be healthy
       shell: bash
