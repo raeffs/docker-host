@@ -1,6 +1,5 @@
 {
   "name": "forgejo-runner",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "implicitDependencies": [],
   "targets": {
     "create-variables": {

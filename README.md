@@ -6,7 +6,7 @@
 
 This repository used to contain the configuration of my docker host running in my home network. Nowadays it is more of a collection of different docker compose configurations for services I either run in my home network or on some cloud infrastructure.
 
-The repository uses Nx with a local plugin to manage the different projects. But if you don't want to use Nx or load a ton of Node.js dependencies, you can still use the docker compose configurations without any of it.
+The repository uses [tug](https://github.com/raeffs-dev/tug) — a small standalone CLI — to manage the different projects (start/stop with dependency ordering, provision variables, volumes and networks, and more). But if you don't want to install anything, you can still use the docker compose configurations directly with `docker compose`.
 
 ## What's included?
 

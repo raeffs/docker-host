@@ -1,6 +1,5 @@
 {
   "name": "bonob",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "implicitDependencies": ["networks", "traefik", "navidrome"],
   "targets": {
     "create-variables": {

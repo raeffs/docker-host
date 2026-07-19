@@ -12,26 +12,26 @@ To use the docker compose configurations you obviously need docker with the comp
 
 If you want to use a service that exposes a DNS service on port 53 (for example Pihole), you also need to disable the local stub DNS resolver.
 
-### Node.js, Yarn & Nx
+### tug
 
-This repository uses Nx with a local plugin to managed the projects. You can use it without Nx and Node.js at all, but to follow this guide you will need it. The easiest way to get everything up and running is to install [Volta](https://docs.volta.sh/guide/getting-started).
+This repository is managed with [tug](https://github.com/raeffs-dev/tug), a small standalone CLI that orchestrates the compose projects. Install it by following the instructions in its own repository, so that the `tug` binary is available on your `PATH`.
 
-If you have Volta installed, all you need to do is run `yarn` in the root of the repository, and you should be good to go.
+You can use the repository without tug at all — the compose files are plain Docker Compose configurations — but this guide assumes tug is installed. Run `tug help` to see every available command.
 
 ## Configure services
 
-Before you can start any of the services, you need to configure them. To do that, you can run `yarn configure <project-name>`, where `project-name` is the name of the folder of the service you want to configure. The command will ask you for all the required configuration values and store them in a `.env.local` file in the root of the repository. It will also create all the required docker volumes and networks for the service.
+Before you can start any of the services, you need to configure them. To do that, run `tug configure <project-name>`, where `project-name` is the name of the folder of the service you want to configure. The command asks you for all the required configuration values and stores them in a `.env.local` file in the root of the repository. It also creates all the required docker volumes and networks for the service.
 
-If a service has a dependency on any other services, it will also configure those services. For example, most of the services depend on Traefik, so you will have to enter the configuration for that service too if not already done.
+If a service depends on other services, those are configured too. For example, most services depend on Traefik, so you will have to enter the configuration for Traefik as well if you haven't already.
 
-If you don't want to use Nx, you will have to configure them by yourself and also manually create the required docker volumes and networks. You can do that by either editing the `.env` file in the root of the repository, or by creating an additional `.env` file in the directory of the service.
+If you don't want to use tug, you can configure things by hand: set the required variables (in the root `.env`/`.env.local` file, or an additional `.env` file in the service's directory) and create the required docker volumes and networks yourself.
 
 ## Start and stop services
 
-Once the configuration is done, you can start a service by executing `yarn up <project-name>` and stop it by executing `yarn down <project-name>`. If a service has a dependency on any other services, it will also start those services.
+Once the configuration is done, start a service with `tug up <project-name>` and stop it with `tug down <project-name>`. `tug up` starts the service together with everything in its dependency chain, in order; `tug down` stops just the named service. Add `--wait` to `tug up` to block until every container reports healthy.
 
-If you don't want to use Nx, you have to execute the corresponding docker compose commands yourself.
+If you don't want to use tug, run the corresponding `docker compose` commands yourself.
 
 ## Other commands to manage the services
 
-There are other Nx commands that can be used to manage the services. You can find them by looking at the scripts section in the `package.json` or by looking at any of the `project.json` files.
+tug covers the rest of the lifecycle too — `pull`, `restart`, `logs`, `ps`, `list`, `all`, `backup-volumes` / `restore-volumes`, and `new` (scaffold a new app). Run `tug help` for the full list, or `tug <command> --help` for the options of a specific command.

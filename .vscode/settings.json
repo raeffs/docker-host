@@ -1,10 +1,4 @@
 {
-  "files.exclude": {
-    "dist": true,
-    "tmp": true,
-    "node_modules": true,
-    ".nx": true
-  },
   "files.associations": {
     ".env.local": "properties",
     ".local.env": "properties"
