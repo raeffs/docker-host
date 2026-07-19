@@ -1,12 +1,12 @@
 access_control:
   default_policy: deny
   rules:
-  - domain_regex: '^.*$'
-    policy: 'two_factor'
-    subject: 'group:admins'
-  - domain_regex: '^.*$'
-    policy: 'one_factor'
-    subject: 'group:users'
+    - domain_regex: '^.*$'
+      policy: 'two_factor'
+      subject: 'group:admins'
+    - domain_regex: '^.*$'
+      policy: 'one_factor'
+      subject: 'group:users'
 
 session:
   name: auth_session

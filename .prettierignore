@@ -6,3 +6,6 @@
 
 /.backups
 /.secrets
+
+# git submodule — vendored code, not ours to reformat
+/apps/redmine/plugins/redmine_oidc

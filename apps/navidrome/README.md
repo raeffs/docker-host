@@ -1,4 +1,3 @@
-
 # Navidrome
 
 ## Mount SMB Share

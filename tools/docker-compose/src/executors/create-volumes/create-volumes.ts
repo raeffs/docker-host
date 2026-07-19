@@ -36,7 +36,7 @@ export default async function* runExecutor(
         volumeName: volume.name,
         userId: volume.userId,
         image: volume.image,
-        mountPath: volume.mountPath
+        mountPath: volume.mountPath,
       });
     }
   }

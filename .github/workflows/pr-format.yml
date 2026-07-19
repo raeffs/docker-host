@@ -1,0 +1,20 @@
+name: PR Format
+
+on:
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+
+      - name: Check formatting with Prettier
+        run: |
+          docker run --rm -v "$PWD:/work" -w /work \
+            node:24-alpine@sha256:a0b9bf06e4e6193cf7a0f58816cc935ff8c2a908f81e6f1a95432d679c54fbfd \
+            npx --yes prettier@3.9.5 --check .

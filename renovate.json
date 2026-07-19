@@ -6,15 +6,9 @@
   },
   "packageRules": [
     {
-      "matchDatasources": [
-        "docker"
-      ],
+      "matchDatasources": ["docker"],
       "pinDigests": false
     }
   ],
-  "ignorePaths": [
-    "**/node_modules/**",
-    "**/bower_components/**",
-    "archive"
-  ]
+  "ignorePaths": ["**/node_modules/**", "**/bower_components/**", "archive"]
 }
