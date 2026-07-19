@@ -1,11 +1,5 @@
-/node_modules
-/dist
-/tmp
-/.nx/cache
-/.nx/workspace-data
-
 /.backups
 /.secrets
 
-# git submodule — vendored code, not ours to reformat
+# git submodules
 /apps/redmine/plugins/redmine_oidc

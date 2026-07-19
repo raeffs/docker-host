@@ -1,6 +1,5 @@
 {
   "name": "networks",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "targets": {
     "create-networks": {
       "executor": "@raeffs/docker-compose:create-networks",

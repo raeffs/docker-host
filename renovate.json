@@ -10,5 +10,14 @@
       "pinDigests": false
     }
   ],
-  "ignorePaths": ["**/node_modules/**", "**/bower_components/**", "archive"]
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": [".github/actions/setup/action.yml"],
+      "matchStrings": ["TAG=(?<currentValue>v[0-9]+\\.[0-9]+\\.[0-9]+)"],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "raeffs-dev/tug"
+    }
+  ],
+  "ignorePaths": ["archive"]
 }

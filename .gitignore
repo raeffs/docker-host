@@ -1,9 +1,3 @@
-/node_modules
-/dist
-/tmp
-/.nx/cache
-/.nx/workspace-data
-
 /.backups/*
 !/.backups/.gitkeep
 /.secrets/*
@@ -16,6 +10,3 @@ docker-compose.*.yml
 !docker-compose.smb-example.yml
 !docker-compose.production.yml
 !docker-compose.ci.yml
-
-/apps/redmine/themes/*
-!/apps/redmine/themes/.gitkeep

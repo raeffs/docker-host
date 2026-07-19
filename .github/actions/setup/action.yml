@@ -1,22 +1,20 @@
 name: Repository Setup
-description: Install Volta, restore Yarn cache, and install dependencies
+description: Download the pinned tug release binary, verify its checksum, and put it on PATH
 
 runs:
   using: composite
   steps:
-    - name: Install Volta
-      uses: volta-cli/action@615a78f6c83e116339c53b94f3f82b4d6c0b7d18 # v5
-
-    - name: Restore cached Yarn Dependencies
-      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
-      with:
-        path: |
-          **/node_modules
-          ~/.yarn
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-yarn-
-
-    - name: Install Dependencies
+    - name: Install tug
       shell: bash
-      run: yarn install --frozen-lockfile
+      run: |
+        set -euo pipefail
+        TAG=v0.1.1
+        ASSET=tug-${TAG}-x86_64-unknown-linux-musl
+        BASE=https://github.com/raeffs-dev/tug/releases/download/${TAG}
+        cd "$RUNNER_TEMP"
+        curl -fSL -o "$ASSET" "$BASE/$ASSET"                 # download the binary
+        curl -fSL -o "$ASSET.sha256" "$BASE/$ASSET.sha256"   # download the checksum
+        sha256sum -c "$ASSET.sha256"                         # verify (fails the job on mismatch)
+        mkdir -p "$HOME/.local/bin"
+        install -m 0755 "$ASSET" "$HOME/.local/bin/tug"      # chmod +x + place on PATH
+        echo "$HOME/.local/bin" >> "$GITHUB_PATH"
