@@ -42,7 +42,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Navidrome](apps/navidrome)              |   🟢   |    ✅    |      ❌      |    ✅     |
 | [Ofelia](apps/ofelia)                    |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Open WebUI](apps/open-webui)            |        |          |              |           |
-| [OpenProject](apps/openproject)          |        |          |              |           |
+| [OpenProject](archive/openproject)       |   📦   |          |              |           |
 | [PiHole](archive/pihole)                 |   📦   |          |              |           |
 | [Pocket ID](apps/pocket-id)              |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Portainer](archive/portainer)           |   📦   |          |              |           |
