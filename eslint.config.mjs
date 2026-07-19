@@ -27,11 +27,11 @@ export default [
       ],
     },
   },
-  ...nxPlugin.configs['flat/typescript'].map((config) => ({
+  ...nxPlugin.configs['flat/typescript'].map(config => ({
     ...config,
     files: ['**/*.ts', '**/*.tsx'],
   })),
-  ...nxPlugin.configs['flat/javascript'].map((config) => ({
+  ...nxPlugin.configs['flat/javascript'].map(config => ({
     ...config,
     files: ['**/*.js', '**/*.jsx'],
   })),

@@ -1,4 +1,3 @@
-
 services:
   verdaccio:
     extends:

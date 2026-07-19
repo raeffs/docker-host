@@ -13,9 +13,7 @@ let env = {
  * Returns all known environment variables.
  */
 export function getEnvironment(): Record<string, string> {
-  return Object.fromEntries(
-    Object.entries(env).filter((entry): entry is [string, string] => entry[1] !== undefined)
-  );
+  return Object.fromEntries(Object.entries(env).filter((entry): entry is [string, string] => entry[1] !== undefined));
 }
 
 /**

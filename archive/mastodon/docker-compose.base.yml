@@ -1,4 +1,3 @@
-
 services:
   mastodon-base:
     extends:

@@ -1,4 +1,3 @@
-
 # Forgejo
 
 ## Runner Configuration

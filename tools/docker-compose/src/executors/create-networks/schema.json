@@ -20,11 +20,7 @@
                 "type": "string"
               }
             },
-            "required": [
-              "name",
-              "subnet",
-              "ipRange"
-            ]
+            "required": ["name", "subnet", "ipRange"]
           }
         ]
       }

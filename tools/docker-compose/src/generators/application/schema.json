@@ -11,7 +11,5 @@
       }
     }
   },
-  "required": [
-    "name"
-  ]
+  "required": ["name"]
 }
