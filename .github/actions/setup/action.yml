@@ -8,7 +8,7 @@ runs:
       shell: bash
       run: |
         set -euo pipefail
-        TAG=v0.1.1
+        TAG=v0.2.0
         ASSET=tug-${TAG}-x86_64-unknown-linux-musl
         BASE=https://github.com/raeffs-dev/tug/releases/download/${TAG}
         cd "$RUNNER_TEMP"
