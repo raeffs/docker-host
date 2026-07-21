@@ -1,3 +1,6 @@
 [submodule "apps/redmine/plugins/redmine_oidc"]
 	path = apps/redmine/plugins/redmine_oidc
 	url = https://github.com/enricohuang/redmine_oidc.git
+[submodule "apps/redmine/themes/opale"]
+	path = apps/redmine/themes/opale
+	url = https://github.com/gagnieray/opale.git
