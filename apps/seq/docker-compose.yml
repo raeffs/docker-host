@@ -4,7 +4,7 @@ services:
       file: '../../libs/base/docker-compose.yml'
       service: 'base'
     container_name: 'seq'
-    image: 'datalust/seq:2025.2'
+    image: 'datalust/seq:2026.1'
     networks:
       - 'default-frontend'
     volumes:
