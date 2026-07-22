@@ -1,7 +1,7 @@
 services:
   watchtower:
     container_name: 'watchtower'
-    image: 'ghcr.io/nicholas-fedor/watchtower:1.19.0@sha256:c1dfdf27fe805dcfefe1cf048cee6960a511c097a99aa355b0bc4be6e6bb3bdf'
+    image: 'ghcr.io/nicholas-fedor/watchtower:1.20.0@sha256:03606360d7b846233e5e56f19f4e2ee25f0f7dd6c76bb29aeb82c40d6b87c8ba'
     restart: 'unless-stopped'
     user: '65005:65005'
     read_only: true
