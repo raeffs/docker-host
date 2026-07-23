@@ -8,9 +8,9 @@ runs:
       shell: bash
       run: |
         set -euo pipefail
-        TAG=v0.2.0
+        TAG=v1.0.0
         ASSET=tug-${TAG}-x86_64-unknown-linux-musl
-        BASE=https://github.com/raeffs-dev/tug/releases/download/${TAG}
+        BASE=https://github.com/raeffs-dot-dev/tug/releases/download/${TAG}
         cd "$RUNNER_TEMP"
         curl -fSL -o "$ASSET" "$BASE/$ASSET"                 # download the binary
         curl -fSL -o "$ASSET.sha256" "$BASE/$ASSET.sha256"   # download the checksum
