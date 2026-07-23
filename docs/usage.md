@@ -14,7 +14,7 @@ If you want to use a service that exposes a DNS service on port 53 (for example 
 
 ### tug
 
-This repository is managed with [tug](https://github.com/raeffs-dev/tug), a small standalone CLI that orchestrates the compose projects. Install it by following the instructions in its own repository, so that the `tug` binary is available on your `PATH`.
+This repository is managed with [tug](https://github.com/raeffs-dot-dev/tug), a small standalone CLI that orchestrates the compose projects. Install it by following the instructions in its own repository, so that the `tug` binary is available on your `PATH`.
 
 You can use the repository without tug at all — the compose files are plain Docker Compose configurations — but this guide assumes tug is installed. Run `tug help` to see every available command.
 
