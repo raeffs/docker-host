@@ -21,7 +21,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Cloudflared](apps/cloudflared)          |        |          |              |           |
 | [Commento](archive/commento)             |   📦   |          |              |           |
 | [Dozzle](apps/dozzle)                    |   🟢   |    ✅    |      ✅      |    ✅     |
-| [Etesync](apps/etesync)                  |        |          |              |           |
+| [Etesync](archive/etesync)               |   📦   |          |              |           |
 | [Forgejo](apps/forgejo)                  |   🟢   |    ❌    |      ✅      |    ✅     |
 | [Forgejo Runner](apps/forgejo-runner)    |   🟢   |    ❌    |      ❌      |    ❌     |
 | [Gitea](archive/gitea)                   |   📦   |          |              |           |
