@@ -19,7 +19,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Baikal](apps/baikal)                    |   🟢   |    ❌    |      ❌      |    ✅     |
 | [Bonob](apps/bonob)                      |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Cloudflared](apps/cloudflared)          |        |          |              |           |
-| [Commento](apps/commento)                |        |          |              |           |
+| [Commento](archive/commento)             |   📦   |          |              |           |
 | [Dozzle](apps/dozzle)                    |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Etesync](apps/etesync)                  |        |          |              |           |
 | [Forgejo](apps/forgejo)                  |   🟢   |    ❌    |      ✅      |    ✅     |
