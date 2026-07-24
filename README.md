@@ -52,7 +52,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Seq](apps/seq)                          |        |          |              |           |
 | [Traefik](apps/traefik)                  |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Unbound](archive/unbound)               |   📦   |          |              |           |
-| [Verdaccio](apps/verdaccio)              |        |          |              |           |
+| [Verdaccio](archive/verdaccio)           |   📦   |          |              |           |
 | [Vikunja](archive/vikunja)               |   📦   |          |              |           |
 | [Wallabag](apps/wallabag)                |   🟢   |    ❌    |      ✅      |    ✅     |
 | [Watchtower](apps/watchtower)            |   🟢   |    ✅    |      ✅      |    ✅     |
