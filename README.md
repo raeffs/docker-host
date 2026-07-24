@@ -30,7 +30,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Grocy](apps/grocy)                      |        |          |              |           |
 | [Home Assistant](archive/home-assistant) |   📦   |          |              |           |
 | [Homepage](apps/homepage)                |   🟢   |    ✅    |      ✅      |    ✅     |
-| [Iperf](apps/iperf)                      |        |          |              |           |
+| [Iperf](archive/iperf)                   |   📦   |          |              |           |
 | [Keycloak](apps/keycloak)                |   🟢   |    ❌    |      ❌      |    ✅     |
 | [Leantime](archive/leantime)             |   📦   |          |              |           |
 | [Mastodon](archive/mastodon)             |   📦   |          |              |           |
