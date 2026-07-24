@@ -36,7 +36,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Mastodon](archive/mastodon)             |   📦   |          |              |           |
 | [Matomo](archive/matomo)                 |   📦   |          |              |           |
 | [Mealie](archive/mealie)                 |   📦   |          |              |           |
-| [Memos](apps/memos)                      |        |          |              |           |
+| [Memos](archive/memos)                   |   📦   |          |              |           |
 | [Miniflux](apps/miniflux)                |   🟢   |    ✅    |      ✅      |    ✅     |
 | [n8n](apps/n8n)                          |        |          |              |           |
 | [Navidrome](apps/navidrome)              |   🟢   |    ✅    |      ❌      |    ✅     |
