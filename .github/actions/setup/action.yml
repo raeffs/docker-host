@@ -4,17 +4,37 @@ description: Download the pinned tug release binary, verify its checksum, and pu
 runs:
   using: composite
   steps:
-    - name: Install tug
+    - name: Resolve tug release
+      id: tug
       shell: bash
       run: |
         set -euo pipefail
         TAG=v1.0.0
-        ASSET=tug-${TAG}-x86_64-unknown-linux-musl
-        BASE=https://github.com/raeffs-dot-dev/tug/releases/download/${TAG}
+        echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+        echo "asset=tug-${TAG}-x86_64-unknown-linux-musl" >> "$GITHUB_OUTPUT"
+
+    - name: Restore cached tug binary
+      id: cache
+      uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+      with:
+        path: ~/.local/bin/tug
+        key: tug-${{ steps.tug.outputs.tag }}-x86_64-unknown-linux-musl
+
+    - name: Download tug ${{ steps.tug.outputs.tag }}
+      if: steps.cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        set -euo pipefail
+        ASSET='${{ steps.tug.outputs.asset }}'
+        BASE=https://github.com/raeffs-dot-dev/tug/releases/download/${{ steps.tug.outputs.tag }}
+        RETRY='--retry 5 --retry-all-errors --retry-delay 3 --connect-timeout 15'
         cd "$RUNNER_TEMP"
-        curl -fSL -o "$ASSET" "$BASE/$ASSET"                 # download the binary
-        curl -fSL -o "$ASSET.sha256" "$BASE/$ASSET.sha256"   # download the checksum
-        sha256sum -c "$ASSET.sha256"                         # verify (fails the job on mismatch)
+        curl -fSL $RETRY -o "$ASSET" "$BASE/$ASSET"                 # download the binary
+        curl -fSL $RETRY -o "$ASSET.sha256" "$BASE/$ASSET.sha256"   # download the checksum
+        sha256sum -c "$ASSET.sha256"                               # verify (fails the job on mismatch)
         mkdir -p "$HOME/.local/bin"
-        install -m 0755 "$ASSET" "$HOME/.local/bin/tug"      # chmod +x + place on PATH
-        echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+        install -m 0755 "$ASSET" "$HOME/.local/bin/tug"            # chmod +x + place on PATH
+
+    - name: Add tug to PATH
+      shell: bash
+      run: echo "$HOME/.local/bin" >> "$GITHUB_PATH"
