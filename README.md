@@ -41,7 +41,7 @@ You can find a list of services that are included below. I try to create a folde
 | [n8n](apps/n8n)                          |        |          |              |           |
 | [Navidrome](apps/navidrome)              |   🟢   |    ✅    |      ❌      |    ✅     |
 | [Ofelia](apps/ofelia)                    |   🟢   |    ✅    |      ✅      |    ✅     |
-| [Open WebUI](apps/open-webui)            |        |          |              |           |
+| [Open WebUI](archive/open-webui)         |   📦   |          |              |           |
 | [OpenProject](archive/openproject)       |   📦   |          |              |           |
 | [PiHole](archive/pihole)                 |   📦   |          |              |           |
 | [Pocket ID](apps/pocket-id)              |   🟢   |    ✅    |      ✅      |    ✅     |
