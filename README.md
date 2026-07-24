@@ -27,7 +27,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Gitea](archive/gitea)                   |   📦   |          |              |           |
 | [Gotify](apps/gotify)                    |   🟢   |    ❌    |      ✅      |    ✅     |
 | [Grafana](archive/grafana)               |   📦   |          |              |           |
-| [Grocy](apps/grocy)                      |        |          |              |           |
+| [Grocy](archive/grocy)                   |   📦   |          |              |           |
 | [Home Assistant](archive/home-assistant) |   📦   |          |              |           |
 | [Homepage](apps/homepage)                |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Iperf](archive/iperf)                   |   📦   |          |              |           |
