@@ -34,7 +34,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Keycloak](apps/keycloak)                |   🟢   |    ❌    |      ❌      |    ✅     |
 | [Leantime](archive/leantime)             |   📦   |          |              |           |
 | [Mastodon](archive/mastodon)             |   📦   |          |              |           |
-| [Matomo](apps/matomo)                    |        |          |              |           |
+| [Matomo](archive/matomo)                 |   📦   |          |              |           |
 | [Mealie](apps/mealie)                    |        |          |              |           |
 | [Memos](apps/memos)                      |        |          |              |           |
 | [Miniflux](apps/miniflux)                |   🟢   |    ✅    |      ✅      |    ✅     |
