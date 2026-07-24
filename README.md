@@ -26,7 +26,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Forgejo Runner](apps/forgejo-runner)    |   🟢   |    ❌    |      ❌      |    ❌     |
 | [Gitea](archive/gitea)                   |   📦   |          |              |           |
 | [Gotify](apps/gotify)                    |   🟢   |    ❌    |      ✅      |    ✅     |
-| [Grafana](apps/grafana)                  |        |          |              |           |
+| [Grafana](archive/grafana)               |   📦   |          |              |           |
 | [Grocy](apps/grocy)                      |        |          |              |           |
 | [Home Assistant](archive/home-assistant) |   📦   |          |              |           |
 | [Homepage](apps/homepage)                |   🟢   |    ✅    |      ✅      |    ✅     |
