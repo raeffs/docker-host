@@ -3,3 +3,4 @@
 
 # git submodules
 /apps/redmine/plugins/redmine_oidc
+/apps/redmine/themes/catmine
