@@ -33,6 +33,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Iperf](archive/iperf)                   |   📦   |          |              |           |
 | [Keycloak](apps/keycloak)                |   🟢   |    ❌    |      ❌      |    ✅     |
 | [Leantime](archive/leantime)             |   📦   |          |              |           |
+| [Linkding](apps/linkding)                |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Mastodon](archive/mastodon)             |   📦   |          |              |           |
 | [Matomo](archive/matomo)                 |   📦   |          |              |           |
 | [Mealie](archive/mealie)                 |   📦   |          |              |           |

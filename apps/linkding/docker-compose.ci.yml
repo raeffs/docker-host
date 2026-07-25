@@ -1,0 +1,35 @@
+services:
+  linkding:
+    restart: 'no'
+    networks:
+      - 'backend'
+    environment:
+      LD_ENABLE_OIDC: 'False'
+      LD_DB_HOST: 'linkding-db'
+      LD_DB_PORT: '5432'
+      LD_DB_USER: 'linkding'
+      LD_DB_PASSWORD: 'linkding'
+      LD_DB_DATABASE: 'linkding'
+    depends_on:
+      linkding-db:
+        condition: 'service_healthy'
+
+  linkding-db:
+    extends:
+      file: '../../libs/postgres/docker-compose.yml'
+      service: 'postgres'
+    container_name: 'linkding-db'
+    networks:
+      - 'backend'
+    volumes:
+      - 'linkding-db:/var/lib/postgresql'
+    environment:
+      POSTGRES_USER: 'linkding'
+      POSTGRES_DB: 'linkding'
+      POSTGRES_PASSWORD: 'linkding'
+
+volumes:
+  linkding-db:
+
+networks:
+  backend:

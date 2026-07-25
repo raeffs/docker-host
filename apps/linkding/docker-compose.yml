@@ -1,0 +1,61 @@
+services:
+  linkding:
+    container_name: 'linkding'
+    image: 'sissbruecker/linkding:1.45.0'
+    restart: 'unless-stopped'
+    user: '65018:65018'
+    read_only: true
+    mem_limit: 256M
+    cap_drop:
+      - 'ALL'
+    security_opt:
+      - 'no-new-privileges'
+    networks:
+      - 'default-frontend'
+    tmpfs:
+      - '/tmp'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+      - './config/custom.py:/etc/linkding/bookmarks/settings/custom.py:ro'
+      - type: 'tmpfs'
+        target: '/etc/linkding/data'
+        tmpfs:
+          mode: 01777
+    environment:
+      LD_DISABLE_LOGIN_FORM: 'True'
+      LD_DISABLE_BACKGROUND_TASKS: 'True'
+      LD_SUPERUSER_NAME: '${LINKDING_INITIAL_USER}'
+      LD_SUPERUSER_PASSWORD: '${LINKDING_INITIAL_PASSWORD}'
+      LD_CSRF_TRUSTED_ORIGINS: 'https://${LINKDING_DOMAIN}'
+      LINKDING_SECRET_KEY: '${LINKDING_SECRET_KEY}'
+      LD_DB_ENGINE: 'postgres'
+      LD_DB_HOST: '${LINKDING_POSTGRES_SERVER}'
+      LD_DB_PORT: '${LINKDING_POSTGRES_PORT}'
+      LD_DB_DATABASE: '${LINKDING_POSTGRES_DATABASE}'
+      LD_DB_USER: '${LINKDING_POSTGRES_USER}'
+      LD_DB_PASSWORD: '${LINKDING_POSTGRES_PASSWORD}'
+      LD_ENABLE_OIDC: 'True'
+      OIDC_RP_CLIENT_ID: '${LINKDING_OAUTH_CLIENT_ID}'
+      OIDC_RP_CLIENT_SECRET: '${LINKDING_OAUTH_CLIENT_SECRET}'
+      OIDC_OP_AUTHORIZATION_ENDPOINT: 'https://${LINKDING_OAUTH_PROVIDER_DOMAIN}/authorize'
+      OIDC_OP_TOKEN_ENDPOINT: 'https://${LINKDING_OAUTH_PROVIDER_DOMAIN}/api/oidc/token'
+      OIDC_OP_USER_ENDPOINT: 'https://${LINKDING_OAUTH_PROVIDER_DOMAIN}/api/oidc/userinfo'
+      OIDC_OP_JWKS_ENDPOINT: 'https://${LINKDING_OAUTH_PROVIDER_DOMAIN}/.well-known/jwks.json'
+      OIDC_USERNAME_CLAIM: 'preferred_username'
+    healthcheck:
+      test: 'curl -f http://localhost:9090/health'
+      start_period: '10s'
+      interval: '5s'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.linkding.rule=Host(`${LINKDING_DOMAIN}`)'
+      - 'traefik.http.routers.linkding.entrypoints=websecure'
+      - 'traefik.http.routers.linkding.tls=true'
+      - 'traefik.http.routers.linkding.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.linkding.tls.domains[0].main=${LINKDING_DOMAIN}'
+      - 'traefik.http.routers.linkding.middlewares=default@file'
+      - 'traefik.http.services.linkding.loadbalancer.server.port=9090'
+
+networks:
+  default-frontend:
+    external: true
