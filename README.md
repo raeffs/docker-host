@@ -31,7 +31,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Home Assistant](archive/home-assistant) |   📦   |          |              |           |
 | [Homepage](apps/homepage)                |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Iperf](archive/iperf)                   |   📦   |          |              |           |
-| [Keycloak](apps/keycloak)                |   🟢   |    ❌    |      ❌      |    ✅     |
+| [Keycloak](apps/keycloak)                |   🟢   |    ❌    |      ✅      |    ✅     |
 | [Leantime](archive/leantime)             |   📦   |          |              |           |
 | [Linkding](apps/linkding)                |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Mastodon](archive/mastodon)             |   📦   |          |              |           |

@@ -20,6 +20,16 @@ services:
       KC_DB_URL_PORT: '${KEYCLOAK_POSTGRES_PORT}'
       KC_BOOTSTRAP_ADMIN_USERNAME: '${KEYCLOAK_INITIAL_USER}'
       KC_BOOTSTRAP_ADMIN_PASSWORD: '${KEYCLOAK_INITIAL_PASSWORD}'
+    healthcheck:
+      test:
+        [
+          'CMD-SHELL',
+          '{ printf "HEAD /health/ready HTTP/1.0\r\n\r\n" >&3; grep -q "200 OK" <&3; } 3<>/dev/tcp/localhost/9000',
+        ]
+      start_period: '30s'
+      interval: '5s'
+      timeout: '5s'
+      retries: 3
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.keycloak.rule=Host(`${KEYCLOAK_DOMAIN}`)'
