@@ -14,7 +14,8 @@ services:
       - 'no-new-privileges'
     ports:
       - '80:80'
-      - '443:443'
+      - '443:443/tcp'
+      - '443:443/udp'
       - '2222:2222'
     networks:
       - 'default-frontend'

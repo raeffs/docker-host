@@ -23,6 +23,7 @@ ping: {}
 entryPoints:
   websecure:
     address: :443
+    http3: {}
   ssh-forgejo:
     address: :2222
 
