@@ -4,7 +4,12 @@ services:
     image: 'quay.io/keycloak/keycloak:26.7.0'
     command: 'start'
     restart: 'unless-stopped'
+    user: '65019:0'
     mem_limit: 1024M
+    cap_drop:
+      - 'ALL'
+    security_opt:
+      - 'no-new-privileges'
     networks:
       - 'default-frontend'
     volumes:
