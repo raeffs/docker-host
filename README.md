@@ -12,54 +12,31 @@ The repository uses [tug](https://github.com/raeffs-dot-dev/tug) — a small sta
 
 You can find a list of services that are included below. I try to create a folder (Nx project) per service / docker compose configuration. Almost all of the services depend on the reverse proxy Traefik. But other than that, they should be mostly self contained.
 
-| Service                                  | Status | Rootless | Healthchecks | CI Checks |
-| ---------------------------------------- | :----: | :------: | :----------: | :-------: |
-| [Adminer](archive/adminer)               |   📦   |          |              |           |
-| [Authelia](archive/authelia)             |   📦   |          |              |           |
-| [Baikal](apps/baikal)                    |   🟢   |    ❌    |      ❌      |    ✅     |
-| [Bonob](apps/bonob)                      |   🟢   |    ✅    |      ✅      |    ✅     |
-| [Cloudflared](apps/cloudflared)          |        |          |              |           |
-| [Commento](archive/commento)             |   📦   |          |              |           |
-| [Dozzle](apps/dozzle)                    |   🟢   |    ✅    |      ✅      |    ✅     |
-| [Etesync](archive/etesync)               |   📦   |          |              |           |
-| [Forgejo](apps/forgejo)                  |   🟢   |    ❌    |      ✅      |    ✅     |
-| [Forgejo Runner](apps/forgejo-runner)    |   🟢   |    ❌    |      ❌      |    ❌     |
-| [Gitea](archive/gitea)                   |   📦   |          |              |           |
-| [Gotify](apps/gotify)                    |   🟢   |    ❌    |      ✅      |    ✅     |
-| [Grafana](archive/grafana)               |   📦   |          |              |           |
-| [Grocy](archive/grocy)                   |   📦   |          |              |           |
-| [Home Assistant](archive/home-assistant) |   📦   |          |              |           |
-| [Homepage](apps/homepage)                |   🟢   |    ✅    |      ✅      |    ✅     |
-| [Iperf](archive/iperf)                   |   📦   |          |              |           |
-| [Keycloak](apps/keycloak)                |   🟢   |    ✅    |      ✅      |    ✅     |
-| [Leantime](archive/leantime)             |   📦   |          |              |           |
-| [Linkding](apps/linkding)                |   🟢   |    ✅    |      ✅      |    ✅     |
-| [Mastodon](archive/mastodon)             |   📦   |          |              |           |
-| [Matomo](archive/matomo)                 |   📦   |          |              |           |
-| [Mealie](archive/mealie)                 |   📦   |          |              |           |
-| [Memos](archive/memos)                   |   📦   |          |              |           |
-| [Miniflux](apps/miniflux)                |   🟢   |    ✅    |      ✅      |    ✅     |
-| [n8n](archive/n8n)                       |   📦   |          |              |           |
-| [Navidrome](apps/navidrome)              |   🟢   |    ✅    |      ❌      |    ✅     |
-| [Ofelia](apps/ofelia)                    |   🟢   |    ✅    |      ✅      |    ✅     |
-| [Open WebUI](archive/open-webui)         |   📦   |          |              |           |
-| [OpenProject](archive/openproject)       |   📦   |          |              |           |
-| [PiHole](archive/pihole)                 |   📦   |          |              |           |
-| [Pocket ID](apps/pocket-id)              |   🟢   |    ✅    |      ✅      |    ✅     |
-| [Portainer](archive/portainer)           |   📦   |          |              |           |
-| [Prometheus](archive/prometheus)         |   📦   |          |              |           |
-| [Qdrant](archive/qdrant)                 |   📦   |          |              |           |
-| [Redmine](apps/redmine)                  |   🟢   |    ✅    |      ✅      |    ✅     |
-| [Seq](apps/seq)                          |        |          |              |           |
-| [Traefik](apps/traefik)                  |   🟢   |    ✅    |      ✅      |    ✅     |
-| [Unbound](archive/unbound)               |   📦   |          |              |           |
-| [Verdaccio](archive/verdaccio)           |   📦   |          |              |           |
-| [Vikunja](archive/vikunja)               |   📦   |          |              |           |
-| [Wallabag](apps/wallabag)                |   🟢   |    ❌    |      ✅      |    ✅     |
-| [Watchtower](apps/watchtower)            |   🟢   |    ✅    |      ✅      |    ✅     |
-| [Whoami](apps/whoami)                    |   🟢   |    ✅    |      ❌      |    ✅     |
-| [WireGuard](archive/wireguard)           |   📦   |          |              |           |
-| [Wishlist](apps/wishlist)                |   🟢   |    ✅    |      ❌      |    ✅     |
+| Service                               | Status | Rootless | Healthchecks | CI Checks |
+| ------------------------------------- | :----: | :------: | :----------: | :-------: |
+| [Baikal](apps/baikal)                 |   🟢   |    ❌    |      ❌      |    ✅     |
+| [Bonob](apps/bonob)                   |   🟢   |    ✅    |      ✅      |    ✅     |
+| [Cloudflared](apps/cloudflared)       |        |          |              |           |
+| [Dozzle](apps/dozzle)                 |   🟢   |    ✅    |      ✅      |    ✅     |
+| [Forgejo](apps/forgejo)               |   🟢   |    ❌    |      ✅      |    ✅     |
+| [Forgejo Runner](apps/forgejo-runner) |   🟢   |    ❌    |      ❌      |    ❌     |
+| [Gotify](apps/gotify)                 |   🟢   |    ❌    |      ✅      |    ✅     |
+| [Homepage](apps/homepage)             |   🟢   |    ✅    |      ✅      |    ✅     |
+| [Keycloak](apps/keycloak)             |   🟢   |    ✅    |      ✅      |    ✅     |
+| [Linkding](apps/linkding)             |   🟢   |    ✅    |      ✅      |    ✅     |
+| [Miniflux](apps/miniflux)             |   🟢   |    ✅    |      ✅      |    ✅     |
+| [Navidrome](apps/navidrome)           |   🟢   |    ✅    |      ❌      |    ✅     |
+| [Ofelia](apps/ofelia)                 |   🟢   |    ✅    |      ✅      |    ✅     |
+| [Pocket ID](apps/pocket-id)           |   🟢   |    ✅    |      ✅      |    ✅     |
+| [Redmine](apps/redmine)               |   🟢   |    ✅    |      ✅      |    ✅     |
+| [Seq](apps/seq)                       |        |          |              |           |
+| [Traefik](apps/traefik)               |   🟢   |    ✅    |      ✅      |    ✅     |
+| [Wallabag](apps/wallabag)             |   🟢   |    ❌    |      ✅      |    ✅     |
+| [Watchtower](apps/watchtower)         |   🟢   |    ✅    |      ✅      |    ✅     |
+| [Whoami](apps/whoami)                 |   🟢   |    ✅    |      ❌      |    ✅     |
+| [Wishlist](apps/wishlist)             |   🟢   |    ✅    |      ❌      |    ✅     |
+
+Configurations for services I no longer run have been moved to the [archive](archive/README.md).
 
 ## How to use it?
 
