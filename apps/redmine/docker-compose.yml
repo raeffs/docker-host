@@ -21,7 +21,7 @@ services:
       - './themes/catmine:/usr/src/redmine/themes/catmine:ro'
     environment:
       REDMINE_DB_POSTGRES: '${REDMINE_POSTGRES_SERVER}'
-      REDMINE_DB_PORT: '${REDMINE_POSTGRES_PORT}'
+      REDMINE_DB_PORT: '${REDMINE_POSTGRES_PORT:-5432}'
       REDMINE_DB_USERNAME: '${REDMINE_POSTGRES_USER}'
       REDMINE_DB_PASSWORD: '${REDMINE_POSTGRES_PASSWORD}'
       REDMINE_DB_DATABASE: '${REDMINE_POSTGRES_DATABASE}'
@@ -30,7 +30,7 @@ services:
       PGSSLMODE: 'verify-full'
       PGSSLROOTCERT: '/etc/ssl/certs/ca-certificates.crt'
       REDMINE_SMTP_HOST: '${REDMINE_SMTP_HOST}'
-      REDMINE_SMTP_PORT: '${REDMINE_SMTP_PORT}'
+      REDMINE_SMTP_PORT: '${REDMINE_SMTP_PORT:-587}'
       REDMINE_SMTP_USER: '${REDMINE_SMTP_USER}'
       REDMINE_SMTP_PASSWORD: '${REDMINE_SMTP_PASSWORD}'
     healthcheck:
