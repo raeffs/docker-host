@@ -26,7 +26,7 @@ runs:
       run: |
         set -euo pipefail
         ASSET='${{ steps.tug.outputs.asset }}'
-        BASE=https://github.com/raeffs-dot-dev/tug/releases/download/${{ steps.tug.outputs.tag }}
+        BASE=https://github.com/raeffs/tug/releases/download/${{ steps.tug.outputs.tag }}
         RETRY='--retry 5 --retry-all-errors --retry-delay 3 --connect-timeout 15'
         cd "$RUNNER_TEMP"
         curl -fSL $RETRY -o "$ASSET" "$BASE/$ASSET"                 # download the binary
