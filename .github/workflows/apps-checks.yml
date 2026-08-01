@@ -30,6 +30,7 @@ jobs:
           - homepage
           - keycloak
           - linkding
+          - mailpit
           - mealie
           - miniflux
           - navidrome
