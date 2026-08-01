@@ -31,6 +31,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Redmine](apps/redmine)               |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Seq](apps/seq)                       |        |          |              |           |
 | [Traefik](apps/traefik)               |   🟢   |    ✅    |      ✅      |    ✅     |
+| [Umami](apps/umami)                   |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Wallabag](apps/wallabag)             |   🟢   |    ❌    |      ✅      |    ✅     |
 | [Watchtower](apps/watchtower)         |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Whoami](apps/whoami)                 |   🟢   |    ✅    |      ❌      |    ✅     |

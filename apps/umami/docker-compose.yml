@@ -1,0 +1,44 @@
+services:
+  umami:
+    container_name: 'umami'
+    image: 'ghcr.io/umami-software/umami:3.2.0'
+    restart: 'unless-stopped'
+    user: '65021:65021'
+    read_only: true
+    mem_limit: 512M
+    cap_drop:
+      - 'ALL'
+    security_opt:
+      - 'no-new-privileges'
+    networks:
+      - 'default-frontend'
+    tmpfs:
+      - '/tmp'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+    environment:
+      DATABASE_URL: 'postgresql://${UMAMI_POSTGRES_USER}:${UMAMI_POSTGRES_PASSWORD}@${UMAMI_POSTGRES_SERVER}:${UMAMI_POSTGRES_PORT:-5432}/${UMAMI_POSTGRES_DATABASE}?sslmode=verify-full'
+      APP_SECRET: '${UMAMI_APP_SECRET}'
+      CLIENT_IP_HEADER: 'x-forwarded-for'
+      DISABLE_TELEMETRY: '1'
+      DISABLE_UPDATES: '1'
+      HOME: '/tmp'
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000/api/heartbeat']
+      start_period: '30s'
+      interval: '5s'
+      timeout: '5s'
+      retries: 3
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.umami.rule=Host(`${UMAMI_DOMAIN}`)'
+      - 'traefik.http.routers.umami.entrypoints=websecure'
+      - 'traefik.http.routers.umami.tls=true'
+      - 'traefik.http.routers.umami.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.umami.tls.domains[0].main=${UMAMI_DOMAIN}'
+      - 'traefik.http.routers.umami.middlewares=default@file'
+      - 'traefik.http.services.umami.loadbalancer.server.port=3000'
+
+networks:
+  default-frontend:
+    external: true

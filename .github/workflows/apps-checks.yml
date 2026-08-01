@@ -37,6 +37,7 @@ jobs:
           - redmine
           - seq
           - traefik
+          - umami
           - wallabag
           - watchtower
           - whoami

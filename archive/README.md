@@ -15,7 +15,7 @@ This folder holds docker compose configurations for services I no longer run. Th
 | [Iperf](iperf)                   |                                                                             |
 | [Leantime](leantime)             | Replaced by [Redmine](../apps/redmine)                                      |
 | [Mastodon](mastodon)             |                                                                             |
-| [Matomo](matomo)                 |                                                                             |
+| [Matomo](matomo)                 | Replaced by [Umami](../apps/umami)                                          |
 | [Mealie](mealie)                 |                                                                             |
 | [Memos](memos)                   |                                                                             |
 | [n8n](n8n)                       |                                                                             |
