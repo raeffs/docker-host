@@ -1,0 +1,61 @@
+{
+  "name": "mealie",
+  "implicitDependencies": ["networks", "traefik"],
+  "targets": {
+    "create-volumes": {
+      "options": {
+        "volumes": [
+          {
+            "name": "mealie-data",
+            "userId": 65020
+          }
+        ]
+      }
+    },
+    "create-variables": {
+      "options": {
+        "variables": [
+          {
+            "name": "MEALIE_DOMAIN",
+            "description": "Public domain name for Mealie.",
+            "defaultValue": "mealie.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "MEALIE_POSTGRES_SERVER",
+            "description": "Server where the Mealie PostgreSQL database is located."
+          },
+          {
+            "name": "MEALIE_POSTGRES_USER",
+            "description": "User used to connect to the Mealie PostgreSQL database."
+          },
+          {
+            "name": "MEALIE_POSTGRES_PASSWORD",
+            "description": "Password used to connect to the Mealie PostgreSQL database.",
+            "type": "password"
+          },
+          {
+            "name": "MEALIE_POSTGRES_DATABASE",
+            "description": "Name of the Mealie PostgreSQL database."
+          },
+          {
+            "name": "MEALIE_SMTP_HOST",
+            "description": "SMTP server used by Mealie to send emails."
+          },
+          {
+            "name": "MEALIE_SMTP_USER",
+            "description": "SMTP login used by Mealie to send emails."
+          },
+          {
+            "name": "MEALIE_SMTP_PASSWORD",
+            "description": "SMTP password used by Mealie to send emails.",
+            "type": "password"
+          },
+          {
+            "name": "MEALIE_SMTP_FROM_ADDRESS",
+            "description": "Sender email address used by Mealie to send emails."
+          }
+        ]
+      }
+    }
+  }
+}

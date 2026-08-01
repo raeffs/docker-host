@@ -16,7 +16,6 @@ This folder holds docker compose configurations for services I no longer run. Th
 | [Leantime](leantime)             | Replaced by [Redmine](../apps/redmine)                                      |
 | [Mastodon](mastodon)             |                                                                             |
 | [Matomo](matomo)                 | Replaced by [Umami](../apps/umami)                                          |
-| [Mealie](mealie)                 |                                                                             |
 | [Memos](memos)                   |                                                                             |
 | [n8n](n8n)                       |                                                                             |
 | [Open WebUI](open-webui)         |                                                                             |
