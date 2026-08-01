@@ -9,7 +9,7 @@ runs:
       shell: bash
       run: |
         set -euo pipefail
-        TAG=v1.0.0
+        TAG=v1.1.0
         echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
         echo "asset=tug-${TAG}-x86_64-unknown-linux-musl" >> "$GITHUB_OUTPUT"
 
