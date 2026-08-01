@@ -1,0 +1,31 @@
+services:
+  umami:
+    restart: 'no'
+    networks:
+      - 'backend'
+    environment:
+      DATABASE_URL: 'postgresql://umami:umami@umami-db:5432/umami'
+      APP_SECRET: 'supersecure'
+    depends_on:
+      umami-db:
+        condition: 'service_healthy'
+
+  umami-db:
+    extends:
+      file: '../../libs/postgres/docker-compose.yml'
+      service: 'postgres'
+    container_name: 'umami-db'
+    networks:
+      - 'backend'
+    volumes:
+      - 'umami-db:/var/lib/postgresql'
+    environment:
+      POSTGRES_USER: 'umami'
+      POSTGRES_DB: 'umami'
+      POSTGRES_PASSWORD: 'umami'
+
+volumes:
+  umami-db:
+
+networks:
+  backend:

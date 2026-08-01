@@ -1,0 +1,39 @@
+{
+  "name": "umami",
+  "implicitDependencies": ["networks", "traefik"],
+  "targets": {
+    "create-variables": {
+      "options": {
+        "variables": [
+          {
+            "name": "UMAMI_DOMAIN",
+            "description": "Public domain name for Umami.",
+            "defaultValue": "umami.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "UMAMI_POSTGRES_SERVER",
+            "description": "Server where the Umami PostgreSQL database is located."
+          },
+          {
+            "name": "UMAMI_POSTGRES_USER",
+            "description": "User used to connect to the Umami PostgreSQL database."
+          },
+          {
+            "name": "UMAMI_POSTGRES_PASSWORD",
+            "description": "Password used to connect to the Umami PostgreSQL database.",
+            "type": "password"
+          },
+          {
+            "name": "UMAMI_POSTGRES_DATABASE",
+            "description": "Name of the Umami PostgreSQL database."
+          },
+          {
+            "name": "UMAMI_APP_SECRET",
+            "description": "Secret used by Umami to sign authentication tokens.",
+            "type": "generated"
+          }
+        ]
+      }
+    }
+  }
+}
