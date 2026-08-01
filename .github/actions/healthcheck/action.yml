@@ -15,7 +15,7 @@ runs:
 
     - name: Start ${{ inputs.app-name }} and wait for it to be healthy
       shell: bash
-      run: tug up ${{ inputs.app-name }} --wait
+      run: tug up ${{ inputs.app-name }} --wait --no-deps
 
     - name: Dump container logs on failure
       if: failure()
