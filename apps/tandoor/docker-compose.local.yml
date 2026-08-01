@@ -1,0 +1,3 @@
+services:
+  tandoor:
+    image: 'ghcr.io/tandoorrecipes/recipes:latest'

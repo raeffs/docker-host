@@ -1,0 +1,69 @@
+services:
+  tandoor:
+    container_name: 'tandoor'
+    image: 'ghcr.io/tandoorrecipes/recipes:2.6.13'
+    restart: 'unless-stopped'
+    user: '65022:65022'
+    mem_limit: 2G
+    cap_drop:
+      - 'ALL'
+    security_opt:
+      - 'no-new-privileges'
+    networks:
+      - 'default-frontend'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+      - 'tandoor-media:/opt/recipes/mediafiles'
+      - 'tandoor-static:/opt/recipes/staticfiles'
+    environment:
+      SECRET_KEY: '${TANDOOR_SECRET_KEY}'
+      DB_ENGINE: 'django.db.backends.postgresql'
+      POSTGRES_HOST: '${TANDOOR_POSTGRES_SERVER}'
+      POSTGRES_PORT: '${TANDOOR_POSTGRES_PORT:-5432}'
+      POSTGRES_USER: '${TANDOOR_POSTGRES_USER}'
+      POSTGRES_PASSWORD: '${TANDOOR_POSTGRES_PASSWORD}'
+      POSTGRES_DB: '${TANDOOR_POSTGRES_DATABASE}'
+      DB_OPTIONS: '{"sslmode": "verify-full"}'
+      ALLOWED_HOSTS: '${TANDOOR_DOMAIN}'
+      CSRF_TRUSTED_ORIGINS: 'https://${TANDOOR_DOMAIN}'
+      ALLAUTH_TRUSTED_PROXY_COUNT: '2'
+      ENABLE_SIGNUP: '0'
+      TZ: 'Europe/Zurich'
+      # nginx runs unprivileged and cannot bind a port below 1024
+      TANDOOR_PORT: '8080'
+    healthcheck:
+      # ALLOWED_HOSTS makes Django reject a plain localhost probe, so send the public host name
+      test:
+        [
+          'CMD',
+          'wget',
+          '--no-verbose',
+          '--tries=1',
+          '--spider',
+          '--header',
+          'Host: ${TANDOOR_DOMAIN}',
+          'http://localhost:8080/accounts/login/',
+        ]
+      start_period: '60s'
+      interval: '10s'
+      timeout: '5s'
+      retries: 3
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.tandoor.rule=Host(`${TANDOOR_DOMAIN}`)'
+      - 'traefik.http.routers.tandoor.entrypoints=websecure'
+      - 'traefik.http.routers.tandoor.tls=true'
+      - 'traefik.http.routers.tandoor.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.tandoor.tls.domains[0].main=${TANDOOR_DOMAIN}'
+      - 'traefik.http.routers.tandoor.middlewares=default@file'
+      - 'traefik.http.services.tandoor.loadbalancer.server.port=8080'
+
+volumes:
+  tandoor-media:
+    external: true
+  tandoor-static:
+    external: true
+
+networks:
+  default-frontend:
+    external: true

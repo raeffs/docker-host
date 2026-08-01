@@ -1,0 +1,38 @@
+services:
+  tandoor:
+    restart: 'no'
+    networks:
+      - 'backend'
+    environment:
+      SECRET_KEY: 'supersecure'
+      POSTGRES_HOST: 'tandoor-db'
+      POSTGRES_PORT: '5432'
+      POSTGRES_USER: 'tandoor'
+      POSTGRES_PASSWORD: 'tandoor'
+      POSTGRES_DB: 'tandoor'
+      DB_OPTIONS: '{"sslmode": "disable"}'
+      ALLOWED_HOSTS: '*'
+      CSRF_TRUSTED_ORIGINS: 'http://localhost'
+    depends_on:
+      tandoor-db:
+        condition: 'service_healthy'
+
+  tandoor-db:
+    extends:
+      file: '../../libs/postgres/docker-compose.yml'
+      service: 'postgres'
+    container_name: 'tandoor-db'
+    networks:
+      - 'backend'
+    volumes:
+      - 'tandoor-db:/var/lib/postgresql'
+    environment:
+      POSTGRES_USER: 'tandoor'
+      POSTGRES_DB: 'tandoor'
+      POSTGRES_PASSWORD: 'tandoor'
+
+volumes:
+  tandoor-db:
+
+networks:
+  backend:

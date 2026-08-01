@@ -36,6 +36,7 @@ jobs:
           - pocket-id
           - redmine
           - seq
+          - tandoor
           - traefik
           - umami
           - wallabag
