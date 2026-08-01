@@ -1,0 +1,30 @@
+services:
+  mealie:
+    restart: 'no'
+    networks:
+      - 'backend'
+    environment:
+      POSTGRES_URL_OVERRIDE: 'postgresql://mealie:mealie@mealie-db:5432/mealie'
+    depends_on:
+      mealie-db:
+        condition: 'service_healthy'
+
+  mealie-db:
+    extends:
+      file: '../../libs/postgres/docker-compose.yml'
+      service: 'postgres'
+    container_name: 'mealie-db'
+    networks:
+      - 'backend'
+    volumes:
+      - 'mealie-db:/var/lib/postgresql'
+    environment:
+      POSTGRES_USER: 'mealie'
+      POSTGRES_DB: 'mealie'
+      POSTGRES_PASSWORD: 'mealie'
+
+volumes:
+  mealie-db:
+
+networks:
+  backend:
