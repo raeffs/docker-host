@@ -1,0 +1,47 @@
+{
+  "name": "tandoor",
+  "implicitDependencies": ["networks", "traefik"],
+  "targets": {
+    "create-volumes": {
+      "options": {
+        "volumes": [
+          { "name": "tandoor-media", "userId": 65022 },
+          { "name": "tandoor-static", "userId": 65022 }
+        ]
+      }
+    },
+    "create-variables": {
+      "options": {
+        "variables": [
+          {
+            "name": "TANDOOR_DOMAIN",
+            "description": "Public domain name for Tandoor.",
+            "defaultValue": "tandoor.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "TANDOOR_SECRET_KEY",
+            "description": "Secret used by Tandoor to sign session cookies.",
+            "type": "generated"
+          },
+          {
+            "name": "TANDOOR_POSTGRES_SERVER",
+            "description": "Server where the Tandoor PostgreSQL database is located."
+          },
+          {
+            "name": "TANDOOR_POSTGRES_USER",
+            "description": "User used to connect to the Tandoor PostgreSQL database."
+          },
+          {
+            "name": "TANDOOR_POSTGRES_PASSWORD",
+            "description": "Password used to connect to the Tandoor PostgreSQL database.",
+            "type": "password"
+          },
+          {
+            "name": "TANDOOR_POSTGRES_DATABASE",
+            "description": "Name of the Tandoor PostgreSQL database."
+          }
+        ]
+      }
+    }
+  }
+}
