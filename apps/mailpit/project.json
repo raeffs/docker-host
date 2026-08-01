@@ -1,0 +1,32 @@
+{
+  "name": "mailpit",
+  "implicitDependencies": ["networks", "traefik"],
+  "targets": {
+    "create-volumes": {
+      "options": {
+        "volumes": [{ "name": "mailpit-data", "userId": 65023 }]
+      }
+    },
+    "create-variables": {
+      "options": {
+        "variables": [
+          {
+            "name": "MAILPIT_DOMAIN",
+            "description": "Public domain name for Mailpit.",
+            "defaultValue": "mailpit.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "MAILPIT_UI_USER",
+            "description": "Username used to log into the Mailpit web UI and API.",
+            "defaultValue": "admin"
+          },
+          {
+            "name": "MAILPIT_UI_PASSWORD",
+            "description": "Password used to log into the Mailpit web UI and API.",
+            "type": "generated"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -24,6 +24,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Homepage](apps/homepage)             |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Keycloak](apps/keycloak)             |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Linkding](apps/linkding)             |   🟢   |    ✅    |      ✅      |    ✅     |
+| [Mailpit](apps/mailpit)               |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Mealie](apps/mealie)                 |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Miniflux](apps/miniflux)             |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Navidrome](apps/navidrome)           |   🟢   |    ✅    |      ❌      |    ✅     |
