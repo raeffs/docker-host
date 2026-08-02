@@ -14,7 +14,7 @@ You can find a list of services that are included below. I try to create a folde
 
 | Service                               | Status | Rootless | Healthchecks | CI Checks |
 | ------------------------------------- | :----: | :------: | :----------: | :-------: |
-| [Baikal](apps/baikal)                 |   🟢   |    ❌    |      ❌      |    ✅     |
+| [Baikal](apps/baikal)                 |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Bonob](apps/bonob)                   |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Cloudflared](apps/cloudflared)       |        |          |              |           |
 | [Dozzle](apps/dozzle)                 |   🟢   |    ✅    |      ✅      |    ✅     |
