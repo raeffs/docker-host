@@ -27,10 +27,6 @@ services:
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.bonob.rule=Host(`${BONOB_DOMAIN}`)'
-      - 'traefik.http.routers.bonob.entrypoints=websecure'
-      - 'traefik.http.routers.bonob.tls=true'
-      - 'traefik.http.routers.bonob.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.bonob.tls.domains[0].main=${BONOB_DOMAIN}'
       - 'traefik.http.routers.bonob.middlewares=default@file'
       - 'traefik.http.services.bonob.loadbalancer.server.port=4534'
     healthcheck:

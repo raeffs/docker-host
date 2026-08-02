@@ -39,10 +39,6 @@ services:
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.keycloak.rule=Host(`${KEYCLOAK_DOMAIN}`)'
-      - 'traefik.http.routers.keycloak.entrypoints=websecure'
-      - 'traefik.http.routers.keycloak.tls=true'
-      - 'traefik.http.routers.keycloak.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.keycloak.tls.domains[0].main=${KEYCLOAK_DOMAIN}'
       - 'traefik.http.routers.keycloak.middlewares=keycloak'
       - 'traefik.http.services.keycloak.loadbalancer.server.port=8080'
       - 'traefik.http.middlewares.keycloak.chain.middlewares=keycloak-headers,default@file'

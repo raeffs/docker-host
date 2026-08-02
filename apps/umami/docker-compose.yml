@@ -32,10 +32,6 @@ services:
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.umami.rule=Host(`${UMAMI_DOMAIN}`)'
-      - 'traefik.http.routers.umami.entrypoints=websecure'
-      - 'traefik.http.routers.umami.tls=true'
-      - 'traefik.http.routers.umami.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.umami.tls.domains[0].main=${UMAMI_DOMAIN}'
       - 'traefik.http.routers.umami.middlewares=default@file'
       - 'traefik.http.services.umami.loadbalancer.server.port=3000'
 

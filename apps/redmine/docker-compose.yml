@@ -48,10 +48,6 @@ services:
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.redmine.rule=Host(`${REDMINE_DOMAIN}`)'
-      - 'traefik.http.routers.redmine.entrypoints=websecure'
-      - 'traefik.http.routers.redmine.tls=true'
-      - 'traefik.http.routers.redmine.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.redmine.tls.domains[0].main=${REDMINE_DOMAIN}'
       - 'traefik.http.routers.redmine.middlewares=default@file'
       - 'traefik.http.services.redmine.loadbalancer.server.port=3000'
 

@@ -22,10 +22,6 @@ services:
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.wishlist.rule=Host(`${WISHLIST_DOMAIN}`)'
-      - 'traefik.http.routers.wishlist.entrypoints=websecure'
-      - 'traefik.http.routers.wishlist.tls=true'
-      - 'traefik.http.routers.wishlist.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.wishlist.tls.domains[0].main=${WISHLIST_DOMAIN}'
       - 'traefik.http.routers.wishlist.middlewares=default@file'
       - 'traefik.http.services.wishlist.loadbalancer.server.port=3280'
 

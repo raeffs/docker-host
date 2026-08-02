@@ -51,10 +51,6 @@ services:
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.tandoor.rule=Host(`${TANDOOR_DOMAIN}`)'
-      - 'traefik.http.routers.tandoor.entrypoints=websecure'
-      - 'traefik.http.routers.tandoor.tls=true'
-      - 'traefik.http.routers.tandoor.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.tandoor.tls.domains[0].main=${TANDOOR_DOMAIN}'
       - 'traefik.http.routers.tandoor.middlewares=default@file'
       - 'traefik.http.services.tandoor.loadbalancer.server.port=8080'
 
