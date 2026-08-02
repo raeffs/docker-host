@@ -13,8 +13,23 @@ set -euo pipefail
 # apps that exist but are intentionally not health-checked
 SKIP='^(cloudflared)$'
 
+# App names end up in the job matrix and are handed to `tug` on the runner, so a
+# directory name is rejected rather than run if it holds anything but [a-z0-9-].
+NAME='^[a-z0-9][a-z0-9-]*$'
+
 all_apps() {
   find apps -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | grep -Ev "$SKIP" | sort
+}
+
+reject_invalid_names() {
+  local invalid
+  invalid="$(all_apps | grep -Ev "$NAME" || true)"
+
+  if [[ -n "$invalid" ]]; then
+    echo "Refusing to run: app directory name(s) outside [a-z0-9-]:" >&2
+    echo "$invalid" >&2
+    exit 1
+  fi
 }
 
 changed_apps() {
@@ -29,6 +44,8 @@ changed_apps() {
     comm -12 <(all_apps) <(grep -oP '^apps/\K[^/]+' <<<"$changed" | sort -u)
   fi
 }
+
+reject_invalid_names
 
 if [[ "${GITHUB_EVENT_NAME}" == 'pull_request' ]]; then
   apps="$(changed_apps)"
