@@ -23,6 +23,12 @@ services:
       ND_LASTFM_APIKEY: '${NAVIDROME_LASTFM_APIKEY}'
       ND_LASTFM_SECRET: '${NAVIDROME_LASTFM_SECRET}'
       ND_PASSWORDENCRYPTIONKEY: '${NAVIDROME_PASSWORD_ENCRYPTION_KEY}'
+    healthcheck:
+      test: 'wget -q -O /dev/null http://localhost:4533/ping'
+      start_period: '10s'
+      interval: '10s'
+      timeout: '5s'
+      retries: 3
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.navidrome.rule=Host(`${NAVIDROME_DOMAIN}`)'

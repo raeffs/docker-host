@@ -19,6 +19,17 @@ services:
       ORIGIN: 'https://${WISHLIST_DOMAIN}'
       TOKEN_TIME: '${WISHLIST_TOKEN_TIME}'
       DEFAULT_CURRENCY: '${WISHLIST_DEFAULT_CURRENCY}'
+    healthcheck:
+      # the image ships neither curl nor wget, so the bundled node is used as the http client
+      test:
+        - 'CMD'
+        - 'node'
+        - '-e'
+        - 'fetch("http://localhost:3280/").then(r => process.exit(r.ok ? 0 : 1), () => process.exit(1))'
+      start_period: '30s'
+      interval: '10s'
+      timeout: '5s'
+      retries: 3
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.wishlist.rule=Host(`${WISHLIST_DOMAIN}`)'

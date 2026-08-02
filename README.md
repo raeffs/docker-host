@@ -16,7 +16,7 @@ You can find a list of services that are included below. I try to create a folde
 | ------------------------------------- | :----: | :------: | :----------: | :-------: |
 | [Baikal](apps/baikal)                 |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Bonob](apps/bonob)                   |   🟢   |    ✅    |      ✅      |    ✅     |
-| [Cloudflared](apps/cloudflared)       |        |          |              |           |
+| [Cloudflared](apps/cloudflared)       |        |          |      ✅      |           |
 | [Dozzle](apps/dozzle)                 |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Forgejo](apps/forgejo)               |   🟢   |    ❌    |      ✅      |    ✅     |
 | [Forgejo Runner](apps/forgejo-runner) |   🟢   |    ❌    |      ❌      |    ❌     |
@@ -27,7 +27,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Mailpit](apps/mailpit)               |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Mealie](apps/mealie)                 |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Miniflux](apps/miniflux)             |   🟢   |    ✅    |      ✅      |    ✅     |
-| [Navidrome](apps/navidrome)           |   🟢   |    ✅    |      ❌      |    ✅     |
+| [Navidrome](apps/navidrome)           |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Ofelia](apps/ofelia)                 |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Pocket ID](apps/pocket-id)           |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Redmine](apps/redmine)               |   🟢   |    ✅    |      ✅      |    ✅     |
@@ -38,7 +38,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Wallabag](apps/wallabag)             |   🟢   |    ❌    |      ✅      |    ✅     |
 | [Watchtower](apps/watchtower)         |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Whoami](apps/whoami)                 |   🟢   |    ✅    |      ❌      |    ✅     |
-| [Wishlist](apps/wishlist)             |   🟢   |    ✅    |      ❌      |    ✅     |
+| [Wishlist](apps/wishlist)             |   🟢   |    ✅    |      ✅      |    ✅     |
 
 Configurations for services I no longer run have been moved to the [archive](archive/README.md).
 
