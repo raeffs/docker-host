@@ -13,38 +13,33 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  affected:
+    name: Affected Apps
+    runs-on: ubuntu-latest
+
+    outputs:
+      apps: ${{ steps.affected.outputs.apps }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+
+      - name: Determine affected apps
+        id: affected
+        run: .github/scripts/affected-apps.sh
+
   healthcheck:
     name: ${{ matrix.app }}
+    needs: affected
+    if: needs.affected.outputs.apps != '[]'
     runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
       matrix:
-        app:
-          - baikal
-          - bonob
-          - dozzle
-          - forgejo
-          - forgejo-runner
-          - gotify
-          - homepage
-          - keycloak
-          - linkding
-          - mailpit
-          - mealie
-          - miniflux
-          - navidrome
-          - ofelia
-          - pocket-id
-          - redmine
-          - seq
-          - tandoor
-          - traefik
-          - umami
-          - wallabag
-          - watchtower
-          - whoami
-          - wishlist
+        app: ${{ fromJson(needs.affected.outputs.apps) }}
 
     steps:
       - name: Checkout Repository
@@ -63,10 +58,16 @@ jobs:
   all-checks:
     name: All Checks
     if: always()
-    needs: healthcheck
+    needs:
+      - affected
+      - healthcheck
     runs-on: ubuntu-latest
 
     steps:
+      - name: Verify affected result
+        if: needs.affected.result != 'success'
+        run: exit 1
+
       - name: Verify healthcheck result
         if: needs.healthcheck.result != 'success' && needs.healthcheck.result != 'skipped'
         run: exit 1
