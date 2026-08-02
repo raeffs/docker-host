@@ -1,9 +1,9 @@
 services:
   mastodon-base:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+    restart: 'unless-stopped'
     image: 'tootsuite/mastodon:v4.0'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
     environment:
       RAILS_ENV: 'production'
       LOCAL_DOMAIN: '${MASTODON_DOMAIN}'

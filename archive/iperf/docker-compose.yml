@@ -1,8 +1,6 @@
 services:
   iperf:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+    restart: 'unless-stopped'
     container_name: 'iperf'
     image: 'networkstatic/iperf3:latest'
     ports:
@@ -10,6 +8,8 @@ services:
     networks:
       - 'default-frontend'
     command: '-s'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
 
 networks:
   default-frontend:

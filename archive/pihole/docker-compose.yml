@@ -1,8 +1,6 @@
 services:
   pihole:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+    restart: 'unless-stopped'
     container_name: 'pihole'
     image: 'pihole/pihole:latest'
     ports:
@@ -11,6 +9,7 @@ services:
     networks:
       - 'default-frontend'
     volumes:
+      - '/etc/localtime:/etc/localtime:ro'
       - 'pihole-data:/etc/pihole/'
       - 'pihole-dnsmasq:/etc/dnsmasq.d/'
       - './config/resolv.conf:/etc/resolv.conf:ro'
@@ -34,9 +33,7 @@ services:
       - 'traefik.http.middlewares.pihole-prefix.addprefix.prefix=/admin'
 
   pihole-sync:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+    restart: 'unless-stopped'
     container_name: 'pihole-sync'
     image: 'shirom/pihole-sync:latest'
     ports:
@@ -44,6 +41,7 @@ services:
     networks:
       - 'default-frontend'
     volumes:
+      - '/etc/localtime:/etc/localtime:ro'
       - 'pihole-sync-data:/root/'
       - 'pihole-sync-ssh:/etc/ssh/'
       - 'pihole-data:/mnt/etc-pihole/'

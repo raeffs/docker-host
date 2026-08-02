@@ -77,14 +77,13 @@ services:
         condition: service_healthy
 
   openproject-db:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+    restart: 'unless-stopped'
     container_name: 'openproject-db'
     image: 'postgres:alpine'
     networks:
       - 'default-backend'
     volumes:
+      - '/etc/localtime:/etc/localtime:ro'
       - 'openproject-db:/var/lib/postgresql/data'
     environment:
       POSTGRES_DB: 'openproject'
@@ -96,13 +95,13 @@ services:
       timeout: 5s
 
   openproject-cache:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+    restart: 'unless-stopped'
     container_name: 'openproject-cache'
     image: 'bitnami/memcached:latest'
     networks:
       - 'default-backend'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
 
 volumes:
   openproject-data:

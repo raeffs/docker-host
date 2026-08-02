@@ -1,14 +1,13 @@
 services:
   prometheus:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+    restart: 'unless-stopped'
     container_name: 'prometheus'
     image: 'prom/prometheus:latest'
     user: 'root'
     networks:
       - 'default-frontend'
     volumes:
+      - '/etc/localtime:/etc/localtime:ro'
       - './config/:/etc/prometheus/:ro'
       - 'prometheus-data:/prometheus/'
     labels:
@@ -22,33 +21,32 @@ services:
       - 'traefik.http.services.prometheus.loadbalancer.server.port=9090'
 
   blackbox-exporter:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+    restart: 'unless-stopped'
     container_name: 'blackbox-exporter'
     image: 'prom/blackbox-exporter:latest'
     networks:
       - 'default-frontend'
     volumes:
+      - '/etc/localtime:/etc/localtime:ro'
       - './config-blackbox-exporter:/etc/blackbox_exporter:ro'
 
   speedtest-exporter:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+    restart: 'unless-stopped'
     container_name: 'speedtest-exporter'
     image: 'raeffs/speedtest-exporter:latest'
     networks:
       - 'default-frontend'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
 
   pihole-exporter:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+    restart: 'unless-stopped'
     container_name: 'pihole-exporter'
     image: 'ekofr/pihole-exporter:latest'
     networks:
       - 'default-frontend'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
     environment:
       PIHOLE_HOSTNAME: 'pihole'
       PIHOLE_PASSWORD: '${PIHOLE_PASSWORD}'

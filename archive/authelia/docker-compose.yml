@@ -1,8 +1,6 @@
 services:
   authelia:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+    restart: 'unless-stopped'
     user: '1001:1001'
     container_name: 'authelia'
     image: 'authelia/authelia:latest'
@@ -10,6 +8,7 @@ services:
       - 'default-frontend'
       - 'default-backend'
     volumes:
+      - '/etc/localtime:/etc/localtime:ro'
       - './configuration.yml:/config/configuration.yml:ro'
       - './users.yml:/config/users.yml:ro'
     environment:
@@ -57,14 +56,13 @@ services:
       - 'traefik.http.services.authelia.loadbalancer.server.port=9091'
 
   authelia-db:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+    restart: 'unless-stopped'
     container_name: 'authelia-db'
     image: 'postgres:alpine'
     networks:
       - 'default-backend'
     volumes:
+      - '/etc/localtime:/etc/localtime:ro'
       - 'authelia-db:/var/lib/postgresql/data'
     environment:
       POSTGRES_DB: 'authelia'
@@ -78,14 +76,13 @@ services:
       timeout: 5s
 
   authelia-cache:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+    restart: 'unless-stopped'
     container_name: 'authelia-cache'
     image: 'bitnami/redis:latest'
     networks:
       - 'default-backend'
     volumes:
+      - '/etc/localtime:/etc/localtime:ro'
       - 'authelia-cache:/bitnami/redis/data'
     environment:
       REDIS_PASSWORD_FILE: '/run/secrets/redis-password'

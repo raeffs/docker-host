@@ -1,8 +1,6 @@
 services:
   gitea:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+    restart: 'unless-stopped'
     container_name: 'gitea'
     image: 'gitea/gitea:1'
     ports:
@@ -11,6 +9,7 @@ services:
       - 'default-frontend'
       - 'default-backend'
     volumes:
+      - '/etc/localtime:/etc/localtime:ro'
       - 'gitea-data:/data/'
       - '/etc/timezone:/etc/timezone:ro'
       - './custom/public/:/data/gitea/public/:ro'
@@ -46,14 +45,13 @@ services:
       - 'traefik.http.services.gitea.loadbalancer.server.port=3000'
 
   gitea-db:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+    restart: 'unless-stopped'
     container_name: 'gitea-db'
     image: 'postgres'
     networks:
       - 'default-backend'
     volumes:
+      - '/etc/localtime:/etc/localtime:ro'
       - 'gitea-db:/var/lib/postgresql/data'
     environment:
       POSTGRES_DB: 'gitea'

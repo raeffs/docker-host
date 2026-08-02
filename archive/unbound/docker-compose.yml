@@ -1,13 +1,13 @@
 services:
   unbound:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+    restart: 'unless-stopped'
     container_name: 'unbound'
     image: 'mvance/unbound:latest'
     networks:
       default-frontend:
         ipv4_address: 172.20.0.1
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
 
 networks:
   default-frontend:
