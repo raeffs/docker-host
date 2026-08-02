@@ -3,9 +3,15 @@
 #   routers:
 #     external:
 #       entryPoints:
-#         - web
+#         - websecure
 #       rule: Host(`example.ch`)
 #       service: external@file
+#       middlewares:
+#         - default@file
+#       tls:
+#         certResolver: letsencrypt
+#         domains:
+#           - main: example.ch
 #   services:
 #     external:
 #       loadBalancer:
