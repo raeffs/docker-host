@@ -4,7 +4,6 @@ http:
       chain:
         middlewares:
           - compressd
-          - secured-redirect
           - secured-headers
     secured-headers:
       headers:
@@ -15,9 +14,5 @@ http:
         browserXssFilter: true
         contentTypeNosniff: true
         frameDeny: true
-    secured-redirect:
-      redirectScheme:
-        scheme: https
-        permanent: true
     compressd:
       compress: {}
