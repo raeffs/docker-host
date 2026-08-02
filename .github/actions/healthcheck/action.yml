@@ -11,11 +11,15 @@ runs:
   steps:
     - name: Configure ${{ inputs.app-name }}
       shell: bash
-      run: tug configure ${{ inputs.app-name }} --use-defaults
+      env:
+        APP_NAME: ${{ inputs.app-name }}
+      run: tug configure "$APP_NAME" --use-defaults
 
     - name: Start ${{ inputs.app-name }} and wait for it to be healthy
       shell: bash
-      run: tug up ${{ inputs.app-name }} --wait --no-deps
+      env:
+        APP_NAME: ${{ inputs.app-name }}
+      run: tug up "$APP_NAME" --wait --no-deps
 
     - name: Dump container logs on failure
       if: failure()
