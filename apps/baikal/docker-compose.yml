@@ -3,20 +3,48 @@ services:
     container_name: 'baikal'
     image: 'ckulka/baikal:0.10.1-nginx'
     restart: 'unless-stopped'
+    user: '65024:65024'
+    read_only: true
+    mem_limit: 256M
+    cap_drop:
+      - 'ALL'
+    security_opt:
+      - 'no-new-privileges'
     networks:
       - 'default-frontend'
+    tmpfs:
+      - '/tmp'
     volumes:
       - '/etc/localtime:/etc/localtime:ro'
       - 'baikal-data:/var/www/baikal/Specific'
       - 'baikal-config:/var/www/baikal/config'
+      - './config/nginx-default.conf:/etc/nginx/conf.d/default.conf:ro'
+      - './config/php-fpm.conf:/etc/php/8.1/fpm/php-fpm.conf:ro'
+      - './config/php-fpm-tmpfiles.conf:/usr/lib/tmpfiles.d/php8.1-fpm.conf:ro'
+      - type: 'tmpfs'
+        target: '/run'
+        tmpfs:
+          mode: 01777
+      - type: 'tmpfs'
+        target: '/var/cache/nginx'
+        tmpfs:
+          mode: 01777
+      - type: 'tmpfs'
+        target: '/var/lib/php/sessions'
     environment:
       TZ: 'Europe/Zurich'
       BAIKAL_SKIP_CHOWN: 'TRUE'
+    healthcheck:
+      test: 'curl -f http://localhost:8080/'
+      start_period: '10s'
+      interval: '10s'
+      timeout: '5s'
+      retries: 3
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.baikal.rule=Host(`${BAIKAL_DOMAIN}`)'
       - 'traefik.http.routers.baikal.middlewares=default@file'
-      - 'traefik.http.services.baikal.loadbalancer.server.port=80'
+      - 'traefik.http.services.baikal.loadbalancer.server.port=8080'
 
 volumes:
   baikal-data:

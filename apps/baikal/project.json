@@ -4,7 +4,20 @@
   "targets": {
     "create-volumes": {
       "options": {
-        "volumes": ["baikal-data", "baikal-config"]
+        "volumes": [
+          {
+            "name": "baikal-data",
+            "userId": 65024,
+            "image": "ckulka/baikal:0.10.1-nginx",
+            "mountPath": "/var/www/baikal/Specific"
+          },
+          {
+            "name": "baikal-config",
+            "userId": 65024,
+            "image": "ckulka/baikal:0.10.1-nginx",
+            "mountPath": "/var/www/baikal/config"
+          }
+        ]
       }
     },
     "create-variables": {
