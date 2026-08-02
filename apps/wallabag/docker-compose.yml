@@ -35,6 +35,13 @@ services:
       SYMFONY__ENV__DOMAIN_NAME: 'https://${WALLABAG_DOMAIN}'
       SYMFONY__ENV__FOSUSER_REGISTRATION: 'false'
       SYMFONY__ENV__SECRET: '${WALLABAG_SECRET}'
+    healthcheck:
+      # the built-in healthcheck has no start period, so the migrations on boot mark the container unhealthy
+      test: 'curl -f --user-agent healthcheck http://localhost/api/info'
+      start_period: '60s'
+      interval: '10s'
+      timeout: '5s'
+      retries: 3
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.wallabag.rule=Host(`${WALLABAG_DOMAIN}`)'
