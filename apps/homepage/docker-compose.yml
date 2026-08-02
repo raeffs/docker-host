@@ -19,6 +19,7 @@ services:
     environment:
       HOMEPAGE_ALLOWED_HOSTS: '${HOMEPAGE_DOMAIN}'
       LOG_TARGETS: 'stdout'
+    # healthcheck is built into the image
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.homepage.rule=Host(`${HOMEPAGE_DOMAIN}`)'

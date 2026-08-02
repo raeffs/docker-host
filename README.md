@@ -16,10 +16,10 @@ You can find a list of services that are included below. I try to create a folde
 | ------------------------------------- | :----: | :------: | :----------: | :-------: |
 | [Baikal](apps/baikal)                 |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Bonob](apps/bonob)                   |   🟢   |    ✅    |      ✅      |    ✅     |
-| [Cloudflared](apps/cloudflared)       |        |          |      ✅      |           |
+| [Cloudflared](apps/cloudflared)       |   🟢   |    ✅    |      ✅      |    ❌     |
 | [Dozzle](apps/dozzle)                 |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Forgejo](apps/forgejo)               |   🟢   |    ❌    |      ✅      |    ✅     |
-| [Forgejo Runner](apps/forgejo-runner) |   🟢   |    ❌    |      ❌      |    ❌     |
+| [Forgejo Runner](apps/forgejo-runner) |   🟢   |    ❌    |      ✅      |    ✅     |
 | [Gotify](apps/gotify)                 |   🟢   |    ❌    |      ✅      |    ✅     |
 | [Homepage](apps/homepage)             |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Keycloak](apps/keycloak)             |   🟢   |    ✅    |      ✅      |    ✅     |
