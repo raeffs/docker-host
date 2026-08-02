@@ -10,6 +10,7 @@ services:
       SYMFONY__ENV__DATABASE_USER: 'wallabag'
       SYMFONY__ENV__DATABASE_PASSWORD: 'wallabag'
       SYMFONY__ENV__DATABASE_NAME: 'wallabag'
+      PGSSLMODE: 'disable'
       SYMFONY__ENV__DOMAIN_NAME: 'http://localhost'
     depends_on:
       wallabag-db:

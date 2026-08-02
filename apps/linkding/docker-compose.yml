@@ -34,6 +34,7 @@ services:
       LD_DB_DATABASE: '${LINKDING_POSTGRES_DATABASE}'
       LD_DB_USER: '${LINKDING_POSTGRES_USER}'
       LD_DB_PASSWORD: '${LINKDING_POSTGRES_PASSWORD}'
+      LD_DB_OPTIONS: '{"sslmode": "verify-full", "sslrootcert": "/etc/ssl/certs/ca-certificates.crt"}'
       LD_ENABLE_OIDC: 'True'
       OIDC_RP_CLIENT_ID: '${LINKDING_OAUTH_CLIENT_ID}'
       OIDC_RP_CLIENT_SECRET: '${LINKDING_OAUTH_CLIENT_SECRET}'
