@@ -2,6 +2,11 @@
   "name": "wallabag",
   "implicitDependencies": ["networks", "traefik"],
   "targets": {
+    "create-volumes": {
+      "options": {
+        "volumes": ["wallabag-data", "wallabag-images"]
+      }
+    },
     "create-variables": {
       "options": {
         "variables": [
