@@ -4,7 +4,12 @@
   "targets": {
     "create-volumes": {
       "options": {
-        "volumes": ["seq-data"]
+        "volumes": [
+          {
+            "name": "seq-data",
+            "userId": 999
+          }
+        ]
       }
     },
     "create-variables": {
@@ -19,6 +24,16 @@
             "name": "SEQ_INGEST_DOMAIN",
             "description": "Public domain name for Seq ingest only endpoint.",
             "defaultValue": "seq-ingest.${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "SEQ_INITIAL_USER",
+            "description": "Username of the initial Seq administrator.",
+            "defaultValue": "admin"
+          },
+          {
+            "name": "SEQ_INITIAL_PASSWORD",
+            "description": "Password of the initial Seq administrator.",
+            "type": "password"
           }
         ]
       }

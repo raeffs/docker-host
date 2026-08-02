@@ -31,7 +31,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Ofelia](apps/ofelia)                 |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Pocket ID](apps/pocket-id)           |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Redmine](apps/redmine)               |   🟢   |    ✅    |      ✅      |    ✅     |
-| [Seq](apps/seq)                       |        |          |              |           |
+| [Seq](apps/seq)                       |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Tandoor](apps/tandoor)               |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Traefik](apps/traefik)               |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Umami](apps/umami)                   |   🟢   |    ✅    |      ✅      |    ✅     |
