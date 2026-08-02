@@ -1,14 +1,13 @@
 services:
   etesync-web:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+    restart: 'unless-stopped'
     container_name: 'etesync-web'
     image: 'victorrds/etesync:alpine'
     networks:
       - 'default-frontend'
       - 'default-backend'
     volumes:
+      - '/etc/localtime:/etc/localtime:ro'
       - 'etesync-data:/data'
     environment:
       SERVER: 'uvicorn'
@@ -36,14 +35,13 @@ services:
       - 'traefik.http.services.etesync.loadbalancer.server.port=3735'
 
   etesync-db:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+    restart: 'unless-stopped'
     container_name: 'etesync-db'
     image: 'postgres:alpine'
     networks:
       - 'default-backend'
     volumes:
+      - '/etc/localtime:/etc/localtime:ro'
       - 'etesync-db:/var/lib/postgresql/data'
     environment:
       POSTGRES_DB: 'etesync'

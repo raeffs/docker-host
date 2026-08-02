@@ -1,13 +1,12 @@
 services:
   grocy:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+    restart: 'unless-stopped'
     container_name: 'grocy'
     image: 'lscr.io/linuxserver/grocy:latest'
     networks:
       - 'default-frontend'
     volumes:
+      - '/etc/localtime:/etc/localtime:ro'
       - 'grocy-data:/config'
       - './config/config.php:/config/data/config.php:ro'
     environment:

@@ -1,8 +1,6 @@
 services:
   wireguard:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+    restart: 'unless-stopped'
     container_name: 'wireguard'
     image: 'linuxserver/wireguard:latest'
     cap_add:
@@ -13,6 +11,7 @@ services:
     networks:
       - 'default-frontend'
     volumes:
+      - '/etc/localtime:/etc/localtime:ro'
       - '/lib/modules:/lib/modules'
       - 'wireguard-data:/config'
     environment:

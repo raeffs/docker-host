@@ -1,13 +1,12 @@
 services:
   memos:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+    restart: 'unless-stopped'
     container_name: 'memos'
     image: 'neosmemo/memos:stable'
     networks:
       - 'default-frontend'
     volumes:
+      - '/etc/localtime:/etc/localtime:ro'
       - 'memos-data:/var/opt/memos'
     labels:
       - 'traefik.enable=true'

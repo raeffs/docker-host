@@ -1,5 +1,0 @@
-services:
-  base:
-    restart: 'unless-stopped'
-    volumes:
-      - '/etc/localtime:/etc/localtime:ro'

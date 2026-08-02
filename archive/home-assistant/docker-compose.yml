@@ -1,14 +1,13 @@
 services:
   home-assistant:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+    restart: 'unless-stopped'
     container_name: 'home-assistant'
     image: 'homeassistant/home-assistant:stable'
     networks:
       - 'default-frontend'
       - 'default-backend'
     volumes:
+      - '/etc/localtime:/etc/localtime:ro'
       - 'home-assistant-data:/config/'
       - './config/configuration.yaml:/config/configuration.yaml:ro'
     environment:
@@ -26,14 +25,13 @@ services:
       - 'traefik.http.services.home-assistant.loadbalancer.server.port=8123'
 
   home-assistant-db:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+    restart: 'unless-stopped'
     container_name: 'home-assistant-db'
     image: 'mariadb:latest'
     networks:
       - 'default-backend'
     volumes:
+      - '/etc/localtime:/etc/localtime:ro'
       - 'home-assistant-db:/var/lib/mysql'
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: 'true'

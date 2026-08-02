@@ -1,14 +1,13 @@
 services:
   grafana:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+    restart: 'unless-stopped'
     container_name: 'grafana'
     image: 'grafana/grafana:latest'
     user: 'root'
     networks:
       - 'default-frontend'
     volumes:
+      - '/etc/localtime:/etc/localtime:ro'
       - 'grafana-data:/var/lib/grafana'
       - './config/grafana.ini:/etc/grafana/grafana.ini:ro'
     environment:

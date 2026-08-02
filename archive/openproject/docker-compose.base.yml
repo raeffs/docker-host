@@ -1,10 +1,9 @@
 services:
   openproject-base:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+    restart: 'unless-stopped'
     image: 'openproject/community:13'
     volumes:
+      - '/etc/localtime:/etc/localtime:ro'
       - 'openproject-data:/var/openproject/assets'
     environment:
       OPENPROJECT_SECRET_KEY_BASE: '${OPENPROJECT_SECRET_KEY_BASE}'

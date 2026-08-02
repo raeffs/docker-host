@@ -1,13 +1,12 @@
 services:
   verdaccio:
-    extends:
-      file: '../../libs/base/docker-compose.yml'
-      service: 'base'
+    restart: 'unless-stopped'
     container_name: 'verdaccio'
     image: 'raeffs/verdaccio:latest'
     networks:
       - 'default-frontend'
     volumes:
+      - '/etc/localtime:/etc/localtime:ro'
       - 'verdaccio-data:/verdaccio/storage'
       - './config/config.yaml:/verdaccio/conf/config.yaml:ro'
       - './config/htpasswd:/verdaccio/htpasswd'
