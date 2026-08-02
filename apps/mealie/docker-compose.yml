@@ -23,7 +23,7 @@ services:
       HOME: '/tmp'
       DB_ENGINE: 'postgres'
       # the discrete POSTGRES_* variables cannot express sslmode
-      POSTGRES_URL_OVERRIDE: 'postgresql://${MEALIE_POSTGRES_USER}:${MEALIE_POSTGRES_PASSWORD}@${MEALIE_POSTGRES_SERVER}:${MEALIE_POSTGRES_PORT:-5432}/${MEALIE_POSTGRES_DATABASE}?sslmode=verify-full'
+      POSTGRES_URL_OVERRIDE: 'postgresql://${MEALIE_POSTGRES_USER}:${MEALIE_POSTGRES_PASSWORD}@${MEALIE_POSTGRES_SERVER}:${MEALIE_POSTGRES_PORT:-5432}/${MEALIE_POSTGRES_DATABASE}?sslmode=verify-full&sslrootcert=/etc/ssl/certs/ca-certificates.crt'
       BASE_URL: 'https://${MEALIE_DOMAIN}'
       ALLOW_SIGNUP: 'false'
       LOG_LEVEL: 'warning'
