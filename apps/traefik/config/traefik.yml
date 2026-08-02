@@ -32,6 +32,11 @@ entryPoints:
   websecure:
     address: :443
     http3: {}
+    # routers without an explicit entrypoint bind here only, never to ssh-forgejo
+    asDefault: true
+    http:
+      tls:
+        certResolver: 'letsencrypt'
   ssh-forgejo:
     address: :2222
 

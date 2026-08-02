@@ -50,10 +50,6 @@ services:
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.linkding.rule=Host(`${LINKDING_DOMAIN}`)'
-      - 'traefik.http.routers.linkding.entrypoints=websecure'
-      - 'traefik.http.routers.linkding.tls=true'
-      - 'traefik.http.routers.linkding.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.linkding.tls.domains[0].main=${LINKDING_DOMAIN}'
       - 'traefik.http.routers.linkding.middlewares=default@file'
       - 'traefik.http.services.linkding.loadbalancer.server.port=9090'
 

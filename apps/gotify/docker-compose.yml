@@ -19,10 +19,6 @@ services:
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.gotify.rule=Host(`${GOTIFY_DOMAIN}`)'
-      - 'traefik.http.routers.gotify.entrypoints=websecure'
-      - 'traefik.http.routers.gotify.tls=true'
-      - 'traefik.http.routers.gotify.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.gotify.tls.domains[0].main=${GOTIFY_DOMAIN}'
       - 'traefik.http.routers.gotify.middlewares=default@file'
       - 'traefik.http.services.gotify.loadbalancer.server.port=80'
 

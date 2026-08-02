@@ -38,10 +38,6 @@ services:
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.wallabag.rule=Host(`${WALLABAG_DOMAIN}`)'
-      - 'traefik.http.routers.wallabag.entrypoints=websecure'
-      - 'traefik.http.routers.wallabag.tls=true'
-      - 'traefik.http.routers.wallabag.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.wallabag.tls.domains[0].main=${WALLABAG_DOMAIN}'
       - 'traefik.http.routers.wallabag.middlewares=default@file'
       - 'traefik.http.services.wallabag.loadbalancer.server.port=80'
 

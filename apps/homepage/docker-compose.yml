@@ -22,10 +22,6 @@ services:
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.homepage.rule=Host(`${HOMEPAGE_DOMAIN}`)'
-      - 'traefik.http.routers.homepage.entrypoints=websecure'
-      - 'traefik.http.routers.homepage.tls=true'
-      - 'traefik.http.routers.homepage.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.homepage.tls.domains[0].main=${HOMEPAGE_DOMAIN}'
       - 'traefik.http.routers.homepage.middlewares=default@file'
       - 'traefik.http.services.homepage.loadbalancer.server.port=3000'
     depends_on:

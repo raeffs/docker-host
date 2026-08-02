@@ -1,17 +1,12 @@
 # add external services and routers here
+# the websecure entrypoint provides the entrypoint, tls and certresolver defaults
 # http:
 #   routers:
 #     external:
-#       entryPoints:
-#         - websecure
 #       rule: Host(`example.ch`)
 #       service: external@file
 #       middlewares:
 #         - default@file
-#       tls:
-#         certResolver: letsencrypt
-#         domains:
-#           - main: example.ch
 #   services:
 #     external:
 #       loadBalancer:

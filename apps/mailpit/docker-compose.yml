@@ -34,10 +34,6 @@ services:
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.mailpit.rule=Host(`${MAILPIT_DOMAIN}`)'
-      - 'traefik.http.routers.mailpit.entrypoints=websecure'
-      - 'traefik.http.routers.mailpit.tls=true'
-      - 'traefik.http.routers.mailpit.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.mailpit.tls.domains[0].main=${MAILPIT_DOMAIN}'
       - 'traefik.http.routers.mailpit.middlewares=default@file'
       - 'traefik.http.services.mailpit.loadbalancer.server.port=8025'
 
