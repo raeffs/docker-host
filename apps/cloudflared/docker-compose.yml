@@ -15,3 +15,10 @@ services:
       - '/etc/localtime:/etc/localtime:ro'
     environment:
       TUNNEL_TOKEN: '${CLOUDFLARED_TOKEN}'
+      TUNNEL_METRICS: '127.0.0.1:20241'
+    healthcheck:
+      test: ['CMD', 'cloudflared', 'tunnel', 'ready']
+      start_period: '20s'
+      interval: '30s'
+      timeout: '5s'
+      retries: 3
