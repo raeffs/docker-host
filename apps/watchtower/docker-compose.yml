@@ -22,6 +22,7 @@ services:
       WATCHTOWER_SCHEDULE: '${WATCHTOWER_SCHEDULE}'
       WATCHTOWER_NOTIFICATION_URL: '${WATCHTOWER_NOTIFICATION_URL}'
     hostname: '${WATCHTOWER_HOSTNAME}'
+    # healthcheck is built into the image
     labels:
       - 'com.centurylinklabs.watchtower.monitor-only=true'
     depends_on:
