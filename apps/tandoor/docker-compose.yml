@@ -23,16 +23,14 @@ services:
       POSTGRES_USER: '${TANDOOR_POSTGRES_USER}'
       POSTGRES_PASSWORD: '${TANDOOR_POSTGRES_PASSWORD}'
       POSTGRES_DB: '${TANDOOR_POSTGRES_DATABASE}'
-      DB_OPTIONS: '{"sslmode": "verify-full"}'
+      DB_OPTIONS: '{"sslmode": "verify-full", "sslrootcert": "/etc/ssl/certs/ca-certificates.crt"}'
       ALLOWED_HOSTS: '${TANDOOR_DOMAIN}'
       CSRF_TRUSTED_ORIGINS: 'https://${TANDOOR_DOMAIN}'
       ALLAUTH_TRUSTED_PROXY_COUNT: '2'
       ENABLE_SIGNUP: '0'
       TZ: 'Europe/Zurich'
-      # nginx runs unprivileged and cannot bind a port below 1024
       TANDOOR_PORT: '8080'
     healthcheck:
-      # ALLOWED_HOSTS makes Django reject a plain localhost probe, so send the public host name
       test:
         [
           'CMD',
