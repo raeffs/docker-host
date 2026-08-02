@@ -24,7 +24,9 @@ changed_apps() {
   if grep -qE '^(libs/|\.github/)' <<<"$changed"; then
     all_apps
   else
-    grep -oP '^apps/\K[^/]+' <<<"$changed" | grep -Ev "$SKIP" | sort -u || true
+    # Intersect with all_apps: the diff reports deleted files under their old
+    # path, so a removed or archived app would otherwise land in the matrix.
+    comm -12 <(all_apps) <(grep -oP '^apps/\K[^/]+' <<<"$changed" | sort -u)
   fi
 }
 
