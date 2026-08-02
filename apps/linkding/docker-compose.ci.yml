@@ -10,6 +10,7 @@ services:
       LD_DB_USER: 'linkding'
       LD_DB_PASSWORD: 'linkding'
       LD_DB_DATABASE: 'linkding'
+      LD_DB_OPTIONS: '{"sslmode": "disable"}'
     depends_on:
       linkding-db:
         condition: 'service_healthy'
