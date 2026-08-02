@@ -4,7 +4,7 @@ services:
     image: 'ghcr.io/tandoorrecipes/recipes:2.6.13'
     restart: 'unless-stopped'
     user: '65022:65022'
-    mem_limit: 2G
+    mem_limit: 512M
     cap_drop:
       - 'ALL'
     security_opt:
@@ -30,6 +30,8 @@ services:
       ENABLE_SIGNUP: '0'
       TZ: 'Europe/Zurich'
       TANDOOR_PORT: '8080'
+      GUNICORN_WORKERS: '1'
+      GUNICORN_THREADS: '4'
     healthcheck:
       test:
         [
