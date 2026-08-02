@@ -4,10 +4,9 @@ services:
     restart: 'no'
     volumes:
       - '/etc/localtime:/etc/localtime:ro'
-    environment:
-      POSTGRES_USER: '${POSTGRES_USER}'
-      POSTGRES_DB: '${POSTGRES_DB}'
     healthcheck:
-      test: 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'
-      start_period: '5s'
+      test: 'PGPASSWORD="$$POSTGRES_PASSWORD" psql -h 127.0.0.1 -U "$$POSTGRES_USER" -d "$$POSTGRES_DB" -c "select 1" > /dev/null'
+      start_period: '30s'
       interval: '5s'
+      timeout: '5s'
+      retries: 3
