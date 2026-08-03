@@ -33,5 +33,5 @@
       "datasourceTemplate": "docker"
     }
   ],
-  "ignorePaths": ["archive"]
+  "ignorePaths": ["archive/**", "**/node_modules/**", "**/bower_components/**"]
 }
