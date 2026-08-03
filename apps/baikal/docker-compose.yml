@@ -1,7 +1,7 @@
 services:
   baikal:
     container_name: 'baikal'
-    image: 'ckulka/baikal:0.10.1-nginx'
+    image: 'ckulka/baikal:0.10.1-nginx@sha256:434bdd162247cc6aa6f878c9b4dce6216e39e79526b980453b13812d5f8ebf4b'
     restart: 'unless-stopped'
     user: '65024:65024'
     read_only: true
