@@ -7,15 +7,17 @@ on:
       - synchronize
       - ready_for_review
 
+permissions: {}
+
 jobs:
   auto-merge:
     runs-on: ubuntu-latest
 
-    if: github.event.pull_request.user.login == 'raeffs' || github.event.pull_request.user.login == 'renovate[bot]'
-
-    permissions:
-      pull-requests: write
-      contents: write
+    if: >-
+      !github.event.pull_request.draft
+      && github.event.pull_request.head.repo.full_name == github.repository
+      && (github.event.pull_request.user.login == 'raeffs'
+      || github.event.pull_request.user.login == 'renovate[bot]')
 
     steps:
       - name: Enable Auto-Merge for trusted Authors
