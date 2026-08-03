@@ -8,6 +8,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: pr-format-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   format:
     runs-on: ubuntu-latest
