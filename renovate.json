@@ -7,6 +7,13 @@
   "packageRules": [
     {
       "matchDatasources": ["docker"],
+      "matchFileNames": ["**/docker-compose.local.yml", "**/docker-compose.production.yml"],
+      "pinDigests": false
+    },
+    {
+      "description": "The seed-image custom manager below captures no currentDigest, so Renovate has nowhere to write one. Keep those references tag-only.",
+      "matchDatasources": ["docker"],
+      "matchFileNames": ["apps/*/project.json"],
       "pinDigests": false
     }
   ],
