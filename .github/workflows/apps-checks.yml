@@ -19,6 +19,7 @@ jobs:
   affected:
     name: Affected Apps
     runs-on: ubuntu-latest
+    timeout-minutes: 5
 
     outputs:
       apps: ${{ steps.affected.outputs.apps }}
@@ -53,6 +54,7 @@ jobs:
     needs: affected
     if: needs.affected.outputs.apps != '[]'
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     strategy:
       fail-fast: false
@@ -81,6 +83,7 @@ jobs:
       - compose-config
       - healthcheck
     runs-on: ubuntu-latest
+    timeout-minutes: 5
 
     steps:
       - name: Verify affected result
