@@ -1,3 +1,5 @@
 services:
   pocket-id:
     image: 'ghcr.io/pocket-id/pocket-id:latest-distroless'
+    extra_hosts:
+      - '${KEYCLOAK_DOMAIN}:host-gateway'
