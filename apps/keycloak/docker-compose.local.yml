@@ -2,3 +2,5 @@ services:
   keycloak:
     image: 'quay.io/keycloak/keycloak:latest'
     command: 'start-dev'
+    extra_hosts:
+      - '${POCKET_ID_DOMAIN}:host-gateway'
