@@ -1,0 +1,44 @@
+services:
+  webfinger:
+    container_name: 'webfinger'
+    image: 'caddy:2.11.4-alpine@sha256:5f5c8640aae01df9654968d946d8f1a56c497f1dd5c5cda4cf95ab7c14d58648'
+    restart: 'unless-stopped'
+    user: '65025:65025'
+    read_only: true
+    mem_limit: 64M
+    cap_drop:
+      - 'ALL'
+    cap_add:
+      - 'NET_BIND_SERVICE'
+    security_opt:
+      - 'no-new-privileges'
+    networks:
+      - 'default-frontend'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+      - './config/Caddyfile:/etc/caddy/Caddyfile:ro'
+      - type: 'tmpfs'
+        target: '/data'
+        tmpfs:
+          mode: 01777
+      - type: 'tmpfs'
+        target: '/config'
+        tmpfs:
+          mode: 01777
+    environment:
+      WEBFINGER_ISSUER: '${WEBFINGER_ISSUER}'
+    healthcheck:
+      test: ['CMD', 'wget', '-q', '-O', '/dev/null', 'http://127.0.0.1:8080/healthz']
+      start_period: '2s'
+      interval: '5s'
+      timeout: '5s'
+      retries: 3
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.webfinger.rule=Host(`${WEBFINGER_DOMAIN}`) && Path(`/.well-known/webfinger`)'
+      - 'traefik.http.routers.webfinger.middlewares=default@file'
+      - 'traefik.http.services.webfinger.loadbalancer.server.port=8080'
+
+networks:
+  default-frontend:
+    external: true

@@ -1,0 +1,22 @@
+{
+  "name": "webfinger",
+  "implicitDependencies": ["networks", "traefik"],
+  "targets": {
+    "create-variables": {
+      "options": {
+        "variables": [
+          {
+            "name": "WEBFINGER_DOMAIN",
+            "description": "Public domain name that serves the WebFinger endpoint. It has to match the domain part of the email addresses of your users.",
+            "defaultValue": "${DEFAULT_DOMAIN_SUFFIX}"
+          },
+          {
+            "name": "WEBFINGER_ISSUER",
+            "description": "The OIDC issuer URL that is advertised by the WebFinger endpoint. It has to match the issuer in the /.well-known/openid-configuration of the provider exactly.",
+            "defaultValue": "https://pocket-id.${DEFAULT_DOMAIN_SUFFIX}"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+	admin off
+	persist_config off
+	auto_https off
+}
+
+:8080 {
+	@read method GET HEAD
+
+	handle /healthz {
+		handle @read {
+			respond "ok" 200
+		}
+		respond 400
+	}
+
+	# The resource is echoed verbatim into the JSON body below, so the pattern doubles as the
+	# escaping guard: it rejects control characters, `"`, `\`, `{`, `}` and DEL, which are the
+	# only inputs that could produce a malformed body or a stray Caddy placeholder.
+	@webfinger expression `path('/.well-known/webfinger') && method('GET', 'HEAD') && {query.resource}.matches(r'^acct:[^\x00-\x20"\\@{}\x7f]+@[^\x00-\x20"\\@{}\x7f]+$')`
+	handle @webfinger {
+		header Content-Type application/jrd+json
+		header Access-Control-Allow-Origin *
+		respond `{"subject":"{query.resource}","links":[{"rel":"http://openid.net/specs/connect/1.0/issuer","href":"{env.WEBFINGER_ISSUER}"}]}` 200
+	}
+
+	# Anything else - wrong path, wrong method, missing or malformed resource - is a bad request.
+	# RFC 7033 section 4.2 requires 400 for a missing or malformed resource parameter.
+	handle {
+		respond 400
+	}
+}

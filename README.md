@@ -37,6 +37,7 @@ You can find a list of services that are included below. I try to create a folde
 | [Umami](apps/umami)                   |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Wallabag](apps/wallabag)             |   🟢   |    ❌    |      ✅      |    ✅     |
 | [Watchtower](apps/watchtower)         |   🟢   |    ✅    |      ✅      |    ✅     |
+| [WebFinger](apps/webfinger)           |   🟢   |    ✅    |      ✅      |    ✅     |
 | [Whoami](apps/whoami)                 |   🟢   |    ✅    |      ❌      |    ✅     |
 | [Wishlist](apps/wishlist)             |   🟢   |    ✅    |      ✅      |    ✅     |
 
