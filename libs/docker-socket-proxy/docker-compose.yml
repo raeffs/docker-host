@@ -1,6 +1,6 @@
 services:
   docker-socket-proxy:
-    image: 'wollomatic/socket-proxy:1.13.0@sha256:b83ba4fa3b0cf68ab88c1526dd89c09cc935aedae9ba1d248bdbb273e2121ec0'
+    image: 'wollomatic/socket-proxy:1.13.1@sha256:3935b709275e4ec35d6ed5a5c4a1f0d01ed31eec5e7234efc3357ecd47689002'
     restart: 'unless-stopped'
     read_only: true
     mem_limit: 64M
