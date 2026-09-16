@@ -1,7 +1,7 @@
 services:
   redmine:
     container_name: 'redmine'
-    image: 'redmine:7.0.1@sha256:6129b73568e19901222eb3947b87ac18bc63280dc3478492b28f32d989262dc1'
+    image: 'redmine:7.0.1@sha256:998b423fff33db87c3bec33f4a5f9aa4c08748d6b9227aead48255418082d9e9'
     restart: 'unless-stopped'
     user: '999:999'
     mem_limit: 1G
