@@ -1,7 +1,7 @@
 services:
   webfinger:
     container_name: 'webfinger'
-    image: 'caddy:2.11.4-alpine@sha256:ad27e531c8b286ff153c0e6e16587a1583e4111bb58c4d83bd73d6d3ef0a0ce1'
+    image: 'caddy:2.11.4-alpine@sha256:de23def33b17fb5d1290b0f6c2add1d70780e52341896c00a4c8a2a2fe9d355e'
     restart: 'unless-stopped'
     user: '65025:65025'
     read_only: true
