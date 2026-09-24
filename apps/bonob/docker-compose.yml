@@ -1,7 +1,7 @@
 services:
   bonob:
     container_name: 'bonob'
-    image: 'ghcr.io/simojenki/bonob:v0.14.0@sha256:bf2f9136ce1850b40e86b39492f20f5a2f578e165471d926852013bca63a10d3'
+    image: 'ghcr.io/simojenki/bonob:v0.15.0@sha256:f433b2ed9cff4054956af15adc5d1b1ef6bcbce5ce98285b2b7cd8fb913eb27d'
     restart: 'unless-stopped'
     user: '65011:65011'
     read_only: true
