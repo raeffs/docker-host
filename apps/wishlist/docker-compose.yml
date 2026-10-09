@@ -1,7 +1,7 @@
 services:
   wishlist:
     container_name: 'wishlist'
-    image: 'ghcr.io/cmintey/wishlist:v0.67.1@sha256:4b89bfb5b57ffb087c33978d21b09048e5c37f4506326e9ccd2705a0a1d86548'
+    image: 'ghcr.io/cmintey/wishlist:v0.68.0@sha256:f4e742e771b143aa40a399e0e64e05918dbc6c1078548becd51b7a186ac4e08b'
     restart: 'unless-stopped'
     user: '65007:65007'
     mem_limit: 256M
