@@ -1,7 +1,7 @@
 services:
   seq:
     container_name: 'seq'
-    image: 'datalust/seq:2026.1@sha256:9e9cc9183c6efaa7c187407d16901506ab3bc0aed7522bfc3ad7b529be30d8d8'
+    image: 'datalust/seq:2026.1@sha256:1e038adf49726f4a04d9c8f9c950457f4971dee4b8385adb927c8e993cb89b8d'
     restart: 'unless-stopped'
     user: '999:999'
     read_only: true
