@@ -1,7 +1,7 @@
 services:
   tandoor:
     container_name: 'tandoor'
-    image: 'ghcr.io/tandoorrecipes/recipes:2.7.1@sha256:10e3d2cef6b4eaa24a9c548a25dc892ce70266fc888bd85d4b349eb5a7143945'
+    image: 'ghcr.io/tandoorrecipes/recipes:2.7.2@sha256:7e07c5c6b681e4f9aaa2be2c7e7fdbb9ec9bb00897330e09f105ba892a60b0f0'
     restart: 'unless-stopped'
     user: '65022:65022'
     mem_limit: 512M
