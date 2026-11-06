@@ -1,3 +1,5 @@
 services:
   watchtower:
     restart: 'no'
+    environment:
+      WATCHTOWER_NOTIFICATION_URL: 'logger://'
