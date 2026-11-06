@@ -1,7 +1,7 @@
 services:
   forgejo-runner-dind:
     container_name: 'forgejo-runner-dind'
-    image: 'docker:29.9.3-dind@sha256:4495bd03abbe729dae065ecc187801a19820fd19159948f01d68a57a8d281bd0'
+    image: 'docker:29.9.3-dind@sha256:08a98015fce594af7c382883bea080ea206de74402a95da9dc52b6428c8cd121'
     restart: 'unless-stopped'
     command: ['dockerd', '-H', 'tcp://0.0.0.0:2375', '--tls=false']
     # Required for docker-in-docker; the plaintext TCP socket is confined to
