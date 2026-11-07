@@ -7,7 +7,7 @@ runner:
   capacity: 2
   envs:
     TZ: 'Europe/Zurich'
-  timeout: 1h
+  timeout: 2h
   shutdown_timeout: 0s
   # Whether skip verifying the TLS certificate of the instance.
   insecure: false
