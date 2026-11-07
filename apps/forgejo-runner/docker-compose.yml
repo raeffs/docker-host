@@ -31,7 +31,10 @@ services:
     container_name: 'forgejo-runner'
     image: 'data.forgejo.org/forgejo/runner:13@sha256:568cea8c15ddc01fc8f330124892f572af7db37fa28344a2c1914405793bf61d'
     restart: 'unless-stopped'
-    stop_signal: 'SIGKILL'
+    stop_signal: 'SIGTERM'
+    stop_grace_period: '15s'
+    # The daemon runs in the background so the trap can forward SIGTERM to it
+    # and end the retry loop instead of restarting it.
     command: >-
       bash -c '
       umask 077 ;
@@ -39,7 +42,10 @@ services:
       printf %s "$$secret" > /tmp/runner-token ;
       hex=$$(printf %s "$${secret:0:16}" | od -A n -t x1 | tr -d " \n") ;
       uuid="$${hex:0:8}-$${hex:8:4}-$${hex:12:4}-$${hex:16:4}-$${hex:20:12}" ;
-      while : ; do forgejo-runner daemon --config config.yml --url "https://${FORGEJO_DOMAIN}" --uuid "$$uuid" --token-url file:/tmp/runner-token ; sleep 5 ; done
+      stop=0 ;
+      stop_daemon() { stop=1 ; kill -TERM "$$pid" 2>/dev/null ; } ;
+      trap stop_daemon TERM INT ;
+      while [ "$$stop" = 0 ] ; do forgejo-runner daemon --config config.yml --url "https://${FORGEJO_DOMAIN}" --uuid "$$uuid" --token-url file:/tmp/runner-token & pid=$$! ; wait $$pid ; [ "$$stop" = 0 ] && sleep 5 ; done ; exit 0
       '
     mem_limit: 256M
     cap_drop:
