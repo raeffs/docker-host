@@ -1,0 +1,7 @@
+services:
+  forgejo-runner-dind:
+    mem_limit: 10G
+
+  forgejo-runner:
+    volumes:
+      - './config/config.small.yml:/data/config.yml:ro'

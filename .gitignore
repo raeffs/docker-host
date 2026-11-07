@@ -10,3 +10,5 @@ docker-compose.*.yml
 !docker-compose.smb-example.yml
 !docker-compose.production.yml
 !docker-compose.ci.yml
+!docker-compose.small.yml
+!docker-compose.large.yml
