@@ -47,7 +47,7 @@ services:
       trap stop_daemon TERM INT ;
       while [ "$$stop" = 0 ] ; do forgejo-runner daemon --config config.yml --url "https://${FORGEJO_DOMAIN}" --uuid "$$uuid" --token-url file:/tmp/runner-token & pid=$$! ; wait $$pid ; [ "$$stop" = 0 ] && sleep 5 ; done ; exit 0
       '
-    mem_limit: 256M
+    mem_limit: 512M
     cap_drop:
       - 'ALL'
     security_opt:
